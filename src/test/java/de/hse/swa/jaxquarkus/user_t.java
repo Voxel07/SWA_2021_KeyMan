@@ -145,7 +145,7 @@ public class user_t{
 		
 		JSONObject jo = new JSONObject();
 				jo.put("id",1);
-				jo.put("type","landline");
+				jo.put("type","Nummer1");
 				jo.put("number", "8150247");
 				System.out.println("Da swurde gesendet:"+jo.toString());
 		 given()
@@ -163,7 +163,7 @@ public class user_t{
 		
 		JSONObject jo = new JSONObject();
 				jo.put("id",1);
-				jo.put("type","mobile");
+				jo.put("type","Nummer2");
 				jo.put("number", "12343534");
 	
 		 given()
@@ -175,24 +175,24 @@ public class user_t{
 	        .statusCode(204);
 
 		}
-//	@Test
-//	@Order(8)
-//	public void addPhoneToUser3(){
-//		
-//		JSONObject jo = new JSONObject();
-//				jo.put("id",1);
-//				jo.put("type","landline");
-//				jo.put("number", "56756345");
-//	
-//		 given()
-//	        .contentType(MediaType.APPLICATION_JSON)
-//	        .body(jo.toString())
-//	        .when()
-//	        .post("/users/update")	
-//	        .then()
-//	        .statusCode(204);
-//
-//		}
+	@Test
+	@Order(8)
+	public void addPhoneToUser3(){
+		
+		JSONObject jo = new JSONObject();
+				jo.put("id",1);
+				jo.put("type","Nummer3");
+				jo.put("number", "56756345");
+	
+		 given()
+	        .contentType(MediaType.APPLICATION_JSON)
+	        .body(jo.toString())
+	        .when()
+	        .post("/users/update")	
+	        .then()
+	        .statusCode(204);
+
+		}
 	
 	
 	

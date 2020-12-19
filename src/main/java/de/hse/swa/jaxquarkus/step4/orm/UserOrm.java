@@ -19,11 +19,9 @@ public class UserOrm {
     
     
     public int getAnz () {
-    	String sql = "SELECT count(e) FROM User e";
-    	TypedQuery<User> query = em.createQuery(sql,User.class);
-    	//Das ist noch Pfusch
-    	System.out.println("anzquery: "+query.getResultList());
-    	return 1;
+    	TypedQuery<User> query = em.createQuery("SELECT count(e) FROM User e",User.class);
+    	//System.out.println("anzquery: "+query.getResultList());
+    	return query.getResultList().size();
     }
     
     public List<User> getUsers() 
@@ -37,7 +35,7 @@ public class UserOrm {
     	return em.find(User.class,id);
     }
     public User getUser(String username) {
-    	TypedQuery<User> query = em.createQuery("SELECT u From User u WHERE u.username =:?", User.class);
+    	TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.username =:?", User.class);
     	query.setParameter(1, username);
     	return query.getSingleResult();
     }
@@ -68,7 +66,7 @@ public class UserOrm {
     @Transactional
     public Boolean loginUser(User usr){
     	Boolean status = false;
-    	TypedQuery<User> query = em.createQuery("SELECT u From User u WHERE u.username =:?", User.class);
+    	TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.username =:?", User.class);
     	query.setParameter(1, usr.getUsername());
     	//Falls kein User mit dem namen gefunden wurde
     	if(query.getResultList().size()<1) {
@@ -83,34 +81,36 @@ public class UserOrm {
     }
     @Transactional
     public List<Phone> getUserPhones(User usr){
-    	TypedQuery<Phone> query = em.createQuery("SELECT p From Phone p WHERE p.user_id =:?", Phone.class);
+    	TypedQuery<Phone> query = em.createQuery("SELECT p FROM Phone p WHERE p.user_id =:?", Phone.class);
     	query.setParameter(1, usr.getId());
     	return query.getResultList();
     }
-    @Transactional
-    public List<Contract> getUserContracts(User usr){
-    	TypedQuery<Contract> query = em.createQuery("SELECT c From user_contracts c WHERE c.User_id =:?", Contract.class);
-    	query.setParameter(1, usr.getId());
-    	return query.getResultList();
-    }
-    
     //Fehlerfall muss noch abgefangen werden
     @Transactional
-    public Boolean addPhone(Long usrId, String number, String type) {
+    public void addPhone(Long usrId, String number, String type) {
     	System.out.println("Aus der ORM: "+" ID: "+usrId+" number: "+number+"type: "+type);  	
     	//Prüfen dass nur zwei nummern da sind
-		TypedQuery<Phone> query =em.createQuery("SELECT p FROM Phone p WHERE p.id =:val", Phone.class);
-		query.setParameter("val", usrId);//flasch hier muss die usr id rein
-		if(query.getResultList().size()<=2) {	
+		TypedQuery<Phone> query =em.createQuery("SELECT p FROM Phone p WHERE user_id =:val", Phone.class);
+		query.setParameter("val", usrId);
+		System.out.println("result: "+ query.getResultList().size());
+		if(query.getResultList().size()<2) {	
 			User usr = em.find(User.class, usrId);
 			Phone ph = new Phone(number,type);
 			usr.getPhones().add(ph);
 			em.persist(usr);
-			return true;
+			return;
 		}
-		else return false;
+		
 			
 	}
+    @Transactional
+    public List<Contract> getUserContracts(User usr){
+    	TypedQuery<Contract> query = em.createQuery("SELECT c FROM user_contracts c WHERE c.User_id =:?", Contract.class);
+    	query.setParameter(1, usr.getId());
+    	return query.getResultList();
+    }
+    
+    
    
 
 

@@ -13,7 +13,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
 @Entity
-@Table(name ="Phone")
+@Table(name ="PHONE")
 public class Phone{
 
     @Id

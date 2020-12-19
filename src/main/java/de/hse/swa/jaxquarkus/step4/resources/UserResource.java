@@ -71,15 +71,15 @@ public class UserResource {
  //  public void updateUser(JSONObject jo)//Warum geht das nicht  
     public void updateUser(String str) 
     {
-    	System.out.println("der String: "+str);
+//    	System.out.println("der String: "+str);
     	JSONObject jo = new JSONObject(str);
-    	System.out.println("Das kam an:"+jo.toString());
-    	Long val1 = jo.getLong("id");
-		String val2 = jo.getString("type");
-		String val3 = jo.getString("number");
-		System.out.println("Nach der Umwandlung: "+" ID: "+val1+" number: "+val2+"type: "+val3);  	
+//    	System.out.println("Das kam an:"+jo.toString());
+    	Long id = jo.getLong("id");
+		String type = jo.getString("type");
+		String number = jo.getString("number");
+//		System.out.println("Nach der Umwandlung: "+" ID: "+id+" number: "+number+"type: "+type);  	
     	
-        userOrm.addPhone(val1,val2,val3);
+         userOrm.addPhone(id,number,type);
     }
     
     
