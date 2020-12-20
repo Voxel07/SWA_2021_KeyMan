@@ -2,6 +2,7 @@ package de.hse.swa.jaxquarkus.step4.model;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -31,9 +32,13 @@ public class Phone{
     //Uni ohne irgendwas
     
     //Bi    
-//      @ManyToOne(cascade = CascadeType.ALL)
-//      @JoinColumn(name ="user_id")
-//      private User usr;
+	  @ManyToOne(fetch=FetchType.EAGER)
+	  @JoinColumn(name ="user_id", referencedColumnName="id")
+	  
+	  //Stack overvlow lösung ? geht nicht 
+	//  @Column(name ="user_id")
+	  //lösung ende
+	  private User usr;
     
       
     public Phone() {
@@ -67,14 +72,16 @@ public class Phone{
     public void setType (String name) {
         this.type = name;
     }
-//    public User getUser() {
-//    	return usr;
-//    }
-//   
-//    public void setUser(User usr) {
-//    	this.usr = usr;
-//    	
-//    }
+    
+    //Geht nur bei bidirektionalen verbindungen
+    public User getUser() {
+    	return usr;
+    }
+   
+    public void setUser(User usr) {
+    	this.usr = usr;
+    	
+    }
 
 	@Override
 	public String toString() {

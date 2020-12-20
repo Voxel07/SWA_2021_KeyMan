@@ -69,7 +69,7 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
  //  public void updateUser(JSONObject jo)//Warum geht das nicht  
-    public void updateUser(String str) 
+    public String updateUser(String str) 
     {
 //    	System.out.println("der String: "+str);
     	JSONObject jo = new JSONObject(str);
@@ -79,7 +79,7 @@ public class UserResource {
 		String number = jo.getString("number");
 //		System.out.println("Nach der Umwandlung: "+" ID: "+id+" number: "+number+"type: "+type);  	
     	
-         userOrm.addPhone(id,number,type);
+        return userOrm.addPhone(id,number,type);
     }
     
     

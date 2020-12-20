@@ -51,12 +51,15 @@ public class User {
     @Column(name = "is_admin")
     private boolean isAdmin = false;
     
-    @ManyToMany(fetch = FetchType.LAZY/*, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH}*/)
+    //hier falsch ?
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinTable(
     		name = "user_contracts",
-    		joinColumns = {@JoinColumn(name = "User_id")},
-    		inverseJoinColumns = {@JoinColumn(name = "Contract_id")}
+    		joinColumns = {@JoinColumn(name = "User_id", referencedColumnName="id")},
+    		inverseJoinColumns = {@JoinColumn(name = "Contract_id", referencedColumnName="id")}
     		)
+    //so ?
+//    @ManyToMany(mappedBy="users")
     private  List<Contract> contracts = new ArrayList<>();
        
 //    @ManyToOne
@@ -64,11 +67,15 @@ public class User {
 //    private Company companyU;
     
     //Unidirektional tut
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="user_id",referencedColumnName = "id")
+//    @OneToMany(cascade = CascadeType.ALL)
+//    @JoinColumn(name="user_id",referencedColumnName = "id")
     
-    //Bidirektional geht nicht
-//    @OneToMany(mappedBy="usr",cascade = CascadeType.ALL )
+    //Bidirektional geht nicht user id wird nich in Phone eingetragen
+    @OneToMany(mappedBy="usr",cascade = {CascadeType.ALL} )
+    
+    //zusatz von stack geht aber nicht
+   // @JoinColumn(name ="user_id")
+    //ende zusatz
 	private  List<Phone> phones = new ArrayList<>();
 
 

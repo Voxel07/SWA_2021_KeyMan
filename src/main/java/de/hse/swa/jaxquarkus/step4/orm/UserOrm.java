@@ -87,18 +87,60 @@ public class UserOrm {
     }
     //Fehlerfall muss noch abgefangen werden
     @Transactional
-    public void addPhone(Long usrId, String number, String type) {
-    	System.out.println("Aus der ORM: "+" ID: "+usrId+" number: "+number+"type: "+type);  	
+    public String addPhone(Long usrId, String number, String type) {
+    	Boolean duplicate = false;
+    	int anzNumber = 0; 
+    	String error = "none";
+    	
+    	System.out.println("Aus der ORM: "+" ID: "+usrId+" number: "+number+" type: "+type);  	
     	//Prüfen dass nur zwei nummern da sind
-		TypedQuery<Phone> query =em.createQuery("SELECT p FROM Phone p WHERE user_id =:val", Phone.class);
+		TypedQuery<Phone> query =em.createQuery("SELECT p FROM Phone p WHERE user_id =:val OR p.number = :val2", Phone.class);
 		query.setParameter("val", usrId);
-		System.out.println("result: "+ query.getResultList().size());
-		if(query.getResultList().size()<2) {	
-			User usr = em.find(User.class, usrId);
+		query.setParameter("val2", number);
+		
+		System.out.println("AnzResultsQuery: "+ query.getResultList().size());
+		
+		//Check for duplicate entry and anzNumbers
+		for(Phone elem : query.getResultList()) {
+			System.out.println("AktElement: "+ elem );
+			//if(elem.getNumber()==number) geht nicht aus Gründen 
+			if(elem.getNumber().equals(number)) {
+				System.out.println("ComparingNumbers: " +elem.getNumber()+" to "+number );
+				duplicate = true;
+				error = "Doppelte Nr entdeckt bei User: "+elem.getId();
+				break;
+			}
+			//vergleicht telefon IDs nicht die User ID
+			if(elem.getUser().getId() == usrId) {
+				System.out.println("ComparingId´s: " +elem.getId()+" to "+usrId );
+				anzNumber++;
+				System.out.println("AnzResultsUser: "+anzNumber);
+				if(anzNumber >= 2) {
+					error = "Max Anzahl an Nr erreicht ";
+					break;
+				}
+			}
+		}
+			  
+		if(anzNumber <=2 && duplicate==false) {	
+			System.out.println("If erreicht mit "+anzNumber+" dub? "+ duplicate);
+			User usr = new User();
+			
+			try {
+				usr = em.find(User.class, usrId);
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("Custom Exception UserOrm addPhone Find User: "+ e.toString());
+				return e.toString();
+			}
 			Phone ph = new Phone(number,type);
 			usr.getPhones().add(ph);
 			em.persist(usr);
-			return;
+			return "User added";
+		}
+		else {
+			System.out.println(error);
+			return error;
 		}
 		
 			
