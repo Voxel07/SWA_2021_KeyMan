@@ -45,18 +45,18 @@ public class Contract {
     private String licenskey;
 
     //Löscht zu viel
-   @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "contracts")
+//   @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "contracts")
     //Löscht nicht genug
    // @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH}, mappedBy = "contracts")
    // private  List<User> users = new ArrayList<>();
     
     //hier richtig ?
-//    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH})
-//    @JoinTable(
-//    		name = "user_contracts",
-//    		joinColumns = {@JoinColumn(name = "User_id", referencedColumnName="id")},
-//    		inverseJoinColumns = {@JoinColumn(name = "Contract_id", referencedColumnName="id")}
-//    		)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinTable(
+    		name = "user_contracts",
+    		joinColumns = {@JoinColumn(name = "User_id", referencedColumnName="id")},
+    		inverseJoinColumns = {@JoinColumn(name = "Contract_id", referencedColumnName="id")}
+    		)
     private  List<User> users = new ArrayList<>();
     
   //@OneToMany(targetEntity=features.class, mappedBy="crtF", fetch=FetchType.EAGER)

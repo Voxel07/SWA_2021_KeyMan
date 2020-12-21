@@ -141,13 +141,13 @@ public class all_t{
 //		userOrm.deleteUser(usrC);
 //	}
 	
-	/*
+
 	@Test
 	@Order(8)
 	public void removContract() {
 		contractOrm.deleteContract(contractC);
 	}
-	*/
+	
 	@Test
 	@Order(9)
 	public void testAddPhone() {

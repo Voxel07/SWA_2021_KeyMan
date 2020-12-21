@@ -185,7 +185,7 @@ public class user_t{
 	        .when()
 	        .post("/users/update")	
 	        .then()
-	        .statusCode(200).body(is("[]"));
+	        .statusCode(200).body(is("Doppelte Nr entdeckt bei User: 10"));
 
 		}
 	@Test
@@ -221,7 +221,7 @@ public class user_t{
 	        .when()
 	        .post("/users/update")	
 	        .then()
-	        .statusCode(200).body(is("[]"));
+	        .statusCode(200).body(is("Max anz erreicht"));
 
 		}
 	

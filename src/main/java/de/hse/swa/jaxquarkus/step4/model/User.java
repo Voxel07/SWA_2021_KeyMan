@@ -52,14 +52,14 @@ public class User {
     private boolean isAdmin = false;
     
     //hier falsch ?
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinTable(
-    		name = "user_contracts",
-    		joinColumns = {@JoinColumn(name = "User_id", referencedColumnName="id")},
-    		inverseJoinColumns = {@JoinColumn(name = "Contract_id", referencedColumnName="id")}
-    		)
+//    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH})
+//    @JoinTable(
+//    		name = "user_contracts",
+//    		joinColumns = {@JoinColumn(name = "User_id", referencedColumnName="id")},
+//    		inverseJoinColumns = {@JoinColumn(name = "Contract_id", referencedColumnName="id")}
+//    		)
     //so ?
-//    @ManyToMany(mappedBy="users")
+    @ManyToMany(mappedBy="users", fetch = FetchType.LAZY)
     private  List<Contract> contracts = new ArrayList<>();
        
 //    @ManyToOne
@@ -67,11 +67,11 @@ public class User {
 //    private Company companyU;
     
     //Unidirektional tut
-//    @OneToMany(cascade = CascadeType.ALL)
-//    @JoinColumn(name="user_id",referencedColumnName = "id")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="user_id",referencedColumnName = "id")
     
     //Bidirektional geht nicht user id wird nich in Phone eingetragen
-    @OneToMany(mappedBy="usr",cascade = {CascadeType.ALL} )
+  //  @OneToMany(mappedBy="usr",cascade = {CascadeType.ALL},fetch=FetchType.LAZY )
     
     //zusatz von stack geht aber nicht
    // @JoinColumn(name ="user_id")
