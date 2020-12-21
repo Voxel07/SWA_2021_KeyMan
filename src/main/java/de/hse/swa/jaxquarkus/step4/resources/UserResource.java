@@ -16,7 +16,7 @@ import javax.ws.rs.core.MediaType;
 import de.hse.swa.jaxquarkus.step4.model.User;
 import de.hse.swa.jaxquarkus.step4.orm.UserOrm;
 
-import org.json.JSONObject;
+//import org.json.JSONObject;
 
 
 @Path("/users")
@@ -64,20 +64,20 @@ public class UserResource {
         userOrm.updateUser(usr);
     }
     
-    @POST
-    @Path("/update")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
- //  public void updateUser(JSONObject jo)//Warum geht das nicht  
-    public String updateUser(String str) 
-    {
-    	JSONObject jo = new JSONObject(str);
-    	Long id = jo.getLong("id");
-		String type = jo.getString("type");
-		String number = jo.getString("number");    	
-        return userOrm.addPhone(id,number,type);
-    }
-    
+//    @POST
+//    @Path("/update")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    @Consumes(MediaType.APPLICATION_JSON)
+// //  public void updateUser(JSONObject jo)//Warum geht das nicht  
+//    public String updateUser(String str) 
+//    {
+//    	JSONObject jo = new JSONObject(str);
+//    	Long id = jo.getLong("id");
+//		String type = jo.getString("type");
+//		String number = jo.getString("number");    	
+//        return userOrm.addPhone(id,number,type);
+//    }
+//    
     
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)

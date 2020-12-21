@@ -15,7 +15,7 @@ import java.util.List;
 
 import de.hse.swa.jaxquarkus.step4.model.User;
 
-import org.json.JSONObject;
+//import org.json.JSONObject;
 
 @QuarkusTest
 @TestMethodOrder(OrderAnnotation.class)
@@ -153,77 +153,82 @@ public class user_t{
       		List<User> usrs = Arrays.asList(response.getBody().as(User[].class));
       		Assertions.assertEquals( 2, usrs.size());
 	}
+//	@Test
+//	@Order(7)
+//	public void addPhoneToUser(){
+//		
+//		JSONObject jo = new JSONObject();
+//				jo.put("id",10);
+//				jo.put("type","Nummer1");
+//				jo.put("number", "8150247");
+//		 given()
+//	        .contentType(MediaType.APPLICATION_JSON)
+//	        .body(jo.toString())
+//	        .when()
+//	        .post("/users/update")	
+//	        .then()
+//	        .statusCode(200).body(is("User added"));
+//
+//		}
+//	@Test
+//	@Order(8)
+//	public void addPhoneToUserDuplicate(){
+//		
+//		JSONObject jo = new JSONObject();
+//				jo.put("id",10);
+//				jo.put("type","Nummer1nochmal");
+//				jo.put("number", "8150247");
+//	
+//		 given()
+//	        .contentType(MediaType.APPLICATION_JSON)
+//	        .body(jo.toString())
+//	        .when()
+//	        .post("/users/update")	
+//	        .then()
+//	        .statusCode(200).body(is("Doppelte Nr entdeckt bei User: 10"));
+//
+//		}
+//	@Test
+//	@Order(9)
+//	public void addPhoneToUser2(){
+//		
+//		JSONObject jo = new JSONObject();
+//				jo.put("id",10);
+//				jo.put("type","Nummer2");
+//				jo.put("number", "56756345");
+//	
+//		 given()
+//	        .contentType(MediaType.APPLICATION_JSON)
+//	        .body(jo.toString())
+//	        .when()
+//	        .post("/users/update")	
+//	        .then()
+//	        .statusCode(200).body(is("User added"));
+//
+//		}
+//	@Test
+//	@Order(10)
+//	public void addPhoneToUserToMannyNumbers(){
+//		
+//		JSONObject jo = new JSONObject();
+//				jo.put("id",10);
+//				jo.put("type","Nummer3");
+//				jo.put("number", "12340247");
+//	
+//		 given()
+//	        .contentType(MediaType.APPLICATION_JSON)
+//	        .body(jo.toString())
+//	        .when()
+//	        .post("/users/update")	
+//	        .then()
+//	        .statusCode(200).body(is("Max anz erreicht"));
+//
+//		}
 	@Test
-	@Order(7)
-	public void addPhoneToUser(){
+	@Order(11)
+	public void removePhoneFromUser() {
 		
-		JSONObject jo = new JSONObject();
-				jo.put("id",10);
-				jo.put("type","Nummer1");
-				jo.put("number", "8150247");
-		 given()
-	        .contentType(MediaType.APPLICATION_JSON)
-	        .body(jo.toString())
-	        .when()
-	        .post("/users/update")	
-	        .then()
-	        .statusCode(200).body(is("User added"));
-
-		}
-	@Test
-	@Order(8)
-	public void addPhoneToUserDuplicate(){
-		
-		JSONObject jo = new JSONObject();
-				jo.put("id",10);
-				jo.put("type","Nummer1nochmal");
-				jo.put("number", "8150247");
-	
-		 given()
-	        .contentType(MediaType.APPLICATION_JSON)
-	        .body(jo.toString())
-	        .when()
-	        .post("/users/update")	
-	        .then()
-	        .statusCode(200).body(is("Doppelte Nr entdeckt bei User: 10"));
-
-		}
-	@Test
-	@Order(9)
-	public void addPhoneToUser2(){
-		
-		JSONObject jo = new JSONObject();
-				jo.put("id",10);
-				jo.put("type","Nummer2");
-				jo.put("number", "56756345");
-	
-		 given()
-	        .contentType(MediaType.APPLICATION_JSON)
-	        .body(jo.toString())
-	        .when()
-	        .post("/users/update")	
-	        .then()
-	        .statusCode(200).body(is("User added"));
-
-		}
-	@Test
-	@Order(10)
-	public void addPhoneToUserToMannyNumbers(){
-		
-		JSONObject jo = new JSONObject();
-				jo.put("id",10);
-				jo.put("type","Nummer3");
-				jo.put("number", "12340247");
-	
-		 given()
-	        .contentType(MediaType.APPLICATION_JSON)
-	        .body(jo.toString())
-	        .when()
-	        .post("/users/update")	
-	        .then()
-	        .statusCode(200).body(is("Max anz erreicht"));
-
-		}
+	}
 	
 	
 	

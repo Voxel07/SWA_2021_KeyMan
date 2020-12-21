@@ -63,6 +63,7 @@ public class UserOrm {
     }
  
     //Kompliziertere Querrys
+    
     @Transactional
     public Boolean loginUser(User usr){
     	Boolean status = false;
@@ -79,13 +80,14 @@ public class UserOrm {
     	}
     	return status; 
     }
+    
     @Transactional
     public List<Phone> getUserPhones(User usr){
     	TypedQuery<Phone> query = em.createQuery("SELECT p FROM Phone p WHERE p.user_id =:?", Phone.class);
     	query.setParameter(1, usr.getId());
     	return query.getResultList();
     }
-    //Fehlerfall muss noch abgefangen werden
+    
     @Transactional
     public String addPhone(Long usrId, String number, String type) {
     	Boolean duplicate = false;
@@ -101,6 +103,7 @@ public class UserOrm {
 		System.out.println("AnzResultsQuery: "+ query.getResultList().size());
 		
 		//Check all Numbers
+	
 		for(Phone elem : query.getResultList()) {
 			System.out.println("AktElement: "+ elem );
 			//if(elem.getNumber()==number) geht nicht aus Gründen 
@@ -113,16 +116,18 @@ public class UserOrm {
 			}
 			//vergleicht telefon IDs nicht die User ID
 			//nur möglich wenn bidirektional
-//			if(elem.getUser().getId() == usrId) {
-//				System.out.println("ComparingId´s: " +elem.getId()+" to "+usrId );
-//				anzNumber++;
-//				System.out.println("AnzResultsUser: "+anzNumber);
-//				if(anzNumber >= 2) {
-//					error = "Max Anzahl an Nr erreicht ";
-//					break;
+//				if(elem.getUser().getId() == usrId) {
+//					System.out.println("ComparingId´s: " +elem.getId()+" to "+usrId );
+//					anzNumber++;
+//					System.out.println("AnzResultsUser: "+anzNumber);
+//					if(anzNumber >= 2) {
+//						error = "Max Anzahl an Nr erreicht ";
+//						break;
+//					}
 //				}
-//			}
 		}
+	
+
 			  
 		if(query.getResultList().size() <= 1 && duplicate==false) {	
 			System.out.println("If erreicht mit "+anzNumber+" dub? "+ duplicate);
@@ -147,6 +152,26 @@ public class UserOrm {
 		
 			
 	}
+    
+    @Transactional
+    public String removePhone() {
+    	
+    	return "";
+    }
+    
+    @Transactional
+    public String addContract(User usr, Contract ctr) {
+    	
+    	return "";
+    }
+    
+    @Transactional
+    public String removeContract(User usr, Contract ctr) {
+    	
+    	return "";
+    }
+    
+    
     @Transactional
     public List<Contract> getUserContracts(User usr){
     	TypedQuery<Contract> query = em.createQuery("SELECT c FROM user_contracts c WHERE c.User_id =:?", Contract.class);

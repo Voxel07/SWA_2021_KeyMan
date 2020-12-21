@@ -52,14 +52,14 @@ public class User {
     private boolean isAdmin = false;
     
     //hier falsch ?
-//    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH})
-//    @JoinTable(
-//    		name = "user_contracts",
-//    		joinColumns = {@JoinColumn(name = "User_id", referencedColumnName="id")},
-//    		inverseJoinColumns = {@JoinColumn(name = "Contract_id", referencedColumnName="id")}
-//    		)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinTable(
+    		name = "user_contracts",
+    		joinColumns = {@JoinColumn(name = "User_id", referencedColumnName="id")},
+    		inverseJoinColumns = {@JoinColumn(name = "Contract_id", referencedColumnName="id")}
+    		)
     //so ?
-    @ManyToMany(mappedBy="users", fetch = FetchType.LAZY)
+//    @ManyToMany(mappedBy="users", fetch = FetchType.LAZY)
     private  List<Contract> contracts = new ArrayList<>();
        
 //    @ManyToOne
