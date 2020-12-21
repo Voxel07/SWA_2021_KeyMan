@@ -52,6 +52,12 @@ public class ContractOrm  {
     	em.remove(em.contains(contract) ? contract : em.merge(contract));
     }
 
+    @Transactional
+    public void addIpContract(Contract contract) 
+    { 	//Das ist suspekt
+    	
+    }
+
   
     
 }
