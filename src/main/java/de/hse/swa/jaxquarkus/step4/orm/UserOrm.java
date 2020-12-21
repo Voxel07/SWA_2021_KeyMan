@@ -90,7 +90,7 @@ public class UserOrm {
     public String addPhone(Long usrId, String number, String type) {
     	Boolean duplicate = false;
     	int anzNumber = 0; 
-    	String error = "none";
+    	String error = "Max anz erreicht";
     	
     	System.out.println("Aus der ORM: "+" ID: "+usrId+" number: "+number+" type: "+type);  	
     	//Prüfen dass nur zwei nummern da sind
@@ -100,10 +100,11 @@ public class UserOrm {
 		
 		System.out.println("AnzResultsQuery: "+ query.getResultList().size());
 		
-		//Check for duplicate entry and anzNumbers
+		//Check all Numbers
 		for(Phone elem : query.getResultList()) {
 			System.out.println("AktElement: "+ elem );
 			//if(elem.getNumber()==number) geht nicht aus Gründen 
+			//Check for duplicate entry and anzNumbers
 			if(elem.getNumber().equals(number)) {
 				System.out.println("ComparingNumbers: " +elem.getNumber()+" to "+number );
 				duplicate = true;
@@ -111,18 +112,19 @@ public class UserOrm {
 				break;
 			}
 			//vergleicht telefon IDs nicht die User ID
-			if(elem.getUser().getId() == usrId) {
-				System.out.println("ComparingId´s: " +elem.getId()+" to "+usrId );
-				anzNumber++;
-				System.out.println("AnzResultsUser: "+anzNumber);
-				if(anzNumber >= 2) {
-					error = "Max Anzahl an Nr erreicht ";
-					break;
-				}
-			}
+			//nur möglich wenn bidirektional
+//			if(elem.getUser().getId() == usrId) {
+//				System.out.println("ComparingId´s: " +elem.getId()+" to "+usrId );
+//				anzNumber++;
+//				System.out.println("AnzResultsUser: "+anzNumber);
+//				if(anzNumber >= 2) {
+//					error = "Max Anzahl an Nr erreicht ";
+//					break;
+//				}
+//			}
 		}
 			  
-		if(anzNumber <=2 && duplicate==false) {	
+		if(query.getResultList().size() <= 1 && duplicate==false) {	
 			System.out.println("If erreicht mit "+anzNumber+" dub? "+ duplicate);
 			User usr = new User();
 			

@@ -1,16 +1,10 @@
 package de.hse.swa.jaxquarkus.step4.model;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
 @Entity
@@ -32,13 +26,13 @@ public class Phone{
     //Uni ohne irgendwas
     
     //Bi    
-	  @ManyToOne(fetch=FetchType.EAGER)
-	  @JoinColumn(name ="user_id", referencedColumnName="id")
+//	  @ManyToOne(fetch=FetchType.LAZY)
+//	  @JoinColumn(name ="user_id", referencedColumnName="id")
 	  
 	  //Stack overvlow lösung ? geht nicht 
 	//  @Column(name ="user_id")
 	  //lösung ende
-	  private User usr;
+//	  private User usr;
     
       
     public Phone() {
@@ -74,14 +68,14 @@ public class Phone{
     }
     
     //Geht nur bei bidirektionalen verbindungen
-    public User getUser() {
-    	return usr;
-    }
-   
-    public void setUser(User usr) {
-    	this.usr = usr;
-    	
-    }
+//    public User getUser() {
+//    	return usr;
+//    }
+//   
+//    public void setUser(User usr) {
+//    	this.usr = usr;
+//    	
+//    }
 
 	@Override
 	public String toString() {
