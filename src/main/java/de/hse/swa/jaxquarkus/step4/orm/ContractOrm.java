@@ -88,9 +88,10 @@ public class ContractOrm  {
 			}
 			
 		}
-	
+	// add Ip nur wenn schon1 da ist, oder leg ich auch die erste an
+	// 
 			  
-		if(query.getResultList().size() <= 1 && duplicate==false) {	
+		if(query.getResultList().size() <= 2 && duplicate==false) {	
 			System.out.println("If erreicht mit "+anzNumber+" dub? "+ duplicate);
 			Contract contract = new Contract();
 			
@@ -114,6 +115,7 @@ public class ContractOrm  {
 			
 	}
     
+    @Transactional
     public String addFeature(Long contractId, String number) {
     	int anzNumber = 0; 
     	String error = "Max anz erreicht";
@@ -128,7 +130,7 @@ public class ContractOrm  {
 		
 		//Check all IpNumbers
 			  
-		if(query.getResultList().size() <= 1) {	
+		if(query.getResultList().size() <= 2) {	
 			System.out.println("If erreicht mit "+anzNumber);
 			Contract contract = new Contract();
 			
@@ -152,4 +154,42 @@ public class ContractOrm  {
 			
 	}
     
+
+
+    @Transactional
+    public List<Contract> getUsersContract(User usr){
+    	TypedQuery<Contract> query = em.createQuery("SELECT c FROM Contracts c WHERE c.user_id =:?", Contract.class);
+    	query.setParameter(1, usr.getId());
+    	return query.getResultList();
+    }
+
+    @Transactional
+    public String removeFeature(Long contractId, String number) {
+
+    	System.out.println("Aus der ORM: "+" ID: "+contractId+" number: "+number);  	
+    	//checkt ob weniger als 3 Features da sind
+		TypedQuery<Feature> query =em.createQuery("SELECT i FROM Feature p WHERE contract_Id =:val OR i.number = :val2", Feature.class);
+		query.setParameter("val", contractId);
+		query.setParameter("val2", number);
+		
+		System.out.println("AnzResultsQuery: "+ query.getResultList().size());
+		
+		if(query.getResultList().size() >= 1) {	
+			// auswählen welches Feature ?
+			em.remove(number);
+		}
+    	return "";
+    }
+    @Transactional
+    public List<Feature> getFeaturesByContract(Long contract_id) {
+		TypedQuery<Feature> query = em.createQuery("SELECT f FROM Feature f WHERE f.contract_id =:val", Feature.class);
+		query.setParameter("val", contract_id);
+		//Hier muss noch abgefangen werden, wenn der Nutzer keine Telefonnummer hat
+		return query.getResultList();
+	}
+
+
+
+
 }
+
