@@ -13,6 +13,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import de.hse.swa.jaxquarkus.step4.model.Phone;
+import de.hse.swa.jaxquarkus.step4.model.Contract;
 import de.hse.swa.jaxquarkus.step4.model.User;
 import de.hse.swa.jaxquarkus.step4.orm.UserOrm;
 
@@ -28,13 +30,13 @@ public class UserResource {
     UserOrm userOrm;
 
     
-    @GET
-    @Produces("application/json")
-    @Consumes("application/json")
-    public List<User> getUsers() 
-    {
-        return userOrm.getUsers();
-    }
+//    @GET
+//    @Produces("application/json")
+//    @Consumes("application/json")
+//    public List<User> getUsers() 
+//    {
+//        return userOrm.getUsers();
+//    }
    
     
     @GET
@@ -45,6 +47,17 @@ public class UserResource {
     public User getUser(@PathParam("id") Long id)
     {
         return userOrm.getUser(id); 
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<Phone> getUserPhones(User u){
+    	System.out.println("Allo get user Phones");
+    	List<Phone> result = userOrm.getUserPhones(u);
+    	System.out.println("Ich war in der ORM und bin glücklich");
+    	return result;
+    	
     }
     
   
@@ -65,17 +78,22 @@ public class UserResource {
     }
     
     @POST
-    @Path("/update")
+    @Path("/add/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
- //  public void updateUser(JSONObject jo)//Warum geht das nicht  
-    public String updateUser(String str) 
+    public String updatePhone(@PathParam("id") Long UserId, Phone p) 
     {
-    	JSONObject jo = new JSONObject(str);
-    	Long id = jo.getLong("id");
-		String type = jo.getString("type");
-		String number = jo.getString("number");    	
-        return userOrm.addPhone(id,number,type);
+    	
+        return userOrm.addPhone(UserId,p);
+    }
+    
+    @DELETE
+    @Path("/remove")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Boolean removePhone(Phone p) 
+    {
+        return userOrm.removePhone(p);
     }
     
     

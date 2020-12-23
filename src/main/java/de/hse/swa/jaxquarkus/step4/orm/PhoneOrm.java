@@ -30,7 +30,7 @@ public class PhoneOrm{
 //		return query.getSingleResult();
 //	}
 	public List<Phone> getPhonesByUsers(Long usr_id) {
-		TypedQuery<Phone> query = em.createQuery("SELECT p FROM Phone p WHERE p.user_id =:val", Phone.class);
+		TypedQuery<Phone> query = em.createQuery("SELECT p FROM Phone p WHERE user_id =:val", Phone.class);
 		query.setParameter("val", usr_id);
 		//Hier muss noch abgefangen werden, wenn der Nutzer keine Telefonnummer hat
 		return query.getResultList();

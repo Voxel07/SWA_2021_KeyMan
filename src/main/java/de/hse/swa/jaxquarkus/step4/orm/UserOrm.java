@@ -20,12 +20,10 @@ public class UserOrm {
     
     public int getAnz () {
     	TypedQuery<User> query = em.createQuery("SELECT count(e) FROM User e",User.class);
-    	//System.out.println("anzquery: "+query.getResultList());
     	return query.getResultList().size();
     }
     
-    public List<User> getUsers() 
-    {
+    public List<User> getUsers(){
    	 TypedQuery<User> query = em.createQuery("SELECT u FROM User u", User.class);
    	 return  query.getResultList();
     }
@@ -34,31 +32,29 @@ public class UserOrm {
     {	
     	return em.find(User.class,id);
     }
+    
     public User getUser(String username) {
     	TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.username =:?", User.class);
     	query.setParameter(1, username);
     	return query.getSingleResult();
     }
-    //Neu
+
     public User getUser (User usr) {
     	return em.find(User.class, usr.getId());
     }
     
     @Transactional
-    public void addUser(User usr)
-    {
+    public void addUser(User usr){
     	em.persist(usr);
     }
      
     @Transactional
-    public void updateUser(User usr)
-    {     
+    public void updateUser(User usr){     
     		em.merge(usr);   	
     }
      
     @Transactional
-    public void deleteUser(User usr) 
-    { 	//Das ist suspekt
+    public void deleteUser(User usr){ 	
     	em.remove(em.contains(usr) ? usr : em.merge(usr));
     }
  
@@ -67,8 +63,8 @@ public class UserOrm {
     @Transactional
     public Boolean loginUser(User usr){
     	Boolean status = false;
-    	TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.username =:?", User.class);
-    	query.setParameter(1, usr.getUsername());
+    	TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.username = :val", User.class);
+    	query.setParameter("val", usr.getUsername());
     	//Falls kein User mit dem namen gefunden wurde
     	if(query.getResultList().size()<1) {
     		status = false;
@@ -81,24 +77,28 @@ public class UserOrm {
     	return status; 
     }
     
-    @Transactional
+
     public List<Phone> getUserPhones(User usr){
-    	TypedQuery<Phone> query = em.createQuery("SELECT p FROM Phone p WHERE p.user_id =:?", Phone.class);
-    	query.setParameter(1, usr.getId());
+    	TypedQuery<Phone> query = em.createQuery("SELECT p FROM Phone p WHERE user_id = :val", Phone.class);
+    	query.setParameter("val", usr.getId());
+    	System.out.println("Ich war in der DB");
+    	System.out.println(query.getResultList().size());
+    	System.out.println(query.getResultList().get(0).toString());
     	return query.getResultList();
     }
+
     
     @Transactional
-    public String addPhone(Long usrId, String number, String type) {
+    public String addPhone(Long usrId, Phone p) {
     	Boolean duplicate = false;
     	int anzNumber = 0; 
     	String error = "Max anz erreicht";
     	
-    	System.out.println("Aus der ORM: "+" ID: "+usrId+" number: "+number+" type: "+type);  	
+    	System.out.println("Aus der ORM: "+" ID: "+usrId+" number: "+p.getNumber()+" type: "+p.getType());  	
     	//Prüfen dass nur zwei nummern da sind
-		TypedQuery<Phone> query =em.createQuery("SELECT p FROM Phone p WHERE user_id =:val OR p.number = :val2", Phone.class);
+		TypedQuery<Phone> query =em.createQuery("SELECT p FROM Phone p WHERE user_id = :val OR p.number = :val2", Phone.class);
 		query.setParameter("val", usrId);
-		query.setParameter("val2", number);
+		query.setParameter("val2", p.getNumber());
 		
 		System.out.println("AnzResultsQuery: "+ query.getResultList().size());
 		
@@ -108,27 +108,14 @@ public class UserOrm {
 			System.out.println("AktElement: "+ elem );
 			//if(elem.getNumber()==number) geht nicht aus Gründen 
 			//Check for duplicate entry and anzNumbers
-			if(elem.getNumber().equals(number)) {
-				System.out.println("ComparingNumbers: " +elem.getNumber()+" to "+number );
+			if(elem.getNumber().equals(p.getNumber())) {
+				System.out.println("ComparingNumbers: " +elem.getNumber()+" to "+p.getNumber() );
 				duplicate = true;
 				error = "Doppelte Nr entdeckt bei User: "+elem.getId();
 				break;
 			}
-			//vergleicht telefon IDs nicht die User ID
-			//nur möglich wenn bidirektional
-//				if(elem.getUser().getId() == usrId) {
-//					System.out.println("ComparingId´s: " +elem.getId()+" to "+usrId );
-//					anzNumber++;
-//					System.out.println("AnzResultsUser: "+anzNumber);
-//					if(anzNumber >= 2) {
-//						error = "Max Anzahl an Nr erreicht ";
-//						break;
-//					}
-//				}
 		}
-	
-
-			  
+  
 		if(query.getResultList().size() <= 1 && duplicate==false) {	
 			System.out.println("If erreicht mit "+anzNumber+" dub? "+ duplicate);
 			User usr = new User();
@@ -140,7 +127,7 @@ public class UserOrm {
 				System.out.println("Custom Exception UserOrm addPhone Find User: "+ e.toString());
 				return e.toString();
 			}
-			Phone ph = new Phone(number,type);
+			Phone ph = new Phone(p.getNumber(),p.getType());
 			usr.getPhones().add(ph);
 			//hat gefehlt
 			ph.setUsr(usr);
@@ -150,15 +137,19 @@ public class UserOrm {
 		else {
 			System.out.println(error);
 			return error;
-		}
-		
-			
+		}	
 	}
     
     @Transactional
-    public String removePhone() {
+    public Boolean removePhone(Phone p) {
     	
-    	return "";
+    	try {
+			em.remove(em.contains(p) ? p : em.merge(p));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+    	return true;
     }
     
     @Transactional

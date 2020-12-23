@@ -10,6 +10,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Column;
 
+
 @Entity
 @Table(name ="PHONE")
 public class Phone{
@@ -31,7 +32,6 @@ public class Phone{
     //Bi    
 	  @ManyToOne(fetch=FetchType.LAZY)
 	  @JoinColumn(name ="user_id", referencedColumnName="id")
-	  
 	  private User usr;
     
       

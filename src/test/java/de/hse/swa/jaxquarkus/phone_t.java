@@ -12,6 +12,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.is;
 
 import java.util.Arrays;
 import java.util.List;
@@ -87,6 +88,24 @@ public class phone_t{
 	@Test
 	@Order(4)
 	public void getPhonesByUsers() {
+		
+		 given()
+		 	.pathParam("id", 1l)
+	        .contentType(MediaType.APPLICATION_JSON)
+	        .body(phoneA)
+	        .when()
+	        .post("/users/update/{id}")	
+	        .then()
+	        .statusCode(200).body(is("User added"));
+		 
+		 given()
+		 .pathParam("id", 1l)
+	        .contentType(MediaType.APPLICATION_JSON)
+	        .body(phoneB)
+	        .when()
+	        .post("/users/update/{id}")	
+	        .then()
+	        .statusCode(200).body(is("User added"));
 		
 		usrA.setId(1l);
 		Response response = 

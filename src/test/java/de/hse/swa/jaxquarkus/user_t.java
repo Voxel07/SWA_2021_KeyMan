@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 import java.util.Arrays;
 import java.util.List;
 
+import de.hse.swa.jaxquarkus.step4.model.Phone;
 import de.hse.swa.jaxquarkus.step4.model.User;
 
 import org.json.JSONObject;
@@ -25,7 +26,10 @@ public class user_t{
 	private static User usrA = new User("Aemail", "Ausername", "Apassword", "Afirst", "Alast", true);
 	private static User usrB = new User("Bemail", "Busername", "Bpassword", "Bfirst", "Blast",  false);	
 	private static User usrC = new User("Cemail", "Cusername", "Cpassword", "Cfirst", "Clast", true);
-
+	
+	private static Phone phoneA = new Phone("Anumber", "Atype");  
+	private static Phone phoneB = new Phone("Bnumber", "Btype");
+	private static Phone phoneC = new Phone("Cnumber", "Ctype");
 //	@Test
 //	@Order(1)
 //	public void getAnzUsers() {
@@ -157,51 +161,42 @@ public class user_t{
 	@Order(7)
 	public void addPhoneToUser(){
 		
-		JSONObject jo = new JSONObject();
-				jo.put("id",10);
-				jo.put("type","Nummer1");
-				jo.put("number", "8150247");
 		 given()
+		 	.pathParam("id", 10l)
 	        .contentType(MediaType.APPLICATION_JSON)
-	        .body(jo.toString())
+	        .body(phoneA)
 	        .when()
-	        .post("/users/update")	
+	        .post("/users/add/{id}")	
 	        .then()
 	        .statusCode(200).body(is("User added"));
 
 		}
+	
 	@Test
 	@Order(8)
 	public void addPhoneToUserDuplicate(){
 		
-		JSONObject jo = new JSONObject();
-				jo.put("id",10);
-				jo.put("type","Nummer1nochmal");
-				jo.put("number", "8150247");
-	
 		 given()
+		    .pathParam("id", 10l)
 	        .contentType(MediaType.APPLICATION_JSON)
-	        .body(jo.toString())
+	        .body(phoneA)
 	        .when()
-	        .post("/users/update")	
+	        .post("/users/add/{id}")	
 	        .then()
 	        .statusCode(200).body(is("Doppelte Nr entdeckt bei User: 10"));
 
 		}
+	
 	@Test
 	@Order(9)
 	public void addPhoneToUser2(){
-		
-		JSONObject jo = new JSONObject();
-				jo.put("id",10);
-				jo.put("type","Nummer2");
-				jo.put("number", "56756345");
-	
+
 		 given()
+		 .pathParam("id", 10l)
 	        .contentType(MediaType.APPLICATION_JSON)
-	        .body(jo.toString())
+	        .body(phoneB)
 	        .when()
-	        .post("/users/update")	
+	        .post("/users/add/{id}")	
 	        .then()
 	        .statusCode(200).body(is("User added"));
 
@@ -210,16 +205,12 @@ public class user_t{
 	@Order(10)
 	public void addPhoneToUserToMannyNumbers(){
 		
-		JSONObject jo = new JSONObject();
-				jo.put("id",10);
-				jo.put("type","Nummer3");
-				jo.put("number", "12340247");
-	
 		 given()
+		    .pathParam("id", 10l)
 	        .contentType(MediaType.APPLICATION_JSON)
-	        .body(jo.toString())
+	        .body(phoneC)
 	        .when()
-	        .post("/users/update")	
+	        .post("/users/add/{id}")	
 	        .then()
 	        .statusCode(200).body(is("Max anz erreicht"));
 
@@ -227,8 +218,33 @@ public class user_t{
 	@Test
 	@Order(11)
 	public void removePhoneFromUser() {
-		
+		 phoneB.setId(11l);
+		 
+		 given()
+	        .contentType(MediaType.APPLICATION_JSON)
+	        .body(phoneB)
+	        .when()
+	        .delete("/users/remove")	
+	        .then()
+	        .statusCode(200).body(is("true"));
 	}
+	@Test
+	@Order(12)
+	public void getUserPhones() {
+		usrC.setId(10l);
+		Response res = given()
+        .contentType(MediaType.APPLICATION_JSON)
+        .body(usrC)
+        .when()
+        .get("/users");	
+       
+		res.then().statusCode(200);
+//		List<Phone> phones = Arrays.asList(res.getBody().as(Phone[].class));
+//		Assertions.assertEquals( phoneA.getNumber(), phones.get(0).getNumber());
+////		Assertions.assertEquals( phoneB.getNumber(), phones.get(1).getNumber());
+//		Assertions.assertEquals( 1, phones.size());
+	}
+	
 	
 	
 	

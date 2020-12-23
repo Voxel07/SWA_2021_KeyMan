@@ -24,8 +24,6 @@ public class User {
     @SequenceGenerator(name = "userSeq", sequenceName = "ZSEQ_USER_ID", allocationSize = 1, initialValue = 10)
     @GeneratedValue(generator = "userSeq")
     
-    //@JsonIgnore
-    
     @Column(name = "id", unique = true)
     private Long id;
 
@@ -47,31 +45,20 @@ public class User {
     @Column(name = "is_admin")
     private boolean isAdmin = false;
     
-    //hier falsch ?
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinTable(
     		name = "user_contracts",
     		joinColumns = {@JoinColumn(name = "User_id", referencedColumnName="id")},
     		inverseJoinColumns = {@JoinColumn(name = "Contract_id", referencedColumnName="id")}
     		)
-    //so ?
-//    @ManyToMany(mappedBy="users", fetch = FetchType.LAZY)
+
     private  List<Contract> contracts = new ArrayList<>();
        
 //    @ManyToOne
 //    @JoinColumn(name="company_Id")
 //    private Company companyU;
     
-    //Unidirektional tut
-//    @OneToMany(cascade = CascadeType.ALL)
-//    @JoinColumn(name="user_id",referencedColumnName = "id")
-    
-    //Bidirektional geht nicht user id wird nich in Phone eingetragen
-   @OneToMany(mappedBy="usr",cascade = {CascadeType.ALL},fetch=FetchType.LAZY )
-    
-    //zusatz von stack geht aber nicht
-   // @JoinColumn(name ="user_id")
-    //ende zusatz
+    @OneToMany(mappedBy="usr",cascade = {CascadeType.ALL},fetch=FetchType.LAZY )
 	private  List<Phone> phones = new ArrayList<>();
 
 
