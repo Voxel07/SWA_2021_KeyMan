@@ -16,7 +16,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import de.hse.swa.jaxquarkus.step4.model.Contract;
+import de.hse.swa.jaxquarkus.step4.model.*;
+
 import de.hse.swa.jaxquarkus.step4.orm.ContractOrm;
 
 @Path("/contracts")
@@ -63,6 +64,24 @@ public class ContractResource {
     {
 		System.out.println("CTR aus resource: "+contract.getUsers());
     	contractOrm.updateContract(contract);
+    }
+    
+    @POST
+    @Path("/add/Ip/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String addIp(@PathParam("id")Long crtId,IpNumber Ip) 
+    {
+    	return contractOrm.addIp(crtId, Ip);
+    }
+    
+    @POST
+    @Path("/add/Feature/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String addFeature(@PathParam("id")Long crtId, Feature f) 
+    {
+    	return contractOrm.addFeature(crtId, f);
     }
     
     

@@ -11,7 +11,7 @@ import de.hse.swa.jaxquarkus.step4.model.Company;
 import de.hse.swa.jaxquarkus.step4.model.Contract;
 import de.hse.swa.jaxquarkus.step4.model.Phone;
 import de.hse.swa.jaxquarkus.step4.model.User;
-import de.hse.swa.jaxquarkus.step4.model.IpNumbers;
+import de.hse.swa.jaxquarkus.step4.model.IpNumber;
 import de.hse.swa.jaxquarkus.step4.model.Feature;
 
 @ApplicationScoped
@@ -57,29 +57,29 @@ public class ContractOrm  {
 
    
     @Transactional
-    public String addIp(Long contractId, String Ipnumber) {
+    public String addIp(Long contractId, IpNumber Ip) {
     	Boolean duplicate = false;
     	int anzNumber = 0; 
     	String error = "Max anz erreicht";
     	
-    	System.out.println("Aus der ORM: "+" ID: "+contractId+" number: "+Ipnumber);  	
+    	System.out.println("Aus der ORM: "+" ID: "+contractId+" number: "+Ip);  	
     	//checkt ob weniger als 3 Ips da sind
-		TypedQuery<IpNumbers> query =em.createQuery("SELECT i FROM IpNumbers i WHERE contract_Id =:val OR number = :val2", IpNumbers.class);
+		TypedQuery<IpNumber> query =em.createQuery("SELECT i FROM IpNumber i WHERE contract_Id =:val OR number = :val2", IpNumber.class);
 		query.setParameter("val", contractId);
-		query.setParameter("val2", Ipnumber);
+		query.setParameter("val2", Ip.getIpNumber());
 		
 		System.out.println("AnzResultsQuery: "+ query.getResultList().size());
 		
 		//Check all IpNumbers
 	
-		for(IpNumbers elem : query.getResultList()) {
+		for(IpNumber elem : query.getResultList()) {
 			System.out.println("AktElement: "+ elem );
 			
 			//Check for duplicate entry and anzNumbers
-			if(elem.getNumber().equals(Ipnumber)) {
-				System.out.println("ComparingNumbers: " +elem.getNumber()+" to "+Ipnumber );
+			if(elem.getIpNumber().equals(Ip.getIpNumber())) {
+				System.out.println("ComparingNumbers: " +elem.getIpNumber()+" to "+Ip );
 				duplicate = true;
-				error = "Doppelte Nr entdeckt bei User: "+elem.getId();
+				error = "Doppelte Nr entdeckt bei Contract: "+elem.getId();
 				break;
 			}
 			
@@ -98,8 +98,9 @@ public class ContractOrm  {
 				System.out.println("Custom Exception ContractOrm addIp Find Contract: "+ e.toString());
 				return e.toString();
 			}
-			IpNumbers ip = new IpNumbers(Ipnumber);
-			contract.getIpNumbers().add(ip);
+			
+			contract.getIpNumbers().add(Ip);
+			Ip.setContract(contract);
 			em.persist(contract);
 			return "Contract added";
 		}
@@ -112,15 +113,15 @@ public class ContractOrm  {
 	}
     
     @Transactional
-    public String addFeature(Long contractId, String Fnumber) {
+    public String addFeature(Long contractId, Feature f) {
     	int anzNumber = 0; 
     	String error = "Max anz erreicht";
     	
-    	System.out.println("Aus der ORM: "+" ID: "+contractId+" number: "+Fnumber);  	
+    	System.out.println("Aus der ORM: "+" ID: "+contractId+" number: "+f);  	
     	//checkt ob weniger als 3 Features da sind
 		TypedQuery<Feature> query =em.createQuery("SELECT f FROM Feature f WHERE contract_Id =:val OR number = :val2", Feature.class);
 		query.setParameter("val", contractId);
-		query.setParameter("val2", Fnumber);
+		query.setParameter("val2", f.getNumber());
 		
 		System.out.println("AnzResultsQuery: "+ query.getResultList().size());
 		
@@ -137,7 +138,7 @@ public class ContractOrm  {
 				System.out.println("Custom Exception ContractOrm addFeature Find Contract: "+ e.toString());
 				return e.toString();
 			}
-			Feature f = new Feature(Fnumber);
+		
 			contract.getFeatures().add(f);
 			em.persist(contract);
 			return "Contract added";

@@ -4,10 +4,15 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import de.hse.swa.jaxquarkus.step4.model.Contract;
+import de.hse.swa.jaxquarkus.step4.model.Feature;
+import de.hse.swa.jaxquarkus.step4.model.IpNumber;
+
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.response.Response;
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.is;
+
 import java.util.Arrays;
 import java.util.List;
 import javax.ws.rs.core.MediaType;
@@ -19,7 +24,13 @@ public class contract_t{
 	private static Contract contractA = new Contract("1.1.2020", "1.1.2021", "ver1","1234");
 	private static Contract contractB = new Contract("2.2.2020", "2.2.2021", "ver2", "4321");
 	private static Contract contractC = new Contract("3.3.2020", "3.3.2021", "ver1", "5678");
+	private static IpNumber IpA = new IpNumber("111.111.111.111");
+	private static IpNumber IpB = new IpNumber("222.222.222.22");
+	private static IpNumber IpC = new IpNumber("333.333.333.33");
 	
+	private static Feature FA = new Feature("1");
+	private static Feature FB = new Feature("2");
+	private static Feature FC = new Feature("3");
 	@Test
 	@Order(1)
 	public void AddContract() {
@@ -29,11 +40,9 @@ public class contract_t{
 		        .body(contractC)
 		          .when()
 		          .put("/contracts");		
-		          response.then().statusCode(204);
-		 
+		          response.then().statusCode(204);	 
 	} 
-	
-	
+		
 	@Test
 	@Order(2)
 	public void GetContracts() {
@@ -85,17 +94,71 @@ public class contract_t{
 	}
 
 	
+//	@Test
+//	@Order(5)
+//	public void DeleteContract() {
+//		
+//		contractA.setId(1l);
+//		Response response = 
+//		        given()
+//		        .contentType(MediaType.APPLICATION_JSON)
+//		        .body(contractA)
+//		          .when()
+//		          .delete("/contracts");		
+//		          response.then().statusCode(204);  
+//	}
+	
 	@Test
-	@Order(5)
-	public void DeleteContract() {
+	@Order(6)
+	public void AddFeature() {
 		
-		contractA.setId(1l);
-		Response response = 
-		        given()
-		        .contentType(MediaType.APPLICATION_JSON)
-		        .body(contractA)
-		          .when()
-		          .delete("/contracts");		
-		          response.then().statusCode(204);  
+		 given()
+		 .pathParam("id", 10l)
+	        .contentType(MediaType.APPLICATION_JSON)
+	        .body(FA)
+	        .when()
+	        .post("/contracts/add/Feature/{id}")	
+	        .then()
+	        .statusCode(200).body(is("Feature added"));
+		
+		 given()
+		 .pathParam("id", 10l)
+	        .contentType(MediaType.APPLICATION_JSON)
+	        .body(FB)
+	        .when()
+	        .post("/contracts/add/Feature/{id}")	
+	        .then()
+	        .statusCode(200).body(is("Feature added"));
+	}
+	@Test
+	@Order(7)
+	public void removeFeature() {
+		
+	}
+	@Test
+	@Order(8)
+	public void AddIp() {
+		 given()
+		 .pathParam("id", 10l)
+	        .contentType(MediaType.APPLICATION_JSON)
+	        .body(IpA)
+	        .when()
+	        .post("/contracts/add/Ip/{id}")	
+	        .then()
+	        .statusCode(200).body(is("IP added"));
+		
+		 given()
+		 .pathParam("id", 10l)
+	        .contentType(MediaType.APPLICATION_JSON)
+	        .body(IpB)
+	        .when()
+	        .post("/contracts/add/Ip/{id}")	
+	        .then()
+	        .statusCode(200).body(is("IP added"));
+	}
+	@Test
+	@Order(9)
+	public void removeIp() {
+		
 	}
 }

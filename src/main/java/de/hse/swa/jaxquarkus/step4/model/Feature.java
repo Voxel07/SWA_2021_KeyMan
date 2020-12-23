@@ -23,9 +23,9 @@ public class Feature{
     @Column(name = "number", unique = true)
     private String number;
         
-//    @ManyToOne
-//    @JoinColumn(name ="contract_id")
-//    private Contract crtF;
+    @ManyToOne
+    @JoinColumn(name ="contract_id", referencedColumnName="id")
+    private Contract crtF;
     
     
     public Feature() {
@@ -50,13 +50,13 @@ public class Feature{
         this.number = name;
     }
     
-//    public Contract getContract() {
-//    	return this.crtF;
-//    }
-//    
-//    public void setContract(Contract crt) {
-//   	this.crtF = crt;
-//    }
+    public Contract getCrtF() {
+		return crtF;
+	}
+	public void setCrtF(Contract crtF) {
+		this.crtF = crtF;
+	}
+
 	@Override
 	public String toString() {
 		return "Feature [id=" + id + ", number=" + number + "]";

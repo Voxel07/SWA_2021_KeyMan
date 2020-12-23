@@ -4,12 +4,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import de.hse.swa.jaxquarkus.step4.model.Company;
-import de.hse.swa.jaxquarkus.step4.model.Contract;
-import de.hse.swa.jaxquarkus.step4.model.Feature;
-import de.hse.swa.jaxquarkus.step4.model.IpNumbers;
-import de.hse.swa.jaxquarkus.step4.model.Phone;
-import de.hse.swa.jaxquarkus.step4.model.User;
+import de.hse.swa.jaxquarkus.step4.model.*;
 import de.hse.swa.jaxquarkus.step4.orm.CompanyOrm;
 import de.hse.swa.jaxquarkus.step4.orm.ContractOrm;
 import de.hse.swa.jaxquarkus.step4.orm.UserOrm;
@@ -47,9 +42,9 @@ public class all_t{
 	private static Phone phoneB = new Phone("Bnumber", "Btype");
 	private static Phone phoneC = new Phone("Cnumber", "Ctype");
 	
-	private static IpNumbers IpA = new IpNumbers("111.111.111.111");
-	private static IpNumbers IpB = new IpNumbers("222.222.222.22");
-	private static IpNumbers IpC = new IpNumbers("333.333.333.33");
+	private static IpNumber IpA = new IpNumber("111.111.111.111");
+	private static IpNumber IpB = new IpNumber("222.222.222.22");
+	private static IpNumber IpC = new IpNumber("333.333.333.33");
 	
 	private static Feature FA = new Feature("1");
 	private static Feature FB = new Feature("2");
@@ -151,19 +146,19 @@ public class all_t{
 	@Test
 	@Order(9)
 	public void testAddPhone() {
-		userOrm.addPhone(1L, "0815", "mobile");
+		userOrm.addPhone(1L, phoneA);
 	}
 	// test contracts
 	@Test
 	@Order(10)
 	public void testAddIp() {
-		contractOrm.addIp(1L, "444.444.444.444");
+//		contractOrm.addIp(1L, "444.444.444.444");
 	}
 	
 	@Test
 	@Order(11)
 	public void testAddFeature() {
-		contractOrm.addFeature(2L, "33");
+//		contractOrm.addFeature(2L, "33");
 	}
 	@Test
 	@Order(12)

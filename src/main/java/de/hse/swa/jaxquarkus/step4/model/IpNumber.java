@@ -10,8 +10,8 @@ import javax.persistence.Table;
 import javax.persistence.Column;
 
 @Entity
-@Table(name ="ipNumbers")
-public class IpNumbers{
+@Table(name ="ipNumber")
+public class IpNumber{
 
     @Id
     @SequenceGenerator(name = "ipSeq", sequenceName = "ZSEQ_ip_ID", allocationSize = 1, initialValue = 10)
@@ -23,16 +23,16 @@ public class IpNumbers{
     @Column(name="number")
     private String ipNumber;
     
-//    @ManyToOne
-//    @JoinColumn(name ="contract_id")
-//    private Contract crtIP;
+    @ManyToOne
+    @JoinColumn(name ="contract_id", referencedColumnName="id")
+    private Contract crtIP;
     
     
   
-    public IpNumbers() {
+    public IpNumber() {
     	
     }
-    public IpNumbers(String number) {
+    public IpNumber(String number) {
     	this.ipNumber = number;
     }
     
@@ -43,21 +43,29 @@ public class IpNumbers{
         return id;
     }
     
-    public String getNumber() {
-        return this.ipNumber;
-    }
-
-    public void setNumber(String number) {
-        this.ipNumber = number;
+    public String getIpNumber() {
+		return ipNumber;
+	}
+    
+	public void setIpNumber(String ipNumber) {
+		this.ipNumber = ipNumber;
+	}
+	
+	public Contract getCrtIP() {
+		return crtIP;
+	}
+	
+	public void setCrtIP(Contract crtIP) {
+		this.crtIP = crtIP;
+	}
+	
+	public Contract getContract() {
+    	return this.crtIP;
     }
     
-//    public Contract getContract() {
-//    	return this.crtIP;
-//    }
-//    
-//    public void setContract(Contract crt) {
-//   	this.crtIP = crt;
-//    }
+    public void setContract(Contract crt) {
+   	this.crtIP = crt;
+    }
 	@Override
 	public String toString() {
 		return "IpNumbers [id=" + id + ", ipNumber=" + ipNumber + "]";

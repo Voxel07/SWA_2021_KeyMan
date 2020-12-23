@@ -59,15 +59,14 @@ public class Contract {
 //    		)
     private  List<User> users = new ArrayList<>();
     
-  //@OneToMany(targetEntity=features.class, mappedBy="crtF", fetch=FetchType.EAGER)
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "contract_id" ,referencedColumnName = "id")
+   
+   
+   
+    @OneToMany(mappedBy="crtF",cascade = {CascadeType.ALL}, fetch=FetchType.LAZY)
     private  List<Feature> features = new ArrayList<>(); 
     
-//  @OneToMany(targetEntity=ipNumbers.class, mappedBy="crtIP", fetch=FetchType.EAGER)
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "contract_id", referencedColumnName = "id")
-    private  List<IpNumbers> ipNumbers = new ArrayList<>(); 
+    @OneToMany(mappedBy="crtIP",cascade = {CascadeType.ALL}, fetch=FetchType.LAZY)
+    private  List<IpNumber> ipNumbers = new ArrayList<>(); 
     
     @ManyToOne
     @JoinColumn(name="company_Id")
@@ -141,15 +140,15 @@ public class Contract {
 		this.features = feature;
 	}
 
-	public List<IpNumbers> getIpNumbers() {
+	public List<IpNumber> getIpNumbers() {
 		return ipNumbers;
 	}
 
-	public void setIpNumbers(List<IpNumbers> ipNumbers) {
+	public void setIpNumbers(List<IpNumber> ipNumbers) {
 		this.ipNumbers = ipNumbers;
 	}
 
-	public List <IpNumbers> getIps(){
+	public List <IpNumber> getIps(){
     	return this.ipNumbers;
     }
 
