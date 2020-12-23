@@ -55,12 +55,8 @@ public class ContractOrm  {
     	em.remove(em.contains(contract) ? contract : em.merge(contract));
     }
 
+   
     @Transactional
-    public void addIpContract(Contract contract) 
-    { 	//Das ist suspekt
-    	
-    }
-
     public String addIp(Long contractId, String Ipnumber) {
     	Boolean duplicate = false;
     	int anzNumber = 0; 
@@ -68,7 +64,7 @@ public class ContractOrm  {
     	
     	System.out.println("Aus der ORM: "+" ID: "+contractId+" number: "+Ipnumber);  	
     	//checkt ob weniger als 3 Ips da sind
-		TypedQuery<IpNumbers> query =em.createQuery("SELECT i FROM IpNumbers i WHERE contract_Id =:val OR i.number = :val2", IpNumbers.class);
+		TypedQuery<IpNumbers> query =em.createQuery("SELECT i FROM IpNumbers i WHERE contract_Id =:val OR number = :val2", IpNumbers.class);
 		query.setParameter("val", contractId);
 		query.setParameter("val2", Ipnumber);
 		
@@ -122,7 +118,7 @@ public class ContractOrm  {
     	
     	System.out.println("Aus der ORM: "+" ID: "+contractId+" number: "+Fnumber);  	
     	//checkt ob weniger als 3 Features da sind
-		TypedQuery<Feature> query =em.createQuery("SELECT i FROM Feature p WHERE contract_Id =:val OR i.number = :val2", Feature.class);
+		TypedQuery<Feature> query =em.createQuery("SELECT f FROM Feature f WHERE contract_Id =:val OR number = :val2", Feature.class);
 		query.setParameter("val", contractId);
 		query.setParameter("val2", Fnumber);
 		
@@ -166,7 +162,7 @@ public class ContractOrm  {
     	String error = "keine Features";
     	System.out.println("Aus der ORM: "+" ID: "+contractId+" number: "+f);  	
     	//checkt ob weniger als 3 Features da sind
-		TypedQuery<Feature> query =em.createQuery("SELECT i FROM Feature p WHERE contract_Id =:val OR i.number = :val2", Feature.class);
+		TypedQuery<Feature> query =em.createQuery("SELECT f FROM Feature f WHERE contract_Id =:val OR number = :val2", Feature.class);
 		query.setParameter("val", contractId);
 		query.setParameter("val2", f);
 		

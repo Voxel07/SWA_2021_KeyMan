@@ -142,18 +142,35 @@ public class all_t{
 //	}
 	
 
-	@Test
-	@Order(8)
-	public void removContract() {
-		contractOrm.deleteContract(contractC);
-	}
+	//@Test
+//	@Order(8)
+//	public void removContract() {
+//		contractOrm.deleteContract(contractC);
+	//}
 	
 	@Test
 	@Order(9)
 	public void testAddPhone() {
 		userOrm.addPhone(1L, "0815", "mobile");
 	}
+	// test contracts
+	@Test
+	@Order(10)
+	public void testAddIp() {
+		contractOrm.addIp(1L, "444.444.444.444");
+	}
+	
+	@Test
+	@Order(11)
+	public void testAddFeature() {
+		contractOrm.addFeature(2L, "33");
+	}
+	@Test
+	@Order(12)
+	public void testRemoveFeature() {
+		contractOrm.removeFeature(10L, FA);
+	}	
 	
 	
-			
+		
 }
