@@ -142,6 +142,8 @@ public class UserOrm {
 			}
 			Phone ph = new Phone(number,type);
 			usr.getPhones().add(ph);
+			//hat gefehlt
+			ph.setUsr(usr);
 			em.persist(usr);
 			return "User added";
 		}

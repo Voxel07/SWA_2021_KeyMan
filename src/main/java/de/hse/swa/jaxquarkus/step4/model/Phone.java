@@ -68,14 +68,15 @@ public class Phone{
     }
     
     //Geht nur bei bidirektionalen verbindungen
-//    public User getUser() {
-//    	return usr;
-//    }
-//   
-//    public void setUser(User usr) {
-//    	this.usr = usr;
-//    	
-//    }
+ 
+   
+    public User getUsr() {
+		return usr;
+	}
+
+	public void setUsr(User usr) {
+		this.usr = usr;
+	}
 
 	@Override
 	public String toString() {

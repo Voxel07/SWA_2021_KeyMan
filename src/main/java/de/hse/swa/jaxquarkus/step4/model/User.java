@@ -67,7 +67,7 @@ public class User {
 //    @JoinColumn(name="user_id",referencedColumnName = "id")
     
     //Bidirektional geht nicht user id wird nich in Phone eingetragen
-    @OneToMany(mappedBy="usr",cascade = {CascadeType.ALL},fetch=FetchType.LAZY )
+   @OneToMany(mappedBy="usr",cascade = {CascadeType.ALL},fetch=FetchType.LAZY )
     
     //zusatz von stack geht aber nicht
    // @JoinColumn(name ="user_id")
