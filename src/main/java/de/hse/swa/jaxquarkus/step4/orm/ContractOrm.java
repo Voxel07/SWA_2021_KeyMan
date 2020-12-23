@@ -55,7 +55,6 @@ public class ContractOrm  {
     	em.remove(em.contains(contract) ? contract : em.merge(contract));
     }
 
-   
     @Transactional
     public String addIp(Long contractId, IpNumber Ip) {
     	Boolean duplicate = false;
@@ -84,9 +83,7 @@ public class ContractOrm  {
 			}
 			
 		}
-	// add Ip nur wenn schon1 da ist, oder leg ich auch die erste an
-	// 
-			  
+		
 		if(query.getResultList().size() <= 2 && duplicate==false) {	
 			System.out.println("If erreicht mit "+anzNumber+" dub? "+ duplicate);
 			Contract contract = new Contract();
@@ -102,15 +99,26 @@ public class ContractOrm  {
 			contract.getIpNumbers().add(Ip);
 			Ip.setContract(contract);
 			em.persist(contract);
-			return "Contract added";
+			return "IP added";
 		}
 		else {
 			System.out.println(error);
 			return error;
-		}
-		
-			
+		}	
 	}
+    
+    @Transactional
+    public String removeIp(IpNumber Ip) {
+    	
+    	try {
+			em.remove(em.contains(Ip) ? Ip : em.merge(Ip));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "Ip"+Ip.getIpNumber()+"removed";
+		}
+    	return "kaputt";
+    }
+    
     
     @Transactional
     public String addFeature(Long contractId, Feature f) {
@@ -138,46 +146,28 @@ public class ContractOrm  {
 				System.out.println("Custom Exception ContractOrm addFeature Find Contract: "+ e.toString());
 				return e.toString();
 			}
-		
 			contract.getFeatures().add(f);
+			f.setCrtF(contract);
 			em.persist(contract);
-			return "Contract added";
+			return "Feature added";
 		}
 		else {
 			System.out.println(error);
 			return error;
-		}
-		
-			
+		}		
 	}
-    
-    @Transactional
-    public List<Contract> getUsersContract(User usr){
-    	TypedQuery<Contract> query = em.createQuery("SELECT c FROM Contracts c WHERE c.user_id =:?", Contract.class);
-    	query.setParameter(1, usr.getId());
-    	return query.getResultList();
-    }
 
     @Transactional
-    public String removeFeature(Long contractId, Feature f) {
-    	String error = "keine Features";
-    	System.out.println("Aus der ORM: "+" ID: "+contractId+" number: "+f);  	
-    	//checkt ob weniger als 3 Features da sind
-		TypedQuery<Feature> query =em.createQuery("SELECT f FROM Feature f WHERE contract_Id =:val OR number = :val2", Feature.class);
-		query.setParameter("val", contractId);
-		query.setParameter("val2", f);
-		
-		System.out.println("AnzResultsQuery: "+ query.getResultList().size());
-		
-		if(query.getResultList().size() >= 1) {	
-			em.remove(f);
-			error = "erfolgreich entfernt";
+    public String removeFeature(Feature f) {
+    	try {
+			em.remove(em.contains(f) ? f : em.merge(f));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "Feature"+f.getNumber()+"removed";
 		}
-		else {
-			System.out.println(error);
-		}
-    	return error;
+    	return "kaputt";
     }
+    
     @Transactional
     public List<Feature> getFeaturesByContract(Long contract_id) {
 		TypedQuery<Feature> query = em.createQuery("SELECT f FROM Feature f WHERE f.contract_id =:val", Feature.class);

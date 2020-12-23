@@ -133,6 +133,14 @@ public class contract_t{
 	@Test
 	@Order(7)
 	public void removeFeature() {
+		FB.setId(10l);
+		given()
+	        .contentType(MediaType.APPLICATION_JSON)
+	        .body(FB)
+	        .when()
+	        .delete("/contracts/remove/Feature")	
+	        .then()
+	        .statusCode(200).body(is("Feature "+FB.getNumber()+" removed"));
 		
 	}
 	@Test
@@ -159,6 +167,13 @@ public class contract_t{
 	@Test
 	@Order(9)
 	public void removeIp() {
-		
+		IpA.setId(10l);
+		given()
+	        .contentType(MediaType.APPLICATION_JSON)
+	        .body(IpA)
+	        .when()
+	        .delete("/contracts/remove/Ip")	
+	        .then()
+	        .statusCode(200).body(is("Ip "+FB.getNumber()+" removed"));
 	}
 }

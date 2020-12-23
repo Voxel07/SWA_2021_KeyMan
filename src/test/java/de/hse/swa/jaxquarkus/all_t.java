@@ -163,7 +163,7 @@ public class all_t{
 	@Test
 	@Order(12)
 	public void testRemoveFeature() {
-		contractOrm.removeFeature(10L, FA);
+//		contractOrm.removeFeature(10L, FA);
 	}	
 	
 	

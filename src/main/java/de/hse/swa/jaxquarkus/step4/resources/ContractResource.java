@@ -93,6 +93,24 @@ public class ContractResource {
     	contractOrm.deleteContract(contract);
     }
     
+    @DELETE
+    @Path("/remove/Ip")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String removeIp(IpNumber Ip) 
+    {
+    	return contractOrm.removeIp(Ip);
+    }
+    
+    @DELETE
+    @Path("/remove/Feature")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String removeFeature( Feature f) 
+    {
+    	return contractOrm.removeFeature(f);
+    }
+    
   
     
 }
