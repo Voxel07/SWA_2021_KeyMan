@@ -38,7 +38,7 @@ public class Feature{
     public void setId(Long id) {
         this.id = id;
     } 
-    public long getId() {
+    public Long getId() {
         return id;
     }
     

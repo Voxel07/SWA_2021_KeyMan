@@ -1,13 +1,10 @@
 package de.hse.swa.jaxquarkus.step4.model;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -15,12 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import de.hse.swa.jaxquarkus.step4.orm.PhoneOrm;
 
 
 @Entity
@@ -29,6 +23,8 @@ public class User {
     @Id
     @SequenceGenerator(name = "userSeq", sequenceName = "ZSEQ_USER_ID", allocationSize = 1, initialValue = 10)
     @GeneratedValue(generator = "userSeq")
+    
+    //@JsonIgnore
     
     @Column(name = "id", unique = true)
     private Long id;
@@ -67,11 +63,11 @@ public class User {
 //    private Company companyU;
     
     //Unidirektional tut
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="user_id",referencedColumnName = "id")
+//    @OneToMany(cascade = CascadeType.ALL)
+//    @JoinColumn(name="user_id",referencedColumnName = "id")
     
     //Bidirektional geht nicht user id wird nich in Phone eingetragen
-  //  @OneToMany(mappedBy="usr",cascade = {CascadeType.ALL},fetch=FetchType.LAZY )
+    @OneToMany(mappedBy="usr",cascade = {CascadeType.ALL},fetch=FetchType.LAZY )
     
     //zusatz von stack geht aber nicht
    // @JoinColumn(name ="user_id")
@@ -91,7 +87,7 @@ public class User {
         this.isAdmin = isAdmin;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

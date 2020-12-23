@@ -82,7 +82,7 @@ public class Contract {
         this.licenskey = licenskey;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

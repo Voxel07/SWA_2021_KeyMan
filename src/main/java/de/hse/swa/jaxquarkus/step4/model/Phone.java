@@ -1,8 +1,11 @@
 package de.hse.swa.jaxquarkus.step4.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Column;
@@ -26,13 +29,10 @@ public class Phone{
     //Uni ohne irgendwas
     
     //Bi    
-//	  @ManyToOne(fetch=FetchType.LAZY)
-//	  @JoinColumn(name ="user_id", referencedColumnName="id")
+	  @ManyToOne(fetch=FetchType.LAZY)
+	  @JoinColumn(name ="user_id", referencedColumnName="id")
 	  
-	  //Stack overvlow lösung ? geht nicht 
-	//  @Column(name ="user_id")
-	  //lösung ende
-//	  private User usr;
+	  private User usr;
     
       
     public Phone() {
@@ -47,7 +47,7 @@ public class Phone{
     public void setId(Long id) {
         this.id = id;
     } 
-    public long getId() {
+    public Long getId() {
         return id;
     }
     

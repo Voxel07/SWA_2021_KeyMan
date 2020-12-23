@@ -69,7 +69,7 @@ public class Company {
         this.country = country;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
