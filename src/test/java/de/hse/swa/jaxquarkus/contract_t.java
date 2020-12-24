@@ -175,6 +175,5 @@ public class contract_t{
 	        .delete("/contracts/remove/Ip")	
 	        .then()
 			.statusCode(200).body(is("Ip "+FB.getNumber()+" removed"));
-			//test
 	}
 }
