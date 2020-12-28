@@ -13,8 +13,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import de.hse.swa.jaxquarkus.step4.model.Phone;
-
 import de.hse.swa.jaxquarkus.step4.model.User;
 import de.hse.swa.jaxquarkus.step4.orm.UserOrm;
 
@@ -25,7 +23,6 @@ import de.hse.swa.jaxquarkus.step4.orm.UserOrm;
 public class UserResource {
 	
     @ApplicationScoped
-    
     @Inject
     UserOrm userOrm;
 
@@ -48,17 +45,6 @@ public class UserResource {
     {
         return userOrm.getUser(id); 
     }
-    
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public List<Phone> getUserPhones(User u){
-    	System.out.println("Allo get user Phones");
-    	List<Phone> result = userOrm.getUserPhones(u);
-    	System.out.println("Ich war in der ORM und bin gl�cklich");
-    	return result;	
-    }
-    
   
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
@@ -75,27 +61,7 @@ public class UserResource {
     {
         userOrm.updateUser(usr);
     }
-    
-    @POST
-    @Path("/add/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public String updatePhone(@PathParam("id") Long UserId, Phone p) 
-    {
-    	
-        return userOrm.addPhone(UserId,p);
-    }
-    
-    @DELETE
-    @Path("/remove")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Boolean removePhone(Phone p) 
-    {
-        return userOrm.removePhone(p);
-    }
-    
-    
+
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)

@@ -164,7 +164,7 @@ public class user_t{
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(phoneA)
 	        .when()
-	        .post("/users/add/{id}")	
+	        .post("/phones/add/{id}")	
 	        .then()
 	        .statusCode(200).body(is("User added"));
 
@@ -179,7 +179,7 @@ public class user_t{
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(phoneA)
 	        .when()
-	        .post("/users/add/{id}")	
+	        .post("/phones/add/{id}")	
 	        .then()
 	        .statusCode(200).body(is("Doppelte Nr entdeckt bei User: 10"));
 
@@ -194,7 +194,7 @@ public class user_t{
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(phoneB)
 	        .when()
-	        .post("/users/add/{id}")	
+	        .post("/phones/add/{id}")	
 	        .then()
 	        .statusCode(200).body(is("User added"));
 
@@ -208,33 +208,32 @@ public class user_t{
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(phoneC)
 	        .when()
-	        .post("/users/add/{id}")	
+	        .post("/phones/add/{id}")	
 	        .then()
 	        .statusCode(200).body(is("Max anz erreicht"));
 
 		}
-	@Test
-	@Order(11)
-	public void removePhoneFromUser() {
-		 phoneB.setId(11l);
+	// @Test
+	// @Order(11)
+	// public void removePhoneFromUser() {
+	// 	 phoneB.setId(11l);
 		 
-		 given()
-	        .contentType(MediaType.APPLICATION_JSON)
-	        .body(phoneB)
-	        .when()
-	        .delete("/users/remove")	
-	        .then()
-	        .statusCode(200).body(is("true"));
-	}
+	// 	 given()
+	//         .contentType(MediaType.APPLICATION_JSON)
+	//         .body(phoneB)
+	//         .when()
+	//         .delete("/phones/remove")	
+	//         .then()
+	//         .statusCode(200).body(is("true"));
+	// }
 	@Test
 	@Order(12)
 	public void getUserPhones() {
-		usrC.setId(10l);
 		Response res = given()
+		.pathParam("id", 10l)
         .contentType(MediaType.APPLICATION_JSON)
-        .body(usrC)
         .when()
-        .get("/users");	
+        .get("/phones/{id}");	
        
 		res.then().statusCode(200);
 //		List<Phone> phones = Arrays.asList(res.getBody().as(Phone[].class));

@@ -14,6 +14,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import de.hse.swa.jaxquarkus.step4.orm.PhoneOrm;
 import de.hse.swa.jaxquarkus.step4.model.Phone;
+import de.hse.swa.jaxquarkus.step4.model.User;
 
 @Path("/phones")
 public class PhoneResource {
@@ -24,8 +25,8 @@ public class PhoneResource {
     PhoneOrm phoneOrm;
 
 	@GET
-    @Produces("application/json")
-    @Consumes("application/json")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
 	public List<Phone> getPhones() {
 		 
 		 return phoneOrm.getPhones();
@@ -39,32 +40,26 @@ public class PhoneResource {
     {
         return phoneOrm.getPhoneByNumber(number);
     }
-//	@GET
-//	@Path("{id}")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    public Phone getPhoneById(@PathParam("id") Long id)
-//    {
-//        return phoneOrm.getPhoneById(id);
-//    }
-	
+
 	@GET
 	@Path("{usr_id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public List <Phone> getPhoneByUser(@PathParam("usr_id") Long usr_id)
+    public List <Phone> getPhoneByUser(@PathParam("usr_id") Long usrId)
     {
-        return phoneOrm.getPhonesByUsers(usr_id);
+        return phoneOrm.getUserPhones(usrId);
     }
-	
-	@PUT
-	@Produces(MediaType.APPLICATION_JSON)
+	       
+    @POST
+    @Path("/add/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public void addPhone(Phone phone) 
-    { 	//System.out.println("aus resource");
-		//phone.printPhone();
-        phoneOrm.addPhone(phone);
+    public String updatePhone(@PathParam("id") Long UserId, Phone p) 
+    {
+    	
+        return phoneOrm.addPhone(UserId,p);
     }
+
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -72,11 +67,13 @@ public class PhoneResource {
     { 	
         phoneOrm.updatePhone(phone);
     }
+
 	@DELETE
-	@Produces(MediaType.APPLICATION_JSON)
+    @Path("/remove")
+    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-	public void deletePhone(Phone phone) 
-	{
-		phoneOrm.removePhone(phone);
-	}
+    public Boolean removePhone(Phone p) 
+    {
+        return phoneOrm.removePhone(p);
+    }
 }

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import de.hse.swa.jaxquarkus.step4.model.*;
 import de.hse.swa.jaxquarkus.step4.orm.CompanyOrm;
 import de.hse.swa.jaxquarkus.step4.orm.ContractOrm;
+import de.hse.swa.jaxquarkus.step4.orm.PhoneOrm;
 import de.hse.swa.jaxquarkus.step4.orm.UserOrm;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -23,6 +24,8 @@ public class all_t{
 	UserOrm userOrm;
 	@Inject
 	CompanyOrm companyOrm;
+	@Inject
+	PhoneOrm phoneOrm;
 	
 	private static Contract contractA = new Contract("1.1.2020", "1.1.2021", "ver1","1234");
 	private static Contract contractB = new Contract("2.2.2020", "2.2.2021", "ver2", "4321");
@@ -144,7 +147,7 @@ public class all_t{
 	@Test
 	@Order(9)
 	public void testAddPhone() {
-		userOrm.addPhone(1L, phoneA);
+		phoneOrm.addPhone(1L, phoneA);
 	}
 	// test contracts
 	@Test
