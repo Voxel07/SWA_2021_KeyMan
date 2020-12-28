@@ -9,7 +9,6 @@ import javax.transaction.Transactional;
 
 import de.hse.swa.jaxquarkus.step4.model.*;
 
-import javax.json.Json;
 
 
 @ApplicationScoped
@@ -95,7 +94,7 @@ public class UserOrm {
     	String error = "Max anz erreicht";
     	
     	System.out.println("Aus der ORM: "+" ID: "+usrId+" number: "+p.getNumber()+" type: "+p.getType());  	
-    	//Prüfen dass nur zwei nummern da sind
+    	//Prï¿½fen dass nur zwei nummern da sind
 		TypedQuery<Phone> query =em.createQuery("SELECT p FROM Phone p WHERE user_id = :val OR p.number = :val2", Phone.class);
 		query.setParameter("val", usrId);
 		query.setParameter("val2", p.getNumber());
@@ -106,7 +105,7 @@ public class UserOrm {
 	
 		for(Phone elem : query.getResultList()) {
 			System.out.println("AktElement: "+ elem );
-			//if(elem.getNumber()==number) geht nicht aus Gründen 
+			//if(elem.getNumber()==number) geht nicht aus Grï¿½nden 
 			//Check for duplicate entry and anzNumbers
 			if(elem.getNumber().equals(p.getNumber())) {
 				System.out.println("ComparingNumbers: " +elem.getNumber()+" to "+p.getNumber() );

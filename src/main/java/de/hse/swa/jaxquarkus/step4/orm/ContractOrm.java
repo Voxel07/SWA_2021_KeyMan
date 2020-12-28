@@ -7,10 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
-import de.hse.swa.jaxquarkus.step4.model.Company;
 import de.hse.swa.jaxquarkus.step4.model.Contract;
-import de.hse.swa.jaxquarkus.step4.model.Phone;
-import de.hse.swa.jaxquarkus.step4.model.User;
 import de.hse.swa.jaxquarkus.step4.model.IpNumber;
 import de.hse.swa.jaxquarkus.step4.model.Feature;
 
@@ -24,8 +21,7 @@ public class ContractOrm  {
     public List<Contract> getContracts() 
     {
    	 TypedQuery<Contract> query = em.createQuery("SELECT u FROM Contract u", Contract.class);
-   	 List<Contract> results = query.getResultList();
-   	 return results;
+   	 return query.getResultList();
     }
 
     

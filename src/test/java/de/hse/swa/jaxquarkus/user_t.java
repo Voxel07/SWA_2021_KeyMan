@@ -16,8 +16,6 @@ import java.util.List;
 import de.hse.swa.jaxquarkus.step4.model.Phone;
 import de.hse.swa.jaxquarkus.step4.model.User;
 
-import org.json.JSONObject;
-
 @QuarkusTest
 @TestMethodOrder(OrderAnnotation.class)
 public class user_t{
@@ -30,53 +28,53 @@ public class user_t{
 	private static Phone phoneA = new Phone("Anumber", "Atype");  
 	private static Phone phoneB = new Phone("Bnumber", "Btype");
 	private static Phone phoneC = new Phone("Cnumber", "Ctype");
-//	@Test
-//	@Order(1)
-//	public void getAnzUsers() {
-//		Response response =
-//		        given()
-//		        .contentType(MediaType.APPLICATION_JSON)
-//		        .when()
-//		        .get("/users");
-//		        response
-//		        .then().statusCode(200);
-//
-//        List<User> usrs = Arrays.asList(response.getBody().as(User[].class));
-//  		Assertions.assertEquals( 2, usrs.size());
-//	}
-//	
-//	@Test
-//	@Order(2)
-//	public void GetUsers() {
-//    	Response response =
-//			        given()
-//			        .contentType(MediaType.APPLICATION_JSON)
-//			        .when()
-//			        .get("/users");
-//			        response
-//			        .then().statusCode(200);
-//        
-//	List<User> usrs = Arrays.asList(response.getBody().as(User[].class));
-//		Assertions.assertEquals( usrA.getLastName(), usrs.get(0).getLastName());
-//		Assertions.assertEquals( usrB.getLastName(), usrs.get(1).getLastName());
-//	}
-//	
-//	
-//	@Test
-//	@Order(3)
-//	public void GetUser() {
-//		Long id = 1l;
-//		Response response = 
-//	        given()
-//	        .pathParam("id", id)
-//	        .contentType(MediaType.APPLICATION_JSON)
-//	        .when()
-//	        .get("/users/{id}");
-//			response.then().statusCode(200);
-//			
-//			User usr = response.getBody().as(User.class);
-//			Assertions.assertEquals( usrA.getLastName(), usr.getLastName());
-//	}
+	@Test
+	@Order(1)
+	public void getAnzUsers() {
+		Response response =
+		        given()
+		        .contentType(MediaType.APPLICATION_JSON)
+		        .when()
+		        .get("/users");
+		        response
+		        .then().statusCode(200);
+
+       List<User> usrs = Arrays.asList(response.getBody().as(User[].class));
+ 		Assertions.assertEquals( 2, usrs.size());
+	}
+	
+	@Test
+	@Order(2)
+	public void GetUsers() {
+   	Response response =
+			        given()
+			        .contentType(MediaType.APPLICATION_JSON)
+			        .when()
+			        .get("/users");
+			        response
+			        .then().statusCode(200);
+       
+	List<User> usrs = Arrays.asList(response.getBody().as(User[].class));
+		Assertions.assertEquals( usrA.getLastName(), usrs.get(0).getLastName());
+		Assertions.assertEquals( usrB.getLastName(), usrs.get(1).getLastName());
+	}
+	
+	
+	@Test
+	@Order(3)
+	public void GetUser() {
+		Long id = 1l;
+		Response response = 
+	        given()
+	        .pathParam("id", id)
+	        .contentType(MediaType.APPLICATION_JSON)
+	        .when()
+	        .get("/users/{id}");
+			response.then().statusCode(200);
+			
+			User usr = response.getBody().as(User.class);
+			Assertions.assertEquals( usrA.getLastName(), usr.getLastName());
+	}
 
 	
 	@Test

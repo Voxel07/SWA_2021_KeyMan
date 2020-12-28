@@ -2,25 +2,20 @@ package de.hse.swa.jaxquarkus.step4.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.OneToMany;
 
 
 @Entity
 @Table(name = "COMPANY")
 public class Company {
-    // public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
 
     @Id
     @SequenceGenerator(name = "cmpySeq", sequenceName = "ZSEQ_cmpy_ID", allocationSize = 1, initialValue = 10)

@@ -14,11 +14,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import de.hse.swa.jaxquarkus.step4.model.Phone;
-import de.hse.swa.jaxquarkus.step4.model.Contract;
+
 import de.hse.swa.jaxquarkus.step4.model.User;
 import de.hse.swa.jaxquarkus.step4.orm.UserOrm;
 
-import org.json.JSONObject;
+
 
 
 @Path("/users")
@@ -30,13 +30,13 @@ public class UserResource {
     UserOrm userOrm;
 
     
-//    @GET
-//    @Produces("application/json")
-//    @Consumes("application/json")
-//    public List<User> getUsers() 
-//    {
-//        return userOrm.getUsers();
-//    }
+   @GET
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public List<User> getUsers() 
+   {
+       return userOrm.getUsers();
+   }
    
     
     @GET
@@ -55,9 +55,8 @@ public class UserResource {
     public List<Phone> getUserPhones(User u){
     	System.out.println("Allo get user Phones");
     	List<Phone> result = userOrm.getUserPhones(u);
-    	System.out.println("Ich war in der ORM und bin glücklich");
-    	return result;
-    	
+    	System.out.println("Ich war in der ORM und bin glï¿½cklich");
+    	return result;	
     }
     
   

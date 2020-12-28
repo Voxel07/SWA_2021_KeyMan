@@ -1,5 +1,4 @@
 package de.hse.swa.jaxquarkus;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -11,7 +10,6 @@ import de.hse.swa.jaxquarkus.step4.orm.UserOrm;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.response.Response;
 import javax.inject.Inject;
 
 

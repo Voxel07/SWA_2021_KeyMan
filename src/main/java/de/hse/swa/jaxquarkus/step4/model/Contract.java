@@ -1,10 +1,7 @@
 package de.hse.swa.jaxquarkus.step4.model;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +9,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -44,19 +40,10 @@ public class Contract {
     @Column(name = "licenskey", length = 10000)
     private String licenskey;
 
-    //Löscht zu viel
-   @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "contracts")
-    //Löscht nicht genug
-   // @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH}, mappedBy = "contracts")
-   // private  List<User> users = new ArrayList<>();
-    
-    //hier richtig ?
-//    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-//    @JoinTable(
-//    		name = "user_contracts",
-//    		joinColumns = {@JoinColumn(name = "User_id", referencedColumnName="id")},
-//    		inverseJoinColumns = {@JoinColumn(name = "Contract_id", referencedColumnName="id")}
-//    		)
+    //Lï¿½scht zu viel
+//    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "contracts")
+    //Lï¿½scht nicht genug
+   @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH}, mappedBy = "contracts")
     private  List<User> users = new ArrayList<>();
     
    
