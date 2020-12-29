@@ -176,4 +176,27 @@ public class contract_t{
 	        .then()
 			.statusCode(200).body(is("Ip "+FB.getNumber()+" removed"));
 	}
+	
+	@Test
+	@Order(10)
+	public void removeAllIp() {
+		IpA.setId(10l);
+		given()
+	        .contentType(MediaType.APPLICATION_JSON)
+	        .body(IpA)
+	        .when()
+	        .delete("/contracts/remove/Ip")	
+	        .then()
+			.statusCode(200).body(is("Ip "+FB.getNumber()+" removed"));
+	}
 }
+	
+	
+	
+	
+	
+	
+	
+}
+
+
