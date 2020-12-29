@@ -6,6 +6,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import de.hse.swa.jaxquarkus.step4.model.Contract;
 import de.hse.swa.jaxquarkus.step4.model.Feature;
 import de.hse.swa.jaxquarkus.step4.model.IpNumber;
+import de.hse.swa.jaxquarkus.step4.model.User;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import io.quarkus.test.junit.QuarkusTest;
@@ -34,13 +35,25 @@ public class contract_t{
 	@Test
 	@Order(1)
 	public void AddContract() {
+		
 		Response response = 
-		        given()
-		        .contentType(MediaType.APPLICATION_JSON)
-		        .body(contractC)
-		          .when()
-		          .put("/contracts");		
-		          response.then().statusCode(204);	 
+				 given()
+				 .contentType(MediaType.APPLICATION_JSON)
+				 .body(contractC)
+				 .when()
+				 .put("/contracts");		
+				 response.then().statusCode(204);
+		          
+	     response =
+    	        given()     	    
+    	        .contentType(MediaType.APPLICATION_JSON)
+    	        .when()
+    	        .get("/contracts");		      	    	
+	        	response
+    	        .then()
+    	        .statusCode(200);
+	        	List<Contract> contracts = Arrays.asList(response.getBody().as(Contract[].class));
+     			Assertions.assertEquals( contractC.getStartDate(), contracts.get(0).getStartDate());	     	  	
 	} 
 		
 	@Test
@@ -176,4 +189,44 @@ public class contract_t{
 	        .then()
 			.statusCode(200).body(is("Ip "+FB.getNumber()+" removed"));
 	}
+	
+	@Test
+	@Order(10)
+	public void removeAllIpFromContract() {
+		IpA.setId(10l);
+		contractC.setId(10l);
+		
+		given()
+	        .contentType(MediaType.APPLICATION_JSON)
+	        .body(contractC)
+	        .when()
+	        .delete("/contracts")	
+	        .then()
+			.statusCode(200).body(is("Ips removed"));
+	}
+
+	@Test
+	@Order(11)
+	public void removeAllFeaturesFromContract() {
+		FB.setId(10l);
+		contractC.setId(10l);
+		
+		given()
+	        .contentType(MediaType.APPLICATION_JSON)
+	        .body(contractC)
+	        .when()
+	        .delete("/contracts")	
+	        .then()
+	        .statusCode(200).body(is("true"));
+	}
 }
+	
+	
+	
+	
+	
+	
+	
+
+
+
