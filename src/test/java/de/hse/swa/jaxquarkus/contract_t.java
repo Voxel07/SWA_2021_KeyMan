@@ -6,6 +6,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import de.hse.swa.jaxquarkus.step4.model.Contract;
 import de.hse.swa.jaxquarkus.step4.model.Feature;
 import de.hse.swa.jaxquarkus.step4.model.IpNumber;
+import de.hse.swa.jaxquarkus.step4.model.User;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import io.quarkus.test.junit.QuarkusTest;
@@ -34,13 +35,25 @@ public class contract_t{
 	@Test
 	@Order(1)
 	public void AddContract() {
+		
 		Response response = 
-		        given()
-		        .contentType(MediaType.APPLICATION_JSON)
-		        .body(contractC)
-		          .when()
-		          .put("/contracts");		
-		          response.then().statusCode(204);	 
+				 given()
+				 .contentType(MediaType.APPLICATION_JSON)
+				 .body(contractC)
+				 .when()
+				 .put("/contracts");		
+				 response.then().statusCode(204);
+		          
+	     response =
+    	        given()     	    
+    	        .contentType(MediaType.APPLICATION_JSON)
+    	        .when()
+    	        .get("/contracts");		      	    	
+	        	response
+    	        .then()
+    	        .statusCode(200);
+	        	List<Contract> contracts = Arrays.asList(response.getBody().as(Contract[].class));
+     			Assertions.assertEquals( contractC.getStartDate(), contracts.get(0).getStartDate());	     	  	
 	} 
 		
 	@Test

@@ -129,18 +129,6 @@ public class ContractOrm  {
 		}
     }
 
-    @Transactional
-    public Boolean removeAllFeaturesfromContract(Contract c) {
-		System.out.println("ContractOrm/removeAllFeaturesfromContract");
-		if(!getFeaturesByContract(c.getId()).isEmpty()){
-			return	em.createQuery("DELETE FROM Features WHERE contract_id =: val")/*Ich bin Wichtig !!*/
-			.setParameter("val", c.getId())
-			.executeUpdate()==1;
-		}
-		else{
-			return true;
-		}
-    }
 
     @Transactional
     public String addFeature(Long contractId, Feature f) {
@@ -190,6 +178,18 @@ public class ContractOrm  {
     	return "kaputt";
     }
     
+    @Transactional
+    public Boolean removeAllFeaturesfromContract(Contract c) {
+		System.out.println("ContractOrm/removeAllFeaturesfromContract");
+		if(!getFeaturesByContract(c.getId()).isEmpty()){
+			return	em.createQuery("DELETE FROM Features WHERE contract_id =: val")/*Ich bin Wichtig !!*/
+			.setParameter("val", c.getId())
+			.executeUpdate()==1;
+		}
+		else{
+			return true;
+		}
+    }
     @Transactional
     public List<Feature> getFeaturesByContract(Long contract_id) {
 		TypedQuery<Feature> query = em.createQuery("SELECT f FROM Feature f WHERE f.contract_id =:val", Feature.class);
