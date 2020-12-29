@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Column;
 
 
@@ -67,9 +68,8 @@ public class Phone{
         this.type = name;
     }
     
-    //Geht nur bei bidirektionalen verbindungen
- 
-   
+   //Ab hier zusammenhang mit der Phone Klasse
+   @JsonbTransient
     public User getUsr() {
 		return usr;
 	}

@@ -1,9 +1,11 @@
 package de.hse.swa.jaxquarkus.step4.orm;
+
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
@@ -19,11 +21,11 @@ public class PhoneOrm{
 		TypedQuery<Phone> query = em.createQuery("SELECT p FROM Phone p", Phone.class);
      	return query.getResultList();
 	}
-	public Phone getPhoneByNumber(String number) {
+	public List<Phone> getPhoneByNumber(String number) {
 		System.out.println("PhoneORM/getPhoneByNumber");
 		TypedQuery<Phone> query = em.createQuery("SELECT p FROM Phone p WHERE p.number =:val", Phone.class);
 		query.setParameter("val", number);
-		return query.getSingleResult();
+		return query.getResultList();
 	}
 
     public List<Phone> getUserPhones(Long usrId){
@@ -34,8 +36,14 @@ public class PhoneOrm{
     }
 	
 	@Transactional
-	public void updatePhone(Phone phone) {
-		em.merge(phone);
+	public Boolean updatePhone(Phone phone) {
+		if(getPhoneByNumber(phone.getNumber()).isEmpty()){
+			em.merge(phone);
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 	@Transactional
     public String addPhone(Long usrId, Phone p) {
@@ -81,7 +89,7 @@ public class PhoneOrm{
 			//hat gefehlt
 			ph.setUsr(usr);
 			em.persist(usr);
-			return "User added";
+			return "Phone added";
 		}
 		else {
 			System.out.println(error);
@@ -90,15 +98,22 @@ public class PhoneOrm{
 	}
     
     @Transactional
-    public Boolean removePhone(Phone p) {
-    	
-    	try {
-			em.remove(em.contains(p) ? p : em.merge(p));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
+    public Boolean removePhoneFromUser(Phone p) {
+		return	em.createQuery("DELETE FROM Phone WHERE number =: val")/*Ich bin Wichtig !!*/
+		.setParameter("val", p.getNumber())
+		.executeUpdate()==1;
+	}
+	@Transactional
+    public Boolean removeAllPhonesFromUser(User u) {
+		System.out.println("PhoneOrm/removeAllPhonesFromUser");
+		if(!getUserPhones(u.getId()).isEmpty()){
+			return	em.createQuery("DELETE FROM Phone WHERE usr_id =: val")/*Ich bin Wichtig !!*/
+			.setParameter("val", u.getId())
+			.executeUpdate()==1;
 		}
-    	return true;
+		else{
+			return true;
+		}
     }
 
 

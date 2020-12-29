@@ -3,6 +3,7 @@ package de.hse.swa.jaxquarkus.step4.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -59,7 +60,7 @@ public class User {
 //    private Company companyU;
     
     @OneToMany(mappedBy="usr",cascade = {CascadeType.ALL},fetch=FetchType.LAZY )
-	private  List<Phone> phones = new ArrayList<>();
+	private List<Phone> phones = new ArrayList<>();
 
 
     public User() {
@@ -130,6 +131,7 @@ public class User {
     }
     
     //Ab hier zusammenhang mit der Phone Klasse
+    @JsonbTransient
     public List<Phone> getPhones(){
     	return this.phones;
     }
@@ -140,7 +142,8 @@ public class User {
     public void removePhone(Phone phone) {
     	getPhones().remove(phone);
     }
-    
+
+    //Ab hier zusammenhang mit der Contract Klasse
 	public void setContracts(List<Contract> contracts) {
     	this.contracts = contracts;
     }

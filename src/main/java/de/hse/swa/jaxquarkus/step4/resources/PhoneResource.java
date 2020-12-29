@@ -11,11 +11,11 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import de.hse.swa.jaxquarkus.step4.orm.PhoneOrm;
 import de.hse.swa.jaxquarkus.step4.model.Phone;
 import de.hse.swa.jaxquarkus.step4.model.User;
-
 @Path("/phones")
 public class PhoneResource {
 	
@@ -25,55 +25,46 @@ public class PhoneResource {
     PhoneOrm phoneOrm;
 
 	@GET
+	// @Path("teste")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-	public List<Phone> getPhones() {
-		 
-		 return phoneOrm.getPhones();
-	 }
-	
-	@GET
-	@Path("{number}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Phone getPhoneByNumber(@PathParam("number") String number)
-    {
-        return phoneOrm.getPhoneByNumber(number);
+    public List<Phone> getPhones(@QueryParam("number") String number, @QueryParam("usr_id") Long usrId)
+    {   
+        if(number != null){
+          return phoneOrm.getPhoneByNumber(number);
+        } 
+        else if(usrId!=null){
+            return phoneOrm.getUserPhones(usrId);
+        }
+        else{  
+            return  phoneOrm.getPhones();
+        }
+      
     }
-
-	@GET
-	@Path("{usr_id}")
+   
+    @PUT
+    @Path("add/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public List <Phone> getPhoneByUser(@PathParam("usr_id") Long usrId)
+    public String updatePhone(@PathParam("id") Long UserId, Phone p ) 
     {
-        return phoneOrm.getUserPhones(usrId);
-    }
-	       
-    @POST
-    @Path("/add/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public String updatePhone(@PathParam("id") Long UserId, Phone p) 
-    {
-    	
         return phoneOrm.addPhone(UserId,p);
     }
 
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-	public void updatePhone(Phone phone) 
+	public Boolean updatePhone(Phone phone) 
     { 	
-        phoneOrm.updatePhone(phone);
+       return phoneOrm.updatePhone(phone);
     }
 
 	@DELETE
-    @Path("/remove")
+    @Path("remove")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Boolean removePhone(Phone p) 
     {
-        return phoneOrm.removePhone(p);
+        return phoneOrm.removePhoneFromUser(p);
     }
 }

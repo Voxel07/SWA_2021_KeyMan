@@ -15,7 +15,8 @@ import de.hse.swa.jaxquarkus.step4.model.*;
 public class UserOrm {
     @Inject
     EntityManager em; 
-    
+    PhoneOrm phoneOrm;
+    ContractOrm contractOrm;
     
     public int getAnz () {
     	TypedQuery<User> query = em.createQuery("SELECT count(e) FROM User e",User.class);
@@ -54,7 +55,22 @@ public class UserOrm {
      
     @Transactional
     public void deleteUser(User usr){ 	
-    	em.remove(em.contains(usr) ? usr : em.merge(usr));
+        System.out.println("UserOrm/deleteUser");
+        System.out.println(usr.toString());
+        String fehler ="";
+        if(phoneOrm.removeAllPhonesFromUser(usr)==null){
+            System.out.println("Nullptr");
+        }
+        if(phoneOrm.removeAllPhonesFromUser(usr)){
+            em.createQuery("DELETE FROM User WHERE id =: val")/*Ich bin Wichtig !!*/
+            .setParameter("val", usr.getId())
+            .executeUpdate();
+        }
+        else{
+            System.out.println("fehler");
+        }
+        // contractOrm.rem....
+      
     }
  
     //Kompliziertere Querrys
