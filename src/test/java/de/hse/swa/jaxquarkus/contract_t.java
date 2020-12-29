@@ -179,15 +179,32 @@ public class contract_t{
 	
 	@Test
 	@Order(10)
-	public void removeAllIp() {
+	public void removeAllIpFromContract() {
 		IpA.setId(10l);
+		contractC.setId(10l);
+		
 		given()
 	        .contentType(MediaType.APPLICATION_JSON)
-	        .body(IpA)
+	        .body(contractC)
 	        .when()
-	        .delete("/contracts/remove/Ip")	
+	        .delete("/contracts")	
 	        .then()
-			.statusCode(200).body(is("Ip "+FB.getNumber()+" removed"));
+			.statusCode(200).body(is("Ips removed"));
+	}
+
+	@Test
+	@Order(11)
+	public void removeAllFeaturesFromContract() {
+		FB.setId(10l);
+		contractC.setId(10l);
+		
+		given()
+	        .contentType(MediaType.APPLICATION_JSON)
+	        .body(contractC)
+	        .when()
+	        .delete("/contracts")	
+	        .then()
+	        .statusCode(200).body(is("true"));
 	}
 }
 	
@@ -197,6 +214,6 @@ public class contract_t{
 	
 	
 	
-}
+
 
 

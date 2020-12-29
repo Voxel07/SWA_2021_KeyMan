@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 
 import de.hse.swa.jaxquarkus.step4.model.Contract;
 import de.hse.swa.jaxquarkus.step4.model.IpNumber;
+import de.hse.swa.jaxquarkus.step4.model.User;
 import de.hse.swa.jaxquarkus.step4.model.Feature;
 
 @ApplicationScoped
@@ -115,7 +116,32 @@ public class ContractOrm  {
     	return "kaputt";
     }
     
-    
+    @Transactional
+    public Boolean removeAllIpsfromContract(Contract c) {
+		System.out.println("ContractOrm/removeAllIpsfromContract");
+		if(!getIpNumberByContract(c.getId()).isEmpty()){
+			return	em.createQuery("DELETE FROM IpNumbers WHERE contract_id =: val")/*Ich bin Wichtig !!*/
+			.setParameter("val", c.getId())
+			.executeUpdate()==1;
+		}
+		else{
+			return true;
+		}
+    }
+
+    @Transactional
+    public Boolean removeAllFeaturesfromContract(Contract c) {
+		System.out.println("ContractOrm/removeAllFeaturesfromContract");
+		if(!getFeaturesByContract(c.getId()).isEmpty()){
+			return	em.createQuery("DELETE FROM Features WHERE contract_id =: val")/*Ich bin Wichtig !!*/
+			.setParameter("val", c.getId())
+			.executeUpdate()==1;
+		}
+		else{
+			return true;
+		}
+    }
+
     @Transactional
     public String addFeature(Long contractId, Feature f) {
     	int anzNumber = 0; 
@@ -169,6 +195,13 @@ public class ContractOrm  {
 		TypedQuery<Feature> query = em.createQuery("SELECT f FROM Feature f WHERE f.contract_id =:val", Feature.class);
 		query.setParameter("val", contract_id);
 		//Hier muss noch abgefangen werden, wenn der Nutzer keine Telefonnummer hat
+		return query.getResultList();
+	}
+    @Transactional
+    public List<IpNumber> getIpNumberByContract(Long contract_id) {
+    	System.out.println("ContractORM/getIpNumberByContract");
+		TypedQuery<IpNumber> query = em.createQuery("SELECT f FROM IpNumber f WHERE f.contract_id =:val", IpNumber.class);
+		query.setParameter("val", contract_id);
 		return query.getResultList();
 	}
 
