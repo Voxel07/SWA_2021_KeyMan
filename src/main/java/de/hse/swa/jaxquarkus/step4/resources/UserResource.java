@@ -14,6 +14,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import de.hse.swa.jaxquarkus.step4.model.User;
+import de.hse.swa.jaxquarkus.step4.orm.PhoneOrm;
 import de.hse.swa.jaxquarkus.step4.orm.UserOrm;
 
 
@@ -25,8 +26,7 @@ public class UserResource {
     @ApplicationScoped
     @Inject
     UserOrm userOrm;
-
-    
+   
    @GET
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)

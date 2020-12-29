@@ -5,7 +5,6 @@ import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
@@ -107,9 +106,10 @@ public class PhoneOrm{
     public Boolean removeAllPhonesFromUser(User u) {
 		System.out.println("PhoneOrm/removeAllPhonesFromUser");
 		if(!getUserPhones(u.getId()).isEmpty()){
-			return	em.createQuery("DELETE FROM Phone WHERE usr_id =: val")/*Ich bin Wichtig !!*/
+			int anz = em.createQuery("DELETE FROM Phone WHERE user_id =: val")/*Ich bin Wichtig !!*/
 			.setParameter("val", u.getId())
-			.executeUpdate()==1;
+			.executeUpdate();
+			return anz == 1 || anz ==2;
 		}
 		else{
 			return true;

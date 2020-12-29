@@ -1,4 +1,5 @@
 package de.hse.swa.jaxquarkus;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -6,6 +7,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 import de.hse.swa.jaxquarkus.step4.model.Phone;
 import de.hse.swa.jaxquarkus.step4.model.User;
+import de.hse.swa.jaxquarkus.step4.orm.PhoneOrm;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import io.quarkus.test.junit.QuarkusTest;
@@ -18,13 +20,16 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.ws.rs.core.MediaType;
-
+import javax.inject.Inject;
 @QuarkusTest
 @TestMethodOrder(OrderAnnotation.class)
 public class phone_t{
 	private static Phone phoneA = new Phone("Anumber", "Atype");  
 	private static Phone phoneB = new Phone("Bnumber", "Btype");
 	private static Phone phoneC = new Phone("Cnumber", "Ctype");
+	
+	@Inject
+	PhoneOrm phoneOrm;
 	
 	@Test
 	@Order(1)
@@ -110,7 +115,7 @@ public class phone_t{
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(phoneA)
 	        .when()
-	        .delete("/phones/remove")	
+	        .delete("/phones")	
 	        .then()
 	        .statusCode(200).body(is("true"));
 	}
@@ -177,13 +182,14 @@ public class phone_t{
 	public void removeAllPhoneFromUser() {
 	User usrC = new User("Cemail", "Cusername", "Cpassword", "Cfirst", "Clast", true); 
 		phoneB.setId(1l);
-		usrC.setId(10l);
+		usrC.setId(1l);
+	//	phoneOrm.removeAllPhonesFromUser(usrC);
 		 
 		 given()
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(usrC)
 	        .when()
-	        .delete("/users")	
+	        .delete("/phones/all")	
 	        .then()
 	        .statusCode(200).body(is("true"));
 	}

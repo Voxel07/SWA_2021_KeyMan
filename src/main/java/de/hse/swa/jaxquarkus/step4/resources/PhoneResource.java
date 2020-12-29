@@ -60,11 +60,18 @@ public class PhoneResource {
     }
 
 	@DELETE
-    @Path("remove")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Boolean removePhone(Phone p) 
     {
         return phoneOrm.removePhoneFromUser(p);
+    }
+    @DELETE
+    @Path("all")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Boolean removePhone(User u) 
+    {
+        return phoneOrm.removeAllPhonesFromUser(u);
     }
 }

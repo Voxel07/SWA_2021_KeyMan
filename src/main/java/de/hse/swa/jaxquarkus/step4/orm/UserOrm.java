@@ -11,11 +11,14 @@ import de.hse.swa.jaxquarkus.step4.model.*;
 
 
 
+
 @ApplicationScoped
 public class UserOrm {
     @Inject
     EntityManager em; 
+    @Inject
     PhoneOrm phoneOrm;
+    @Inject
     ContractOrm contractOrm;
     
     public int getAnz () {
@@ -58,19 +61,18 @@ public class UserOrm {
         System.out.println("UserOrm/deleteUser");
         System.out.println(usr.toString());
         String fehler ="";
-        if(phoneOrm.removeAllPhonesFromUser(usr)==null){
-            System.out.println("Nullptr");
-        }
-        if(phoneOrm.removeAllPhonesFromUser(usr)){
-            em.createQuery("DELETE FROM User WHERE id =: val")/*Ich bin Wichtig !!*/
-            .setParameter("val", usr.getId())
-            .executeUpdate();
+
+      
+        if(Boolean.FALSE.equals(phoneOrm.removeAllPhonesFromUser(usr))){
+         fehler = "removePhone";
         }
         else{
-            System.out.println("fehler");
+            System.out.println("wroks");
         }
         // contractOrm.rem....
-      
+        em.createQuery("DELETE FROM User WHERE id =: val")/*Ich bin Wichtig !!*/
+        .setParameter("val", usr.getId())
+        .executeUpdate();
     }
  
     //Kompliziertere Querrys

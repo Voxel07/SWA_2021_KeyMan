@@ -131,12 +131,21 @@ public class user_t{
 	public void DeleteUser() {
 		
 		Phone phoneA = new Phone("Anumber", "Atype"); 
+		Phone phoneB = new Phone("Bnumber", "Btype"); 
 		usrA.setId(1l);
 
 		given()
 		.pathParam("id", usrA.getId())
 	   .contentType(MediaType.APPLICATION_JSON)
 	   .body(phoneA)
+	   .when()
+	   .put("/phones/add/{id}")	
+	   .then()
+	   .statusCode(200).body(is("Phone added"));
+	   given()
+		.pathParam("id", usrA.getId())
+	   .contentType(MediaType.APPLICATION_JSON)
+	   .body(phoneB)
 	   .when()
 	   .put("/phones/add/{id}")	
 	   .then()
