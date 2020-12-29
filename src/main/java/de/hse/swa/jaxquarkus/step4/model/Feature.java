@@ -7,6 +7,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Column;
 
 @Entity
@@ -49,7 +50,7 @@ public class Feature{
     public void setNumber(String name) {
         this.number = name;
     }
-    
+    @JsonbTransient
     public Contract getCrtF() {
 		return crtF;
 	}

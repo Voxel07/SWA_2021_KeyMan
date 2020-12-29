@@ -7,6 +7,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Column;
 
 @Entity
@@ -20,7 +21,7 @@ public class IpNumber{
     @Column(name = "id", unique = true)
     private Long id;
     
-    @Column(name="number")
+    @Column(name="number", unique = true)
     private String ipNumber;
     
     @ManyToOne
@@ -49,23 +50,17 @@ public class IpNumber{
     
 	public void setIpNumber(String ipNumber) {
 		this.ipNumber = ipNumber;
-	}
-	
+    }
+    
+    @JsonbTransient
 	public Contract getCrtIP() {
 		return crtIP;
 	}
 	
 	public void setCrtIP(Contract crtIP) {
 		this.crtIP = crtIP;
-	}
-	
-	public Contract getContract() {
-    	return this.crtIP;
     }
     
-    public void setContract(Contract crt) {
-   	this.crtIP = crt;
-    }
 	@Override
 	public String toString() {
 		return "IpNumbers [id=" + id + ", ipNumber=" + ipNumber + "]";

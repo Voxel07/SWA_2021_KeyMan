@@ -2,6 +2,8 @@ package de.hse.swa.jaxquarkus.step4.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -45,9 +47,6 @@ public class Contract {
     //L�scht nicht genug
    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH}, mappedBy = "contracts")
     private  List<User> users = new ArrayList<>();
-    
-   
-   
    
     @OneToMany(mappedBy="crtF",cascade = {CascadeType.ALL}, fetch=FetchType.LAZY)
     private  List<Feature> features = new ArrayList<>(); 
@@ -92,33 +91,32 @@ public class Contract {
         this.endDate = endDate;
     }
 
-    // @JsonIgnore()
     public String getVersion() {
         return version;
     }
 
-    // @JsonProperty()
     public void setVersion(String version) {
         this.version = version;
     }
+
     public String getLicenskey() {
         return licenskey;
     }
+
     public void setLicenskey(String licenskey) {
         this.licenskey = licenskey;
     }
     
     //Ab hier Funktionen mit IP & Features & User
-    
+    @JsonbTransient
     public List<User> getUsers(){
-    	
     	return this.users;
     }
     
     public void setUsers(List<User> users) {
 		this.users = users;
 	}
-  
+    @JsonbTransient
     public List<Feature> getFeatures() {
 		return features;
 	}
@@ -126,7 +124,7 @@ public class Contract {
 	public void setFeatures(List<Feature> feature) {
 		this.features = feature;
 	}
-
+    @JsonbTransient
 	public List<IpNumber> getIpNumbers() {
 		return ipNumbers;
 	}
@@ -134,10 +132,6 @@ public class Contract {
 	public void setIpNumbers(List<IpNumber> ipNumbers) {
 		this.ipNumbers = ipNumbers;
 	}
-
-	public List <IpNumber> getIps(){
-    	return this.ipNumbers;
-    }
 
 	@Override
 	public String toString() {

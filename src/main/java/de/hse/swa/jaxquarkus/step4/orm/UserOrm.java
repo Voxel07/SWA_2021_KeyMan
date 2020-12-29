@@ -66,10 +66,13 @@ public class UserOrm {
         if(Boolean.FALSE.equals(phoneOrm.removeAllPhonesFromUser(usr))){
          fehler = "removePhone";
         }
+        else if(Boolean.FALSE.equals(contractOrm.removeAllContractsFromUser(usr))){
+
+        }
         else{
             System.out.println("wroks");
         }
-        // contractOrm.rem....
+      
         em.createQuery("DELETE FROM User WHERE id =: val")/*Ich bin Wichtig !!*/
         .setParameter("val", usr.getId())
         .executeUpdate();

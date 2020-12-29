@@ -8,7 +8,7 @@ import de.hse.swa.jaxquarkus.step4.orm.CompanyOrm;
 import de.hse.swa.jaxquarkus.step4.orm.ContractOrm;
 import de.hse.swa.jaxquarkus.step4.orm.PhoneOrm;
 import de.hse.swa.jaxquarkus.step4.orm.UserOrm;
-
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import io.quarkus.test.junit.QuarkusTest;
 import javax.inject.Inject;
@@ -78,6 +78,8 @@ public class all_t{
 		FA.setId(10l);
 		FB.setId(11l);
 		FC.setId(12l);
+		Assertions.assertEquals(2, usrA.getId());
+
 	}
 	
 	@Test
@@ -88,29 +90,26 @@ public class all_t{
     	contractC.getUsers().add(usrA);
     	usrC.getContracts().add(contractC);
     	usrA.getContracts().add(contractC);
-    	contractOrm.updateContract(contractC);
+		contractOrm.updateContract(contractC);
+		
+	
+ 		Assertions.assertEquals(2, usrA.getId());
 
 	}
-	
-	@Test
-	@Order(3)
-	public void userAddPhone() {
-		usrC.getPhones().add(phoneA);
-		usrC.getPhones().add(phoneB);
-		usrC.getPhones().add(phoneC);
-		userOrm.updateUser(usrC);
-		
-	}
+
 	@Test
 	@Order(4)
 	public void ContractAddStuff() {
 		contractA.getFeatures().add(FA);
+		FA.setCrtF(contractA);
 		contractA.getFeatures().add(FB);
 		contractA.getFeatures().add(FC);
 		contractA.getIpNumbers().add(IpA);
 		contractA.getIpNumbers().add(IpB);
 		contractA.getIpNumbers().add(IpC);
 		contractOrm.updateContract(contractA);
+		Assertions.assertEquals(2, usrA.getId());
+
 	}
 	
 	@Test
@@ -121,6 +120,8 @@ public class all_t{
 		companyB.getUsers().add(usrC);
 		companyOrm.updateCompany(companyA);
 		companyOrm.updateCompany(companyB);
+		Assertions.assertEquals(2, usrA.getId());
+
 	}
 	@Test
 	@Order(6)
@@ -129,13 +130,17 @@ public class all_t{
 		companyA.getContracts().add(contractB);
 		companyB.getContracts().add(contractC);
 		companyOrm.updateCompany(companyA);
+		Assertions.assertEquals(2, usrA.getId());
+
 		
 	}
-//	@Test
-//	@Order(7)
-//	public void removeUser() {
-//		userOrm.deleteUser(usrC);
-//	}
+	@Test
+	@Order(7)
+	public void removeUser() {
+		userOrm.deleteUser(usrC);
+		Assertions.assertEquals(2, usrA.getId());
+
+	}
 	
 
 	//@Test
@@ -148,22 +153,30 @@ public class all_t{
 	@Order(9)
 	public void testAddPhone() {
 		phoneOrm.addPhone(1L, phoneA);
+		Assertions.assertEquals(2, usrA.getId());
+
 	}
 	// test contracts
 	@Test
 	@Order(10)
 	public void testAddIp() {
+		Assertions.assertEquals(2, usrA.getId());
+
 //		contractOrm.addIp(1L, "444.444.444.444");
 	}
 	
 	@Test
 	@Order(11)
 	public void testAddFeature() {
+		Assertions.assertEquals(2, usrA.getId());
+
 //		contractOrm.addFeature(2L, "33");
 	}
 	@Test
 	@Order(12)
 	public void testRemoveFeature() {
+		Assertions.assertEquals(2, usrA.getId());
+
 //		contractOrm.removeFeature(10L, FA);
 	}	
 	
