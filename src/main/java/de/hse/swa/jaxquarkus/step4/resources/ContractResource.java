@@ -47,16 +47,7 @@ public class ContractResource {
             return  contractOrm.getContracts();
         }
     }
-    
-    @GET
-	@Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Contract getContract(@PathParam("id") Long id)
-    {
-        return contractOrm.getContract(id); 
-    }
-    
+        
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)

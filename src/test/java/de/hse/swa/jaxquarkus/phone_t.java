@@ -40,7 +40,7 @@ public class phone_t{
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(phoneA)
 	        .when()
-	        .put("/phones/add/{id}")	
+	        .put("/phones/{id}")	
 	        .then()
 	        .statusCode(200).body(is("Phone added"));
 
@@ -55,7 +55,7 @@ public class phone_t{
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(phoneA)
 	        .when()
-	        .put("/phones/add/{id}")	
+	        .put("/phones/{id}")	
 	        .then()
 	        .statusCode(200).body(is("Doppelte Nr entdeckt bei User: 10"));
 
@@ -70,7 +70,7 @@ public class phone_t{
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(phoneB)
 	        .when()
-	        .put("/phones/add/{id}")	
+	        .put("/phones/{id}")	
 	        .then()
 	        .statusCode(200).body(is("Phone added"));
 
@@ -84,7 +84,7 @@ public class phone_t{
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(phoneC)
 	        .when()
-	        .put("/phones/add/{id}")	
+	        .put("/phones/{id}")	
 	        .then()
 	        .statusCode(200).body(is("Max anz erreicht"));
 

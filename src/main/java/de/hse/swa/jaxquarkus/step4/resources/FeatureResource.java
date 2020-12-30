@@ -30,20 +30,19 @@ public class FeatureResource {
 	// @Path("teste")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public List<Feature> getPhones(@QueryParam("number") String number, @QueryParam("usr_id") Long ftrId)
+    public List<Feature> getFeature(@QueryParam("number") String number, @QueryParam("ctr_id") Long ctrId)
     {   
         if(number != null){
           return featureOrm.getFeatureByNumber(number);
         } 
-        else if(ftrId!=null){
-            return featureOrm.getContractFeatures(ftrId);
+        else if(ctrId!=null){
+            return featureOrm.getContractFeatures(ctrId);
         }
         else{  
             return  featureOrm.getFeatures();
         }
     }
   
-    
     @POST
 	@Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)

@@ -139,7 +139,7 @@ public class user_t{
 	   .contentType(MediaType.APPLICATION_JSON)
 	   .body(phoneA)
 	   .when()
-	   .put("/phones/add/{id}")	
+	   .put("/phones/{id}")	
 	   .then()
 	   .statusCode(200).body(is("Phone added"));
 	   given()
@@ -147,7 +147,7 @@ public class user_t{
 	   .contentType(MediaType.APPLICATION_JSON)
 	   .body(phoneB)
 	   .when()
-	   .put("/phones/add/{id}")	
+	   .put("/phones/{id}")	
 	   .then()
 	   .statusCode(200).body(is("Phone added"));
 

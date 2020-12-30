@@ -1,7 +1,6 @@
 package de.hse.swa.jaxquarkus.step4.orm;
 
 import java.util.List;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -10,6 +9,7 @@ import javax.transaction.Transactional;
 
 import de.hse.swa.jaxquarkus.step4.model.Phone;
 import de.hse.swa.jaxquarkus.step4.model.User;
+
 @ApplicationScoped
 public class PhoneOrm{
 	

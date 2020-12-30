@@ -11,7 +11,7 @@ import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Column;
 
 @Entity
-@Table(name ="Features")
+@Table(name ="Feature")
 public class Feature{
 
     @Id

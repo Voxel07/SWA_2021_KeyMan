@@ -35,9 +35,16 @@ public class FeatureOrm {
 
     @Transactional
 	public Boolean updateFeature(Feature feature) {
+		System.out.println("FeatureORM/updateFeature");
+		
+
+		
         if(getFeatureByNumber(feature.getNumber()).isEmpty()){
-			em.merge(feature);
-			return true;
+
+			return em.createQuery("UPDATE Feature SET number =: val1 WHERE id =: val2")
+			.setParameter("val1", feature.getNumber())
+			.setParameter("val2", feature.getId())
+			.executeUpdate()==1;
 		}
 		else{
 			return false;
@@ -46,7 +53,8 @@ public class FeatureOrm {
    
     @Transactional
     public String addFeature(Long contractId, Feature f) {
-    	int anzNumber = 0; 
+		Boolean duplicate = false;
+		int anzNumber = 0; 
     	String error = "Max anz erreicht";
     	
     	System.out.println("Aus der ORM: "+" ID: "+contractId+" number: "+f);  	
@@ -58,8 +66,19 @@ public class FeatureOrm {
 		System.out.println("AnzResultsQuery: "+ query.getResultList().size());
 		
 		//Check all IpNumbers
-			  
-		if(query.getResultList().size() <= 2) {	
+		for(Feature elem : query.getResultList()) {
+			System.out.println("AktElement: "+ elem );
+			//if(elem.getNumber()==number) geht nicht aus Gr�nden 
+			//Check for duplicate entry and anzNumbers
+			if(elem.getNumber().equals(f.getNumber())) {
+				System.out.println("ComparingNumbers: " +elem.getNumber()+" to "+f.getNumber() );
+				duplicate = true;
+				error = "Doppelte Nr entdeckt bei Contract: "+elem.getCrtF().getId();//könnte ärger machen
+				break;
+			}
+		}	  
+
+		if(query.getResultList().size() <= 2 && duplicate==false) {	
 			System.out.println("If erreicht mit "+anzNumber);
 			Contract contract = new Contract();
 			
@@ -83,8 +102,8 @@ public class FeatureOrm {
 
     @Transactional
     public Boolean removeFeature(Feature f) {
-		return	em.createQuery("DELETE FROM Feature WHERE number =: val")/*Ich bin Wichtig !!*/
-		.setParameter("val", f.getNumber())
+		return	em.createQuery("DELETE FROM Feature WHERE id =: val")/*Ich bin Wichtig !!*/
+		.setParameter("val", f.getId())
 		.executeUpdate()==1;
     }
     
@@ -92,7 +111,7 @@ public class FeatureOrm {
     public Boolean removeAllFeaturesfromContract(Contract c) {
 		System.out.println("ContractOrm/removeAllFeaturesfromContract");
 		if(!getContractFeatures(c.getId()).isEmpty()){
-			return	em.createQuery("DELETE FROM Features WHERE contract_id =: val")/*Ich bin Wichtig !!*/
+			return	em.createQuery("DELETE FROM Feature WHERE contract_id =: val")/*Ich bin Wichtig !!*/
 			.setParameter("val", c.getId())
 			.executeUpdate()==1;
 		}
