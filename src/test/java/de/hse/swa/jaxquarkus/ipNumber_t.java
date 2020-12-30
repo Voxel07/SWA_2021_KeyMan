@@ -21,66 +21,78 @@ import javax.inject.Inject;
 @TestMethodOrder(OrderAnnotation.class)
 public class ipNumber_t{
     private static IpNumber IpA = new IpNumber("111.111.111.111");
-	private static IpNumber IpB = new IpNumber("222.222.222.22");
-	private static IpNumber IpC = new IpNumber("333.333.333.33");
+	private static IpNumber IpB = new IpNumber("222.222.222.222");
+	private static IpNumber IpC = new IpNumber("333.333.333.333");
+	private static IpNumber IpD = new IpNumber("444.444.444.444");
+
+	private static	Contract contractC = new Contract("3.3.2020", "3.3.2021", "ver1", "5678");
 	
 	@Inject
 	IpNumberOrm ipNumberOrm;
 	
 	@Test
 	@Order(1)
-	public void addPhoneToUser(){
+	public void addIpNumberToContract(){
 		
 		 given()
 		 	.pathParam("id", 1l)
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(IpA)
 	        .when()
-	        .put("/IpNumber/add/{id}")	
+	        .put("IpNumber/{id}")	
 	        .then()
-	        .statusCode(200).body(is("Phone added"));
+	        .statusCode(200).body(is("IP added"));
 
 		}
 	
 	@Test
 	@Order(2)
-	public void addPhoneToUserDuplicate(){
+	public void addIpNumberToContractDuplicate(){
 		
 		 given()
 		    .pathParam("id", 1l)
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(IpA)
 	        .when()
-	        .put("/IpNumber/add/{id}")	
+	        .put("IpNumber/{id}")	
 	        .then()
-	        .statusCode(200).body(is("Doppelte Nr entdeckt bei User: 10"));
+	        .statusCode(200).body(is("Doppelte Nr entdeckt bei Contract: 1"));
 
 		}
 	
 	@Test
 	@Order(3)
-	public void addPhoneToUser2(){
+	public void addIpNumberToContract2(){
 
 		 given()
 		 .pathParam("id", 1l)
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(IpB)
 	        .when()
-	        .put("/IpNumber/add/{id}")	
+	        .put("IpNumber/{id}")	
 	        .then()
-	        .statusCode(200).body(is("Phone added"));
+			.statusCode(200).body(is("IP added"));
+
+		given()
+		.pathParam("id", 1l)
+			.contentType(MediaType.APPLICATION_JSON)
+			.body(IpC)
+			.when()
+			.put("IpNumber/{id}")	
+			.then()
+			.statusCode(200).body(is("IP added"));
 
 		}
 	@Test
 	@Order(4)
-	public void addPhoneToUserToMannyNumbers(){
+	public void addIpNumberToContractToMannyNumbers(){
 		
 		 given()
 		    .pathParam("id", 1l)
 	        .contentType(MediaType.APPLICATION_JSON)
-	        .body(IpC)
+	        .body(IpD)
 	        .when()
-	        .put("/IpNumber/add/{id}")	
+	        .put("IpNumber/{id}")	
 	        .then()
 	        .statusCode(200).body(is("Max anz erreicht"));
 
@@ -93,25 +105,25 @@ public class ipNumber_t{
 		.queryParam("usr_id", 1l)
 		.contentType(MediaType.APPLICATION_JSON)
 		.when()
-		.get("/IpNumber");	
+		.get("IpNumber");	
 		
 		res.then().statusCode(200);
 		List<IpNumber> IpNumber = Arrays.asList(res.getBody().as(IpNumber[].class));
 		Assertions.assertEquals( IpA.getIpNumber(), IpNumber.get(0).getIpNumber());
 		Assertions.assertEquals( IpB.getIpNumber(), IpNumber.get(1).getIpNumber());
-		Assertions.assertEquals( 2, IpNumber.size());
+		Assertions.assertEquals( 3, IpNumber.size());
 	}
 
 	@Test
 	@Order(6)
 	public void removePhoneFromUser() {
-		 IpB.setId(1l);
+		 IpB.setId(11l);
 		 
 		 given()
 	        .contentType(MediaType.APPLICATION_JSON)
-	        .body(IpA)
+	        .body(IpB)
 	        .when()
-	        .delete("/IpNumber")	
+	        .delete("IpNumber")	
 	        .then()
 	        .statusCode(200).body(is("true"));
 	}
@@ -119,16 +131,18 @@ public class ipNumber_t{
 	@Test
 	@Order(7)
 	public void getUserIpNumber2() {
+		contractC.setId(1l);
 		Response res = given()
-		.queryParam("number", IpB.getIpNumber())
+		.queryParam("ctr_id", contractC.getId())
         .contentType(MediaType.APPLICATION_JSON)
         .when()
-		.get("/IpNumber");	
+		.get("IpNumber");	
        
 		res.then().statusCode(200);
 		List<IpNumber> IpNumbers = Arrays.asList(res.getBody().as(IpNumber[].class));
-		Assertions.assertEquals( IpB.getIpNumber(), IpNumbers.get(0).getIpNumber());
-		Assertions.assertEquals( 1, IpNumbers.size());
+		Assertions.assertEquals( IpA.getIpNumber(), IpNumbers.get(0).getIpNumber());
+		Assertions.assertEquals( IpC.getIpNumber(), IpNumbers.get(1).getIpNumber());
+		Assertions.assertEquals( 2, IpNumbers.size());
 	}
 
 	@Test
@@ -156,22 +170,9 @@ public class ipNumber_t{
 		Assertions.assertEquals( 1, IpNumbers.size());
 	
 	}
-	@Test
-	@Order(9)
-	public void updatePhonenoachmal(){
-		IpB.setIpNumber("Bnumber");
-		IpB.setId(2l);
-		given()
-		.contentType(MediaType.APPLICATION_JSON)
-		.body(IpB)
-        .when()
-		.post("/IpNumber")
-		.then()
-		.statusCode(200).body(is("false"));	
-	}
 
 	@Test
-	@Order(10)
+	@Order(9)
 	public void removeAllPhoneFromUser() {
 	User usrC = new User("Cemail", "Cusername", "Cpassword", "Cfirst", "Clast", true); 
 		IpB.setId(1l);
@@ -184,6 +185,15 @@ public class ipNumber_t{
 	        .when()
 	        .delete("/IpNumber/all")	
 	        .then()
-	        .statusCode(200).body(is("true"));
+			.statusCode(200).body(is("true"));
+			
+			Response res = given()
+			.queryParam("ctrId", contractC.getId())
+			.contentType(MediaType.APPLICATION_JSON)
+			.when()
+			.get("/IpNumber");	
+			res.then().statusCode(200);
+			List<Feature> features = Arrays.asList(res.getBody().as(Feature[].class));
+			Assertions.assertEquals( 0, features.size());
 	}
 }

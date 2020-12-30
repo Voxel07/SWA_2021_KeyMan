@@ -105,7 +105,7 @@ public class feature_t{
 		.queryParam("ctr_id", 1l)
 		.contentType(MediaType.APPLICATION_JSON)
 		.when()
-		.get("/feature");	
+		.get("feature");	
 		
 		res.then().statusCode(200);
 		List<Feature> features = Arrays.asList(res.getBody().as(Feature[].class));
@@ -122,7 +122,7 @@ public class feature_t{
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(FB)
 	        .when()
-	        .delete("/feature")	
+	        .delete("feature")	
 	        .then()
 	        .statusCode(200).body(is("true"));
     }
@@ -135,7 +135,7 @@ public class feature_t{
 		.queryParam("ctr_id", contractC.getId())
         .contentType(MediaType.APPLICATION_JSON)
         .when()
-		.get("/feature");	
+		.get("feature");	
        
 		res.then().statusCode(200);
 		List<Feature> features = Arrays.asList(res.getBody().as(Feature[].class));
@@ -153,7 +153,7 @@ public class feature_t{
 		.contentType(MediaType.APPLICATION_JSON)
 		.body(FX)
         .when()
-		.post("/feature")	
+		.post("feature")	
 		.then()
 		.statusCode(200).body(is("true"));	
 		
@@ -161,7 +161,7 @@ public class feature_t{
 		.queryParam("number", FX.getNumber())
         .contentType(MediaType.APPLICATION_JSON)
         .when()
-		.get("/feature");	
+		.get("feature");	
        
 		res.then().statusCode(200);
 		List<Feature> features = Arrays.asList(res.getBody().as(Feature[].class));
@@ -169,26 +169,26 @@ public class feature_t{
 	
 	}
 
-	// @Test
-	// @Order(10)
-	// public void removeAllFeatureFromContract() {
-    //     Contract contractC = new Contract("3.3.2020", "3.3.2021", "ver1", "5678");
-	// 	contractC.setId(1l);	 
-    //     given()
-    //     .contentType(MediaType.APPLICATION_JSON)
-    //     .body(contractC)
-    //     .when()
-    //     .delete("/feature/all")	
-    //     .then()
-    //     .statusCode(200).body(is("true"));
+	@Test
+	@Order(10)
+	public void removeAllFeatureFromContract() {
+        Contract contractC = new Contract("3.3.2020", "3.3.2021", "ver1", "5678");
+		contractC.setId(1l);	 
+        given()
+        .contentType(MediaType.APPLICATION_JSON)
+        .body(contractC)
+        .when()
+        .delete("/feature/all")	
+        .then()
+        .statusCode(200).body(is("true"));
 
-    //     Response res = given()
-	// 	.queryParam("ctrId", contractC.getId())
-    //     .contentType(MediaType.APPLICATION_JSON)
-    //     .when()
-	// 	.get("/feature");	
-    //     res.then().statusCode(200);
-	// 	List<Feature> features = Arrays.asList(res.getBody().as(Feature[].class));
-	// 	Assertions.assertEquals( 0, features.size());
-	// }
+        Response res = given()
+		.queryParam("ctrId", contractC.getId())
+        .contentType(MediaType.APPLICATION_JSON)
+        .when()
+		.get("/feature");	
+        res.then().statusCode(200);
+		List<Feature> features = Arrays.asList(res.getBody().as(Feature[].class));
+		Assertions.assertEquals( 0, features.size());
+	}
 }

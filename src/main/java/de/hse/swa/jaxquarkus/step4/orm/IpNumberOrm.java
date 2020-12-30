@@ -67,7 +67,7 @@ public class IpNumberOrm {
 			if(elem.getIpNumber().equals(Ip.getIpNumber())) {
 				System.out.println("ComparingNumbers: " +elem.getIpNumber()+" to "+Ip );
 				duplicate = true;
-				error = "Doppelte Nr entdeckt bei Contract: "+elem.getId();
+				error = "Doppelte Nr entdeckt bei Contract: "+elem.getCrtIP().getId();
 				break;
 			}
 			
@@ -98,7 +98,7 @@ public class IpNumberOrm {
     
     @Transactional
     public Boolean removeIp(IpNumber Ip) {
-		return	em.createQuery("DELETE FROM IPNumber WHERE number =: val")/*Ich bin Wichtig !!*/
+		return	em.createQuery("DELETE FROM IpNumber WHERE number =: val")/*Ich bin Wichtig !!*/
 		.setParameter("val", Ip.getIpNumber())
 		.executeUpdate()==1;
     }
@@ -107,7 +107,7 @@ public class IpNumberOrm {
     public Boolean removeAllIpsfromContract(Contract c) {
 		System.out.println("ContractOrm/removeAllIpsfromContract");
 		if(!getContractIpNumbers(c.getId()).isEmpty()){
-			return	em.createQuery("DELETE FROM IpNumbers WHERE contract_id =: val")/*Ich bin Wichtig !!*/
+			return	em.createQuery("DELETE FROM IpNumber WHERE contract_id =: val")/*Ich bin Wichtig !!*/
 			.setParameter("val", c.getId())
 			.executeUpdate()==1;
 		}
