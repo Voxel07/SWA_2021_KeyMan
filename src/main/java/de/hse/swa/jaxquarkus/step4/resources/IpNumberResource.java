@@ -32,10 +32,10 @@ public class IpNumberResource {
 	// @Path("teste")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public List<IpNumber> getPhones(@QueryParam("number") String number, @QueryParam("usr_id") Long ctrId)
+    public List<IpNumber> getPhones(@QueryParam("number") String number, @QueryParam("ctrId") Long ctrId)
     {   
         if(number != null){
-          return ipNumberOrm.getIpNumbersNumber(number);
+          return ipNumberOrm.getIpNumbersByNumber(number);
         } 
         else if(ctrId!=null){
             return ipNumberOrm.getContractIpNumbers(ctrId);

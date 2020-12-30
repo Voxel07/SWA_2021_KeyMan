@@ -22,9 +22,10 @@ public class contract_t{
 	private static Contract contractA = new Contract("1.1.2020", "1.1.2021", "ver1","1234");
 	private static Contract contractB = new Contract("2.2.2020", "2.2.2021", "ver2", "4321");
 	private static Contract contractC = new Contract("3.3.2020", "3.3.2021", "ver1", "5678");
+	
 	private static IpNumber IpA = new IpNumber("111.111.111.111");
-	private static IpNumber IpB = new IpNumber("222.222.222.22");
-	private static IpNumber IpC = new IpNumber("333.333.333.33");
+	private static IpNumber IpB = new IpNumber("222.222.222.222");
+	private static IpNumber IpC = new IpNumber("333.333.333.333");
 	
 	private static Feature FA = new Feature("1");
 	private static Feature FB = new Feature("2");
@@ -38,14 +39,14 @@ public class contract_t{
 				 .contentType(MediaType.APPLICATION_JSON)
 				 .body(contractC)
 				 .when()
-				 .put("/contracts");		
+				 .put("/contract");		
 				 response.then().statusCode(204);
 		          
 	     response =
     	        given()     	    
     	        .contentType(MediaType.APPLICATION_JSON)
     	        .when()
-    	        .get("/contracts");		      	    	
+    	        .get("/contract");		      	    	
 	        	response
     	        .then()
     	        .statusCode(200);
@@ -60,7 +61,7 @@ public class contract_t{
         given()
         .contentType(MediaType.APPLICATION_JSON)
         .when()
-        .get("/contracts");
+        .get("/contract");
     	
         response
         .then()
@@ -81,7 +82,7 @@ public class contract_t{
         .pathParam("id", id)
         .contentType(MediaType.APPLICATION_JSON)
         .when()
-        .get("/contracts/{id}");
+        .get("contract/{id}");
 		response.then().statusCode(200);
 		Contract contract = response.getBody().as(Contract.class);
 		Assertions.assertEquals( contractA.getEndDate(), contract.getEndDate());
@@ -99,7 +100,7 @@ public class contract_t{
 		        .contentType(MediaType.APPLICATION_JSON)
 		        .body(contractC)
 		          .when()
-		          .post("/contracts");		
+		          .post("/contract");		
 		          response.then().statusCode(204);      
 	}
 
@@ -127,7 +128,7 @@ public class contract_t{
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(FA)
 	        .when()
-	        .post("/contracts/add/Feature/{id}")	
+	        .post("feature/{id}")	
 	        .then()
 	        .statusCode(200).body(is("Feature added"));
 		
@@ -136,7 +137,7 @@ public class contract_t{
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(FB)
 	        .when()
-	        .post("/contracts/add/Feature/{id}")	
+	        .post("feature/{id}")	
 	        .then()
 	        .statusCode(200).body(is("Feature added"));
 	}
@@ -148,7 +149,7 @@ public class contract_t{
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(FB)
 	        .when()
-	        .delete("/contracts/remove/Feature")	
+	        .delete("feature")	
 	        .then()
 	        .statusCode(200).body(is("Feature "+FB.getNumber()+" removed"));
 		
@@ -161,7 +162,7 @@ public class contract_t{
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(IpA)
 	        .when()
-	        .post("/contracts/add/Ip/{id}")	
+	        .post("contract/{id}")	
 	        .then()
 	        .statusCode(200).body(is("IP added"));
 		
@@ -170,7 +171,7 @@ public class contract_t{
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(IpB)
 	        .when()
-	        .post("/contracts/add/Ip/{id}")	
+	        .post("contract/{id}")	
 	        .then()
 	        .statusCode(200).body(is("IP added"));
 	}
@@ -182,7 +183,7 @@ public class contract_t{
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(IpA)
 	        .when()
-	        .delete("/contracts/remove/Ip")	
+	        .delete("IpNumber/Ip")	
 	        .then()
 			.statusCode(200).body(is("Ip "+FB.getNumber()+" removed"));
 	}

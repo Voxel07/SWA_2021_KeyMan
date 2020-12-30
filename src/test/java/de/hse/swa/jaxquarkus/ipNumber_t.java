@@ -116,12 +116,12 @@ public class ipNumber_t{
 
 	@Test
 	@Order(6)
-	public void removePhoneFromUser() {
-		 IpB.setId(11l);
+	public void removeIpNumber() {
+		 IpC.setId(12l);
 		 
 		 given()
 	        .contentType(MediaType.APPLICATION_JSON)
-	        .body(IpB)
+	        .body(IpC)
 	        .when()
 	        .delete("IpNumber")	
 	        .then()
@@ -141,15 +141,15 @@ public class ipNumber_t{
 		res.then().statusCode(200);
 		List<IpNumber> IpNumbers = Arrays.asList(res.getBody().as(IpNumber[].class));
 		Assertions.assertEquals( IpA.getIpNumber(), IpNumbers.get(0).getIpNumber());
-		Assertions.assertEquals( IpC.getIpNumber(), IpNumbers.get(1).getIpNumber());
+		Assertions.assertEquals( IpB.getIpNumber(), IpNumbers.get(1).getIpNumber());
 		Assertions.assertEquals( 2, IpNumbers.size());
 	}
 
 	@Test
 	@Order(8)
-	public void updatePhone(){
+	public void updateIpNumber(){
 		IpB.setIpNumber("9876543");
-		IpB.setId(2l);
+		IpB.setId(11l);
 		given()
 		.contentType(MediaType.APPLICATION_JSON)
 		.body(IpB)
@@ -173,15 +173,13 @@ public class ipNumber_t{
 
 	@Test
 	@Order(9)
-	public void removeAllPhoneFromUser() {
-	User usrC = new User("Cemail", "Cusername", "Cpassword", "Cfirst", "Clast", true); 
-		IpB.setId(1l);
-		usrC.setId(1l);
+	public void removeAllIpNumbersFromContract() {
+		contractC.setId(1l);
 	//	phoneOrm.removeAllIpNumberFromUser(usrC);
 		 
 		 given()
 	        .contentType(MediaType.APPLICATION_JSON)
-	        .body(usrC)
+	        .body(contractC)
 	        .when()
 	        .delete("/IpNumber/all")	
 	        .then()
@@ -193,7 +191,7 @@ public class ipNumber_t{
 			.when()
 			.get("/IpNumber");	
 			res.then().statusCode(200);
-			List<Feature> features = Arrays.asList(res.getBody().as(Feature[].class));
-			Assertions.assertEquals( 0, features.size());
+			List<IpNumber> IpNumbers = Arrays.asList(res.getBody().as(IpNumber[].class));
+			Assertions.assertEquals( 0, IpNumbers.size());
 	}
 }

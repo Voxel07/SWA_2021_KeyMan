@@ -170,7 +170,7 @@ public class feature_t{
 	}
 
 	@Test
-	@Order(10)
+	@Order(9)
 	public void removeAllFeatureFromContract() {
         Contract contractC = new Contract("3.3.2020", "3.3.2021", "ver1", "5678");
 		contractC.setId(1l);	 

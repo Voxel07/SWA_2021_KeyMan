@@ -26,7 +26,7 @@ public class IpNumberOrm {
     	return query.getResultList();
     }
 
-    public List<IpNumber> getIpNumbersNumber(String number){
+    public List<IpNumber> getIpNumbersByNumber(String number){
 		System.out.println("IpNumerORM/getIpNumbersNumber");
     	TypedQuery<IpNumber> query = em.createQuery("SELECT ip FROM IpNumber ip WHERE number = :val", IpNumber.class);
     	query.setParameter("val", number);
@@ -35,11 +35,23 @@ public class IpNumberOrm {
 
     @Transactional
 	public Boolean updateIpNumber(IpNumber ipNumber) {
-        if(getIpNumbersNumber(ipNumber.getIpNumber()).isEmpty()){
-			em.merge(ipNumber);
-			return true;
+
+        // if(getIpNumbersByNumber(ipNumber.getIpNumber()).isEmpty()){
+		// 	em.merge(ipNumber);
+		// 	return true;
+		// }
+		// else{
+		// 	return false;
+		// }
+		if(getIpNumbersByNumber(ipNumber.getIpNumber()).isEmpty()){
+			System.out.println("IpORM/updateIpNumber/wasempty");
+			return em.createQuery("UPDATE IpNumber SET number =: val1 WHERE id =: val2")
+			.setParameter("val1", ipNumber.getIpNumber())
+			.setParameter("val2", ipNumber.getId())
+			.executeUpdate()==1;
 		}
 		else{
+			System.out.println("IpORM/updateIpNumber/waseNotEmpty");
 			return false;
 		}
 	}
@@ -109,7 +121,7 @@ public class IpNumberOrm {
 		if(!getContractIpNumbers(c.getId()).isEmpty()){
 			return	em.createQuery("DELETE FROM IpNumber WHERE contract_id =: val")/*Ich bin Wichtig !!*/
 			.setParameter("val", c.getId())
-			.executeUpdate()==1;
+			.executeUpdate()!=0;
 		}
 		else{
 			return true;

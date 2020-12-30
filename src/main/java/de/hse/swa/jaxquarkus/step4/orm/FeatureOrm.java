@@ -36,9 +36,7 @@ public class FeatureOrm {
     @Transactional
 	public Boolean updateFeature(Feature feature) {
 		System.out.println("FeatureORM/updateFeature");
-		
 
-		
         if(getFeatureByNumber(feature.getNumber()).isEmpty()){
 
 			return em.createQuery("UPDATE Feature SET number =: val1 WHERE id =: val2")
@@ -113,7 +111,7 @@ public class FeatureOrm {
 		if(!getContractFeatures(c.getId()).isEmpty()){
 			return	em.createQuery("DELETE FROM Feature WHERE contract_id =: val")/*Ich bin Wichtig !!*/
 			.setParameter("val", c.getId())
-			.executeUpdate()==1;
+			.executeUpdate()!=0;
 		}
 		else{
 			return true;
