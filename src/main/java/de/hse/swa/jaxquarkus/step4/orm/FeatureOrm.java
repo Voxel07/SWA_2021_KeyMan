@@ -12,7 +12,12 @@ import de.hse.swa.jaxquarkus.step4.model.*;
 @ApplicationScoped
 public class FeatureOrm {
     @Inject
-    EntityManager em; 
+	EntityManager em;
+	 
+	public List<Feature> getFeatures(){
+		TypedQuery<Feature> query = em.createQuery("SELECT f FROM Feature f", Feature.class);
+     	return query.getResultList();
+	}
 
     public List<Feature> getContractFeatures(Long ctrId){
 		System.out.println("FeatureORM/getContractFeatures");
@@ -20,7 +25,8 @@ public class FeatureOrm {
     	query.setParameter("val", ctrId);
     	return query.getResultList();
     }
-    public List<Feature> getFeatureByNumber(String ftr){
+	
+	public List<Feature> getFeatureByNumber(String ftr){
 		System.out.println("FeatureORM/getFeatureByNumber");
     	TypedQuery<Feature> query = em.createQuery("SELECT f FROM Feature f WHERE number = :val", Feature.class);
     	query.setParameter("val", ftr);
@@ -37,7 +43,6 @@ public class FeatureOrm {
 			return false;
 		}
 	}
-    
    
     @Transactional
     public String addFeature(Long contractId, Feature f) {
@@ -77,14 +82,10 @@ public class FeatureOrm {
 	}
 
     @Transactional
-    public String removeFeature(Feature f) {
-    	try {
-			em.remove(em.contains(f) ? f : em.merge(f));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "Feature"+f.getNumber()+"removed";
-		}
-    	return "kaputt";
+    public Boolean removeFeature(Feature f) {
+		return	em.createQuery("DELETE FROM Feature WHERE number =: val")/*Ich bin Wichtig !!*/
+		.setParameter("val", f.getNumber())
+		.executeUpdate()==1;
     }
     
     @Transactional

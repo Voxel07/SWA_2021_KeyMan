@@ -43,10 +43,10 @@ public class PhoneResource {
     }
    
     @PUT
-    @Path("add/{id}")
+    @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String updatePhone(@PathParam("id") Long UserId, Phone p ) 
+    public String addPhone(@PathParam("id") Long UserId, Phone p ) 
     {
         return phoneOrm.addPhone(UserId,p);
     }
@@ -62,15 +62,16 @@ public class PhoneResource {
 	@DELETE
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Boolean removePhone(Phone p) 
+    public Boolean removePhoneFromUser(Phone p) 
     {
         return phoneOrm.removePhoneFromUser(p);
     }
+   
     @DELETE
     @Path("all")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Boolean removePhone(User u) 
+    public Boolean removeAllPhonesFromUser(User u) 
     {
         return phoneOrm.removeAllPhonesFromUser(u);
     }

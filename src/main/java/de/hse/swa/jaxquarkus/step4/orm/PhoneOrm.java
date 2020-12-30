@@ -20,6 +20,7 @@ public class PhoneOrm{
 		TypedQuery<Phone> query = em.createQuery("SELECT p FROM Phone p", Phone.class);
      	return query.getResultList();
 	}
+	
 	public List<Phone> getPhoneByNumber(String number) {
 		System.out.println("PhoneORM/getPhoneByNumber");
 		TypedQuery<Phone> query = em.createQuery("SELECT p FROM Phone p WHERE p.number =:val", Phone.class);
@@ -44,6 +45,7 @@ public class PhoneOrm{
 			return false;
 		}
 	}
+	
 	@Transactional
     public String addPhone(Long usrId, Phone p) {
     	Boolean duplicate = false;
@@ -102,6 +104,7 @@ public class PhoneOrm{
 		.setParameter("val", p.getNumber())
 		.executeUpdate()==1;
 	}
+
 	@Transactional
     public Boolean removeAllPhonesFromUser(User u) {
 		System.out.println("PhoneOrm/removeAllPhonesFromUser");

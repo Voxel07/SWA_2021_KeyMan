@@ -12,7 +12,12 @@ import de.hse.swa.jaxquarkus.step4.model.*;
 @ApplicationScoped
 public class IpNumberOrm {
     @Inject
-    EntityManager em; 
+	EntityManager em; 
+	
+	public List<IpNumber> getIpNumbers(){
+		TypedQuery<IpNumber> query = em.createQuery("SELECT ip FROM IpNumber ip", IpNumber.class);
+     	return query.getResultList();
+	}
 
     public List<IpNumber> getContractIpNumbers(Long ctrId){
 		System.out.println("IpNumerORM/getContractIpNumbers");
@@ -38,7 +43,8 @@ public class IpNumberOrm {
 			return false;
 		}
 	}
-    @Transactional
+   
+	@Transactional
     public String addIp(Long contractId, IpNumber Ip) {
     	Boolean duplicate = false;
     	int anzNumber = 0; 
@@ -91,15 +97,10 @@ public class IpNumberOrm {
 	}
     
     @Transactional
-    public String removeIp(IpNumber Ip) {
-    	
-    	try {
-			em.remove(em.contains(Ip) ? Ip : em.merge(Ip));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "Ip"+Ip.getIpNumber()+"removed";
-		}
-    	return "kaputt";
+    public Boolean removeIp(IpNumber Ip) {
+		return	em.createQuery("DELETE FROM IPNumber WHERE number =: val")/*Ich bin Wichtig !!*/
+		.setParameter("val", Ip.getIpNumber())
+		.executeUpdate()==1;
     }
     
     @Transactional

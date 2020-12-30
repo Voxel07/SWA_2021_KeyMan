@@ -23,68 +23,79 @@ public class ContractOrm  {
     
     public List<Contract> getContracts() 
     {
-   	 TypedQuery<Contract> query = em.createQuery("SELECT u FROM Contract u", Contract.class);
-   	 return query.getResultList();
+		TypedQuery<Contract> query = em.createQuery("SELECT u FROM Contract u", Contract.class);
+		return query.getResultList();
     }
-
     
-    public Contract getContract(Long id) 
+    public Contract getContractById(Long id) 
     {	
     	return em.find(Contract.class,id);
+	}
+
+	public List<Contract> getContractByNumber(String number) 
+    {	
+		TypedQuery<Contract> query = em.createQuery("SELECT FROM Contract WHERE number =: val1", Contract.class);
+		return query.setParameter("val", number).getResultList();
+	}
+
+	public List<Contract> getContractByCompany(Long id) 
+    {	
+		TypedQuery<Contract> query = em.createQuery("SELECT FROM Contract WHERE company_id =: val1", Contract.class);
+		return query.setParameter("val", id).getResultList();
     }
-    
-    
+     
     @Transactional
     public void addContract(Contract contract)
     {
     	em.persist(contract);
     }
-    
-    
+
     @Transactional
     public void updateContract(Contract contract)
     {
 		em.merge(contract);
     }
     
-    
     @Transactional
-    public void deleteContract(Contract contract) 
+    public String deleteContract(Contract contract) 
     { 	
-		
-    	em.remove(em.contains(contract) ? contract : em.merge(contract));
+		System.out.println("ContractOrm/deleteContract");
+		if(Boolean.FALSE.equals(ipNumberOrm.removeAllIpsfromContract(contract))){
+			return "removeIP";
+		}
+		if(Boolean.FALSE.equals(featureOrm.removeAllFeaturesfromContract(contract))){
+			return "removeFeature";
+		}
+	
+		 
+		em.createQuery("DELETE FROM Contract WHERE id =: val")/*Ich bin Wichtig !!*/
+		.setParameter("val", contract.getId())
+		.executeUpdate();
+		return "works";
     }    
-    // @Transactional
-    // public List<Feature> getFeaturesByContract(Long contract_id) {
-	// 	TypedQuery<Feature> query = em.createQuery("SELECT f FROM Feature f WHERE f.contract_id =:val", Feature.class);
-	// 	query.setParameter("val", contract_id);
-	// 	//Hier muss noch abgefangen werden, wenn der Nutzer keine Telefonnummer hat
-	// 	return query.getResultList();
-	// }
-    // @Transactional
-    // public List<IpNumber> getIpNumberByContract(Long contract_id) {
-    // 	System.out.println("ContractORM/getIpNumberByContract");
-	// 	TypedQuery<IpNumber> query = em.createQuery("SELECT f FROM IpNumber f WHERE f.contract_id =:val", IpNumber.class);
-	// 	query.setParameter("val", contract_id);
-	// 	return query.getResultList();
-	// }
+       
+    @Transactional
+    public String addConnectionUserContract(User usr, Contract ctr) {
+        usr.getContracts().add(ctr);
+        ctr.getUsers().add(usr);
+    	return "";
+    }
 
-	//Sinvoll ???
 	@Transactional
-	public Boolean removeContractFromUser(Contract ctr){
-		return	em.createQuery("DELETE FROM Contracts WHERE id =: val")/*Ich bin Wichtig !!*/
-		.setParameter("val", ctr.getId())
+	public Boolean removeConnectionUserContract(Contract ctr, User usr){
+		return	em.createQuery("DELETE FROM user_contract WHERE User_id =: val1 AND Contract_id =: val2")/*Ich bin Wichtig !!*/
+		.setParameter("val1", usr.getId())
+		.setParameter("val2", ctr.getId())
 		.executeUpdate()==1;
 	}
+
+	//Sinvoll ??? ->
 	@Transactional
-	public Boolean removeAllContractsFromUser(User usr){
-
-
-		return false;
+	public Boolean removeAllConnectionUserContract(User usr){
+		return	em.createQuery("DELETE FROM user_contract WHERE User_id =: val1")/*Ich bin Wichtig !!*/
+		.setParameter("val1", usr.getId())
+		.executeUpdate()==1;
 	}
-
-
-
 
 }
 

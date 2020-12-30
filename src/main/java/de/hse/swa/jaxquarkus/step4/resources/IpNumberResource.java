@@ -21,68 +21,62 @@ import de.hse.swa.jaxquarkus.step4.model.*;
 
 import de.hse.swa.jaxquarkus.step4.orm.*;
 
-@Path("/contracts")
-public class ContractResource {
-	
-    @ApplicationScoped
 
+@Path("/IpNumber")
+public class IpNumberResource {
+    @ApplicationScoped
     @Inject
-    ContractOrm contractOrm;
-   
-    @Inject
-    FeatureOrm featureOrm;
-    
+    IpNumberOrm ipNumberOrm;
+
     @GET
+	// @Path("teste")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public List<Contract> getContract(@QueryParam("number") String number, @QueryParam("company_id") Long companyId)
+    public List<IpNumber> getPhones(@QueryParam("number") String number, @QueryParam("usr_id") Long ctrId)
     {   
         if(number != null){
-          return contractOrm.getContractByNumber(number);
+          return ipNumberOrm.getIpNumbersNumber(number);
         } 
-        else if(companyId!=null){
-            return contractOrm.getContractByCompany(companyId);
+        else if(ctrId!=null){
+            return ipNumberOrm.getContractIpNumbers(ctrId);
         }
         else{  
-            return  contractOrm.getContracts();
+            return  ipNumberOrm.getIpNumbers();
         }
+      
     }
-    
-    @GET
-	@Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Contract getContract(@PathParam("id") Long id)
-    {
-        return contractOrm.getContract(id); 
-    }
-    
-    @PUT
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void addContract(Contract contract) 
-    { 	
-    	contractOrm.addContract(contract);
-    }
-    
+
     @POST
+	@Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+	public Boolean updateIpNumber(IpNumber number) 
+    { 	
+       return ipNumberOrm.updateIpNumber(number);
+    }
+
+    @PUT
+    @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public void updateContract(Contract contract) 
+    public String addIp(@PathParam("id")Long crtId,IpNumber Ip) 
     {
-		System.out.println("CTR aus resource: "+contract.getUsers());
-    	contractOrm.updateContract(contract);
+    	return ipNumberOrm.addIp(crtId, Ip);
     }
-    
+        
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public void deleteContract(Contract contract) 
+    public Boolean removeIp(IpNumber Ip) 
     {
-    	contractOrm.deleteContract(contract);
+    	return ipNumberOrm.removeIp(Ip);
     }
 
-
-  
-    
+    @DELETE
+    @Path("all")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Boolean removeAllIpsfromContract( Contract ctr) 
+    {
+        return ipNumberOrm.removeAllIpsfromContract(ctr);
+    }
 }

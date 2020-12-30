@@ -7,10 +7,9 @@ import javax.inject.Inject;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -18,71 +17,66 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import de.hse.swa.jaxquarkus.step4.model.*;
-
 import de.hse.swa.jaxquarkus.step4.orm.*;
 
-@Path("/contracts")
-public class ContractResource {
-	
-    @ApplicationScoped
 
-    @Inject
-    ContractOrm contractOrm;
-   
+@Path("/feature")
+public class FeatureResource {
+    @ApplicationScoped
     @Inject
     FeatureOrm featureOrm;
-    
+
     @GET
+	// @Path("teste")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public List<Contract> getContract(@QueryParam("number") String number, @QueryParam("company_id") Long companyId)
+    public List<Feature> getPhones(@QueryParam("number") String number, @QueryParam("usr_id") Long ftrId)
     {   
         if(number != null){
-          return contractOrm.getContractByNumber(number);
+          return featureOrm.getFeatureByNumber(number);
         } 
-        else if(companyId!=null){
-            return contractOrm.getContractByCompany(companyId);
+        else if(ftrId!=null){
+            return featureOrm.getContractFeatures(ftrId);
         }
         else{  
-            return  contractOrm.getContracts();
+            return  featureOrm.getFeatures();
         }
     }
-    
-    @GET
-	@Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Contract getContract(@PathParam("id") Long id)
-    {
-        return contractOrm.getContract(id); 
-    }
-    
-    @PUT
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void addContract(Contract contract) 
-    { 	
-    	contractOrm.addContract(contract);
-    }
+  
     
     @POST
+	@Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+	public Boolean updateFeature(Feature number) 
+    { 	
+       return featureOrm.updateFeature(number);
+    }
+
+    @PUT
+    @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public void updateContract(Contract contract) 
+    public String addFeature(@PathParam("id")Long crtId, Feature f) 
     {
-		System.out.println("CTR aus resource: "+contract.getUsers());
-    	contractOrm.updateContract(contract);
+    	return featureOrm.addFeature(crtId, f);
     }
-    
+        
     @DELETE
+   // @Path("/remove/Feature")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public void deleteContract(Contract contract) 
+    public Boolean removeFeature( Feature f) 
     {
-    	contractOrm.deleteContract(contract);
+    	return featureOrm.removeFeature(f);
     }
-
-
   
+    @DELETE
+    @Path("all")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Boolean removeAllFeaturesfromContract( Contract ctr) 
+    {
+        return featureOrm.removeAllFeaturesfromContract(ctr);
+    }
     
 }
