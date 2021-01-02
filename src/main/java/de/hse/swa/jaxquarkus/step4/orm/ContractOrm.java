@@ -18,43 +18,67 @@ public class ContractOrm  {
 	IpNumberOrm ipNumberOrm;
 	@Inject
 	FeatureOrm featureOrm;
+	@Inject
+	UserOrm userOrm;
 
     
-    
-    public List<Contract> getContracts() 
-    {
-		TypedQuery<Contract> query = em.createQuery("SELECT u FROM Contract u", Contract.class);
-		return query.getResultList();
-    }
-    
-    public Contract getContractById(Long id) 
+    public Contract getContract(Long id) 
     {	
     	return em.find(Contract.class,id);
+    }
+	
+	public List<Contract> getContracts(){
+		TypedQuery<Contract> query = em.createQuery("SELECT u FROM Contract u", Contract.class);
+     	return query.getResultList();
+	}
+	
+	public List<Contract> getContractByLicenskey(String licenskey) {
+		System.out.println("ContractORM/getContractByLicenskey");
+		TypedQuery<Contract> query = em.createQuery("SELECT u FROM Contract u WHERE u.licenskey =:val", Contract.class);
+		query.setParameter("val", licenskey);
+		return query.getResultList();
 	}
 
-	public List<Contract> getContractByNumber(String number) 
-    {	
-		TypedQuery<Contract> query = em.createQuery("SELECT FROM Contract WHERE number =: val1", Contract.class);
-		return query.setParameter("val", number).getResultList();
-	}
-
-	public List<Contract> getContractByCompany(Long id) 
-    {	
-		TypedQuery<Contract> query = em.createQuery("SELECT FROM Contract WHERE company_id =: val1", Contract.class);
-		return query.setParameter("val", id).getResultList();
+    public List<Contract> getContractByCompany(Long companyId){
+		System.out.println("ContractORM/getContractByNumber");
+    	TypedQuery<Contract> query = em.createQuery("SELECT u FROM Contract u WHERE company_id = :val", Contract.class);
+    	query.setParameter("val", companyId);
+    	return query.getResultList();
     }
      
-    @Transactional
-    public void addContract(Contract contract)
-    {
-    	em.persist(contract);
-    }
+	@Transactional
+    public String addContract(Contract contract) {
 
+    	if(!getContractByLicenskey(contract.getLicenskey()).isEmpty())
+    		return "Doppelter Licenskey";
+    	
+			em.persist(contract);
+			return "Contract added";
+	
+	}
+
+	@Transactional
+	public Boolean updateContract(Contract contract) {
+		if(!getContractByLicenskey(contract.getLicenskey()).isEmpty())
+    		return false;
+    	
+			em.merge(contract);
+			return true;
+	}
+	
+	
     @Transactional
-    public void updateContract(Contract contract)
-    {
-		em.merge(contract);
+    public Boolean addConnectionUserContract(Long usrId, Long ctrId) {
+    	
+    	Contract ctr = getContract(ctrId);
+    	User usr = userOrm.getUser(usrId);
+    	usr.getContracts().add(ctr);
+    	ctr.getUsers().add(usr);
+        updateContract(ctr);
+        userOrm.updateUser(usr);
+    	return true;
     }
+    
     
     @Transactional
     public String deleteContract(Contract contract) 
@@ -73,27 +97,21 @@ public class ContractOrm  {
 		.executeUpdate();
 		return "works";
     }    
-       
-    @Transactional
-    public String addConnectionUserContract(User usr, Contract ctr) {
-        usr.getContracts().add(ctr);
-        ctr.getUsers().add(usr);
-    	return "";
-    }
+    
 
 	@Transactional
-	public Boolean removeConnectionUserContract(Contract ctr, User usr){
+	public Boolean removeConnectionUserContract(Long ctrId, Long usrId){
 		return	em.createQuery("DELETE FROM user_contract WHERE User_id =: val1 AND Contract_id =: val2")/*Ich bin Wichtig !!*/
-		.setParameter("val1", usr.getId())
-		.setParameter("val2", ctr.getId())
+		.setParameter("val1", usrId)
+		.setParameter("val2", ctrId)
 		.executeUpdate()==1;
 	}
 
 	//Sinvoll ??? ->
 	@Transactional
-	public Boolean removeAllConnectionUserContract(User usr){
+	public Boolean removeAllConnectionUserContract(Long usrId){
 		return	em.createQuery("DELETE FROM user_contract WHERE User_id =: val1")/*Ich bin Wichtig !!*/
-		.setParameter("val1", usr.getId())
+		.setParameter("val1", usrId)
 		.executeUpdate()==1;
 	}
 

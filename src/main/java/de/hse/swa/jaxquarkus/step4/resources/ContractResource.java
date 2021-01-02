@@ -35,15 +35,18 @@ public class ContractResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public List<Contract> getContract(@QueryParam("number") String number, @QueryParam("company_id") Long companyId)
+    public List<Contract> getContract(@QueryParam("licenskey") String licenskey, @QueryParam("company_id") Long companyId)
     {   
-        if(number != null){
-          return contractOrm.getContractByNumber(number);
+        if(licenskey != null){
+        	System.out.println("getContractByLicenskey");
+          return contractOrm.getContractByLicenskey(licenskey);
         } 
         else if(companyId!=null){
+        	System.out.println("getContractByCompany");
             return contractOrm.getContractByCompany(companyId);
         }
         else{  
+        	System.out.println("getContracts");
             return  contractOrm.getContracts();
         }
     }
@@ -59,18 +62,35 @@ public class ContractResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public void updateContract(Contract contract) 
+    public void updateContract(Contract ctr, @QueryParam("usrId") Long usrId) 
     {
-		System.out.println("CTR aus resource: "+contract.getUsers());
-    	contractOrm.updateContract(contract);
+    	if(usrId == null) {
+		System.out.println("updateContract");
+    	contractOrm.updateContract(ctr);
+    	}
+    	else {
+    	System.out.println("addConnectionUserContract");
+    	contractOrm.addConnectionUserContract(usrId, ctr.getId());
+    	}
     }
     
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public void deleteContract(Contract contract) 
+    public void deleteContract(Contract ctr, @QueryParam("usrId") Long usrId) 
     {
-    	contractOrm.deleteContract(contract);
+    	if(usrId == null) {
+    		System.out.println("deleteContract");
+    		contractOrm.updateContract(ctr);
+    	}
+    	else if(ctr == null) {
+    		System.out.println("removeAllConnectionUserContract");
+    		contractOrm.removeAllConnectionUserContract(usrId);
+    	}
+    	else {
+    		System.out.println("removeConnectionUserContract");
+    		contractOrm.removeConnectionUserContract(ctr.getId() , usrId);
+    	}
     }
 
 
