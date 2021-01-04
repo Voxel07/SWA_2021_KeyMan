@@ -31,9 +31,9 @@ public class Phone{
     //Uni ohne irgendwas
     
     //Bi    
-	  @ManyToOne(fetch=FetchType.LAZY)
-	  @JoinColumn(name ="user_id", referencedColumnName="id")
-	  private User usr;
+	 @ManyToOne(fetch=FetchType.LAZY)
+	 @JoinColumn(name ="user_id", referencedColumnName="id")
+	 private User usr;
     
       
     public Phone() {

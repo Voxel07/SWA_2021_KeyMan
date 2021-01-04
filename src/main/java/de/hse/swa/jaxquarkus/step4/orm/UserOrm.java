@@ -47,7 +47,11 @@ public class UserOrm {
     }
     
     @Transactional
-    public void addUser(User usr){
+    //Hier ist pfusch drin :(
+    public void addUser(User usr,Long companyId ){
+    	Company c = new Company();
+    	c.setId(companyId);
+    	usr.setCompanyU(c);
     	em.persist(usr);
     }
      

@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -55,9 +56,9 @@ public class User {
 
     private  List<Contract> contracts = new ArrayList<>();
        
-//    @ManyToOne
-//    @JoinColumn(name="company_Id")
-//    private Company companyU;
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="company_Id", referencedColumnName="id")
+    private Company companyU;
     
     @OneToMany(mappedBy="usr",cascade = {CascadeType.ALL},fetch=FetchType.LAZY )
 	private List<Phone> phones = new ArrayList<>();
@@ -147,11 +148,21 @@ public class User {
 	public void setContracts(List<Contract> contracts) {
     	this.contracts = contracts;
     }
+    @JsonbTransient
     public List<Contract> getContracts() {
     	return this.contracts;
     }
-        
-    @Override
+   
+    @JsonbTransient
+    public Company getCompanyU() {
+		return companyU;
+	}
+
+	public void setCompanyU(Company companyU) {
+		this.companyU = companyU;
+	}
+
+	@Override
    	public String toString() {
    		return "User [id=" + id + ", email=" + email + ", username=" + username + ", password=" + password
    				+ ", firstName=" + firstName + ", lastName=" + lastName + ", isAdmin=" + isAdmin + "]";

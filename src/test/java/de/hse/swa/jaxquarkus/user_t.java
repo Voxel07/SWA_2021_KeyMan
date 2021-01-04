@@ -172,4 +172,6 @@ public class user_t{
      		List<User> usrs = Arrays.asList(response.getBody().as(User[].class));
      		Assertions.assertEquals( 2, usrs.size());
 	}
+	
+	//User add connection to Company
 }

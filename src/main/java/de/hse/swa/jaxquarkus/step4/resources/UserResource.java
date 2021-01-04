@@ -49,9 +49,10 @@ public class UserResource {
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public void addUser(User usr) 
+    public void addUser(User usr,@PathParam("companyId") Long companyId) 
     { 	
-        userOrm.addUser(usr);
+    	//if ? addConnection / addUser
+        userOrm.addUser(usr,companyId);
     }
 
     @POST
