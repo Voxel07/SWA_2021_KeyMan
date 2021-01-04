@@ -42,10 +42,7 @@ public class Contract {
     @Column(name = "licenskey", length = 10000)
     private String licenskey;
 
-    //L�scht zu viel
-//    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "contracts")
-    //L�scht nicht genug
-   @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH}, mappedBy = "contracts")
+   @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, mappedBy = "contracts")
     private  List<User> users = new ArrayList<>();
    
     @OneToMany(mappedBy="crtF",cascade = {CascadeType.ALL}, fetch=FetchType.LAZY)
@@ -54,9 +51,10 @@ public class Contract {
     @OneToMany(mappedBy="crtIP",cascade = {CascadeType.ALL}, fetch=FetchType.LAZY)
     private  List<IpNumber> ipNumbers = new ArrayList<>(); 
     
-    @ManyToOne
-    @JoinColumn(name="company_Id")
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="company_Id", referencedColumnName="id")
     private Company companyC;
+
     public Contract() {
     }
 

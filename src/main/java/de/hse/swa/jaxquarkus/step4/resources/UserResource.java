@@ -16,7 +16,7 @@ import javax.ws.rs.core.MediaType;
 import de.hse.swa.jaxquarkus.step4.model.User;
 import de.hse.swa.jaxquarkus.step4.orm.PhoneOrm;
 import de.hse.swa.jaxquarkus.step4.orm.UserOrm;
-
+import javax.ws.rs.QueryParam;
 
 
 
@@ -49,10 +49,10 @@ public class UserResource {
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public void addUser(User usr,@PathParam("companyId") Long companyId) 
+    public Boolean addUser(User usr,@QueryParam("companyId") Long companyId) 
     { 	
     	//if ? addConnection / addUser
-        userOrm.addUser(usr,companyId);
+        return userOrm.addUser(usr,companyId);
     }
 
     @POST

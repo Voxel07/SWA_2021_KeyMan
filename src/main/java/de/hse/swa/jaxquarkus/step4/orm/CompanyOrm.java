@@ -13,6 +13,10 @@ import de.hse.swa.jaxquarkus.step4.model.Company;
 public class CompanyOrm {
     @Inject
     EntityManager em; 
+    @Inject
+    ContractOrm contractOrm;
+    @Inject
+    UserOrm userOrm;
     
     
     public List<Company> getCompanys() 
@@ -44,9 +48,32 @@ public class CompanyOrm {
     
     
     @Transactional
-    public void deleteCompany(Company company) 
+    public Boolean deleteCompany(Company company) 
     { 	
-    	em.remove(em.contains(company) ? company : em.merge(company));
+
+        //hier die Listen durchgehen und alles löschen !s
+        //aktuell fehlt contract-user table. Wird nicht gelöscht
+        //immer del funktionen der einzelnen Klassen aufrufen.
+       if(!contractOrm.getContractByCompany(company.getId()).isEmpty()) 
+       {
+           em.createQuery("DELETE FROM Contract WHERE company_Id =: val1")
+           .setParameter("val1", company.getId())
+           .executeUpdate();
+       }
+        
+        if(!userOrm.getUserByCompany(company.getId()).isEmpty()) 
+    	{
+            em.createQuery("DELETE FROM User WHERE company_Id =: val1")
+            .setParameter("val1", company.getId())
+            .executeUpdate();
+        }
+
+
+        
+        return	em.createQuery("DELETE FROM Company WHERE id =: val1")
+		.setParameter("val1", company.getId())
+        .executeUpdate()==1;
+        
     }
 
   

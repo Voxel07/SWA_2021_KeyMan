@@ -58,7 +58,7 @@ public class ContractOrm  {
    
 		Company c = companyOrm.getCompany(companyId);
 		c.getContracts().add(contract); 
-		
+		contract.setCompanyC(c);
 		em.persist(contract); 
 		em.merge(c);
 		return "Contract added";
@@ -99,7 +99,7 @@ public class ContractOrm  {
 		}
 	
 		 
-		em.createQuery("DELETE FROM Contract WHERE id =: val")/*Ich bin Wichtig !!*/
+		em.createQuery("DELETE FROM Contract WHERE id =: val")
 		.setParameter("val", contract.getId())
 		.executeUpdate();
 		return "works";
@@ -108,7 +108,7 @@ public class ContractOrm  {
 
 	@Transactional
 	public Boolean removeConnectionUserContract(Long ctrId, Long usrId){
-		return	em.createQuery("DELETE FROM user_contract WHERE User_id =: val1 AND Contract_id =: val2")/*Ich bin Wichtig !!*/
+		return	em.createQuery("DELETE FROM user_contract WHERE User_id =: val1 AND Contract_id =: val2")
 		.setParameter("val1", usrId)
 		.setParameter("val2", ctrId)
 		.executeUpdate()==1;
@@ -117,7 +117,7 @@ public class ContractOrm  {
 	//Sinvoll ??? ->
 	@Transactional
 	public Boolean removeAllConnectionUserContract(Long usrId){
-		return	em.createQuery("DELETE FROM user_contract WHERE User_id =: val1")/*Ich bin Wichtig !!*/
+		return	em.createQuery("DELETE FROM user_contract WHERE User_id =: val1")
 		.setParameter("val1", usrId)
 		.executeUpdate()==1;
 	}

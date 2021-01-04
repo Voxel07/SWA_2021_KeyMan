@@ -2,6 +2,8 @@ package de.hse.swa.jaxquarkus.step4.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.OneToMany;
-
+import javax.persistence.FetchType;
 
 @Entity
 @Table(name = "COMPANY")
@@ -43,12 +45,10 @@ public class Company {
     @Column(name = "country")
     private String country;
     
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "company_id", referencedColumnName = "id")
+    @OneToMany(mappedBy="companyU",cascade = {CascadeType.ALL},fetch=FetchType.LAZY )
     private  List<User> users = new ArrayList<>();
     
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "company_id", referencedColumnName = "id")
+    @OneToMany(mappedBy="companyC",cascade = {CascadeType.ALL},fetch=FetchType.LAZY )
 	private  List<Contract> contracts = new ArrayList<>();
     
 
@@ -120,6 +120,11 @@ public class Company {
         this.country = country;
     }
 
+    public int getPostalcode() {
+		return postalcode;
+    }
+    
+    @JsonbTransient
 	public List<User> getUsers() {
 		return users;
 	}
@@ -127,17 +132,13 @@ public class Company {
 	public void setUsers(List<User> users) {
 		this.users = users;
 	}
-
+    @JsonbTransient
 	public List<Contract> getContracts() {
 		return contracts;
 	}
 
 	public void setContracts(List<Contract> contracts) {
 		this.contracts = contracts;
-	}
-
-	public int getPostalcode() {
-		return postalcode;
 	}
 	
 	@Override

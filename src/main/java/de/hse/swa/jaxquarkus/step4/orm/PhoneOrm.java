@@ -52,9 +52,7 @@ public class PhoneOrm{
 		if(!getPhoneByNumber(p.getNumber()).isEmpty()) {
 			return "doppelt";
 		}
-		// anz phones pro usr
-		// anz phon < 2 => in if
-		if(!(getUserPhones(usrId).size() < 2)) {
+		if((getUserPhones(usrId).size() >= 2)) {
 			return "zu viele";
 		}
 		

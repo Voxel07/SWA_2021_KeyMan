@@ -31,28 +31,42 @@ public class UserOrm {
    	 return  query.getResultList();
     }
 
-    public User getUser(Long id) 
+    public User getUserById(Long id) 
     {	
     	return em.find(User.class,id);
     }
     
-    public User getUser(String username) {
+    public User getUserByUsername(String username) {
     	TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.username =:?", User.class);
     	query.setParameter(1, username);
     	return query.getSingleResult();
     }
 
-    public User getUser (User usr) {
-    	return em.find(User.class, usr.getId());
+    public User getUser (Long usrId) {
+    	return em.find(User.class, usrId);
+    }
+
+    public List<User> getUserByCompany(Long companyId){
+        TypedQuery<User> query = em.createQuery("SELECT u FROM User u Where company_Id =: val1", User.class);
+        query.setParameter("val1", companyId);
+   	    return  query.getResultList();
     }
     
     @Transactional
-    //Hier ist pfusch drin :(
-    public void addUser(User usr,Long companyId ){
-    	Company c = new Company();
-    	c.setId(companyId);
+    public Boolean addUser(User usr,Long companyId ){
+        TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.username =: val1 OR u.email =: val2", User.class);
+    	query.setParameter("val1", usr.getUsername());
+    	query.setParameter("val2", usr.getEmail());
+        
+        if(!query.getResultList().isEmpty()){return false;}
+
+        Company c = em.find(Company.class, companyId);
+        c.getUsers().add(usr);
     	usr.setCompanyU(c);
-    	em.persist(usr);
+        em.persist(usr);
+        em.merge(c);
+
+        return true;
     }
      
     @Transactional

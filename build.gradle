@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-    //Für JSONObject
+    //Fï¿½r JSONObject
 	implementation 'org.json:json:20201115'
 	//Vom Friedrich
     implementation 'io.quarkus:quarkus-resteasy-jsonb'
@@ -19,8 +19,8 @@ dependencies {
     implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
     implementation 'io.quarkus:quarkus-resteasy'
     testImplementation 'io.quarkus:quarkus-junit5'
+    
     testImplementation 'io.rest-assured:rest-assured'
-
     //Eignes Ding
    // implementation 'com.google.code.gson:gson:2.8.6'
     //Weiteres Json Zeug
