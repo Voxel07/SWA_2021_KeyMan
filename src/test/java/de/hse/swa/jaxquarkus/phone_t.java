@@ -138,7 +138,7 @@ public class phone_t{
 	@Test
 	@Order(8)
 	public void updatePhone(){
-		phoneB.setType("ich bin geändert");
+		phoneB.setType("ich bin geaendert");
 		phoneB.setNumber("9876543");
 		phoneB.setId(2l);
 		given()
@@ -165,7 +165,7 @@ public class phone_t{
 	@Test
 	@Order(9)
 	public void updatePhonenoachmal(){
-		phoneB.setType("ich bin geändert nochmal nochmal");
+		phoneB.setType("ich bin geaendert nochmal nochmal");
 		phoneB.setNumber("Bnumber");
 		phoneB.setId(2l);
 		given()

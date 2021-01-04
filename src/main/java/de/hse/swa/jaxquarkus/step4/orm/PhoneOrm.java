@@ -48,54 +48,77 @@ public class PhoneOrm{
 	
 	@Transactional
     public String addPhone(Long usrId, Phone p) {
-    	Boolean duplicate = false;
-    	int anzNumber = 0; 
-    	String error = "Max anz erreicht";
-    	
-    	System.out.println("Aus der ORM: "+" ID: "+usrId+" number: "+p.getNumber()+" type: "+p.getType());  	
-    	//Pr�fen dass nur zwei nummern da sind
-		TypedQuery<Phone> query =em.createQuery("SELECT p FROM Phone p WHERE user_id = :val OR p.number = :val2", Phone.class);
-		query.setParameter("val", usrId);
-		query.setParameter("val2", p.getNumber());
 		
-		System.out.println("AnzResultsQuery: "+ query.getResultList().size());
+		if(!getPhoneByNumber(p.getNumber()).isEmpty()) {
+			return "doppelt";
+		}
+		// anz phones pro usr
+		// anz phon < 2 => in if
+		if(!(getUserPhones(usrId).size() < 2)) {
+			return "zu viele";
+		}
 		
-		//Check all Numbers
-	
-		for(Phone elem : query.getResultList()) {
-			System.out.println("AktElement: "+ elem );
-			//if(elem.getNumber()==number) geht nicht aus Gr�nden 
-			//Check for duplicate entry and anzNumbers
-			if(elem.getNumber().equals(p.getNumber())) {
-				System.out.println("ComparingNumbers: " +elem.getNumber()+" to "+p.getNumber() );
-				duplicate = true;
-				error = "Doppelte Nr entdeckt bei User: "+elem.getId();
-				break;
-			}
-		}
-  
-		if(query.getResultList().size() <= 1 && duplicate==false) {	
-			System.out.println("If erreicht mit "+anzNumber+" dub? "+ duplicate);
-			User usr = new User();
-			
-			try {
-				usr = em.find(User.class, usrId);
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("Custom Exception UserOrm addPhone Find User: "+ e.toString());
-				return e.toString();
-			}
-			Phone ph = new Phone(p.getNumber(),p.getType());
-			usr.getPhones().add(ph);
-			//hat gefehlt
-			ph.setUsr(usr);
-			em.persist(usr);
-			return "Phone added";
-		}
-		else {
-			System.out.println(error);
-			return error;
-		}	
+		User usr = em.find(User.class, usrId);
+		
+		
+		usr.getPhones().add(p);
+		//hat gefehlt
+		p.setUsr(usr);
+		em.persist(p);
+		em.merge(usr);
+		return "Phone added";
+		
+		
+		
+		
+//    	Boolean duplicate = false;
+//    	int anzNumber = 0; 
+//    	String error = "Max anz erreicht";
+//    	
+//    	System.out.println("Aus der ORM: "+" ID: "+usrId+" number: "+p.getNumber()+" type: "+p.getType());  	
+//    	//Pr�fen dass nur zwei nummern da sind
+//		TypedQuery<Phone> query =em.createQuery("SELECT p FROM Phone p WHERE user_id = :val OR p.number = :val2", Phone.class);
+//		query.setParameter("val", usrId);
+//		query.setParameter("val2", p.getNumber());
+//		
+//		System.out.println("AnzResultsQuery: "+ query.getResultList().size());
+//		
+//		//Check all Numbers
+//	
+//		for(Phone elem : query.getResultList()) {
+//			System.out.println("AktElement: "+ elem );
+//			//if(elem.getNumber()==number) geht nicht aus Gr�nden 
+//			//Check for duplicate entry and anzNumbers
+//			if(elem.getNumber().equals(p.getNumber())) {
+//				System.out.println("ComparingNumbers: " +elem.getNumber()+" to "+p.getNumber() );
+//				duplicate = true;
+//				error = "Doppelte Nr entdeckt bei User: "+elem.getId();
+//				break;
+//			}
+//		}
+//  
+//		if(query.getResultList().size() <= 1 && duplicate==false) {	
+//			System.out.println("If erreicht mit "+anzNumber+" dub? "+ duplicate);
+//			User usr = new User();
+//			
+//			try {
+//				usr = em.find(User.class, usrId);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//				System.out.println("Custom Exception UserOrm addPhone Find User: "+ e.toString());
+//				return e.toString();
+//			}
+//			Phone ph = new Phone(p.getNumber(),p.getType());
+//			usr.getPhones().add(ph);
+//			//hat gefehlt
+//			ph.setUsr(usr);
+//			em.persist(usr);
+//			return "Phone added";
+//		}
+//		else {
+//			System.out.println(error);
+//			return error;
+//		}	
 	}
     
     @Transactional
