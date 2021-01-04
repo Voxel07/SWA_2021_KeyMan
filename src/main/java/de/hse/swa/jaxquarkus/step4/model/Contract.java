@@ -112,10 +112,18 @@ public class Contract {
     public List<User> getUsers(){
     	return this.users;
     }
-    
     public void setUsers(List<User> users) {
 		this.users = users;
 	}
+    @JsonbTransient
+    public Company getCompanyC() {
+		return companyC;
+	}
+
+	public void setCompanyC(Company companyC) {
+		this.companyC = companyC;
+	}
+
     @JsonbTransient
     public List<Feature> getFeatures() {
 		return features;

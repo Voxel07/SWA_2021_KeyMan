@@ -21,7 +21,7 @@ import de.hse.swa.jaxquarkus.step4.model.*;
 
 import de.hse.swa.jaxquarkus.step4.orm.*;
 
-@Path("/contracts")
+@Path("/contract")
 public class ContractResource {
 	
     @ApplicationScoped
@@ -54,9 +54,9 @@ public class ContractResource {
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public void addContract(Contract contract) 
-    { 	
-    	contractOrm.addContract(contract);
+    public void addContract(Contract contract,@QueryParam("companyId") Long companyId) 
+    { 	//Path fehlt
+    	contractOrm.addContract(contract, companyId);
     }
     
     @POST
@@ -79,18 +79,19 @@ public class ContractResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public void deleteContract(Contract ctr, @QueryParam("usrId") Long usrId) 
     {
-    	if(usrId == null) {
-    		System.out.println("deleteContract");
-    		contractOrm.updateContract(ctr);
-    	}
-    	else if(ctr == null) {
-    		System.out.println("removeAllConnectionUserContract");
-    		contractOrm.removeAllConnectionUserContract(usrId);
-    	}
-    	else {
-    		System.out.println("removeConnectionUserContract");
-    		contractOrm.removeConnectionUserContract(ctr.getId() , usrId);
-    	}
+    	contractOrm.deleteContract(ctr);
+//    	if(usrId == null) {
+//    		System.out.println("deleteContract");
+//    		contractOrm.updateContract(ctr);
+//    	}
+//    	else if(ctr == null) {
+//    		System.out.println("removeAllConnectionUserContract");
+//    		contractOrm.removeAllConnectionUserContract(usrId);
+//    	}
+//    	else {
+//    		System.out.println("removeConnectionUserContract");
+//    		contractOrm.removeConnectionUserContract(ctr.getId() , usrId);
+//    	}
     }
 
 

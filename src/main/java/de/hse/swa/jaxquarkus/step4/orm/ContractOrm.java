@@ -20,6 +20,8 @@ public class ContractOrm  {
 	FeatureOrm featureOrm;
 	@Inject
 	UserOrm userOrm;
+	@Inject
+	CompanyOrm companyOrm;
 
     
     public Contract getContract(Long id) 
@@ -47,13 +49,19 @@ public class ContractOrm  {
     }
      
 	@Transactional
-    public String addContract(Contract contract) {
-
+    public String addContract(Contract contract, Long companyId) {
+		
     	if(!getContractByLicenskey(contract.getLicenskey()).isEmpty())
-    		return "Doppelter Licenskey";
-    	
-			em.persist(contract);
-			return "Contract added";
+    	{
+    		return "Doppelter Licenskey";    		
+    	}
+   
+		Company c = companyOrm.getCompany(companyId);
+		c.getContracts().add(contract); 
+		
+		em.persist(contract); 
+		em.merge(c);
+		return "Contract added";
 	
 	}
 
@@ -78,7 +86,6 @@ public class ContractOrm  {
         userOrm.updateUser(usr);
     	return true;
     }
-    
     
     @Transactional
     public String deleteContract(Contract contract) 

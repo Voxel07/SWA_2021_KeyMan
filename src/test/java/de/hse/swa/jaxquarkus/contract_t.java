@@ -39,26 +39,27 @@ public class contract_t{
 	@Order(1)
 	public void AddContract() {
 		
-				 given()
-				 .contentType(MediaType.APPLICATION_JSON)
-				 .body(contractC)
-				 .when()
-				 .put("contracts")
-				 .then().statusCode(204);    	  	
+		 given()
+		 .queryParam("companyId", 1l)
+		 .contentType(MediaType.APPLICATION_JSON)
+		 .body(contractC)
+		 .when()
+		 .put("contract")
+		 .then().statusCode(204);    	  	
 	} 
 	
 	@Test
 	@Order(2)
 	public void addConnectionUserContract() {
 		contractA.setId(1l);
-		
-				 given()
-				 .queryParam("usrId", 1l)
-				 .contentType(MediaType.APPLICATION_JSON)
-				 .body(contractA)
-				 .when()
-				 .post("contracts")
-				 .then().statusCode(204);    	  	
+
+		 given()
+		 .queryParam("usrId", 1l)
+		 .contentType(MediaType.APPLICATION_JSON)
+		 .body(contractA)
+		 .when()
+		 .post("contract")
+		 .then().statusCode(204);    	  	
 	} 
 		
 	@Test
@@ -68,7 +69,7 @@ public class contract_t{
         given()
         .contentType(MediaType.APPLICATION_JSON)
         .when()
-        .get("contracts");
+        .get("contract");
     	
 		res.then().statusCode(200);
 		List<Contract> ctr = Arrays.asList(res.getBody().as(Contract[].class));
@@ -87,7 +88,7 @@ public class contract_t{
         .queryParam("licenskey", "1234")
         .contentType(MediaType.APPLICATION_JSON)
         .when()
-        .get("contracts");
+        .get("contract");
 		
 		res.then().statusCode(200);
 		
@@ -99,148 +100,108 @@ public class contract_t{
 	@Test
 	@Order(5)
 	public void getContractByCompany() {
+
 		Response res = 
         given()
         .queryParam("company_id", 1l)
         .contentType(MediaType.APPLICATION_JSON)
         .when()
-        .get("contracts");
+        .get("contract");
 		
 		res.then().statusCode(200);
 		
 		List<Contract> ctr = Arrays.asList(res.getBody().as(Contract[].class));
-		Assertions.assertEquals( contractA.getLicenskey(), ctr.get(0).getLicenskey());
+		Assertions.assertEquals( contractC.getLicenskey(), ctr.get(0).getLicenskey());
 	}
 
 	
-//	@Test
-//	@Order(4)
-//	public void UpdateContract() { 
-//		
-//		contractC.setId(10l);
-//		contractC.setLicenskey("Cool");
-//		Response response = 
-//		        given()
-//		        .contentType(MediaType.APPLICATION_JSON)
-//		        .body(contractC)
-//		          .when()
-//		          .post("/contract");		
-//		          response.then().statusCode(204);      
-//	}
+	@Test
+	@Order(6)
+	public void UpdateContract() { 
+		
+		contractC.setId(10l);
+		contractC.setLicenskey("Cool");
+		        given()
+		        .contentType(MediaType.APPLICATION_JSON)
+		        .body(contractC)
+		          .when()
+		          .post("contract")		
+		          .then().statusCode(204);   
+		 // datenbank licenskey cool => id==10
+	    Response res = 
+	            given()
+	            .queryParam("licenskey", "Cool")
+	            .contentType(MediaType.APPLICATION_JSON)
+	            .when()
+	            .get("contract");
+	    		
+	    		res.then().statusCode(200);
+	    		
+	    		List<Contract> ctr = Arrays.asList(res.getBody().as(Contract[].class));
+	    		Assertions.assertEquals( contractC.getId(), ctr.get(0).getId());
+	    		Assertions.assertEquals( 1, ctr.size());
+		
+	      
+		          
+	}
 
 	
-//	@Test
-//	@Order(5)
-//	public void DeleteContract() {
-//		
-//		contractA.setId(1l);
-//		Response response = 
-//		        given()
-//		        .contentType(MediaType.APPLICATION_JSON)
-//		        .body(contractA)
-//		          .when()
-//		          .delete("/contracts");		
-//		          response.then().statusCode(204);  
-//	}
+	@Test
+	@Order(5)
+	public void DeleteContract() {
+		
+		 given()
+	        .pathParam("id", 1l)
+	        .contentType(MediaType.APPLICATION_JSON)
+	        .body(FA)//10
+	        .when()
+	        .put("feature/{id}")	
+	        .then()
+	        .statusCode(200).body(is("Feature added"));
+		 given()
+	        .pathParam("id", 1l)
+	        .contentType(MediaType.APPLICATION_JSON)
+	        .body(FB)//10
+	        .when()
+	        .put("feature/{id}")	
+	        .then()
+	        .statusCode(200).body(is("Feature added"));
+		 given()
+		 	.pathParam("id", 1l)
+	        .contentType(MediaType.APPLICATION_JSON)
+	        .body(IpA)
+	        .when()
+	        .put("IpNumber/{id}")	
+	        .then()
+	        .statusCode(200).body(is("IP added"));
+		 given()
+		 	.pathParam("id", 1l)
+	        .contentType(MediaType.APPLICATION_JSON)
+	        .body(IpB)
+	        .when()
+	        .put("IpNumber/{id}")	
+	        .then()
+	        .statusCode(200).body(is("IP added"));
+		
+		contractA.setId(1l); 
+		        given()
+		        .contentType(MediaType.APPLICATION_JSON)
+		        .body(contractA)
+		          .when()
+		          .delete("contract")	
+		          .then().statusCode(204);  
+		        
+     	Response res =
+     	        given()
+     	        .contentType(MediaType.APPLICATION_JSON)
+     	        .when()
+     	        .get("contract");
+     	    	
+     			res.then().statusCode(200);
+     			List<Contract> ctr = Arrays.asList(res.getBody().as(Contract[].class));
+     			Assertions.assertEquals( 2, ctr.size());
+	}
 	
-//	@Test
-//	@Order(6)
-//	public void AddFeature() {
-//		
-//		 given()
-//		 .pathParam("id", 10l)
-//	        .contentType(MediaType.APPLICATION_JSON)
-//	        .body(FA)
-//	        .when()
-//	        .post("feature/{id}")	
-//	        .then()
-//	        .statusCode(200).body(is("Feature added"));
-//		
-//		 given()
-//		 .pathParam("id", 10l)
-//	        .contentType(MediaType.APPLICATION_JSON)
-//	        .body(FB)
-//	        .when()
-//	        .post("feature/{id}")	
-//	        .then()
-//	        .statusCode(200).body(is("Feature added"));
-//	}
-//	@Test
-//	@Order(7)
-//	public void removeFeature() {
-//		FB.setId(10l);
-//		given()
-//	        .contentType(MediaType.APPLICATION_JSON)
-//	        .body(FB)
-//	        .when()
-//	        .delete("feature")	
-//	        .then()
-//	        .statusCode(200).body(is("Feature "+FB.getNumber()+" removed"));
-//		
-//	}
-//	@Test
-//	@Order(8)
-//	public void AddIp() {
-//		 given()
-//		 .pathParam("id", 10l)
-//	        .contentType(MediaType.APPLICATION_JSON)
-//	        .body(IpA)
-//	        .when()
-//	        .post("contract/{id}")	
-//	        .then()
-//	        .statusCode(200).body(is("IP added"));
-//		
-//		 given()
-//		 .pathParam("id", 10l)
-//	        .contentType(MediaType.APPLICATION_JSON)
-//	        .body(IpB)
-//	        .when()
-//	        .post("contract/{id}")	
-//	        .then()
-//	        .statusCode(200).body(is("IP added"));
-//	}
-//	@Test
-//	@Order(9)
-//	public void removeIp() {
-//		IpA.setId(10l);
-//		given()
-//	        .contentType(MediaType.APPLICATION_JSON)
-//	        .body(IpA)
-//	        .when()
-//	        .delete("IpNumber/Ip")	
-//	        .then()
-//			.statusCode(200).body(is("Ip "+FB.getNumber()+" removed"));
-//	}
-//	
-//	@Test
-//	@Order(10)
-//	public void removeAllIpFromContract() {
-//		IpA.setId(10l);
-//		contractC.setId(10l);
-//		
-//		given()
-//	        .contentType(MediaType.APPLICATION_JSON)
-//	        .body(contractC)
-//	        .when()
-//	        .delete("/contracts")	
-//	        .then()
-//			.statusCode(200).body(is("Ips removed"));
-//	}
-//
-//	@Test
-//	@Order(11)
-//	public void removeAllFeaturesFromContract() {
-//		FB.setId(10l);
-//		contractC.setId(10l);
-//		
-//		given()
-//	        .contentType(MediaType.APPLICATION_JSON)
-//	        .body(contractC)
-//	        .when()
-//	        .delete("/contracts")	
-//	        .then()
-//	        .statusCode(200).body(is("true"));
-//	}
 }
 	
 	
