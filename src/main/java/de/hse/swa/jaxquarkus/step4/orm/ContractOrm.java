@@ -77,7 +77,7 @@ public class ContractOrm  {
 	
     @Transactional
     public Boolean addConnectionUserContract(Long usrId, Long ctrId) {
-    	
+    	System.out.println("ContractOrm/addConnectionUserContract");
     	Contract ctr = getContract(ctrId);
     	User usr = userOrm.getUser(usrId);
     	usr.getContracts().add(ctr);

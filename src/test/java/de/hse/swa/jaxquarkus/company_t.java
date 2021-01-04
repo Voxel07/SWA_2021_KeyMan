@@ -5,7 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 import de.hse.swa.jaxquarkus.step4.model.Company;
-
+import de.hse.swa.jaxquarkus.step4.model.Contract;
+import de.hse.swa.jaxquarkus.step4.model.User;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import io.quarkus.test.junit.QuarkusTest;
@@ -27,6 +28,10 @@ public class company_t{
 	private static Company companyB = new Company("Bname", "Bdepartment", "Bstreet", 12345, "Bstate", "Bcountry");
 	private static Company companyC = new Company("Cname", "Cdepartment", "Cstreet", 12345, "Cstate", "Ccountry");	
 	
+	private static Contract contractA = new Contract("1.1.2020", "1.1.2021", "ver1","1234");
+	private static Contract contractB = new Contract("1.1.2021", "1.1.2022", "ver2","2234");
+	
+	private static User usrC = new User("Cemail", "Cusername", "Cpassword", "Cfirst", "Clast", true);
 			@Test
 			@Order(1)
 			public void AddCompany() {
@@ -90,22 +95,52 @@ public class company_t{
 				          .post("/companys");		
 				          response.then().statusCode(204);      
 			}
-
+				
 			
 			@Test
 			@Order(5)
 			public void DeleteCompany() {
 				
-				companyA.setId(1l);
-				Response response = 
-				        given()
-				        .contentType(MediaType.APPLICATION_JSON)
-				        .body(companyA)
-				          .when()
-				          .delete("/companys");		
-				          response.then().statusCode(204);  
+				//user für company
+//				 given()
+//				 .queryParam("companyId", 1l)
+//				 .contentType(MediaType.APPLICATION_JSON)
+//				 .body(usrC)
+//				 .when()
+//				 .put("/users")		
+//				 .then().statusCode(200);
+				 
+				 //contract für company
+				 given()
+				 .queryParam("companyId", 1l)
+				 .contentType(MediaType.APPLICATION_JSON)
+				 .body(contractB)
+				 .when()
+				 .put("contract")
+				 .then().statusCode(200).body(is("Contract added"));
+				 
+				 
+				 contractA.setId(1l);
+				 given()
+				 .queryParam("usrId", 1l)
+				 .contentType(MediaType.APPLICATION_JSON)
+				 .body(contractA)
+				 .when()
+				 .post("contract")
+				 .then().statusCode(200).body(is("true"));
+				 
+				 
+//				 
+//				companyA.setId(1l);
+//				Response response = 
+//				        given()
+//				        .contentType(MediaType.APPLICATION_JSON)
+//				        .body(companyA)
+//				          .when()
+//				          .delete("/companys");		
+//				          response.then().statusCode(204);  
 			}	
 			
-		
+			
 	
 }

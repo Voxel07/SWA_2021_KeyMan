@@ -45,7 +45,7 @@ public class contract_t{
 		 .body(contractC)
 		 .when()
 		 .put("contract")
-		 .then().statusCode(204);    	  	
+		 .then().statusCode(200).body(is("Contract added"));    	  	
 	} 
 	
 	@Test
@@ -59,7 +59,7 @@ public class contract_t{
 		 .body(contractA)
 		 .when()
 		 .post("contract")
-		 .then().statusCode(204);    	  	
+		 .then().statusCode(200).body(is(true));  	  	
 	} 
 		
 	@Test
@@ -147,7 +147,7 @@ public class contract_t{
 
 	
 	@Test
-	@Order(5)
+	@Order(7)
 	public void DeleteContract() {
 		
 		 given()

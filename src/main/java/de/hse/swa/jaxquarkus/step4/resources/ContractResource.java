@@ -37,6 +37,7 @@ public class ContractResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public List<Contract> getContract(@QueryParam("licenskey") String licenskey, @QueryParam("company_id") Long companyId)
     {   
+    	System.out.println("ContratResource/getContract");
         if(licenskey != null){
         	System.out.println("getContractByLicenskey");
           return contractOrm.getContractByLicenskey(licenskey);
@@ -54,23 +55,25 @@ public class ContractResource {
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public void addContract(Contract contract,@QueryParam("companyId") Long companyId) 
-    { 	//Path fehlt
-    	contractOrm.addContract(contract, companyId);
+    public String addContract(Contract contract,@QueryParam("companyId") Long companyId) 
+    { 	
+    	System.out.println("ContratResource/addContract");
+    	return contractOrm.addContract(contract, companyId);
     }
     
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public void updateContract(Contract ctr, @QueryParam("usrId") Long usrId) 
+    public Boolean updateContract(Contract ctr, @QueryParam("usrId") Long usrId) 
     {
+    	System.out.println("ContratResource/updateContract");
     	if(usrId == null) {
 		System.out.println("updateContract");
-    	contractOrm.updateContract(ctr);
+    	return contractOrm.updateContract(ctr);
     	}
     	else {
     	System.out.println("addConnectionUserContract");
-    	contractOrm.addConnectionUserContract(usrId, ctr.getId());
+    	return contractOrm.addConnectionUserContract(usrId, ctr.getId());
     	}
     }
     
@@ -79,6 +82,7 @@ public class ContractResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public void deleteContract(Contract ctr, @QueryParam("usrId") Long usrId) 
     {
+    	System.out.println("ContratResource/deleteContract");
     	contractOrm.deleteContract(ctr);
 //    	if(usrId == null) {
 //    		System.out.println("deleteContract");

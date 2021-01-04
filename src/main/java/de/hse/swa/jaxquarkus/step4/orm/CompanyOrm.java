@@ -45,7 +45,7 @@ public class CompanyOrm {
     
     @Transactional
     public void deleteCompany(Company company) 
-    { 	//Das ist suspekt
+    { 	
     	em.remove(em.contains(company) ? company : em.merge(company));
     }
 
