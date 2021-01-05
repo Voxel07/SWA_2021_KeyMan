@@ -41,24 +41,24 @@ public class ipNumber_t{
 	        .when()
 	        .put("IpNumber/{id}")	
 	        .then()
-	        .statusCode(200).body(is("IP added"));
+	        .statusCode(200).body(is("true"));
 
 		}
-	
-	@Test
-	@Order(2)
-	public void addIpNumberToContractDuplicate(){
-		
-		 given()
-		    .pathParam("id", 1l)
-	        .contentType(MediaType.APPLICATION_JSON)
-	        .body(IpA)
-	        .when()
-	        .put("IpNumber/{id}")	
-	        .then()
-	        .statusCode(200).body(is("Doppelte Nr entdeckt bei Contract: 1"));
-
-		}
+	// nicht merh unique
+//	@Test
+//	@Order(2)
+//	public void addIpNumberToContractDuplicate(){
+//		
+//		 given()
+//		    .pathParam("id", 1l)
+//	        .contentType(MediaType.APPLICATION_JSON)
+//	        .body(IpA)
+//	        .when()
+//	        .put("IpNumber/{id}")	
+//	        .then()
+//	        .statusCode(200).body(is("true"));
+//
+//		}
 	
 	@Test
 	@Order(3)
@@ -71,7 +71,7 @@ public class ipNumber_t{
 	        .when()
 	        .put("IpNumber/{id}")	
 	        .then()
-			.statusCode(200).body(is("IP added"));
+			.statusCode(200).body(is("true"));
 
 		given()
 		.pathParam("id", 1l)
@@ -80,7 +80,7 @@ public class ipNumber_t{
 			.when()
 			.put("IpNumber/{id}")	
 			.then()
-			.statusCode(200).body(is("IP added"));
+			.statusCode(200).body(is("true"));
 
 		}
 	@Test
@@ -94,7 +94,7 @@ public class ipNumber_t{
 	        .when()
 	        .put("IpNumber/{id}")	
 	        .then()
-	        .statusCode(200).body(is("Max anz erreicht"));
+	        .statusCode(200).body(is("false"));
 
 		}
 
