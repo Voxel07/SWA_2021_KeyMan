@@ -59,7 +59,8 @@ public class contract_t{
 		 .body(contractA)
 		 .when()
 		 .post("contract")
-		 .then().statusCode(200).body(is(true));  	  	
+		 .then()
+		 .statusCode(200).body(is("true"));
 	} 
 		
 	@Test
@@ -107,8 +108,7 @@ public class contract_t{
         .contentType(MediaType.APPLICATION_JSON)
         .when()
         .get("contract");
-		
-		res.then().statusCode(200);
+		res.then().statusCode(200); // list
 		
 		List<Contract> ctr = Arrays.asList(res.getBody().as(Contract[].class));
 		Assertions.assertEquals( contractC.getLicenskey(), ctr.get(0).getLicenskey());
@@ -126,7 +126,7 @@ public class contract_t{
 		        .body(contractC)
 		          .when()
 		          .post("contract")		
-		          .then().statusCode(204);   
+		          .then().statusCode(200).body(is("true"));
 		 // datenbank licenskey cool => id==10
 	    Response res = 
 	            given()
@@ -157,7 +157,7 @@ public class contract_t{
 	        .when()
 	        .put("feature/{id}")	
 	        .then()
-	        .statusCode(200).body(is("Feature added"));
+	        .statusCode(200).body(is("true"));
 		 given()
 	        .pathParam("id", 1l)
 	        .contentType(MediaType.APPLICATION_JSON)
@@ -165,7 +165,7 @@ public class contract_t{
 	        .when()
 	        .put("feature/{id}")	
 	        .then()
-	        .statusCode(200).body(is("Feature added"));
+	        .statusCode(200).body(is("true"));
 		 given()
 		 	.pathParam("id", 1l)
 	        .contentType(MediaType.APPLICATION_JSON)
@@ -173,7 +173,7 @@ public class contract_t{
 	        .when()
 	        .put("IpNumber/{id}")	
 	        .then()
-	        .statusCode(200).body(is("IP added"));
+	        .statusCode(200).body(is("true"));
 		 given()
 		 	.pathParam("id", 1l)
 	        .contentType(MediaType.APPLICATION_JSON)
@@ -181,7 +181,7 @@ public class contract_t{
 	        .when()
 	        .put("IpNumber/{id}")	
 	        .then()
-	        .statusCode(200).body(is("IP added"));
+	        .statusCode(200).body(is("true"));
 		
 		contractA.setId(1l); 
 		        given()
