@@ -103,20 +103,20 @@ public class company_t{
 		
 		//user f�r company
 		given()
-		.queryParam("companyId", 1l)
+		.pathParam("companyId", 1l)
 		.contentType(MediaType.APPLICATION_JSON)
 		.body(usrC)
 		.when()
-		.put("/users")		
+		.put("/users/{companyId}")		
 		.then().statusCode(200).body(is("true"));
 		
 		//contract f�r company
 		given()
-		.queryParam("companyId", 1l)
+		.pathParam("companyId", 1l)
 		.contentType(MediaType.APPLICATION_JSON)
 		.body(contractB)
 		.when()
-		.put("contract")
+		.put("contract/{companyId}")
 		.then().statusCode(200).body(is("Contract added"));
 		
 		
