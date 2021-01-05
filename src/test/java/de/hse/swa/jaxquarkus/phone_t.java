@@ -42,7 +42,7 @@ public class phone_t{
 	        .when()
 	        .put("/phones/{id}")	
 	        .then()
-	        .statusCode(200).body(is("Phone added"));
+	        .statusCode(200).body(is("true"));
 
 		}
 	
@@ -57,7 +57,7 @@ public class phone_t{
 	        .when()
 	        .put("/phones/{id}")	
 	        .then()
-	        .statusCode(200).body(is("Doppelte Nr entdeckt bei User: 10"));
+	        .statusCode(200).body(is("false"));
 
 		}
 	
@@ -72,7 +72,7 @@ public class phone_t{
 	        .when()
 	        .put("/phones/{id}")	
 	        .then()
-	        .statusCode(200).body(is("Phone added"));
+	        .statusCode(200).body(is("true"));
 
 		}
 	@Test
@@ -86,7 +86,7 @@ public class phone_t{
 	        .when()
 	        .put("/phones/{id}")	
 	        .then()
-	        .statusCode(200).body(is("Max anz erreicht"));
+	        .statusCode(200).body(is("false"));
 
 		}
 
