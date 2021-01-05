@@ -21,7 +21,8 @@ public class IpNumber{
     @Column(name = "id", unique = true)
     private Long id;
     
-    @Column(name="number", unique = true)
+    // @Column(name="number", unique = true)
+    @Column(name="number")
     private String ipNumber;
     
     @ManyToOne

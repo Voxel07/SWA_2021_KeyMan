@@ -2,17 +2,16 @@ package de.hse.swa.jaxquarkus;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-
+import io.restassured.response.Response;
 import de.hse.swa.jaxquarkus.step4.model.*;
-import de.hse.swa.jaxquarkus.step4.orm.CompanyOrm;
-import de.hse.swa.jaxquarkus.step4.orm.ContractOrm;
-import de.hse.swa.jaxquarkus.step4.orm.PhoneOrm;
-import de.hse.swa.jaxquarkus.step4.orm.UserOrm;
+import de.hse.swa.jaxquarkus.step4.orm.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import io.quarkus.test.junit.QuarkusTest;
 import javax.inject.Inject;
-
+import javax.ws.rs.core.MediaType;
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
 @TestMethodOrder(OrderAnnotation.class)
@@ -27,9 +26,9 @@ public class all_t{
 	@Inject
 	PhoneOrm phoneOrm;
 	
-	private static Contract contractA = new Contract("1.1.2020", "1.1.2021", "ver1","1234");
-	private static Contract contractB = new Contract("2.2.2020", "2.2.2021", "ver2", "4321");
-	private static Contract contractC = new Contract("3.3.2020", "3.3.2021", "ver1", "5678");
+	private static Contract contractA = new Contract("1.1.2020", "1.1.2021", "ver1", "1111");
+	private static Contract contractB = new Contract("2.2.2020", "2.2.2021", "ver2", "2222");
+	private static Contract contractC = new Contract("3.3.2020", "3.3.2021", "ver1", "3333");
 
 	private static Company companyA = new Company("Aname", "Adepartment", "Astreet", 12345, "Astate", "Acountry");
 	private static Company companyB = new Company("Bname", "Bdepartment", "Bstreet", 12345, "Bstate", "Bcountry");
@@ -51,135 +50,130 @@ public class all_t{
 	private static Feature FB = new Feature("2");
 	private static Feature FC = new Feature("3");
 	
-	
+
 	@Test
 	@Order(1)
-	public void SetID_weil_pfusch_und_so() {
-		companyA.setId(1l);
-		companyB.setId(2l);
-		companyC.setId(10l);
-		
-		usrA.setId(1l);
-		usrB.setId(2l);
-		usrC.setId(10l);
-		
-		contractA.setId(1l);
-		contractB.setId(2l);
-		contractC.setId(10l);
-		
-		phoneA.setId(1l);
-		phoneB.setId(2l);
-		phoneC.setId(10l);
-		
-		IpA.setId(10l);
-		IpB.setId(11l);
-		IpC.setId(12l);
-		
-		FA.setId(10l);
-		FB.setId(11l);
-		FC.setId(12l);
-		Assertions.assertEquals(2, usrA.getId());
+	public void companyDelete(){
+
+		//Company
+		given()
+		.contentType(MediaType.APPLICATION_JSON)
+		.body(companyC)
+		.when()
+		.put("/companys")		
+		.then().statusCode(204);
+
+		//User
+		given()
+		.contentType(MediaType.APPLICATION_JSON)
+		.pathParam("companyId", 10l)
+		.body(usrC)
+		.when()
+		.put("/users/{companyId}")	
+		.then().statusCode(200).body(is("true"));
+
+		//Phones
+		given()
+		.pathParam("id", 10l)
+		.contentType(MediaType.APPLICATION_JSON)
+		.body(phoneA)
+		.when()
+		.put("/phones/{id}")	
+		.then()
+		.statusCode(200).body(is("true"));
+
+		given()
+		.pathParam("id", 10l)
+		.contentType(MediaType.APPLICATION_JSON)
+		.body(phoneB)
+		.when()
+		.put("/phones/{id}")	
+		.then()
+		.statusCode(200).body(is("true"));
+
+		//Contract
+		given()
+		.pathParam("companyId", 10l)
+		.contentType(MediaType.APPLICATION_JSON)
+		.body(contractA)
+		.when()
+		.put("contract/{companyId}")
+		.then().statusCode(200).body(is("Contract added"));   
+
+		given()
+		.pathParam("companyId", 10l)
+		.contentType(MediaType.APPLICATION_JSON)
+		.body(contractB)
+		.when()
+		.put("contract/{companyId}")
+		.then().statusCode(200).body(is("Contract added"));   
+
+		//Feature / Ip´s
+		given()
+        .pathParam("id", 10l)
+        .contentType(MediaType.APPLICATION_JSON)
+        .body(FA)//10
+        .when()
+        .put("feature/{id}")	
+        .then()
+		.statusCode(200).body(is("true"));
+
+		given()
+        .pathParam("id", 10l)
+        .contentType(MediaType.APPLICATION_JSON)
+        .body(FB)//10
+        .when()
+        .put("feature/{id}")	
+        .then()
+		.statusCode(200).body(is("true"));
+
+		given()
+        .pathParam("id", 11l)
+        .contentType(MediaType.APPLICATION_JSON)
+        .body(FB)//11
+        .when()
+        .put("feature/{id}")	
+        .then()
+		.statusCode(200).body(is("true"));
+
+		given()
+		.pathParam("id", 10l)
+		.contentType(MediaType.APPLICATION_JSON)
+		.body(IpA)
+		.when()
+		.put("IpNumber/{id}")	
+		.then()
+		.statusCode(200).body(is("true"));
+
+	   given()
+	   	.pathParam("id", 11l)
+		.contentType(MediaType.APPLICATION_JSON)
+		.body(IpB)
+		.when()
+		.put("IpNumber/{id}")	
+		.then()
+		.statusCode(200).body(is("true"));
+
+		//connect user Contract
+		contractA.setId(10l);
+		given()
+		.queryParam("usrId", 10l)
+		.contentType(MediaType.APPLICATION_JSON)
+		.body(contractA)
+		.when()
+		.post("contract")	
+		.then()
+		.statusCode(200).body(is("true"));
+
+		//Delete Company
+		companyA.setId(10l);
+		given()
+		.contentType(MediaType.APPLICATION_JSON)
+		.body(companyA)
+		.when()
+		.delete("/companys")		
+		.then().statusCode(204);  
 
 	}
-	
-	@Test
-	@Order(2)
-	public void contractAddUser() {
-
-    	contractC.getUsers().add(usrC);
-    	contractC.getUsers().add(usrA);
-    	usrC.getContracts().add(contractC);
-    	usrA.getContracts().add(contractC);
-		contractOrm.updateContract(contractC);
-		
-	
- 		Assertions.assertEquals(2, usrA.getId());
-
-	}
-
-	@Test
-	@Order(4)
-	public void ContractAddStuff() {
-		contractA.getFeatures().add(FA);
-		FA.setCrtF(contractA);
-		contractA.getFeatures().add(FB);
-		contractA.getFeatures().add(FC);
-		contractA.getIpNumbers().add(IpA);
-		contractA.getIpNumbers().add(IpB);
-		contractA.getIpNumbers().add(IpC);
-		contractOrm.updateContract(contractA);
-		Assertions.assertEquals(2, usrA.getId());
-
-	}
-	
-	@Test
-	@Order(5)
-	public void addUserToCompany() {
-		companyA.getUsers().add(usrA);
-		companyB.getUsers().add(usrB);
-		companyB.getUsers().add(usrC);
-		companyOrm.updateCompany(companyA);
-		companyOrm.updateCompany(companyB);
-		Assertions.assertEquals(2, usrA.getId());
-
-	}
-	@Test
-	@Order(6)
-	public void addContractToCompany() {
-		companyA.getContracts().add(contractA);
-		companyA.getContracts().add(contractB);
-		companyB.getContracts().add(contractC);
-		companyOrm.updateCompany(companyA);
-		Assertions.assertEquals(2, usrA.getId());
-
-		
-	}
-	@Test
-	@Order(7)
-	public void removeUser() {
-		userOrm.deleteUser(usrC);
-		Assertions.assertEquals(2, usrA.getId());
-
-	}
-	
-
-	//@Test
-//	@Order(8)
-//	public void removContract() {
-//		contractOrm.deleteContract(contractC);
-	//}
-	
-	@Test
-	@Order(9)
-	public void testAddPhone() {
-		phoneOrm.addPhone(1L, phoneA);
-		Assertions.assertEquals(2, usrA.getId());
-
-	}
-	// test contracts
-	@Test
-	@Order(10)
-	public void testAddIp() {
-		Assertions.assertEquals(2, usrA.getId());
-
-//		contractOrm.addIp(1L, "444.444.444.444");
-	}
-	
-	@Test
-	@Order(11)
-	public void testAddFeature() {
-		Assertions.assertEquals(2, usrA.getId());
-
-//		contractOrm.addFeature(2L, "33");
-	}
-	@Test
-	@Order(12)
-	public void testRemoveFeature() {
-		Assertions.assertEquals(2, usrA.getId());
-
-//		contractOrm.removeFeature(10L, FA);
-	}	
-	
-	
 		
 }

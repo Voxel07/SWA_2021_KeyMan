@@ -47,9 +47,10 @@ public class UserResource {
     }
   
     @PUT
+    @Path("{companyId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Boolean addUser(User usr,@QueryParam("companyId") Long companyId) 
+    public Boolean addUser(User usr,@PathParam("companyId") Long companyId) 
     { 	
     	//if ? addConnection / addUser
         return userOrm.addUser(usr,companyId);

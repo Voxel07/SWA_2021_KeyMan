@@ -55,7 +55,7 @@ public class FeatureResource {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String addFeature(@PathParam("id")Long crtId, Feature f) 
+    public Boolean addFeature(@PathParam("id")Long crtId, Feature f) 
     {
     	return featureOrm.addFeature(crtId, f);
     }

@@ -46,7 +46,7 @@ public class PhoneResource {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String addPhone(@PathParam("id") Long UserId, Phone p ) 
+    public Boolean addPhone(@PathParam("id") Long UserId, Phone p ) 
     {
         return phoneOrm.addPhone(UserId,p);
     }

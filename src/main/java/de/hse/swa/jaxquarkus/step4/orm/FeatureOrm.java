@@ -50,52 +50,19 @@ public class FeatureOrm {
 	}
    
     @Transactional
-    public String addFeature(Long contractId, Feature f) {
-		Boolean duplicate = false;
-		int anzNumber = 0; 
-    	String error = "Max anz erreicht";
-    	
-    	System.out.println("Aus der ORM: "+" ID: "+contractId+" number: "+f);  	
-    	//checkt ob weniger als 3 Features da sind
-		TypedQuery<Feature> query =em.createQuery("SELECT f FROM Feature f WHERE contract_Id =:val OR number = :val2", Feature.class);
-		query.setParameter("val", contractId);
-		query.setParameter("val2", f.getNumber());
-		
-		System.out.println("AnzResultsQuery: "+ query.getResultList().size());
-		
-		//Check all IpNumbers
-		for(Feature elem : query.getResultList()) {
-			System.out.println("AktElement: "+ elem );
-			//if(elem.getNumber()==number) geht nicht aus Gr�nden 
-			//Check for duplicate entry and anzNumbers
-			if(elem.getNumber().equals(f.getNumber())) {
-				System.out.println("ComparingNumbers: " +elem.getNumber()+" to "+f.getNumber() );
-				duplicate = true;
-				error = "Doppelte Nr entdeckt bei Contract: "+elem.getCrtF().getId();//könnte ärger machen
-				break;
-			}
-		}	  
+    public Boolean addFeature(Long contractId, Feature f) {
 
-		if(query.getResultList().size() <= 2 && duplicate==false) {	
-			System.out.println("If erreicht mit "+anzNumber);
-			Contract contract = new Contract();
-			
-			try {
-				contract = em.find(Contract.class, contractId);
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("Custom Exception ContractOrm addFeature Find Contract: "+ e.toString());
-				return e.toString();
-			}
-			contract.getFeatures().add(f);
-			f.setCrtF(contract);
-			em.persist(contract);
-			return "Feature added";
+		if(getContractFeatures(contractId).size() >=3){
+			return false;
 		}
-		else {
-			System.out.println(error);
-			return error;
-		}		
+		
+		Contract c = em.find(Contract.class,contractId);
+		c.getFeatures().add(f);
+		f.setCrtF(c);
+
+		em.persist(f);
+		em.merge(c);
+		return true;
 	}
 
     @Transactional

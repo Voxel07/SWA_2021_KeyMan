@@ -47,13 +47,13 @@ public class PhoneOrm{
 	}
 	
 	@Transactional
-    public String addPhone(Long usrId, Phone p) {
+    public Boolean addPhone(Long usrId, Phone p) {
 		
 		if(!getPhoneByNumber(p.getNumber()).isEmpty()) {
-			return "doppelt";
+			return false;
 		}
 		if((getUserPhones(usrId).size() >= 2)) {
-			return "zu viele";
+			return false;
 		}
 		
 		User usr = em.find(User.class, usrId);
@@ -64,7 +64,7 @@ public class PhoneOrm{
 		p.setUsr(usr);
 		em.persist(p);
 		em.merge(usr);
-		return "Phone added";
+		return true;
 		
 		
 		

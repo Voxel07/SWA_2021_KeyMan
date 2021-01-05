@@ -27,8 +27,8 @@ public class UserOrm {
     }
     
     public List<User> getUsers(){
-   	 TypedQuery<User> query = em.createQuery("SELECT u FROM User u", User.class);
-   	 return  query.getResultList();
+        TypedQuery<User> query = em.createQuery("SELECT u FROM User u", User.class);
+        return  query.getResultList();
     }
 
     public User getUserById(Long id) 
@@ -77,13 +77,14 @@ public class UserOrm {
     @Transactional
     public String deleteUser(User usr){ 	
         System.out.println("UserOrm/deleteUser");
-        System.out.println(usr.toString());
     
         if(Boolean.FALSE.equals(phoneOrm.removeAllPhonesFromUser(usr))){
-         return "removePhone";
+             return "removePhone";
         }
+        //sollte ohne gehen
+        //  contractOrm.removeAllConnectionUserContract(usr.getId());
 
-        em.createQuery("DELETE FROM User WHERE id =: val")/*Ich bin Wichtig !!*/
+        em.createQuery("DELETE FROM User WHERE id =: val")
         .setParameter("val", usr.getId())
         .executeUpdate();
         return "works";

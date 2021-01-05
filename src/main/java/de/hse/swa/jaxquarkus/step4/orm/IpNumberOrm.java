@@ -57,55 +57,18 @@ public class IpNumberOrm {
 	}
    
 	@Transactional
-    public String addIp(Long contractId, IpNumber Ip) {
-    	Boolean duplicate = false;
-    	int anzNumber = 0; 
-    	String error = "Max anz erreicht";
-    	
-    	System.out.println("Aus der ORM: "+" ID: "+contractId+" number: "+Ip);  	
-    	//checkt ob weniger als 3 Ips da sind
-		TypedQuery<IpNumber> query =em.createQuery("SELECT i FROM IpNumber i WHERE contract_Id =:val OR number = :val2", IpNumber.class);
-		query.setParameter("val", contractId);
-		query.setParameter("val2", Ip.getIpNumber());
-		
-		System.out.println("AnzResultsQuery: "+ query.getResultList().size());
-		
-		//Check all IpNumbers
-	
-		for(IpNumber elem : query.getResultList()) {
-			System.out.println("AktElement: "+ elem );
-			
-			//Check for duplicate entry and anzNumbers
-			if(elem.getIpNumber().equals(Ip.getIpNumber())) {
-				System.out.println("ComparingNumbers: " +elem.getIpNumber()+" to "+Ip );
-				duplicate = true;
-				error = "Doppelte Nr entdeckt bei Contract: "+elem.getCrtIP().getId();
-				break;
-			}
-			
+    public Boolean addIp(Long contractId, IpNumber ip) {
+    	if(getContractIpNumbers(contractId).size() >=3){
+			return false;
 		}
 		
-		if(query.getResultList().size() <= 2 && duplicate==false) {	
-			System.out.println("If erreicht mit "+anzNumber+" dub? "+ duplicate);
-			Contract contract = new Contract();
-			
-			try {
-				contract = em.find(Contract.class, contractId);
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("Custom Exception ContractOrm addIp Find Contract: "+ e.toString());
-				return e.toString();
-			}
-			
-			contract.getIpNumbers().add(Ip);
-			Ip.setCrtIP(contract);
-			em.persist(contract);
-			return "IP added";
-		}
-		else {
-			System.out.println(error);
-			return error;
-		}	
+		Contract c = em.find(Contract.class,contractId);
+		c.getIpNumbers().add(ip);
+		ip.setCrtIP(c);
+
+		em.persist(ip);
+		em.merge(c);
+		return true;
 	}
     
     @Transactional

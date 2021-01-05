@@ -53,9 +53,10 @@ public class ContractResource {
     }
         
     @PUT
+    @Path("{companyId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String addContract(Contract contract,@QueryParam("companyId") Long companyId) 
+    public String addContract(Contract contract,@PathParam("companyId") Long companyId) 
     { 	
     	System.out.println("ContratResource/addContract");
     	return contractOrm.addContract(contract, companyId);

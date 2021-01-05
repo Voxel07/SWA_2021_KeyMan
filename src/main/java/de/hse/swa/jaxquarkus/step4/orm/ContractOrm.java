@@ -114,11 +114,18 @@ public class ContractOrm  {
 		.executeUpdate()==1;
 	}
 
-	//Sinvoll ??? ->
+	//Quasi nutzlos
 	@Transactional
 	public Boolean removeAllConnectionUserContract(Long usrId){
 		return	em.createQuery("DELETE FROM user_contract WHERE User_id =: val1")
 		.setParameter("val1", usrId)
+		.executeUpdate()==1;
+	}
+
+	@Transactional
+	public Boolean removeAllConnectionContractUser(Long contractId){
+		return	em.createQuery("DELETE FROM user_contract WHERE Contract_id =: val1")
+		.setParameter("val1", contractId)
 		.executeUpdate()==1;
 	}
 

@@ -120,11 +120,11 @@ public class company_t{
 		.then().statusCode(200).body(is("Contract added"));
 		
 		
-		contractA.setId(1l);
+		contractB.setId(10l);
 		given()
 		.queryParam("usrId", 1l)
 		.contentType(MediaType.APPLICATION_JSON)
-		.body(contractA)
+		.body(contractB)
 		.when()
 		.post("contract")
 		.then().statusCode(200).body(is("true"));

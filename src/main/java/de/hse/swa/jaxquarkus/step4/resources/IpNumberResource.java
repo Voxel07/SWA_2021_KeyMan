@@ -58,7 +58,7 @@ public class IpNumberResource {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String addIp(@PathParam("id")Long crtId,IpNumber Ip) 
+    public Boolean addIp(@PathParam("id")Long crtId,IpNumber Ip) 
     {
     	return ipNumberOrm.addIp(crtId, Ip);
     }
