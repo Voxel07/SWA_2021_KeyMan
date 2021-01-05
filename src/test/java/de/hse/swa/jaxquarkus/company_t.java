@@ -40,7 +40,7 @@ public class company_t{
 				.contentType(MediaType.APPLICATION_JSON)
 				.body(companyC)
 					.when()
-					.put("/companys");		
+					.put("/company");		
 					response.then().statusCode(204);
 			
 	} 
@@ -53,7 +53,7 @@ public class company_t{
 		given()
 		.contentType(MediaType.APPLICATION_JSON)
 		.when()
-		.get("/companys");
+		.get("/company");
 		
 		response
 		.then()
@@ -74,7 +74,7 @@ public class company_t{
 		.pathParam("id", id)
 		.contentType(MediaType.APPLICATION_JSON)
 		.when()
-		.get("/companys/{id}");
+		.get("/company/{id}");
 		response.then().statusCode(200);
 		Company company = response.getBody().as(Company.class);
 		Assertions.assertEquals( companyA.getName(), company.getName());
@@ -92,7 +92,7 @@ public class company_t{
 				.contentType(MediaType.APPLICATION_JSON)
 				.body(companyC)
 					.when()
-					.post("/companys");		
+					.post("/company");		
 					response.then().statusCode(204);      
 	}
 		
@@ -107,7 +107,7 @@ public class company_t{
 		.contentType(MediaType.APPLICATION_JSON)
 		.body(usrC)
 		.when()
-		.put("/users/{companyId}")		
+		.put("/user/{companyId}")		
 		.then().statusCode(200).body(is("true"));
 		
 		//contract f�r company
@@ -137,7 +137,7 @@ public class company_t{
 			.contentType(MediaType.APPLICATION_JSON)
 			.body(companyA)
 			.when()
-			.delete("/companys");		
+			.delete("/company");		
 			response.then().statusCode(204);  
 			}	
 

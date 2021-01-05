@@ -40,7 +40,7 @@ public class phone_t{
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(phoneA)
 	        .when()
-	        .put("/phones/{id}")	
+	        .put("/phone/{id}")	
 	        .then()
 	        .statusCode(200).body(is("true"));
 
@@ -55,7 +55,7 @@ public class phone_t{
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(phoneA)
 	        .when()
-	        .put("/phones/{id}")	
+	        .put("/phone/{id}")	
 	        .then()
 	        .statusCode(200).body(is("false"));
 
@@ -70,7 +70,7 @@ public class phone_t{
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(phoneB)
 	        .when()
-	        .put("/phones/{id}")	
+	        .put("/phone/{id}")	
 	        .then()
 	        .statusCode(200).body(is("true"));
 
@@ -84,7 +84,7 @@ public class phone_t{
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(phoneC)
 	        .when()
-	        .put("/phones/{id}")	
+	        .put("/phone/{id}")	
 	        .then()
 	        .statusCode(200).body(is("false"));
 
@@ -97,7 +97,7 @@ public class phone_t{
 		.queryParam("usr_id", 1l)
 		.contentType(MediaType.APPLICATION_JSON)
 		.when()
-		.get("/phones");	
+		.get("/phone");	
 		
 		res.then().statusCode(200);
 		List<Phone> phones = Arrays.asList(res.getBody().as(Phone[].class));
@@ -115,7 +115,7 @@ public class phone_t{
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(phoneA)
 	        .when()
-	        .delete("/phones")	
+	        .delete("/phone")	
 	        .then()
 	        .statusCode(200).body(is("true"));
 	}
@@ -127,7 +127,7 @@ public class phone_t{
 		.queryParam("number", phoneB.getNumber())
         .contentType(MediaType.APPLICATION_JSON)
         .when()
-		.get("/phones");	
+		.get("/phone");	
        
 		res.then().statusCode(200);
 		List<Phone> phones = Arrays.asList(res.getBody().as(Phone[].class));
@@ -145,7 +145,7 @@ public class phone_t{
 		.contentType(MediaType.APPLICATION_JSON)
 		.body(phoneB)
         .when()
-		.post("/phones")	
+		.post("/phone")	
 		.then()
 		.statusCode(200).body(is("true"));	
 		
@@ -153,7 +153,7 @@ public class phone_t{
 		.queryParam("number", phoneB.getNumber())
         .contentType(MediaType.APPLICATION_JSON)
         .when()
-		.get("/phones");	
+		.get("/phone");	
        
 		res.then().statusCode(200);
 		List<Phone> phones = Arrays.asList(res.getBody().as(Phone[].class));
@@ -172,7 +172,7 @@ public class phone_t{
 		.contentType(MediaType.APPLICATION_JSON)
 		.body(phoneB)
         .when()
-		.post("/phones")
+		.post("/phone")
 		.then()
 		.statusCode(200).body(is("false"));	
 	}
@@ -189,7 +189,7 @@ public class phone_t{
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(usrC)
 	        .when()
-	        .delete("/phones/all")	
+	        .delete("/phone/all")	
 	        .then()
 	        .statusCode(200).body(is("true"));
 	}

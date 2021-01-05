@@ -16,7 +16,7 @@ import javax.ws.rs.core.MediaType;
 import de.hse.swa.jaxquarkus.step4.orm.PhoneOrm;
 import de.hse.swa.jaxquarkus.step4.model.Phone;
 import de.hse.swa.jaxquarkus.step4.model.User;
-@Path("/phones")
+@Path("/phone")
 public class PhoneResource {
 	
 	@ApplicationScoped

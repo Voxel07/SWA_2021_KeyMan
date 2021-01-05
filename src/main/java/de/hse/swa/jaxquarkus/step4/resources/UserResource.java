@@ -20,7 +20,7 @@ import javax.ws.rs.QueryParam;
 
 
 
-@Path("/users")
+@Path("/user")
 public class UserResource {
 	
     @ApplicationScoped

@@ -60,7 +60,7 @@ public class all_t{
 		.contentType(MediaType.APPLICATION_JSON)
 		.body(companyC)
 		.when()
-		.put("/companys")		
+		.put("/company")		
 		.then().statusCode(204);
 
 		//User
@@ -69,7 +69,7 @@ public class all_t{
 		.pathParam("companyId", 10l)
 		.body(usrC)
 		.when()
-		.put("/users/{companyId}")	
+		.put("/user/{companyId}")	
 		.then().statusCode(200).body(is("true"));
 
 		//Phones
@@ -78,7 +78,7 @@ public class all_t{
 		.contentType(MediaType.APPLICATION_JSON)
 		.body(phoneA)
 		.when()
-		.put("/phones/{id}")	
+		.put("/phone/{id}")	
 		.then()
 		.statusCode(200).body(is("true"));
 
@@ -87,7 +87,7 @@ public class all_t{
 		.contentType(MediaType.APPLICATION_JSON)
 		.body(phoneB)
 		.when()
-		.put("/phones/{id}")	
+		.put("/phone/{id}")	
 		.then()
 		.statusCode(200).body(is("true"));
 
@@ -171,7 +171,7 @@ public class all_t{
 		.contentType(MediaType.APPLICATION_JSON)
 		.body(companyA)
 		.when()
-		.delete("/companys")		
+		.delete("/company")		
 		.then().statusCode(204);  
 
 	}

@@ -17,7 +17,7 @@ import javax.ws.rs.core.MediaType;
 import de.hse.swa.jaxquarkus.step4.model.Company;
 import de.hse.swa.jaxquarkus.step4.orm.CompanyOrm;
 
-@Path("/companys")
+@Path("/company")
 public class CompanyResource {
 	
     @ApplicationScoped

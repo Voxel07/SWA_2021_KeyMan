@@ -33,7 +33,7 @@ public class user_t{
 		        given()
 		        .contentType(MediaType.APPLICATION_JSON)
 		        .when()
-		        .get("/users");
+		        .get("/user");
 		        response
 		        .then().statusCode(200);
 
@@ -48,7 +48,7 @@ public class user_t{
 			        given()
 			        .contentType(MediaType.APPLICATION_JSON)
 			        .when()
-			        .get("/users");
+			        .get("/user");
 			        response
 			        .then().statusCode(200);
        
@@ -66,7 +66,7 @@ public class user_t{
 	        .pathParam("id", id)
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .when()
-	        .get("/users/{id}");
+	        .get("/user/{id}");
 			response.then().statusCode(200);
 			
 			User usr = response.getBody().as(User.class);
@@ -83,14 +83,14 @@ public class user_t{
 				 .contentType(MediaType.APPLICATION_JSON)
 				 .body(usrC)
 				 .when()
-				 .put("/users/{companyId}");		
+				 .put("/user/{companyId}");		
 				 response.then().statusCode(200).body(is("true"));
 		          
 	     response =
      	        given()     	    
      	        .contentType(MediaType.APPLICATION_JSON)
      	        .when()
-     	        .get("/users");		      	    	
+     	        .get("/user");		      	    	
  	        	response
      	        .then()
      	        .statusCode(200);
@@ -113,7 +113,7 @@ public class user_t{
 		        	.contentType(MediaType.APPLICATION_JSON)
 		        	.body(usrC)
 		        	.when()
-		        	.post("/users");		
+		        	.post("/user");		
 					response.then().statusCode(204); 
 
          response =
@@ -121,7 +121,7 @@ public class user_t{
      	        .pathParam("id", id)
      	        .contentType(MediaType.APPLICATION_JSON)
      	        .when()
-     	        .get("/users/{id}");
+     	        .get("/user/{id}");
          		response.then().statusCode(200);
 	      	        
      	    User usr = response.getBody().as(User.class);
@@ -141,7 +141,7 @@ public class user_t{
 	   .contentType(MediaType.APPLICATION_JSON)
 	   .body(phoneA)
 	   .when()
-	   .put("/phones/{id}")	
+	   .put("/phone/{id}")	
 	   .then()
 	   .statusCode(200).body(is("true"));
 	   given()
@@ -149,7 +149,7 @@ public class user_t{
 	   .contentType(MediaType.APPLICATION_JSON)
 	   .body(phoneB)
 	   .when()
-	   .put("/phones/{id}")	
+	   .put("/phone/{id}")	
 	   .then()
 	   .statusCode(200).body(is("true"));
 
@@ -159,14 +159,14 @@ public class user_t{
 		        .contentType(MediaType.APPLICATION_JSON)
 		        .body(usrA)
 		        .when()
-		        .delete("/users");	
+		        .delete("/user");	
 				response.then().statusCode(204);  
 		          
 	     response =
  	        given()
  	        .contentType(MediaType.APPLICATION_JSON)
  	        .when()
- 	        .get("/users");	
+ 	        .get("/user");	
  	        response
  	        .then()
  	        .statusCode(200);
