@@ -40,11 +40,11 @@ public class contract_t{
 	public void AddContract() {
 		
 		 given()
-		 .queryParam("companyId", 1l)
+		 .pathParam("companyId", 1l)
 		 .contentType(MediaType.APPLICATION_JSON)
 		 .body(contractC)
 		 .when()
-		 .put("contract")
+		 .put("contract/{companyId}")
 		 .then().statusCode(200).body(is("Contract added"));    	  	
 	} 
 	
