@@ -9,6 +9,7 @@ import io.restassured.response.Response;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 import javax.ws.rs.core.MediaType;
+import de.hse.swa.jaxquarkus.step4.model.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -78,11 +79,12 @@ public class user_t{
 		
 		Response response = 
 				 given()
+				 .pathParam("companyId", 1l)
 				 .contentType(MediaType.APPLICATION_JSON)
 				 .body(usrC)
 				 .when()
-				 .put("/users");		
-				 response.then().statusCode(204);
+				 .put("/users/{companyId}");		
+				 response.then().statusCode(200).body(is("true"));
 		          
 	     response =
      	        given()     	    
@@ -141,7 +143,7 @@ public class user_t{
 	   .when()
 	   .put("/phones/{id}")	
 	   .then()
-	   .statusCode(200).body(is("Phone added"));
+	   .statusCode(200).body(is("true"));
 	   given()
 		.pathParam("id", usrA.getId())
 	   .contentType(MediaType.APPLICATION_JSON)
@@ -149,7 +151,7 @@ public class user_t{
 	   .when()
 	   .put("/phones/{id}")	
 	   .then()
-	   .statusCode(200).body(is("Phone added"));
+	   .statusCode(200).body(is("true"));
 
 
 		Response response = 
