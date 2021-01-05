@@ -41,25 +41,25 @@ public class feature_t{
         .when()
         .put("feature/{id}")	
         .then()
-        .statusCode(200).body(is("Feature added"));
+        .statusCode(200).body(is("true"));
 
     }
-	
-	@Test
-	@Order(2)
-	public void addFeatureToContractDuplicate(){
-		
-        given()
-        .pathParam("id", 1l)
-        .contentType(MediaType.APPLICATION_JSON)
-        .body(FA)//nix
-        .when()
-        .put("feature/{id}")	
-        .then()
-        .statusCode(200).body(is("Doppelte Nr entdeckt bei Contract: 1"));
-
-    }
-	
+	// feature nicht mehr unique
+//	@Test
+//	@Order(2)
+//	public void addFeatureToContractDuplicate(){
+//		
+//        given()
+//        .pathParam("id", 1l)
+//        .contentType(MediaType.APPLICATION_JSON)
+//        .body(FA)//nix
+//        .when()
+//        .put("feature/{id}")	
+//        .then()
+//        .statusCode(200).body(is("true"));
+//
+//    }
+//	
 	@Test
 	@Order(3)
 	public void addFeatureToContract2(){
@@ -71,7 +71,7 @@ public class feature_t{
 	        .when()
 	        .put("feature/{id}")	
 	        .then()
-            .statusCode(200).body(is("Feature added"));
+            .statusCode(200).body(is("true"));
             
 		 given()
 		 .pathParam("id", 1l)
@@ -80,7 +80,7 @@ public class feature_t{
 	        .when()
 	        .put("feature/{id}")	
 	        .then()
-	        .statusCode(200).body(is("Feature added"));
+	        .statusCode(200).body(is("true"));
 
 		}
 	@Test
@@ -94,7 +94,7 @@ public class feature_t{
 	        .when()
 	        .put("feature/{id}")	
 	        .then()
-	        .statusCode(200).body(is("Max anz erreicht"));
+	        .statusCode(200).body(is("false"));
 
 		}
 
@@ -111,6 +111,7 @@ public class feature_t{
 		List<Feature> features = Arrays.asList(res.getBody().as(Feature[].class));
 		Assertions.assertEquals( FA.getNumber(), features.get(0).getNumber());
 		Assertions.assertEquals( FB.getNumber(), features.get(1).getNumber());
+		Assertions.assertEquals( FC.getNumber(), features.get(2).getNumber());
 		Assertions.assertEquals( 3, features.size());
 	}
 
