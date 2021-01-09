@@ -66,10 +66,20 @@ public class CompanyResource {
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public void deleteCompany(Company company) 
+    public void deleteCompany(Company company) //boolean?
     {
         companyOrm.deleteCompany(company);
     }
+    
+//    @DELETE
+//    @Path("/delete")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    public void deleteall() 
+//    {
+//    	System.out.println("CompanyResource/deleteall");
+//        companyOrm.deleteall();
+//    }
     
   
     

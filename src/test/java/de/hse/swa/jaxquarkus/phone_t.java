@@ -5,8 +5,12 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
+import de.hse.swa.jaxquarkus.step4.model.Company;
+import de.hse.swa.jaxquarkus.step4.model.Contract;
+import de.hse.swa.jaxquarkus.step4.model.IpNumber;
 import de.hse.swa.jaxquarkus.step4.model.Phone;
 import de.hse.swa.jaxquarkus.step4.model.User;
+import de.hse.swa.jaxquarkus.step4.orm.CompanyOrm;
 import de.hse.swa.jaxquarkus.step4.orm.PhoneOrm;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -28,12 +32,44 @@ public class phone_t{
 	private static Phone phoneB = new Phone("Bnumber", "Btype");
 	private static Phone phoneC = new Phone("Cnumber", "Ctype");
 	
+    private static IpNumber IpA = new IpNumber("111.111.111.111");
+	private static IpNumber IpB = new IpNumber("222.222.222.222");
+	private static IpNumber IpC = new IpNumber("333.333.333.333");
+	private static IpNumber IpD = new IpNumber("444.444.444.444");
+
+
+    private static Company companyA = new Company("Aname", "Adepartment", "Astreet", 12345, "Astate", "Acountry");
+	private static Company companyB = new Company("Bname", "Bdepartment", "Bstreet", 12345, "Bstate", "Bcountry");
+	private static Company companyC = new Company("Cname", "Cdepartment", "Cstreet", 12345, "Cstate", "Ccountry");	
+	
+	private static Contract contractA = new Contract("1.1.2020", "1.1.2021", "ver1","1234");
+	private static Contract contractB = new Contract("2.2.2020", "2.2.2021", "ver2", "4321");
+	private static Contract contractC = new Contract("3.3.2020", "3.3.2021", "ver1", "5678");
+	
+	private static User usrA = new User("Aemail", "Ausername", "Apassword", "Afirst", "Alast", true);
+	private static User usrB = new User("Bemail", "Busername", "Bpassword", "Bfirst", "Blast",  false);	
+	private static User usrC = new User("Cemail", "Cusername", "Cpassword", "Cfirst", "Clast", true);
 	@Inject
-	PhoneOrm phoneOrm;
+    CompanyOrm companyOrm;
 	
 	@Test
 	@Order(1)
 	public void addPhoneToUser(){
+		
+		given()
+		.contentType(MediaType.APPLICATION_JSON)
+		.body(companyA)
+			.when()
+			.put("/company")
+			.then().statusCode(204);
+		
+		given()
+		 .pathParam("companyId", 1l)
+		 .contentType(MediaType.APPLICATION_JSON)
+		 .body(usrA)
+		 .when()
+		 .put("/user/{companyId}")	
+		 .then().statusCode(200).body(is("true"));
 		
 		 given()
 		 	.pathParam("id", 1l)
@@ -174,7 +210,7 @@ public class phone_t{
         .when()
 		.post("/phone")
 		.then()
-		.statusCode(200).body(is("false"));	
+		.statusCode(200).body(is("true"));	
 	}
 
 	@Test
@@ -192,5 +228,11 @@ public class phone_t{
 	        .delete("/phone/all")	
 	        .then()
 	        .statusCode(200).body(is("true"));
+	}
+	@Test
+	@Order(11)
+	public void deleteall(){
+		//Delete all
+			companyOrm.deleteall();			
 	}
 }

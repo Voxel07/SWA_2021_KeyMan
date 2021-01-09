@@ -66,7 +66,7 @@ public class all_t{
 		//User
 		given()
 		.contentType(MediaType.APPLICATION_JSON)
-		.pathParam("companyId", 10l)
+		.pathParam("companyId", 1l)
 		.body(usrC)
 		.when()
 		.put("/user/{companyId}")	
@@ -74,7 +74,7 @@ public class all_t{
 
 		//Phones
 		given()
-		.pathParam("id", 10l)
+		.pathParam("id", 1l)
 		.contentType(MediaType.APPLICATION_JSON)
 		.body(phoneA)
 		.when()
@@ -83,7 +83,7 @@ public class all_t{
 		.statusCode(200).body(is("true"));
 
 		given()
-		.pathParam("id", 10l)
+		.pathParam("id", 1l)
 		.contentType(MediaType.APPLICATION_JSON)
 		.body(phoneB)
 		.when()
@@ -93,7 +93,7 @@ public class all_t{
 
 		//Contract
 		given()
-		.pathParam("companyId", 10l)
+		.pathParam("companyId", 1l)
 		.contentType(MediaType.APPLICATION_JSON)
 		.body(contractA)
 		.when()
@@ -101,7 +101,7 @@ public class all_t{
 		.then().statusCode(200).body(is("Contract added"));   
 
 		given()
-		.pathParam("companyId", 10l)
+		.pathParam("companyId", 1l)
 		.contentType(MediaType.APPLICATION_JSON)
 		.body(contractB)
 		.when()
@@ -110,7 +110,7 @@ public class all_t{
 
 		//Feature / Ip´s
 		given()
-        .pathParam("id", 10l)
+        .pathParam("id", 1l)
         .contentType(MediaType.APPLICATION_JSON)
         .body(FA)//10
         .when()
@@ -119,7 +119,7 @@ public class all_t{
 		.statusCode(200).body(is("true"));
 
 		given()
-        .pathParam("id", 10l)
+        .pathParam("id", 1l)
         .contentType(MediaType.APPLICATION_JSON)
         .body(FB)//10
         .when()
@@ -128,7 +128,7 @@ public class all_t{
 		.statusCode(200).body(is("true"));
 
 		given()
-        .pathParam("id", 11l)
+        .pathParam("id", 2l)
         .contentType(MediaType.APPLICATION_JSON)
         .body(FB)//11
         .when()
@@ -137,7 +137,7 @@ public class all_t{
 		.statusCode(200).body(is("true"));
 
 		given()
-		.pathParam("id", 10l)
+		.pathParam("id", 1l)
 		.contentType(MediaType.APPLICATION_JSON)
 		.body(IpA)
 		.when()
@@ -146,7 +146,7 @@ public class all_t{
 		.statusCode(200).body(is("true"));
 
 	   given()
-	   	.pathParam("id", 11l)
+	   	.pathParam("id", 2l)
 		.contentType(MediaType.APPLICATION_JSON)
 		.body(IpB)
 		.when()
@@ -155,9 +155,9 @@ public class all_t{
 		.statusCode(200).body(is("true"));
 
 		//connect user Contract
-		contractA.setId(10l);
+		contractA.setId(1l);
 		given()
-		.queryParam("usrId", 10l)
+		.queryParam("usrId", 1l)
 		.contentType(MediaType.APPLICATION_JSON)
 		.body(contractA)
 		.when()
@@ -166,7 +166,7 @@ public class all_t{
 		.statusCode(200).body(is("true"));
 
 		//Delete Company
-		companyA.setId(10l);
+		companyA.setId(1l);
 		given()
 		.contentType(MediaType.APPLICATION_JSON)
 		.body(companyA)
@@ -176,4 +176,12 @@ public class all_t{
 
 	}
 		
+
+	@Test
+	@Order(2)
+	public void deleteall(){
+  
+		
+	}
+	
 }

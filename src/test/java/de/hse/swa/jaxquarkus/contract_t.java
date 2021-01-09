@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import de.hse.swa.jaxquarkus.step4.model.*;
+import de.hse.swa.jaxquarkus.step4.orm.CompanyOrm;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import io.quarkus.test.junit.QuarkusTest;
@@ -13,11 +14,16 @@ import static org.hamcrest.CoreMatchers.is;
 
 import java.util.Arrays;
 import java.util.List;
+
+import javax.inject.Inject;
 import javax.ws.rs.core.MediaType;
 
 @QuarkusTest
 @TestMethodOrder(OrderAnnotation.class)
 public class contract_t{
+	private static Company companyA = new Company("Aname", "Adepartment", "Astreet", 12345, "Astate", "Acountry");
+	private static Company companyB = new Company("Bname", "Bdepartment", "Bstreet", 12345, "Bstate", "Bcountry");
+	private static Company companyC = new Company("Cname", "Cdepartment", "Cstreet", 12345, "Cstate", "Ccountry");	
 	
 	private static Contract contractA = new Contract("1.1.2020", "1.1.2021", "ver1","1234");
 	private static Contract contractB = new Contract("2.2.2020", "2.2.2021", "ver2", "4321");
@@ -35,14 +41,24 @@ public class contract_t{
 	private static Feature FB = new Feature("2");
 	private static Feature FC = new Feature("3");
 	
+	@Inject
+    CompanyOrm companyOrm;
+	
 	@Test
 	@Order(1)
 	public void AddContract() {
 		
+		given()
+		.contentType(MediaType.APPLICATION_JSON)
+		.body(companyA)
+			.when()
+			.put("/company")
+			.then().statusCode(204);
+	
 		 given()
 		 .pathParam("companyId", 1l)
 		 .contentType(MediaType.APPLICATION_JSON)
-		 .body(contractC)
+		 .body(contractA)
 		 .when()
 		 .put("contract/{companyId}")
 		 .then().statusCode(200).body(is("Contract added"));    	  	
@@ -51,6 +67,15 @@ public class contract_t{
 	@Test
 	@Order(2)
 	public void addConnectionUserContract() {
+		
+		 given()
+		 .pathParam("companyId", 1l)
+		 .contentType(MediaType.APPLICATION_JSON)
+		 .body(usrA)
+		 .when()
+		 .put("/user/{companyId}")		
+		 .then().statusCode(200).body(is("true"));
+		
 		contractA.setId(1l);
 
 		 given()
@@ -75,9 +100,7 @@ public class contract_t{
 		res.then().statusCode(200);
 		List<Contract> ctr = Arrays.asList(res.getBody().as(Contract[].class));
 		Assertions.assertEquals( contractA.getLicenskey(), ctr.get(0).getLicenskey());
-		Assertions.assertEquals( contractB.getLicenskey(), ctr.get(1).getLicenskey());
-		Assertions.assertEquals( contractC.getLicenskey(), ctr.get(2).getLicenskey());
-		Assertions.assertEquals( 3, ctr.size());
+		Assertions.assertEquals( 1, ctr.size());
 	}
 	
 	
@@ -111,7 +134,7 @@ public class contract_t{
 		res.then().statusCode(200); // list
 		
 		List<Contract> ctr = Arrays.asList(res.getBody().as(Contract[].class));
-		Assertions.assertEquals( contractC.getLicenskey(), ctr.get(0).getLicenskey());
+		Assertions.assertEquals( contractA.getLicenskey(), ctr.get(0).getLicenskey());
 	}
 
 	
@@ -119,11 +142,11 @@ public class contract_t{
 	@Order(6)
 	public void UpdateContract() { 
 		
-		contractC.setId(10l);
-		contractC.setLicenskey("Cool");
+		contractA.setId(1l);
+		contractA.setLicenskey("Cool");
 		        given()
 		        .contentType(MediaType.APPLICATION_JSON)
-		        .body(contractC)
+		        .body(contractA)
 		          .when()
 		          .post("contract")		
 		          .then().statusCode(200).body(is("true"));
@@ -138,7 +161,7 @@ public class contract_t{
 	    		res.then().statusCode(200);
 	    		
 	    		List<Contract> ctr = Arrays.asList(res.getBody().as(Contract[].class));
-	    		Assertions.assertEquals( contractC.getId(), ctr.get(0).getId());
+	    		Assertions.assertEquals( contractA.getId(), ctr.get(0).getId());
 	    		Assertions.assertEquals( 1, ctr.size());
 		
 	      
@@ -153,7 +176,7 @@ public class contract_t{
 		 given()
 	        .pathParam("id", 1l)
 	        .contentType(MediaType.APPLICATION_JSON)
-	        .body(FA)//10
+	        .body(FA)
 	        .when()
 	        .put("feature/{id}")	
 	        .then()
@@ -161,7 +184,7 @@ public class contract_t{
 		 given()
 	        .pathParam("id", 1l)
 	        .contentType(MediaType.APPLICATION_JSON)
-	        .body(FB)//10
+	        .body(FB)
 	        .when()
 	        .put("feature/{id}")	
 	        .then()
@@ -199,9 +222,16 @@ public class contract_t{
      	    	
      			res.then().statusCode(200);
      			List<Contract> ctr = Arrays.asList(res.getBody().as(Contract[].class));
-     			Assertions.assertEquals( 2, ctr.size());
+     			Assertions.assertEquals( 0, ctr.size());
 	}
-	
+
+		@Test
+		@Order(8)
+		public void deleteall(){
+			//Delete all
+				companyOrm.deleteall();			
+		}
+				
 }
 	
 	

@@ -47,7 +47,7 @@ public class ContractOrm  {
     	query.setParameter("val", companyId);
     	return query.getResultList();
     }
-     
+     // wenn keine Company existiert kann kein Contract erstellt werden => fehlermeldung fehlt 
 	@Transactional
     public String addContract(Contract contract, Long companyId) {
 		

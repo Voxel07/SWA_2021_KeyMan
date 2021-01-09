@@ -1,10 +1,11 @@
 package de.hse.swa.jaxquarkus;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import de.hse.swa.jaxquarkus.step4.model.*;
-import de.hse.swa.jaxquarkus.step4.orm.FeatureOrm;
+import de.hse.swa.jaxquarkus.step4.orm.*;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import io.quarkus.test.junit.QuarkusTest;
@@ -25,19 +26,50 @@ public class feature_t{
 	private static Feature FC = new Feature("3");
     private static Feature FD = new Feature("4");
     
-    private static	Contract contractC = new Contract("3.3.2020", "3.3.2021", "ver1", "5678");
+    private static Company companyA = new Company("Aname", "Adepartment", "Astreet", 12345, "Astate", "Acountry");
+	private static Company companyB = new Company("Bname", "Bdepartment", "Bstreet", 12345, "Bstate", "Bcountry");
+	private static Company companyC = new Company("Cname", "Cdepartment", "Cstreet", 12345, "Cstate", "Ccountry");	
+	
+	private static Contract contractA = new Contract("1.1.2020", "1.1.2021", "ver1","1234");
+	private static Contract contractB = new Contract("2.2.2020", "2.2.2021", "ver2", "4321");
+	private static Contract contractC = new Contract("3.3.2020", "3.3.2021", "ver1", "5678");
+	
+	private static User usrA = new User("Aemail", "Ausername", "Apassword", "Afirst", "Alast", true);
+	private static User usrB = new User("Bemail", "Busername", "Bpassword", "Bfirst", "Blast",  false);	
+	private static User usrC = new User("Cemail", "Cusername", "Cpassword", "Cfirst", "Clast", true);
+		
+	private static IpNumber IpA = new IpNumber("111.111.111.111");
+	private static IpNumber IpB = new IpNumber("222.222.222.222");
+	private static IpNumber IpC = new IpNumber("333.333.333.333");
+	
+
 	 
 	@Inject
-    FeatureOrm featureOrm;
+    CompanyOrm companyOrm;
+
     
 	@Test
 	@Order(1)
 	public void addFeatureToContract(){
-		
+		given()
+		.contentType(MediaType.APPLICATION_JSON)
+		.body(companyA)
+			.when()
+			.put("/company")
+			.then().statusCode(204);
+	
+		 given()
+		 .pathParam("companyId", 1l)
+		 .contentType(MediaType.APPLICATION_JSON)
+		 .body(contractA)
+		 .when()
+		 .put("contract/{companyId}")
+		 .then().statusCode(200).body(is("Contract added"));    	
+		 
         given()
         .pathParam("id", 1l)
         .contentType(MediaType.APPLICATION_JSON)
-        .body(FA)//10
+        .body(FA)//1
         .when()
         .put("feature/{id}")	
         .then()
@@ -67,7 +99,7 @@ public class feature_t{
 		 given()
 		 .pathParam("id", 1l)
 	        .contentType(MediaType.APPLICATION_JSON)
-	        .body(FB)//11
+	        .body(FB)//2
 	        .when()
 	        .put("feature/{id}")	
 	        .then()
@@ -76,7 +108,7 @@ public class feature_t{
 		 given()
 		 .pathParam("id", 1l)
 	        .contentType(MediaType.APPLICATION_JSON)
-	        .body(FC)//12
+	        .body(FC)//3
 	        .when()
 	        .put("feature/{id}")	
 	        .then()
@@ -118,10 +150,10 @@ public class feature_t{
 	@Test
 	@Order(6)
 	public void removeFeatureFromContract() {
-		 FB.setId(11l);
+		 FA.setId(1l);
 		 given()
 	        .contentType(MediaType.APPLICATION_JSON)
-	        .body(FB)
+	        .body(FA)
 	        .when()
 	        .delete("feature")	
 	        .then()
@@ -131,16 +163,16 @@ public class feature_t{
 	@Test
 	@Order(7)
 	public void getContractFeatures2() {
-        contractC.setId(1l);
+        contractA.setId(1l);
 		Response res = given()
-		.queryParam("ctr_id", contractC.getId())
+		.queryParam("ctr_id", contractA.getId())
         .contentType(MediaType.APPLICATION_JSON)
         .when()
 		.get("feature");	
        
 		res.then().statusCode(200);
 		List<Feature> features = Arrays.asList(res.getBody().as(Feature[].class));
-		Assertions.assertEquals( FA.getNumber(), features.get(0).getNumber());
+		Assertions.assertEquals( FB.getNumber(), features.get(0).getNumber());
 		Assertions.assertEquals( FC.getNumber(), features.get(1).getNumber());
 		Assertions.assertEquals( 2, features.size());
 	}
@@ -149,7 +181,7 @@ public class feature_t{
 	@Order(8)
 	public void updateFeature(){
         Feature FX = new Feature("123456789");
-		FX.setId(10l);
+		FX.setId(2l);
 		given()
 		.contentType(MediaType.APPLICATION_JSON)
 		.body(FX)
@@ -192,4 +224,12 @@ public class feature_t{
 		List<Feature> features = Arrays.asList(res.getBody().as(Feature[].class));
 		Assertions.assertEquals( 0, features.size());
 	}
+	
+	@Test
+	@Order(10)
+	public void deleteall(){
+		//Delete all
+			companyOrm.deleteall();			
+	}
+	
 }

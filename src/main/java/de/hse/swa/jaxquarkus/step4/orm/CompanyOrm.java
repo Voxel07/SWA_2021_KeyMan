@@ -6,12 +6,15 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
+
+import org.jboss.resteasy.annotations.Query;
+
 import de.hse.swa.jaxquarkus.step4.model.*;
 
 
 @ApplicationScoped
 public class CompanyOrm {
-
+	
     @Inject
     EntityManager em; 
     @Inject
@@ -71,11 +74,23 @@ public class CompanyOrm {
 
         
         return	em.createQuery("DELETE FROM Company WHERE id =: val1")
-		.setParameter("val1", company.getId())
+        .setParameter("val1", company.getId())
         .executeUpdate()==1;
         
     }
-
+    
+    @Transactional
+    public void deleteall() 
+    
+    { 	em.createQuery("DELETE FROM Phone")
+        .executeUpdate();
+        em.createQuery("DELETE FROM User")
+        .executeUpdate();
+        em.createQuery("DELETE FROM Contract")
+        .executeUpdate();
+        em.createQuery("DELETE FROM Company")
+        .executeUpdate();
+    }
   
     
 }

@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import de.hse.swa.jaxquarkus.step4.model.Company;
-import de.hse.swa.jaxquarkus.step4.model.Contract;
-import de.hse.swa.jaxquarkus.step4.model.User;
+import de.hse.swa.jaxquarkus.step4.model.*;
+
+import de.hse.swa.jaxquarkus.step4.orm.*;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import io.quarkus.test.junit.QuarkusTest;
@@ -18,6 +18,7 @@ import static org.hamcrest.CoreMatchers.is;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.ws.rs.core.MediaType;
 
 @QuarkusTest
@@ -32,19 +33,45 @@ public class company_t{
 	private static Contract contractB = new Contract("1.1.2021", "1.1.2022", "ver2","2234");
 	
 	private static User usrC = new User("Cemail", "Cusername", "Cpassword", "Cfirst", "Clast", true);
+	
+	private static User usrA = new User("Aemail", "Ausername", "Apassword", "Afirst", "Alast", true);
+	private static User usrB = new User("Bemail", "Busername", "Bpassword", "Bfirst", "Blast",  false);	
+	//private static User usrC = new User("Cemail", "Cusername", "Cpassword", "Cfirst", "Clast", true);
+	
+	private static Phone phoneA = new Phone("Anumber", "Atype");  
+	private static Phone phoneB = new Phone("Bnumber", "Btype");
+	private static Phone phoneC = new Phone("Cnumber", "Ctype");
+	
+	@Inject
+    CompanyOrm companyOrm;
+	
 	@Test
 	@Order(1)
 	public void AddCompany() {
 		Response response = 
 				given()
 				.contentType(MediaType.APPLICATION_JSON)
+				.body(companyA)
+					.when()
+					.put("/company");		
+					response.then().statusCode(204);
+		 response = 
+				given()
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(companyB)
+					.when()
+					.put("/company");		
+					response.then().statusCode(204);
+		 response = 
+				given()
+				.contentType(MediaType.APPLICATION_JSON)
 				.body(companyC)
 					.when()
 					.put("/company");		
 					response.then().statusCode(204);
-			
+					
 	} 
-
+	
 
 	@Test
 	@Order(2)
@@ -62,6 +89,7 @@ public class company_t{
 	List<Company> companys = Arrays.asList(response.getBody().as(Company[].class));
 		Assertions.assertEquals( companyA.getName(), companys.get(0).getName());
 		Assertions.assertEquals( companyB.getName(), companys.get(1).getName());
+		Assertions.assertEquals( companyC.getName(), companys.get(2).getName());
 	}
 
 
@@ -85,7 +113,7 @@ public class company_t{
 	@Order(4)
 	public void UpdateCompany() { 
 		
-		companyC.setId(10l);
+		companyC.setId(3l);
 		companyC.setStreet("Helferstr");
 		Response response = 
 				given()
@@ -110,6 +138,15 @@ public class company_t{
 		.put("/user/{companyId}")		
 		.then().statusCode(200).body(is("true"));
 		
+		//user f�r company
+		given()
+		.pathParam("companyId", 2l)
+		.contentType(MediaType.APPLICATION_JSON)
+		.body(usrA)
+		.when()
+		.put("/user/{companyId}")		
+		.then().statusCode(200).body(is("true"));
+				
 		//contract f�r company
 		given()
 		.pathParam("companyId", 1l)
@@ -120,7 +157,7 @@ public class company_t{
 		.then().statusCode(200).body(is("Contract added"));
 		
 		
-		contractB.setId(10l);
+		contractB.setId(1l);
 		given()
 		.queryParam("usrId", 1l)
 		.contentType(MediaType.APPLICATION_JSON)
@@ -140,5 +177,10 @@ public class company_t{
 			.delete("/company");		
 			response.then().statusCode(204);  
 			}	
-
+	@Test
+	@Order(6)
+	public void deleteall(){
+		//Delete all
+			companyOrm.deleteall();			
+	}
 }

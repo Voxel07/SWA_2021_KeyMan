@@ -8,8 +8,11 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.response.Response;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
+
+import javax.inject.Inject;
 import javax.ws.rs.core.MediaType;
 import de.hse.swa.jaxquarkus.step4.model.*;
+import de.hse.swa.jaxquarkus.step4.orm.CompanyOrm;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,30 +22,71 @@ import de.hse.swa.jaxquarkus.step4.model.*;
 @QuarkusTest
 @TestMethodOrder(OrderAnnotation.class)
 public class user_t{
+	private static Phone phoneA = new Phone("Anumber", "Atype");  
+	private static Phone phoneB = new Phone("Bnumber", "Btype");
+	private static Phone phoneC = new Phone("Cnumber", "Ctype");
 	
+    private static IpNumber IpA = new IpNumber("111.111.111.111");
+	private static IpNumber IpB = new IpNumber("222.222.222.222");
+	private static IpNumber IpC = new IpNumber("333.333.333.333");
+	private static IpNumber IpD = new IpNumber("444.444.444.444");
 
+
+    private static Company companyA = new Company("Aname", "Adepartment", "Astreet", 12345, "Astate", "Acountry");
+	private static Company companyB = new Company("Bname", "Bdepartment", "Bstreet", 12345, "Bstate", "Bcountry");
+	private static Company companyC = new Company("Cname", "Cdepartment", "Cstreet", 12345, "Cstate", "Ccountry");	
+	
+	private static Contract contractA = new Contract("1.1.2020", "1.1.2021", "ver1","1234");
+	private static Contract contractB = new Contract("2.2.2020", "2.2.2021", "ver2", "4321");
+	private static Contract contractC = new Contract("3.3.2020", "3.3.2021", "ver1", "5678");
+	
 	private static User usrA = new User("Aemail", "Ausername", "Apassword", "Afirst", "Alast", true);
 	private static User usrB = new User("Bemail", "Busername", "Bpassword", "Bfirst", "Blast",  false);	
 	private static User usrC = new User("Cemail", "Cusername", "Cpassword", "Cfirst", "Clast", true);
-	
+	@Inject
+    CompanyOrm companyOrm;
 
 	@Test
 	@Order(1)
-	public void getAnzUsers() {
-		Response response =
-		        given()
-		        .contentType(MediaType.APPLICATION_JSON)
-		        .when()
-		        .get("/user");
-		        response
-		        .then().statusCode(200);
-
-       List<User> usrs = Arrays.asList(response.getBody().as(User[].class));
- 		Assertions.assertEquals( 2, usrs.size());
-	}
+	public void AddUser() {
+		
+		given()
+		.contentType(MediaType.APPLICATION_JSON)
+		.body(companyA)
+			.when()
+			.put("/company")
+			.then().statusCode(204);
+		
+		Response response = 
+				 given()
+				 .pathParam("companyId", 1l)
+				 .contentType(MediaType.APPLICATION_JSON)
+				 .body(usrA)
+				 .when()
+				 .put("/user/{companyId}");		
+				 response.then().statusCode(200).body(is("true"));
+		         
+	} 
 	
 	@Test
 	@Order(2)
+	public void getAnzUsers() {
+		Response response =
+     	        given()     	    
+     	        .contentType(MediaType.APPLICATION_JSON)
+     	        .when()
+     	        .get("/user");		      	    	
+ 	        	response
+     	        .then()
+     	        .statusCode(200);
+		      	        
+	      		List<User> usrs = Arrays.asList(response.getBody().as(User[].class));
+     			Assertions.assertEquals( usrA.getLastName(), usrs.get(0).getLastName());	
+     	  		Assertions.assertEquals( 1, usrs.size());
+	}
+	
+	@Test
+	@Order(3)
 	public void GetUsers() {
    	Response response =
 			        given()
@@ -54,11 +98,10 @@ public class user_t{
        
 	List<User> usrs = Arrays.asList(response.getBody().as(User[].class));
 		Assertions.assertEquals( usrA.getLastName(), usrs.get(0).getLastName());
-		Assertions.assertEquals( usrB.getLastName(), usrs.get(1).getLastName());
 	}
 		
 	@Test
-	@Order(3)
+	@Order(4)
 	public void GetUser() {
 		Long id = 1l;
 		Response response = 
@@ -74,44 +117,15 @@ public class user_t{
 	}
 
 	@Test
-	@Order(4)
-	public void AddUser() {
-		
-		Response response = 
-				 given()
-				 .pathParam("companyId", 1l)
-				 .contentType(MediaType.APPLICATION_JSON)
-				 .body(usrC)
-				 .when()
-				 .put("/user/{companyId}");		
-				 response.then().statusCode(200).body(is("true"));
-		          
-	     response =
-     	        given()     	    
-     	        .contentType(MediaType.APPLICATION_JSON)
-     	        .when()
-     	        .get("/user");		      	    	
- 	        	response
-     	        .then()
-     	        .statusCode(200);
-		      	        
-	      		List<User> usrs = Arrays.asList(response.getBody().as(User[].class));
-     			Assertions.assertEquals( usrA.getLastName(), usrs.get(0).getLastName());
-     			Assertions.assertEquals( usrB.getLastName(), usrs.get(1).getLastName());
-     			Assertions.assertEquals( usrC.getLastName(), usrs.get(2).getLastName());	
-     	  		Assertions.assertEquals( 3, usrs.size());
-	} 
-
-	@Test
 	@Order(5)
 	public void UpdateUser() { 
-		Long id = 10l;
-		usrC.setId(id);
-		usrC.setLastName("Hans");
+		Long id = 1l;
+		usrA.setId(id);
+		usrA.setLastName("Hans");
 		Response response = 
 		        	given()
 		        	.contentType(MediaType.APPLICATION_JSON)
-		        	.body(usrC)
+		        	.body(usrA)
 		        	.when()
 		        	.post("/user");		
 					response.then().statusCode(204); 
@@ -172,8 +186,14 @@ public class user_t{
  	        .statusCode(200);
  	        
      		List<User> usrs = Arrays.asList(response.getBody().as(User[].class));
-     		Assertions.assertEquals( 2, usrs.size());
+     		Assertions.assertEquals( 0, usrs.size());
 	}
 	
+	@Test
+	@Order(7)
+	public void deleteall(){
+		//Delete all
+			companyOrm.deleteall();			
+	}
 	//User add connection to Company
 }
