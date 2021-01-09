@@ -15,7 +15,7 @@ import javax.persistence.Column;
 public class Feature{
 
     @Id
-    @SequenceGenerator(name = "feaSeq", sequenceName = "ZSEQ_fea_ID", allocationSize = 1, initialValue = 10)
+    @SequenceGenerator(name = "feaSeq", sequenceName = "ZSEQ_fea_ID", allocationSize = 1, initialValue = 1)
     @GeneratedValue(generator = "feaSeq")
     
     @Column(name = "id", unique = true)

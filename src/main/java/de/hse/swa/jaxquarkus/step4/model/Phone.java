@@ -17,7 +17,7 @@ import javax.persistence.Column;
 public class Phone{
 
     @Id
-    @SequenceGenerator(name = "phoneSeq", sequenceName = "ZSEQ_phone_ID", allocationSize = 1, initialValue = 10)
+    @SequenceGenerator(name = "phoneSeq", sequenceName = "ZSEQ_phone_ID", allocationSize = 1, initialValue = 1)
     @GeneratedValue(generator = "phoneSeq")
     
     @Column(name = "id", unique = true)

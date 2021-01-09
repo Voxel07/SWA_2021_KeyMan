@@ -24,7 +24,7 @@ public class Contract {
     // public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
 
     @Id
-    @SequenceGenerator(name = "conSeq", sequenceName = "ZSEQ_con_ID", allocationSize = 1, initialValue = 10)
+    @SequenceGenerator(name = "conSeq", sequenceName = "ZSEQ_con_ID", allocationSize = 1, initialValue = 1)
     @GeneratedValue(generator = "conSeq")
     
     @Column(name = "id", unique = true)

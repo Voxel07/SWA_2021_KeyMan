@@ -20,7 +20,7 @@ import javax.persistence.FetchType;
 public class Company {
 
     @Id
-    @SequenceGenerator(name = "cmpySeq", sequenceName = "ZSEQ_cmpy_ID", allocationSize = 1, initialValue = 10)
+    @SequenceGenerator(name = "cmpySeq", sequenceName = "ZSEQ_cmpy_ID", allocationSize = 1, initialValue = 1)
     @GeneratedValue(generator = "cmpySeq")
     
     @Column(name = "id", unique = true)

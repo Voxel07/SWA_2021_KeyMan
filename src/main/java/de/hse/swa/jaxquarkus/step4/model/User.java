@@ -23,7 +23,7 @@ import javax.persistence.Table;
 @Table(name = "USER")
 public class User {
     @Id
-    @SequenceGenerator(name = "userSeq", sequenceName = "ZSEQ_USER_ID", allocationSize = 1, initialValue = 10)
+    @SequenceGenerator(name = "userSeq", sequenceName = "ZSEQ_USER_ID", allocationSize = 1, initialValue = 1)
     @GeneratedValue(generator = "userSeq")
     
     @Column(name = "id", unique = true)

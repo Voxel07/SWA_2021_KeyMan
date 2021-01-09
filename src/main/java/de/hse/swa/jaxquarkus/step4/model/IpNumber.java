@@ -15,7 +15,7 @@ import javax.persistence.Column;
 public class IpNumber{
 
     @Id
-    @SequenceGenerator(name = "ipSeq", sequenceName = "ZSEQ_ip_ID", allocationSize = 1, initialValue = 10)
+    @SequenceGenerator(name = "ipSeq", sequenceName = "ZSEQ_ip_ID", allocationSize = 1, initialValue = 1)
     @GeneratedValue(generator = "ipSeq")
     
     @Column(name = "id", unique = true)
