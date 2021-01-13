@@ -54,6 +54,14 @@ public class Company {
 
     public Company() {
     }
+    public Company(String name) {
+    	this.name = name;
+        this.department = "hallo";
+        this.street = "5165";
+        this.postalcode = 123456;
+        this.state = "hallo";
+        this.country = "hallo";
+    }
 
     public Company(String name, String department, String street, int postalcode, String state, String country) {
         this.name = name;
