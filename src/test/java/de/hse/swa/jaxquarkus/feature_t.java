@@ -59,7 +59,7 @@ public class feature_t{
 			.then().statusCode(204);
 	
 		 given()
-		 .pathParam("companyId", 1l)
+		 .pathParam("companyId", 4l)
 		 .contentType(MediaType.APPLICATION_JSON)
 		 .body(contractA)
 		 .when()
@@ -67,7 +67,7 @@ public class feature_t{
 		 .then().statusCode(200).body(is("Contract added"));    	
 		 
         given()
-        .pathParam("id", 1l)
+        .pathParam("id", 4l)
         .contentType(MediaType.APPLICATION_JSON)
         .body(FA)//1
         .when()

@@ -54,7 +54,7 @@ public class ipNumber_t{
 			.then().statusCode(204);
 	
 		 given()
-		 .pathParam("companyId", 1l)
+		 .pathParam("companyId", 8l)
 		 .contentType(MediaType.APPLICATION_JSON)
 		 .body(contractA)
 		 .when()

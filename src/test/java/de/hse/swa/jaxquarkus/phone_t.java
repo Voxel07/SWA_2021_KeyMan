@@ -64,7 +64,7 @@ public class phone_t{
 			.then().statusCode(204);
 		
 		given()
-		 .pathParam("companyId", 1l)
+		 .pathParam("companyId", 2l)
 		 .contentType(MediaType.APPLICATION_JSON)
 		 .body(usrA)
 		 .when()
@@ -72,7 +72,7 @@ public class phone_t{
 		 .then().statusCode(200).body(is("true"));
 		
 		 given()
-		 	.pathParam("id", 1l)
+		 	.pathParam("id", 2l)
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(phoneA)
 	        .when()

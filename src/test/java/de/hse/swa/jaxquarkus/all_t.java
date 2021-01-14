@@ -128,7 +128,7 @@ public class all_t{
 		.statusCode(200).body(is("true"));
 
 		given()
-        .pathParam("id", 2l)
+        .pathParam("id", 1l)//2
         .contentType(MediaType.APPLICATION_JSON)
         .body(FB)//11
         .when()
@@ -146,7 +146,7 @@ public class all_t{
 		.statusCode(200).body(is("true"));
 
 	   given()
-	   	.pathParam("id", 2l)
+	   	.pathParam("id", 1l)//2
 		.contentType(MediaType.APPLICATION_JSON)
 		.body(IpB)
 		.when()

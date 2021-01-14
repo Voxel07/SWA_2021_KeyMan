@@ -59,7 +59,7 @@ public class user_t{
 		
 		Response response = 
 				 given()
-				 .pathParam("companyId", 1l)
+				 .pathParam("companyId", 5l)
 				 .contentType(MediaType.APPLICATION_JSON)
 				 .body(usrA)
 				 .when()
@@ -103,7 +103,7 @@ public class user_t{
 	@Test
 	@Order(4)
 	public void GetUser() {
-		Long id = 1l;
+		Long id = 5l;
 		Response response = 
 	        given()
 	        .pathParam("id", id)
@@ -119,7 +119,7 @@ public class user_t{
 	@Test
 	@Order(5)
 	public void UpdateUser() { 
-		Long id = 1l;
+		Long id = 5l;
 		usrA.setId(id);
 		usrA.setLastName("Hans");
 		Response response = 
@@ -148,7 +148,7 @@ public class user_t{
 		
 		Phone phoneA = new Phone("Anumber", "Atype"); 
 		Phone phoneB = new Phone("Bnumber", "Btype"); 
-		usrA.setId(1l);
+		usrA.setId(5l);
 
 		given()
 		.pathParam("id", usrA.getId())

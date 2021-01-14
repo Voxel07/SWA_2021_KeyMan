@@ -69,7 +69,8 @@ public class company_t{
 					.when()
 					.put("/company");		
 					response.then().statusCode(204);
-					
+	
+	
 	} 
 	
 
@@ -90,13 +91,16 @@ public class company_t{
 		Assertions.assertEquals( companyA.getName(), companys.get(0).getName());
 		Assertions.assertEquals( companyB.getName(), companys.get(1).getName());
 		Assertions.assertEquals( companyC.getName(), companys.get(2).getName());
+		
+		companyA.setId(companys.get(0).getId());
+						
 	}
 
 
 	@Test
 	@Order(3)
 	public void GetCompany() {
-		Long id = 1l;
+		Long id = 5l;
 		Response response = 
 		given()
 		.pathParam("id", id)
@@ -113,7 +117,7 @@ public class company_t{
 	@Order(4)
 	public void UpdateCompany() { 
 		
-		companyC.setId(3l);
+		companyC.setId(1l);
 		companyC.setStreet("Helferstr");
 		Response response = 
 				given()
@@ -131,7 +135,7 @@ public class company_t{
 		
 		//user f�r company
 		given()
-		.pathParam("companyId", 1l)
+		.pathParam("companyId", 2l)
 		.contentType(MediaType.APPLICATION_JSON)
 		.body(usrC)
 		.when()

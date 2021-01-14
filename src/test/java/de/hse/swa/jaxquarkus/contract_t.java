@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.persistence.SequenceGenerator;
 import javax.ws.rs.core.MediaType;
 
 @QuarkusTest
@@ -44,6 +45,8 @@ public class contract_t{
 	@Inject
     CompanyOrm companyOrm;
 	
+	@SequenceGenerator(name = "conSeq", sequenceName = "ZSEQ_con_ID", allocationSize = 1, initialValue = 1)
+	
 	@Test
 	@Order(1)
 	public void AddContract() {
@@ -53,15 +56,38 @@ public class contract_t{
 		.body(companyA)
 			.when()
 			.put("/company")
-			.then().statusCode(204);
+			.then().statusCode(204); 
+		 
+		 Response response =
+					given()
+					.contentType(MediaType.APPLICATION_JSON)
+					.when()
+					.get("/company");
+					
+					response
+					.then()
+					.statusCode(200);
+					
+		 List<Company> companys = Arrays.asList(response.getBody().as(Company[].class));
+			companyA.setId(companys.get(0).getId());
 	
-		 given()
-		 .pathParam("companyId", 1l)
-		 .contentType(MediaType.APPLICATION_JSON)
-		 .body(contractA)
-		 .when()
-		 .put("contract/{companyId}")
-		 .then().statusCode(200).body(is("Contract added"));    	  	
+			 given()
+			 .pathParam("companyId", companyA.getId())
+			 .contentType(MediaType.APPLICATION_JSON)
+			 .body(contractA)
+			 .when()
+			 .put("contract/{companyId}")
+			 .then().statusCode(200).body(is("Contract added")); 
+			 
+			 Response res =
+				        given()
+				        .contentType(MediaType.APPLICATION_JSON)
+				        .when()
+				        .get("contract");
+				    	
+						res.then().statusCode(200);
+						List<Contract> ctr = Arrays.asList(res.getBody().as(Contract[].class));
+						contractA.setId(ctr.get(0).getId());	
 	} 
 	
 	@Test
@@ -69,23 +95,36 @@ public class contract_t{
 	public void addConnectionUserContract() {
 		
 		 given()
-		 .pathParam("companyId", 1l)
+		 .pathParam("companyId", companyA.getId())
 		 .contentType(MediaType.APPLICATION_JSON)
 		 .body(usrA)
 		 .when()
 		 .put("/user/{companyId}")		
 		 .then().statusCode(200).body(is("true"));
 		
-		contractA.setId(1l);
+		 Response response =
+	     	        given()     	    
+	     	        .contentType(MediaType.APPLICATION_JSON)
+	     	        .when()
+	     	        .get("/user");		      	    	
+	 	        	response
+	     	        .then()
+	     	        .statusCode(200);
+			      	        
+		      		List<User> usrs = Arrays.asList(response.getBody().as(User[].class));
+		      		usrA.setId(usrs.get(0).getId());
+		      				
 
 		 given()
-		 .queryParam("usrId", 1l)
+		 .queryParam("usrId", usrA.getId())
 		 .contentType(MediaType.APPLICATION_JSON)
 		 .body(contractA)
 		 .when()
 		 .post("contract")
 		 .then()
 		 .statusCode(200).body(is("true"));
+		 
+		 
 	} 
 		
 	@Test
@@ -127,7 +166,7 @@ public class contract_t{
 
 		Response res = 
         given()
-        .queryParam("company_id", 1l)
+        .queryParam("company_id", companyA.getId())
         .contentType(MediaType.APPLICATION_JSON)
         .when()
         .get("contract");
@@ -142,7 +181,7 @@ public class contract_t{
 	@Order(6)
 	public void UpdateContract() { 
 		
-		contractA.setId(1l);
+		//contractA.setId(2l);
 		contractA.setLicenskey("Cool");
 		        given()
 		        .contentType(MediaType.APPLICATION_JSON)
@@ -174,7 +213,7 @@ public class contract_t{
 	public void DeleteContract() {
 		
 		 given()
-	        .pathParam("id", 1l)
+	        .pathParam("id", contractA.getId())
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(FA)
 	        .when()
@@ -182,7 +221,7 @@ public class contract_t{
 	        .then()
 	        .statusCode(200).body(is("true"));
 		 given()
-	        .pathParam("id", 1l)
+	        .pathParam("id", contractA.getId())
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(FB)
 	        .when()
@@ -190,7 +229,7 @@ public class contract_t{
 	        .then()
 	        .statusCode(200).body(is("true"));
 		 given()
-		 	.pathParam("id", 1l)
+		 	.pathParam("id", contractA.getId())
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(IpA)
 	        .when()
@@ -198,7 +237,7 @@ public class contract_t{
 	        .then()
 	        .statusCode(200).body(is("true"));
 		 given()
-		 	.pathParam("id", 1l)
+		 	.pathParam("id", contractA.getId())
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(IpB)
 	        .when()
@@ -206,7 +245,7 @@ public class contract_t{
 	        .then()
 	        .statusCode(200).body(is("true"));
 		
-		contractA.setId(1l); 
+		//contractA.setId(2l); 
 		        given()
 		        .contentType(MediaType.APPLICATION_JSON)
 		        .body(contractA)
