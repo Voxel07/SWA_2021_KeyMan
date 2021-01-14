@@ -22,9 +22,7 @@ class MyComponent extends Component {
   //String name, String department, String street, int postalcode, String state, String country
   handleSubmit = event => {
     event.preventDefault();
-    var data = JSON.stringify(this.state)
-    console.log(data)
-    axios.put('http://localhost:8080/company',data)
+    axios.put('http://localhost:8080/company',this.state)
     .then(response => {
       console.log(response)
       //this.setState({posts: response.data})
