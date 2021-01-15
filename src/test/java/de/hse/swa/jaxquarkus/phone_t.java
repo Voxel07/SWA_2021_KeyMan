@@ -63,23 +63,58 @@ public class phone_t{
 			.put("/company")
 			.then().statusCode(204);
 		
+		Response response =
+				given()
+				.contentType(MediaType.APPLICATION_JSON)
+				.when()
+				.get("/company");
+				
+				response
+				.then()
+				.statusCode(200);
+				
+	 List<Company> companys = Arrays.asList(response.getBody().as(Company[].class));
+		companyA.setId(companys.get(0).getId());
+		
 		given()
-		 .pathParam("companyId", 2l)
+		 .pathParam("companyId", companyA.getId())
 		 .contentType(MediaType.APPLICATION_JSON)
 		 .body(usrA)
 		 .when()
 		 .put("/user/{companyId}")	
 		 .then().statusCode(200).body(is("true"));
 		
+		response =
+     	        given()     	    
+     	        .contentType(MediaType.APPLICATION_JSON)
+     	        .when()
+     	        .get("/user");		      	    	
+ 	        	response
+     	        .then()
+     	        .statusCode(200);
+		      	        
+	      		List<User> usrs = Arrays.asList(response.getBody().as(User[].class));
+	      		usrA.setId(usrs.get(0).getId());
+		
 		 given()
-		 	.pathParam("id", 2l)
+		 	.pathParam("id", companyA.getId())
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(phoneA)
 	        .when()
 	        .put("/phone/{id}")	
 	        .then()
 	        .statusCode(200).body(is("true"));
-
+		 
+		 response = 
+				 	given()
+					.queryParam("usr_id", usrA.getId())
+					.contentType(MediaType.APPLICATION_JSON)
+					.when()
+					.get("/phone");	
+					
+		      		response.then().statusCode(200);
+					List<Phone> phones = Arrays.asList(response.getBody().as(Phone[].class));
+					phoneA.setId(phones.get(0).getId());
 		}
 	
 	@Test
@@ -87,7 +122,7 @@ public class phone_t{
 	public void addPhoneToUserDuplicate(){
 		
 		 given()
-		    .pathParam("id", 1l)
+		    .pathParam("id", companyA.getId())
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(phoneA)
 	        .when()
@@ -95,6 +130,16 @@ public class phone_t{
 	        .then()
 	        .statusCode(200).body(is("false"));
 
+		Response response = 
+				 	given()
+					.queryParam("usr_id", usrA.getId())
+					.contentType(MediaType.APPLICATION_JSON)
+					.when()
+					.get("/phone");	
+					
+		      		response.then().statusCode(200);
+					List<Phone> phones = Arrays.asList(response.getBody().as(Phone[].class));
+					phoneA.setId(phones.get(0).getId());
 		}
 	
 	@Test
@@ -102,13 +147,24 @@ public class phone_t{
 	public void addPhoneToUser2(){
 
 		 given()
-		 .pathParam("id", 1l)
+		 .pathParam("id", companyA.getId())
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(phoneB)
 	        .when()
 	        .put("/phone/{id}")	
 	        .then()
 	        .statusCode(200).body(is("true"));
+		 
+		 Response response = 
+				 	given()
+					.queryParam("usr_id", usrA.getId())
+					.contentType(MediaType.APPLICATION_JSON)
+					.when()
+					.get("/phone");	
+					
+		      		response.then().statusCode(200);
+					List<Phone> phones = Arrays.asList(response.getBody().as(Phone[].class));
+					phoneB.setId(phones.get(0).getId());
 
 		}
 	@Test
@@ -116,7 +172,7 @@ public class phone_t{
 	public void addPhoneToUserToMannyNumbers(){
 		
 		 given()
-		    .pathParam("id", 1l)
+		    .pathParam("id", companyA.getId())
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(phoneC)
 	        .when()
@@ -130,7 +186,7 @@ public class phone_t{
 	@Order(5)
 	public void getUserPhones() {
 		Response res = given()
-		.queryParam("usr_id", 1l)
+		.queryParam("usr_id", usrA.getId())
 		.contentType(MediaType.APPLICATION_JSON)
 		.when()
 		.get("/phone");	
@@ -145,7 +201,7 @@ public class phone_t{
 	@Test
 	@Order(6)
 	public void removePhoneFromUser() {
-		 phoneB.setId(1l);
+		 //phoneB.setId(1l);
 		 
 		 given()
 	        .contentType(MediaType.APPLICATION_JSON)
@@ -176,7 +232,7 @@ public class phone_t{
 	public void updatePhone(){
 		phoneB.setType("ich bin geaendert");
 		phoneB.setNumber("9876543");
-		phoneB.setId(2l);
+		//phoneB.setId(2l);
 		given()
 		.contentType(MediaType.APPLICATION_JSON)
 		.body(phoneB)
@@ -203,7 +259,7 @@ public class phone_t{
 	public void updatePhonenoachmal(){
 		phoneB.setType("ich bin geaendert nochmal nochmal");
 		phoneB.setNumber("Bnumber");
-		phoneB.setId(2l);
+		//phoneB.setId(companyA.getId());
 		given()
 		.contentType(MediaType.APPLICATION_JSON)
 		.body(phoneB)
@@ -217,8 +273,8 @@ public class phone_t{
 	@Order(10)
 	public void removeAllPhoneFromUser() {
 	User usrC = new User("Cemail", "Cusername", "Cpassword", "Cfirst", "Clast", true); 
-		phoneB.setId(1l);
-		usrC.setId(1l);
+		//phoneB.setId(1l);
+		usrC.setId(companyA.getId());
 	//	phoneOrm.removeAllPhonesFromUser(usrC);
 		 
 		 given()

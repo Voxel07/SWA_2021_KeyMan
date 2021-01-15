@@ -57,14 +57,39 @@ public class user_t{
 			.put("/company")
 			.then().statusCode(204);
 		
-		Response response = 
+		 Response response =
+					given()
+					.contentType(MediaType.APPLICATION_JSON)
+					.when()
+					.get("/company");
+					
+					response
+					.then()
+					.statusCode(200);
+					
+		 List<Company> companys = Arrays.asList(response.getBody().as(Company[].class));
+			companyA.setId(companys.get(0).getId());
+		
+		 response = 
 				 given()
-				 .pathParam("companyId", 5l)
+				 .pathParam("companyId", companyA.getId())
 				 .contentType(MediaType.APPLICATION_JSON)
 				 .body(usrA)
 				 .when()
 				 .put("/user/{companyId}");		
 				 response.then().statusCode(200).body(is("true"));
+				 
+				  response =
+			     	        given()     	    
+			     	        .contentType(MediaType.APPLICATION_JSON)
+			     	        .when()
+			     	        .get("/user");		      	    	
+			 	        	response
+			     	        .then()
+			     	        .statusCode(200);
+					      	        
+				      		List<User> usrs = Arrays.asList(response.getBody().as(User[].class));
+				      		usrA.setId(usrs.get(0).getId());
 		         
 	} 
 	
@@ -103,10 +128,10 @@ public class user_t{
 	@Test
 	@Order(4)
 	public void GetUser() {
-		Long id = 5l;
+		//Long id = 5l;
 		Response response = 
 	        given()
-	        .pathParam("id", id)
+	        .pathParam("id", companyA.getId())
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .when()
 	        .get("/user/{id}");
@@ -116,11 +141,14 @@ public class user_t{
 			Assertions.assertEquals( usrA.getLastName(), usr.getLastName());
 	}
 
+	
+	
+	
 	@Test
 	@Order(5)
 	public void UpdateUser() { 
-		Long id = 5l;
-		usrA.setId(id);
+		//Long id = 5l;
+		//usrA.setId(id);
 		usrA.setLastName("Hans");
 		Response response = 
 		        	given()
@@ -132,7 +160,7 @@ public class user_t{
 
          response =
      	        given()
-     	        .pathParam("id", id)
+     	        .pathParam("id", companyA.getId())
      	        .contentType(MediaType.APPLICATION_JSON)
      	        .when()
      	        .get("/user/{id}");
@@ -148,7 +176,7 @@ public class user_t{
 		
 		Phone phoneA = new Phone("Anumber", "Atype"); 
 		Phone phoneB = new Phone("Bnumber", "Btype"); 
-		usrA.setId(5l);
+		//usrA.setId(5l);
 
 		given()
 		.pathParam("id", usrA.getId())
@@ -158,6 +186,7 @@ public class user_t{
 	   .put("/phone/{id}")	
 	   .then()
 	   .statusCode(200).body(is("true"));
+		
 	   given()
 		.pathParam("id", usrA.getId())
 	   .contentType(MediaType.APPLICATION_JSON)

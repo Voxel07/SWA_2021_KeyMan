@@ -53,23 +53,76 @@ public class ipNumber_t{
 			.put("/company")
 			.then().statusCode(204);
 	
+		Response response =
+				given()
+				.contentType(MediaType.APPLICATION_JSON)
+				.when()
+				.get("/company");
+				
+				response
+				.then()
+				.statusCode(200);
+				
+	 List<Company> companys = Arrays.asList(response.getBody().as(Company[].class));
+		companyA.setId(companys.get(0).getId());
+		
 		 given()
-		 .pathParam("companyId", 8l)
+		 .pathParam("companyId", companyA.getId())
 		 .contentType(MediaType.APPLICATION_JSON)
 		 .body(contractA)
 		 .when()
 		 .put("contract/{companyId}")
 		 .then().statusCode(200).body(is("Contract added"));    	
 		 
+		 Response res =
+			        given()
+			        .contentType(MediaType.APPLICATION_JSON)
+			        .when()
+			        .get("contract");
+			    	
+					res.then().statusCode(200);
+					List<Contract> ctr = Arrays.asList(res.getBody().as(Contract[].class));
+					contractA.setId(ctr.get(0).getId());	
+					
 		 given()
-		 	.pathParam("id", 1l)
+		 	.pathParam("id", contractA.getId())
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(IpA)
 	        .when()
 	        .put("IpNumber/{id}")	
 	        .then()
 	        .statusCode(200).body(is("true"));
-
+		 
+		  res = given()
+					.queryParam("ctr_id", contractA.getId())
+					.contentType(MediaType.APPLICATION_JSON)
+					.when()
+					.get("IpNumber");	
+					
+					res.then().statusCode(200);
+					List<IpNumber> IpNumber = Arrays.asList(res.getBody().as(IpNumber[].class));
+					IpA.setId(IpNumber.get(0).getId());	
+					
+		 response = 
+				 given()
+				 .pathParam("companyId", companyA.getId())
+				 .contentType(MediaType.APPLICATION_JSON)
+				 .body(usrA)
+				 .when()
+				 .put("/user/{companyId}");		
+				 response.then().statusCode(200).body(is("true"));
+				 
+				  response =
+			     	        given()     	    
+			     	        .contentType(MediaType.APPLICATION_JSON)
+			     	        .when()
+			     	        .get("/user");		      	    	
+			 	        	response
+			     	        .then()
+			     	        .statusCode(200);
+					      	        
+				      		List<User> usrs = Arrays.asList(response.getBody().as(User[].class));
+				      		usrA.setId(usrs.get(0).getId());		
 		}
 	// nicht merh unique
 //	@Test
@@ -92,7 +145,7 @@ public class ipNumber_t{
 	public void addIpNumberToContract2(){
 
 		 given()
-		 .pathParam("id", 1l)
+		 .pathParam("id", contractA.getId())
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(IpB)
 	        .when()
@@ -100,14 +153,36 @@ public class ipNumber_t{
 	        .then()
 			.statusCode(200).body(is("true"));
 
+		 
+		  Response res = given()
+					.queryParam("ctr_id", contractA.getId())
+					.contentType(MediaType.APPLICATION_JSON)
+					.when()
+					.get("IpNumber");	
+					
+					res.then().statusCode(200);
+					
 		given()
-		.pathParam("id", 1l)
+		.pathParam("id", contractA.getId())
 			.contentType(MediaType.APPLICATION_JSON)
 			.body(IpC)
 			.when()
 			.put("IpNumber/{id}")	
 			.then()
 			.statusCode(200).body(is("true"));
+		
+		  res = given()
+					.queryParam("ctr_id", contractA.getId())
+					.contentType(MediaType.APPLICATION_JSON)
+					.when()
+					.get("IpNumber");	
+					
+					res.then().statusCode(200);
+					
+					List<IpNumber> IpNumber = Arrays.asList(res.getBody().as(IpNumber[].class));
+					IpA.setId(IpNumber.get(0).getId());	
+					IpA.setId(IpNumber.get(1).getId());	
+		
 
 		}
 	@Test
@@ -115,7 +190,7 @@ public class ipNumber_t{
 	public void addIpNumberToContractToMannyNumbers(){
 		
 		 given()
-		    .pathParam("id", 1l)
+		    .pathParam("id", contractA.getId())
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(IpD)
 	        .when()
@@ -129,7 +204,7 @@ public class ipNumber_t{
 	@Order(5)
 	public void getUserIpNumber() {
 		Response res = given()
-		.queryParam("usr_id", 1l)
+		.queryParam("usr_id", usrA.getId())
 		.contentType(MediaType.APPLICATION_JSON)
 		.when()
 		.get("IpNumber");	
@@ -144,7 +219,7 @@ public class ipNumber_t{
 	@Test
 	@Order(6)
 	public void removeIpNumber() {
-		 IpC.setId(3l);
+		 //IpC.setId(3l);
 		 
 		 given()
 	        .contentType(MediaType.APPLICATION_JSON)
@@ -158,7 +233,7 @@ public class ipNumber_t{
 	@Test
 	@Order(7)
 	public void getUserIpNumber2() {
-		contractC.setId(1l);
+		//contractC.setId(1l);
 		Response res = given()
 		.queryParam("ctr_id", contractC.getId())
         .contentType(MediaType.APPLICATION_JSON)
@@ -176,7 +251,7 @@ public class ipNumber_t{
 	@Order(8)
 	public void updateIpNumber(){
 		IpB.setIpNumber("9876543");
-		IpB.setId(2l);
+		IpB.getId();
 		given()
 		.contentType(MediaType.APPLICATION_JSON)
 		.body(IpB)
@@ -201,7 +276,7 @@ public class ipNumber_t{
 	@Test
 	@Order(9)
 	public void removeAllIpNumbersFromContract() {
-		contractA.setId(1l);
+		//contractA.setId(1l);
 	//	phoneOrm.removeAllIpNumberFromUser(usrC);
 		 
 		 given()
@@ -213,7 +288,7 @@ public class ipNumber_t{
 			.statusCode(200).body(is("true"));
 			
 			Response res = given()
-			.queryParam("ctrId", contractC.getId())
+			.queryParam("ctrId", contractA.getId())
 			.contentType(MediaType.APPLICATION_JSON)
 			.when()
 			.get("/IpNumber");	

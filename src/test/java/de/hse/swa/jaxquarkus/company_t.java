@@ -55,6 +55,17 @@ public class company_t{
 					.when()
 					.put("/company");		
 					response.then().statusCode(204);
+					
+					  response =
+								given()
+								.contentType(MediaType.APPLICATION_JSON)
+								.when()
+								.get("/company");
+								
+								response
+								.then()
+								.statusCode(200);
+								
 		 response = 
 				given()
 				.contentType(MediaType.APPLICATION_JSON)
@@ -62,6 +73,18 @@ public class company_t{
 					.when()
 					.put("/company");		
 					response.then().statusCode(204);
+					
+					  response =
+								given()
+								.contentType(MediaType.APPLICATION_JSON)
+								.when()
+								.get("/company");
+								
+								response
+								.then()
+								.statusCode(200);
+								
+						
 		 response = 
 				given()
 				.contentType(MediaType.APPLICATION_JSON)
@@ -69,6 +92,21 @@ public class company_t{
 					.when()
 					.put("/company");		
 					response.then().statusCode(204);
+					
+					  response =
+								given()
+								.contentType(MediaType.APPLICATION_JSON)
+								.when()
+								.get("/company");
+								
+								response
+								.then()
+								.statusCode(200);
+								
+					 List<Company> companys = Arrays.asList(response.getBody().as(Company[].class));
+						companyA.setId(companys.get(0).getId());
+						companyB.setId(companys.get(1).getId());
+						companyC.setId(companys.get(2).getId());
 	
 	
 	} 
@@ -100,10 +138,10 @@ public class company_t{
 	@Test
 	@Order(3)
 	public void GetCompany() {
-		Long id = 5l;
+		//Long id = 5l;
 		Response response = 
 		given()
-		.pathParam("id", id)
+		.pathParam("id", companyA.getId())
 		.contentType(MediaType.APPLICATION_JSON)
 		.when()
 		.get("/company/{id}");
@@ -117,7 +155,7 @@ public class company_t{
 	@Order(4)
 	public void UpdateCompany() { 
 		
-		companyC.setId(1l);
+		//companyC.setId(1l);
 		companyC.setStreet("Helferstr");
 		Response response = 
 				given()
@@ -135,35 +173,68 @@ public class company_t{
 		
 		//user f�r company
 		given()
-		.pathParam("companyId", 2l)
+		.pathParam("companyId", companyB.getId())
 		.contentType(MediaType.APPLICATION_JSON)
 		.body(usrC)
 		.when()
 		.put("/user/{companyId}")		
 		.then().statusCode(200).body(is("true"));
 		
+		Response response =
+     	        given()     	    
+     	        .contentType(MediaType.APPLICATION_JSON)
+     	        .when()
+     	        .get("/user");		      	    	
+ 	        	response
+     	        .then()
+     	        .statusCode(200);
+		      	        
+	      		List<User> usrs = Arrays.asList(response.getBody().as(User[].class));
+	      		usrC.setId(usrs.get(0).getId());
+		
 		//user f�r company
 		given()
-		.pathParam("companyId", 2l)
+		.pathParam("companyId", companyB.getId())
 		.contentType(MediaType.APPLICATION_JSON)
 		.body(usrA)
 		.when()
 		.put("/user/{companyId}")		
 		.then().statusCode(200).body(is("true"));
+		
+		response =
+     	        given()     	    
+     	        .contentType(MediaType.APPLICATION_JSON)
+     	        .when()
+     	        .get("/user");		      	    	
+ 	        	response
+     	        .then()
+     	        .statusCode(200);
+		      	        
+	      		List<User> usrs1 = Arrays.asList(response.getBody().as(User[].class));
+	      		usrA.setId(usrs1.get(0).getId());
 				
 		//contract f�r company
 		given()
-		.pathParam("companyId", 1l)
+		.pathParam("companyId", companyB.getId())
 		.contentType(MediaType.APPLICATION_JSON)
 		.body(contractB)
 		.when()
 		.put("contract/{companyId}")
 		.then().statusCode(200).body(is("Contract added"));
 		
+		 Response res =
+			        given()
+			        .contentType(MediaType.APPLICATION_JSON)
+			        .when()
+			        .get("contract");
+			    	
+					res.then().statusCode(200);
+					List<Contract> ctr = Arrays.asList(res.getBody().as(Contract[].class));
+					contractB.setId(ctr.get(0).getId());	
 		
-		contractB.setId(1l);
+		//contractB.setId(1l);
 		given()
-		.queryParam("usrId", 1l)
+		.queryParam("usrId", usrC.getId())
 		.contentType(MediaType.APPLICATION_JSON)
 		.body(contractB)
 		.when()
@@ -172,8 +243,8 @@ public class company_t{
 			
 			
 //				 
-		companyA.setId(1l);
-		Response response = 
+		//companyA.setId(1l);
+		 response = 
 			given()
 			.contentType(MediaType.APPLICATION_JSON)
 			.body(companyA)
