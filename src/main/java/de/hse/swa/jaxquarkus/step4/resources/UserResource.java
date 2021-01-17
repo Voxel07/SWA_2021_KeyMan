@@ -26,24 +26,31 @@ public class UserResource {
     @ApplicationScoped
     @Inject
     UserOrm userOrm;
-   
-   @GET
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
-   public List<User> getUsers() 
-   {
-       return userOrm.getUsers();
-   }
-   
-    
+
     @GET
-	@Path("{id}")
-    //@Path("greeting/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public User getUser(@PathParam("id") Long id)
-    {
-        return userOrm.getUser(id); 
+    public List<User> getUser(	@QueryParam("usr_id") Long usrId,
+    							@QueryParam("company_id") Long companyId,
+    							@QueryParam("username") String usrname)
+    {   
+    	System.out.println("UserResource/getUser");
+        if(usrId != null){
+        	System.out.println("getUserById");
+          return userOrm.getUserById(usrId);
+        } 
+        else if(companyId!=null){
+        	System.out.println("getUserByCompany");
+            return userOrm.getUserByCompany(companyId);
+        }
+        else if(usrname!=null){
+        	System.out.println("getUserByUsername");
+            return userOrm.getUserByUsername(usrname);
+        }
+        else{  
+        	System.out.println("getUsers");
+            return  userOrm.getUsers();
+        }
     }
   
     @PUT
@@ -52,8 +59,20 @@ public class UserResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Boolean addUser(User usr,@PathParam("companyId") Long companyId) 
     { 	
+    	System.out.println("UserResource/addUser");
+
     	//if ? addConnection / addUser
         return userOrm.addUser(usr,companyId);
+    }
+    @POST
+    @Path("login")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String loginUser(User usr) 
+    {
+    	System.out.println("UserResource/loginUser");
+
+       return userOrm.loginUser(usr);
     }
 
     @POST
@@ -61,6 +80,8 @@ public class UserResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public void updateUser(User usr) 
     {
+    	System.out.println("UserResource/updateUser");
+
         userOrm.updateUser(usr);
     }
 
@@ -69,6 +90,8 @@ public class UserResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public void deleteUser(User usr) 
     {
+    	System.out.println("UserResource/deleteUser");
+
         userOrm.deleteUser(usr);
     }
     

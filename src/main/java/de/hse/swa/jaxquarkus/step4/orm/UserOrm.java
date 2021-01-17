@@ -21,29 +21,24 @@ public class UserOrm {
     @Inject
     ContractOrm contractOrm;
     
-    public int getAnz () {
-    	TypedQuery<User> query = em.createQuery("SELECT count(e) FROM User e",User.class);
-    	return query.getResultList().size();
-    }
+  
     
     public List<User> getUsers(){
         TypedQuery<User> query = em.createQuery("SELECT u FROM User u", User.class);
         return  query.getResultList();
     }
 
-    public User getUserById(Long id) 
+    public List<User> getUserById(Long id) 
     {	
-    	return em.find(User.class,id);
+        TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE id =: val", User.class);
+        query.setParameter("val", id);
+        return  query.getResultList();
     }
     
-    public User getUserByUsername(String username) {
-    	TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.username =:?", User.class);
-    	query.setParameter(1, username);
-    	return query.getSingleResult();
-    }
-
-    public User getUser (Long usrId) {
-    	return em.find(User.class, usrId);
+    public List<User> getUserByUsername(String username) {
+    	TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE username =: val", User.class);
+    	query.setParameter("val", username);
+    	return query.getResultList();
     }
 
     public List<User> getUserByCompany(Long companyId){
@@ -93,18 +88,21 @@ public class UserOrm {
     //Kompliziertere Querrys
     
     @Transactional
-    public Boolean loginUser(User usr){
+    public String loginUser(User usr){
     	
     	TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.username = :val", User.class);
     	query.setParameter("val", usr.getUsername());
     	//Falls kein User mit dem namen gefunden wurde
     	if(query.getResultList().isEmpty()){
-    		return false;
+    		return "Kein nutzer mit diesen Namen gefunden";
     	}
         if(query.getSingleResult().getPassword().equals(usr.getPassword())) {
-            return true;
+            return "true";
         }
-    	return true; 
+        else{
+            return "Passwort passt nicht"; 
+        }
+    	
     }
 
     @Transactional

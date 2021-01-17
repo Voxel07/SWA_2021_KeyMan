@@ -79,11 +79,11 @@ public class ContractOrm  {
     public Boolean addConnectionUserContract(Long usrId, Long ctrId) {
     	System.out.println("ContractOrm/addConnectionUserContract");
     	Contract ctr = getContract(ctrId);
-    	User usr = userOrm.getUser(usrId);
-    	usr.getContracts().add(ctr);
-    	ctr.getUsers().add(usr);
+    	List<User> usr = userOrm.getUserById(usrId);
+    	usr.get(0).getContracts().add(ctr);
+    	ctr.getUsers().add(usr.get(0));
         updateContract(ctr);
-        userOrm.updateUser(usr);
+        userOrm.updateUser(usr.get(0));
     	return true;
     }
     

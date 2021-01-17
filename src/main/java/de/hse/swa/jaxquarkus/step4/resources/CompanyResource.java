@@ -31,6 +31,7 @@ public class CompanyResource {
     @Consumes("application/json")
     public List<Company> getCompanys() 
     {
+    	System.out.println("CompanyResource/getCompanys");
         return companyOrm.getCompanys();
     }
    
@@ -41,6 +42,7 @@ public class CompanyResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Company getCompany(@PathParam("id") Long id)
     {
+    	System.out.println("CompanyResource/getCompany");
         return companyOrm.getCompany(id); 
     }
     
@@ -50,6 +52,7 @@ public class CompanyResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public void addCompany(Company company) 
     { 	
+    	System.out.println("CompanyResource/addCompany");
         companyOrm.addCompany(company);
     }
     
@@ -59,6 +62,7 @@ public class CompanyResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public void updateCompany(Company company) 
     {
+    	System.out.println("CompanyResource/updateCompany");
         companyOrm.updateCompany(company);
     }
     
@@ -68,6 +72,7 @@ public class CompanyResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public void deleteCompany(Company company) //boolean?
     {
+    	System.out.println("CompanyResource/deleteCompany");
         companyOrm.deleteCompany(company);
     }
     
