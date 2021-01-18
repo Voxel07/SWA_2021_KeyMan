@@ -18,7 +18,7 @@ export default class ShowUsers extends Component {
                 this.setState({ Users: response.data });
                 if( response.data.length == 0)
                 {
-                    this.setState({ errorMsg: 'Keine Daten erhalten' })
+                    this.setState({ errorMsg: 'Keine User Daten erhalten' })
                 }
 
             })

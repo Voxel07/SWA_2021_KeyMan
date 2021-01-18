@@ -3,7 +3,7 @@ import Modal from 'react-modal'
 import axios from 'axios'
 import EditCustomer from '.././pages/Customers/EditCustomer/editCustomer.modal';
 import ShowUsers from '../pages/Customers/showUsers.modal'
-import ShowContracts from '.././pages/Customers/EditCustomer/editCustomer.modal';
+import ShowContracts from '../pages/Customers/showContracts.modal'
 
 // id | country | department | name | postalcode | state | street
 class Company extends React.Component {
@@ -24,7 +24,6 @@ class Company extends React.Component {
 
         this.deleteCompany = this.deleteCompany.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
-        // this.handleSave = this.handleSave.bind(this);
         this.createModal = this.createModal.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
     }
@@ -64,12 +63,6 @@ class Company extends React.Component {
         });
     }
 
-    // handleSave() {
-    //     this.setState({
-    //         modalIsOpen: false
-    //     });
-    // }
-
     handleCancel() {
         this.setState({
             modalIsOpen: false
@@ -103,14 +96,6 @@ class Company extends React.Component {
               
               default:
                 break;
-        }
-        if (this.state.modalShow === "Edit") {
-            return (
-                <div>
-                    <EditCustomer company={this.props.company}></EditCustomer>
-                    <button onClick={() => this.handleCancel()}>Cancel</button>
-                </div>
-            );
         }
     }
     render() {

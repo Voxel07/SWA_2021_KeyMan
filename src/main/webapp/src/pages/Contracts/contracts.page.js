@@ -1,32 +1,21 @@
 import React from 'react';
-import Contract from './contract.component';
 import axios from 'axios';
+import Contract from '../../components/Contract'
+
 
 class ContractPage extends React.Component {
     constructor() {
         super();
-        this.state = { contracts: [], msg:"" };
+        this.state = { contracts: [], errorMsg:"" };
     }
 
-    /*componentWillMount(){
-        const contract1 = {customer: "CustomerA", contractStart: "Contract Start", contractEnd: "Contract End", version: 1.2};
-        const contract2 = {customer: "CustomerB", contractStart: "Contract Start", contractEnd: "Contract End", version: 2.2};
-
-        this.setState(state => {
-            const list = state.contracts.push(contract1);
-        });
-        this.setState(state => {
-            const list = state.contracts.push(contract2);
-        });
-    }*/
-
-    componentDidMount() {
-        axios.get('http://localhost:8080/Contract')
+    componentWillMount() {
+        axios.get('http://localhost:8080/contract')
             .then(response => {
                 console.log(response);
                 if( response.data.length === 0)
                 {
-                    this.setState({ msg: 'Keine Daten erhalten' })
+                    this.setState({ errorMsg: 'Keine Contract Daten erhalten' })
                 } else {
                     this.setState({ contracts: response.data });
                 }
@@ -34,27 +23,22 @@ class ContractPage extends React.Component {
             })
             .catch(error => {
                 // console.log(error);
-                this.setState({ msg: " "+error})
+                this.setState({ errorMsg: " "+error})
             })
     }
     
-    
-    deleteUser() {
-        
-    }
-
-    editUser() {
-        
-    }
-    
     render() {
+        const { contracts, errorMsg } = this.state
         return (
-            <div>
-                {this.state.contracts.length ? this.state.contracts.map(contract => (
-                    <Contract customer={contract.customer} contractStart={contract.contractStart} contractEnd={contract.contractEnd} version={contract.version}/>
-                )) : this.state.msg ? this.state.msg : null}
-            </div>
-        );
+        <div> 
+        {
+            contracts.length ? contracts.map(contract => <Contract contract={contract} />) : null
+        }
+        {
+            errorMsg ? <div>{errorMsg}</div> : null
+        } 
+        </div>
+        )
     }
 }
 

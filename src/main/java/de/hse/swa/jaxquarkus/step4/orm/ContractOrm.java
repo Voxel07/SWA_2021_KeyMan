@@ -42,7 +42,7 @@ public class ContractOrm  {
 	}
 
     public List<Contract> getContractByCompany(Long companyId){
-		System.out.println("ContractORM/getContractByNumber");
+		System.out.println("ContractORM/getContractByCompany");
     	TypedQuery<Contract> query = em.createQuery("SELECT u FROM Contract u WHERE company_id = :val", Contract.class);
     	query.setParameter("val", companyId);
     	return query.getResultList();

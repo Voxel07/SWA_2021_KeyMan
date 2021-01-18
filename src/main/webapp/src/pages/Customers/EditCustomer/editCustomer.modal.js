@@ -23,12 +23,9 @@ class EditCustomer extends React.Component {
         axios.post('http://localhost:8080/company', this.state)
             .then(response => {
                 console.log(response)
-                this.ClearInput();
-                //this.setState({posts: response.data})
             })
             .catch(error => {
                 console.log(error)
-                // this.setState({errorMsg: 'Keine Daten erhalten'})
             })
         }
 

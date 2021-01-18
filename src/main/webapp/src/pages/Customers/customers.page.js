@@ -1,5 +1,4 @@
 import React from 'react';
-import Customer from './customer.component';
 import axios from 'axios'
 import Company from '../../components/Company'
 
@@ -28,16 +27,7 @@ class CustomersPage extends React.Component {
                 this.setState({ errorMsg: " "+error})
             })
     }
-    
-    
-    deleteUser() {
-        
-    }
-
-    editUser() {
-        
-    }
-    
+       
     render() {
         const { companys, errorMsg } = this.state
         return (

@@ -30,7 +30,7 @@ public class FeatureResource {
 	// @Path("teste")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public List<Feature> getFeature(@QueryParam("number") String number, @QueryParam("ctr_id") Long ctrId)
+    public List<Feature> getFeature(@QueryParam("number") String number, @QueryParam("ctrId") Long ctrId)
     {   
         if(number != null){
           return featureOrm.getFeatureByNumber(number);
