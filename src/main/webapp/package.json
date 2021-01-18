@@ -8,8 +8,11 @@
     "@testing-library/user-event": "^12.6.0",
     "axios": "^0.21.1",
     "bootstrap": "^4.5.3",
+    "node-sass": "^4.14.1",
     "react": "^17.0.1",
+    "react-bootstrap-icons": "^1.2.3",
     "react-dom": "^17.0.1",
+    "react-modal": "^3.12.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "web-vitals": "^0.2.4"
@@ -19,7 +22,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prod": "react-scripts build --dest && mv build/* ../resources/META-INF/resources"
+    "prod": "react-scripts build --dest && move build/* C:/Users/matze/OneDrive - bwedu/Programmieren/Software Architekture/724JaxQuarkus/src/main/resources/META-INF/resources"
   },
   "eslintConfig": {
     "extends": [

@@ -1,0 +1,25 @@
+div.login {
+    text-align: center;
+}
+
+legend.login {
+    text-align: left;
+    width: inherit;
+    padding:0 10px;
+    border-bottom: none;
+}
+
+
+fieldset.login {
+    border: 1px groove #ddd !important;
+    padding: 0 1.4em 1.4em 1.4em !important;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+input.login{
+    margin: 10px;
+}
+
+button.login {
+    margin-left: 20px;
+}

@@ -1,0 +1,26 @@
+#menuButton {
+    padding-top: 20px;
+    padding-inline: 10px;
+    padding-bottom: 20px;
+}
+
+#parent {
+    display: flex;
+}
+
+#menu {
+    margin-left: 2px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+    width: 125px;
+    background: darkgray;
+    text-align: center;
+}
+
+#table {
+    flex: 1;
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+}

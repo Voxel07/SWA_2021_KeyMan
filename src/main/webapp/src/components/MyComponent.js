@@ -38,7 +38,7 @@ class MyComponent extends Component {
     const{name,department,street,postalcode,state,country} = this.state
     //oder value = {this.state.name}
     return (
-      <div className="user-form">
+      <div className="customer-form">
         <form id="test"  onSubmit={this.handleSubmit}>
           <div >
             <div className="user-input">
