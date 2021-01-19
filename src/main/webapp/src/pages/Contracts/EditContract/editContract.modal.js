@@ -1,5 +1,8 @@
 import React from 'react';
 import axios from 'axios'
+import IpNumber from './Ip'
+import Feature from './Feature'
+
 class EditContract extends React.Component {
 
     constructor(props) {
@@ -12,8 +15,19 @@ class EditContract extends React.Component {
             id: this.props.contract.id,
             features:[],
             ips:[],
-            company:this.props.contract.companyId 
+            company:'',
+            errorMsgIp: '',
+            errorMsgFe: '',
+            errorMsgCp: ''
         };
+     
+
+    }
+    componentWillMount() {
+        console.log("Daten Holen !");
+        this.getCompany();
+        this.getFeatures();
+        this.getIps();
     }
 
     Changehandler = (event) => {
@@ -30,19 +44,20 @@ class EditContract extends React.Component {
                 console.log(error)
             })
     }
+ 
 
     getCompany() {
-        axios.get('http://localhost:8080/company', { params: { company_id: this.state.companyId } })
+        axios.get('http://localhost:8080/company/'+this.props.contract.companyId)
             .then(response => {
                 console.log(response);
                 this.setState({ company: response.data });
                 if (response.data.length == 0) {
-                    this.setState({ errorMsg: 'Keine Company Daten erhalten' })
+                    this.setState({ errorMsgCp: 'Keine Company Daten erhalten' })
                 }
             })
             .catch(error => {
                 // console.log(error);
-                this.setState({ errorMsg: " " + error })
+                this.setState({ errorMsgCp: " " + error })
             })
     }
 
@@ -52,13 +67,13 @@ class EditContract extends React.Component {
             console.log(response);
             this.setState({ features: response.data });
             if (response.data.length == 0) {
-                this.setState({ errorMsg: 'Keine Feature Daten erhalten' })
+                this.setState({ errorMsgFe: 'Keine Feature Daten erhalten' })
             }
 
         })
             .catch(error => {
                 // console.log(error);
-                this.setState({ errorMsg: " " + error })
+                this.setState({ errorMsgFe: " " + error })
             })
     }
     getIps() {
@@ -67,20 +82,21 @@ class EditContract extends React.Component {
             console.log(response);
             this.setState({ ips: response.data });
             if (response.data.length == 0) {
-                this.setState({ errorMsg: 'Keine IP Daten erhalten' })
+                this.setState({ errorMsgIp: 'Keine IP Daten erhalten' })
             }
 
         })
             .catch(error => {
                 // console.log(error);
-                this.setState({ errorMsg: " " + error })
+                this.setState({ errorMsgIp: " " + error })
             })
     }
  
     render() {
+        //Daten holen Obacht !!
         const { company, startDate, endDate, version, licenskey } = this.state
-       
         return (
+            <div>
             <form onSubmit={this.handleSubmit}>
                 <fieldset>
                     <legend>Edit Contract:</legend>
@@ -97,6 +113,35 @@ class EditContract extends React.Component {
                 </fieldset>
                 <div> <input type="submit" value="Submit" /></div>
             </form>
+            <form>
+                <fieldset>
+                <legend>Ip´s</legend>
+                    <label>Ip</label>
+                    <div> 
+                    {
+                        this.state.ips.length ?  this.state.ips.map( ip => <IpNumber ip={ip} />) : null
+                    }
+                    {
+                        this.state.errorMsgIp ? <div>{this.state.errorMsgIp}</div> : null
+                    } 
+                    </div>
+                </fieldset>
+            </form>
+            <form>
+                <fieldset>
+                <legend>Features</legend>
+                    <label>Feature</label>
+                    <div> 
+                    {
+                       this.state.features.length ? this.state.features.map(feature => <Feature feature={feature} />) : null
+                    }
+                    {
+                        this.state.errorMsgFe ? <div>{this.state.errorMsgFe}</div> : null
+                    } 
+                    </div>
+                </fieldset>
+            </form>
+            </div>
         );
     }
 }
