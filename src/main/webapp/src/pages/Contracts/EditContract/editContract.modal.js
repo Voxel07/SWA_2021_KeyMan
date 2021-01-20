@@ -13,6 +13,8 @@ class EditContract extends React.Component {
             version: this.props.contract.version,
             licenskey: this.props.contract.licenskey,
             id: this.props.contract.id,
+            ipNumber: '',
+            feature:'',
             features:[],
             ips:[],
             company:'',
@@ -44,7 +46,30 @@ class EditContract extends React.Component {
                 console.log(error)
             })
     }
- 
+
+//Geht nicht
+    handleSubmitIp = event => {
+        event.preventDefault();
+		console.log(this.state.ipNumber);
+        axios.put('http://localhost:8080/IpNumber/'+this.props.contract.id, {ipNumber : this.state.ipNumber})
+            .then(response => {
+                console.log(response)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+    handleSubmitFeature = event => {
+        event.preventDefault();
+		console.log(this.state.feature);
+        axios.put('http://localhost:8080/feature/'+this.props.contract.id, {number : this.state.feature})
+            .then(response => {
+                console.log(response)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
 
     getCompany() {
         axios.get('http://localhost:8080/company/'+this.props.contract.companyId)
@@ -113,7 +138,7 @@ class EditContract extends React.Component {
                 </fieldset>
                 <div> <input type="submit" value="Submit" /></div>
             </form>
-            <form>
+            <form onSubmit={this.handleSubmitIp}>
                 <fieldset>
                 <legend>Ip´s</legend>
                     <label>Ip</label>
@@ -125,9 +150,13 @@ class EditContract extends React.Component {
                         this.state.errorMsgIp ? <div>{this.state.errorMsgIp}</div> : null
                     } 
                     </div>
+					<div>
+						<input type="text" name="ipNumber" value={this.state.ipNumber} onChange={this.Changehandler}></input>
+                		<input type="submit" value="addIp" />
+					</div>
                 </fieldset>
             </form>
-            <form>
+            <form onSubmit={this.handleSubmitFeature}>
                 <fieldset>
                 <legend>Features</legend>
                     <label>Feature</label>
@@ -139,6 +168,10 @@ class EditContract extends React.Component {
                         this.state.errorMsgFe ? <div>{this.state.errorMsgFe}</div> : null
                     } 
                     </div>
+                    <div>
+						<input type="text" name="feature" value={this.state.feature} onChange={this.Changehandler}></input>
+                		<input type="submit" value="addFeature" />
+					</div>
                 </fieldset>
             </form>
             </div>

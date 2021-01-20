@@ -17,9 +17,8 @@ class MyGetContract extends Component {
         })
         .catch(error => {
             console.log(error)
-            this.setState({errorMsg: ' erhalten'})
+            this.setState({errorMsg: 'Kein Contract Daten erhalten'})
         })
-
     }
     
     render() {
