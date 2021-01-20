@@ -3,7 +3,7 @@ import axios from 'axios'
 import Company from '../../components/Company'
 
 
-class CustomersPage extends React.Component {
+class CompanyPage extends React.Component {
     constructor() {
         super();
         this.state ={ companys:[],
@@ -43,4 +43,4 @@ class CustomersPage extends React.Component {
     }
 }
 
-export default CustomersPage;
+export default CompanyPage;

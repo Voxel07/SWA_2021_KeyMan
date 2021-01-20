@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomersPage from '../Customers/customers.page';
+import CompanysPage from '../Company/company.page';
 import ContractsPage from '../Contracts/contracts.page';
 import UsersPage from '../Users/user.page';
 
@@ -7,8 +7,8 @@ import UsersPage from '../Users/user.page';
 class TableComponent extends React.Component {
 
     createTable() {
-        if (this.props.table === "Customers") {
-            return(<CustomersPage/>)
+        if (this.props.table === "Companys") {
+            return(<CompanysPage/>)
         } else if (this.props.table === "Contracts") {
             return(<ContractsPage/>)
         } else {

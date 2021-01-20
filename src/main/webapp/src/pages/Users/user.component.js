@@ -53,7 +53,7 @@ class User extends React.Component {
                 <Modal isOpen={this.state.modalIsOpen}>
                     {this.createModal()}
                 </Modal>
-                <span>{this.props.customer}</span>
+                <span>{this.props.company}</span>
                 <span>{this.props.userName}</span>
                 <span>{this.props.email}</span>
                 <button onClick={() => this.handleEdit()}>Edit</button>

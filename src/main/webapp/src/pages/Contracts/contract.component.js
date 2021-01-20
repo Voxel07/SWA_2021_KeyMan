@@ -66,7 +66,7 @@ class Contract extends React.Component {
                     {this.createModal()}
                 </Modal>
                 <div id="items">
-                    <span>{this.props.customer}</span>
+                    <span>{this.props.company}</span>
                 </div>
                 <div id="items">
                     <span>{this.props.contractStart}</span>

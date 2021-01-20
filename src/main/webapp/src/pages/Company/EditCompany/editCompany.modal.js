@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios'
-class EditCustomer extends React.Component {
+class EditCompany extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -54,4 +54,4 @@ class EditCustomer extends React.Component {
         }
     }
 
-    export default EditCustomer;
+    export default EditCompany;

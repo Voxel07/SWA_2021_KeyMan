@@ -3,7 +3,7 @@ import authService from '../Login/auth.service';
 import { withRouter } from 'react-router-dom';
 import { PersonSquare, BoxArrowRight } from 'react-bootstrap-icons';
 import Modal from 'react-modal';
-import AddCustomer from '../Customers/AddCustomer/addCustomer.modal';
+import AddCompany from '../Company/AddCompany/addCompany.modal';
 import AddContract from '../Contracts/AddContract/addContract.modal';
 import AddUser from '../Users/AddUser/addUser.modal';
 
@@ -15,7 +15,7 @@ export class BarComponent extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { modalIsOpen: false, modalShow: "Customer" };
+        this.state = { modalIsOpen: false, modalShow: "Company" };
         this.handleLogout = this.handleLogout.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
@@ -44,9 +44,9 @@ export class BarComponent extends React.Component {
     }
 
     handleAdd() {
-        if(this.props.table === "Customers") {
+        if(this.props.table === "Companys") {
             this.setState({
-                modalShow: "Customer",
+                modalShow: "Company",
                 modalIsOpen: true
             });
         } else if(this.props.table === "Contracts") {
@@ -70,39 +70,61 @@ export class BarComponent extends React.Component {
 
     createModal(){
         
-        if(this.state.modalShow === "Customer") {
+        if(this.state.modalShow === "Company") {
             return(
                 <div>
                     <h2>Add {this.state.modalShow}</h2>
-                    <AddCustomer></AddCustomer>
-                    {/* <button onClick={() => this.handleSave()}>Save</button> */}
-                    <button onClick={() => this.handleCancel()}>Cancel</button>
+                    <ul class="nav justify-content-end">
+                        <li class="nav-item">
+                        <button  type="button" class="Close" aria-label="Close" onClick={() => this.handleCancel()}>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                        </li>
+                    </ul>
+                    <AddCompany></AddCompany>                    
                 </div>
             );
         } else if(this.state.modalShow === "Contract") {
             return(
                 <div>
                     <h2>Add {this.state.modalShow}</h2>
+                    <ul class="nav justify-content-end">
+                        <li class="nav-item">
+                        <button  type="button" class="Close" aria-label="Close" onClick={() => this.handleCancel()}>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </li>
+                    </ul>
                     <AddContract></AddContract>
-                    {/* <button onClick={() => this.handleSave()}>Save</button> */}
-                    <button onClick={() => this.handleCancel()}>Cancel</button>
                 </div>
             );
         } else if(this.state.modalShow === "User") {
             return(
                 <div>
                     <h2>Add {this.state.modalShow}</h2>
+                    
+                    <ul class="nav justify-content-end">
+                        <li class="nav-item">
+                        <button  type="button" class="Close" aria-label="Close" onClick={() => this.handleCancel()}>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </li>
+                    </ul>
                     <AddUser></AddUser>
-                    {/* <button onClick={() => this.handleSave()}>Save</button> */}
-                    <button onClick={() => this.handleCancel()}>Cancel</button>
                 </div>
             );
         } else if(this.state.modalShow === "Nutzer") {
             return(
                 <div>
                     <h2>User</h2>
+                    <ul class="nav justify-content-end">
+                        <li class="nav-item">
+                        <button  type="button" class="Close" aria-label="Close" onClick={() => this.handleCancel()}>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </li>
+                    </ul>
                     <User></User>
-                    <button onClick={() => this.handleCancel()}>Close</button>
                 </div>
             );
         }
@@ -146,6 +168,7 @@ export class BarComponent extends React.Component {
                 </ul>
               </div>
               </nav> 
+              
             </div>
         );
     }

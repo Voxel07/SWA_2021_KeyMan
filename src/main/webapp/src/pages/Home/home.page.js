@@ -8,15 +8,15 @@ class HomePage extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {table: "Customers"};
-        this.onClickCustomers = this.onClickCustomers.bind(this);
+        this.state = {table: "Companys"};
+        this.onClickCompanys = this.onClickCompanys.bind(this);
         this.onClickContracts = this.onClickContracts.bind(this);
         this.onClickUsers = this.onClickUsers.bind(this);
     }
 
-    onClickCustomers(){
+    onClickCompanys(){
         this.setState({
-            table: "Customers"
+            table: "Companys"
         });
     }
     onClickContracts(){
@@ -33,21 +33,21 @@ class HomePage extends React.Component {
     render(){
         return(
             <div>
-                         <div>
+              <div>
                      <Bar table={this.state.table}/>
                 </div>
                 <div id="parent">
                     <div id="menu">
                      <nav class=" navbar-nav ">
                         <div id="menuButton" class="nav-link active btn-lg" href="#">
-                        <button className="fontctr" onClick={this.onClickCustomers}>Customer</button>
+                        <button className="fontctr btn-outline-light" onClick={this.onClickCompanys}>Company</button>
                         </div>
                         <div id="menuButton" class="nav-link active btn-lg" href="#">
-                            <button className="fontctr" onClick={this.onClickContracts}>Contract</button>
+                            <button className="fontctr btn-outline-light" onClick={this.onClickContracts}>Contract</button>
                             
                         </div>
                         <div id="menuButton" class="nav-link active btn-lg" href="#">
-                              <button className="fontctr" onClick={this.onClickUsers}>User</button>
+                              <button className="fontctr btn-outline-light" onClick={this.onClickUsers}>User</button>
                         </div>
                         </nav>
                     </div>

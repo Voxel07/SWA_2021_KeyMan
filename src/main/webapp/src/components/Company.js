@@ -1,9 +1,9 @@
 import React from 'react'
 import Modal from 'react-modal'
 import axios from 'axios'
-import EditCustomer from '.././pages/Customers/EditCustomer/editCustomer.modal';
-import ShowUsers from '../pages/Customers/showUsers.modal'
-import ShowContracts from '../pages/Customers/showContracts.modal'
+import EditCompany from '../pages/Company/EditCompany/editCompany.modal';
+import ShowUsers from '../pages/Company/showUsers.modal'
+import ShowContracts from '../pages/Company/showCompanys.modal'
 
 // id | country | department | name | postalcode | state | street
 class Company extends React.Component {
@@ -73,7 +73,7 @@ class Company extends React.Component {
             case "Edit":
                 return (
                     <div>
-                        <EditCustomer company={this.props.company}></EditCustomer>
+                        <EditCompany company={this.props.company}></EditCompany>
                         <button onClick={() => this.handleCancel()}>Cancel</button>
                     </div>
                 );
@@ -105,7 +105,7 @@ class Company extends React.Component {
                 <Modal isOpen={this.state.modalIsOpen}>
                     {this.createModal()}
                 </Modal>
-                <div className=" row ">
+                <div className=" form-row ">
 
                     <div className="form-group col-11 col-sm-2">
                         <input

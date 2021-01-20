@@ -14,13 +14,13 @@ class User extends React.Component {
             <h1 className="title">My User</h1>
               <div className=" form-row ">
               <div className="form-group col-6 col-sm-6 my-2 p-2"> 
-                <label> Customer </label>
+                <label> Company </label>
                  <input
-                  placeholder="Customer"
+                  placeholder="Company"
                   className="form-control "
-                  name="customer"
+                  name="Company"
                   type="text" 
-                  //value={customer} onChange={this.Changehandler}
+                  //value={Company} onChange={this.Changehandler}
                   />
                </div>
                </div>

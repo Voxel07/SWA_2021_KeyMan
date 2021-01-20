@@ -9,8 +9,8 @@ class Users extends React.Component {
     }
 
     /* componentWillMount(){
-        const user1 = {customer: "CustomerA", userName: "User1", email: "user1@custa.com"};
-        const user2 = {customer: "CustomerB", userName: "User2", email: "user2@custb.com"};
+        const user1 = {C: "C", userName: "User1", email: "user1@custa.com"};
+        const user2 = {C: "C", userName: "User2", email: "user2@custb.com"};
 
         this.setState(state => {
             const list = state.users.push(user1);
@@ -54,7 +54,7 @@ class Users extends React.Component {
         return (
             <div>
                 {this.state.users.length ? this.state.users.map(user => (
-                    <User customer={user.customer} userName={user.userName} email={user.email}/>
+                    <User Company={user.Company} userName={user.userName} email={user.email}/>
                 )) : this.state.msg ? this.state.msg : null }
             </div>
         );

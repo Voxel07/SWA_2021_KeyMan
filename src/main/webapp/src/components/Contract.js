@@ -90,7 +90,7 @@ class Contract extends React.Component {
                 <Modal isOpen={this.state.modalIsOpen}>
                     {this.createModal()}
                 </Modal>
-                <div className=" row ">
+                <div className=" form-row ">
 
                     <div className="form-group col-11 col-sm-2">
                         <input

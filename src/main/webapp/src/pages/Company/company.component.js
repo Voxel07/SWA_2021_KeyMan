@@ -1,8 +1,8 @@
 import React from 'react';
 import Modal from 'react-modal';
-import EditCustomer from './EditCustomer/editCustomer.modal';
+import EditCompany from './EditCompany/editCompany.modal';
 
-class Customer extends React.Component {
+class Company extends React.Component {
     constructor(props) {
         super(props);
         this.state = { modalIsOpen: false, modalShow: "Edit" };
@@ -35,7 +35,7 @@ class Customer extends React.Component {
         if(this.state.modalShow === "Edit") {
             return(
                 <div>
-                    <EditCustomer></EditCustomer>
+                    <EditCompany></EditCompany>
                     <button onClick={() => this.handleSave()}>Save</button>
                     <button onClick={() => this.handleCancel()}>Cancel</button>
                 </div>
@@ -49,7 +49,7 @@ class Customer extends React.Component {
                 <Modal isOpen={this.state.modalIsOpen}>
                     {this.createModal()}
                 </Modal>
-                <span>{this.props.customer}</span>
+                <span>{this.props.company}</span>
                 <span>{this.props.addressDetailA}</span>
                 <span>{this.props.addressDetailB}</span>
                 <button onClick={() => this.handleEdit()}>Edit</button>
@@ -61,4 +61,4 @@ class Customer extends React.Component {
     }
 }
 
-export default Customer;
+export default Company;

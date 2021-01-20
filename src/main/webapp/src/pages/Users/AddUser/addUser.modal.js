@@ -79,7 +79,7 @@ class AddUser extends React.Component {
                </div>
                </div>
                   <div className="mt-4 text-center">
-                      <button type="submit" class="btn btn-primary btn-lg">Absenden</button>
+                      <button type="submit" class="btn btn-primary btn-lg">hinzufügen</button>
                  </div>
               </form>  
         );
