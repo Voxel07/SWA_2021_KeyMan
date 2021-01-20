@@ -10,17 +10,18 @@ class User extends React.Component {
 
             <form>
             <div>
-            <div class="container"  >
-            <h1 class="title">My User</h1>
+            <div className="container"  >
+            <h1 className="title">My User</h1>
               <div className=" form-row ">
               <div className="form-group col-6 col-sm-6 my-2 p-2"> 
                 <label> Customer </label>
-                  <select class="custom-select" id="inputGroupSelect01">
-                    <option selected>select Company...</option>
-                    <option value="1">One</option>       // input of companys
-                    <option value="2">Two</option>
-                    <option value="3">Two</option>
-                  </select>
+                 <input
+                  placeholder="Customer"
+                  className="form-control "
+                  name="customer"
+                  type="text" 
+                  //value={customer} onChange={this.Changehandler}
+                  />
                </div>
                </div>
                
@@ -29,58 +30,67 @@ class User extends React.Component {
                 <label>First Name</label>
                 <input
                   placeholder="Department"
-                  class="form-control "
+                  className="form-control "
                   name="department"
-                  type="text" />
+                  type="text" 
+                  //value={firstName} onChange={this.Changehandler}
+                  />
                </div>
                <div className=" col-12 col-sm-6 my-2 p-2">
                 <label> Last Name </label>
                 <input
-                  placeholder="Street"
-                  class="form-control"
-                  name="street"
-                  type="text"/>
+                  placeholder="LastName"
+                  className="form-control"
+                  name="lastName"
+                  type="text"
+                  //value={lastName} onChange={this.Changehandler}
+                  />
                 </div>
               </div>
             <div className=" form-row ">
              <div className=" col-12 col-sm-6 my-2 p-2">
                 <label> Email </label>
                 <input
-                  placeholder="state"
-                  class="form-control"
-                  name="state"
-                  type="text" />
+                  placeholder="Email"
+                  className="form-control"
+                  name="email"
+                  type="text"
+                  //value={email} onChange={this.Changehandler}
+                   />
                </div>
              <div className=" col-12 col-sm-6 my-2 p-2">
                 <label> Phone </label>
                 <input
-                  placeholder="Country"
-                  class="form-control"
-                  name="Country"
-                  type="text" />
+                  placeholder="Phone"
+                  className="form-control"
+                  name="phone"
+                  type="text"
+                 // value={phone} onChange={this.Changehandler}
+                  />
                </div>
                </div>
                <div className=" form-row ">
              <div className=" col-12 col-sm-6 my-2 p-2">
                 <label> isAdmin </label>
                 <input
-                  class="form-control"
-                  type="checkbox" />
+                  className="form-control"
+                  type="checkbox"
+                 // value={isAdmin} onChange={this.Changehandler}
+                  />
                </div>
              <div className=" col-12 col-sm-6 my-2 p-2">
                 <label> Mobile </label>
                 <input
-                  placeholder="Country"
-                  class="form-control"
-                  name="Country"
-                  type="text" />
+                  placeholder="Mobile"
+                  className="form-control"
+                  name="mobile"
+                  type="text"
+                  //classNamealue={mobile} onChange={this.Changehandler} 
+                  />
                </div>
                </div>
                </div>
                </div>
-                  <div class="mt-4 text-center">
-                      <button type="submit" class="btn btn-primary btn-lg">Absenden</button>
-                 </div>
               </form>   
         );
     }

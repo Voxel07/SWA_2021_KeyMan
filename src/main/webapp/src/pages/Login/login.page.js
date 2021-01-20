@@ -45,26 +45,26 @@ export class LoginPage extends React.Component {
         const eMail = this.props.eMail;
         const password = this.props.password;
         return(
-            <section class="Form my-4 mx-1">
-            <div class="container">
-              <div class="row no-gutters"> 
-                <div class="col-lg-12 üx-5 pt-5">
-                 <div class="mt-5 text-center">
-                   <h1 class="font-weight-bold py-3">Log in</h1>
+            <section className="Form my-4 mx-1">
+            <div className="container">
+              <div className="row no-gutters"> 
+                <div className="col-lg-12 üx-5 pt-5">
+                 <div className="mt-5 text-center">
+                   <h1 className="fontlogin font-weight-bold py-3">Log in</h1>
                    <h4>Sign into your account</h4>
                   <form>
-                    <div class="form-row">
-                     <div class="col-md-7 col-sm-12 center-block">
+                    <div className="form-row">
+                     <div className="col-md-7 col-sm-12 center-block">
                       <input type="email" className="form-control my-4 p-4 " value={eMail} onChange={this.handleChangeEmail}></input>
                       </div>
                      </div>
-                    <div class="form-row">
-                     <div class="col-md-7 col-sm-12 center-block">
+                    <div className="form-row">
+                     <div className="col-md-7 col-sm-12 center-block">
                       <input type="password" className="form-control my-4 p-4 " value={password} onChange={this.handleChangePassword}></input>
                        </div>
                       </div>
-                     <div class="form-row">
-                       <div class="col-lg-12 ">
+                     <div className="form-row">
+                       <div className="col-lg-12 ">
                          <button className="btn1 mt-3 mb-5" onClick={() => this.login()}>Login</button>
                          <div>
                              {this.state.show && <span>Falsche Email oder falsches Passwort</span>}

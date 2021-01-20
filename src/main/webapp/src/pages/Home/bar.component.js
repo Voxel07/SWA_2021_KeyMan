@@ -111,25 +111,41 @@ export class BarComponent extends React.Component {
 
     render(){
         return(
-            <div id="bar">
+            
+            <div>
                 <Modal isOpen={this.state.modalIsOpen}>
                     {this.createModal()}
                 </Modal>
-                <div id="barItemsLeft">
-                    <h3>{this.props.table}</h3>
-                </div>
-                <div id="barItemsLeft">
-                    <button onClick={() => this.handleAdd()}>Add</button>
-                </div>
-                <div id="barItemsLeft">
-                    <input defaultValue="filter"></input>
-                </div>
-                <div id="barItemsLeft">
+            <nav className="navbar navbar-expand-sm navbar-dark bg-primary">
+                <h3>{this.props.table}</h3>
+              <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+                <span className="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul className="nav nav-pills nav-fill">
+                    <li className="nav-item" >
+                      <button className="btn btn-light btn-lg" onClick={() => this.handleAdd()}>Add</button>
+                    </li>
+                  </ul>
+                
+                <ul className="navbar-nav ml-auto" id="barItemsRight">
+                <form className="form-inline" id="barItemsRight" >
+                    <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"></input>
+                    <button className="btn btn-outline-light btn-lg my-2 my-sm-0" type="submit">Search</button>
+                  </form>
+                  <li className="nav-item active" id="barItemsRight">
                     <PersonSquare id="icon" onClick={() => this.handleUser()}></PersonSquare>
-                </div>
-                <div id="barItemsLeft">
-                    <BoxArrowRight id="icon" onClick={() => this.handleLogout()}></BoxArrowRight>
-                </div>
+                  </li>
+                  <li className="nav">
+                  <a >    
+                  </a>
+                  </li>
+                  <li className="nav-item">
+                  <BoxArrowRight  id="icon" onClick={() => this.handleLogout()}></BoxArrowRight>                 
+                  </li>
+                </ul>
+              </div>
+              </nav> 
             </div>
         );
     }

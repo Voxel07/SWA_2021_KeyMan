@@ -46,10 +46,17 @@ body{
     outline: none;
     height: 50px;
     width: 10%;
+    font-size: 20px;
     background-color: black;
     color: white;
     border-radius: 4px;
     font-weight:bold;
+}
+.fontlogin{
+    font-size: 40px;
+}
+.fontctr{
+    font-size: 15px;
 }
 .btn1:hover{
     background: white;
@@ -75,7 +82,8 @@ body{
 	background-size: 0 2px, 100% 1px;
 	background-color: transparent;
 	font-weight: 400;
-	border-width: 0px;
+    border-width: 0px;
+    font-size: 30px;
 	border-style: initial;
 	background-repeat: no-repeat;
 	background-position: left bottom, center calc(100%-px);
