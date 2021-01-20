@@ -52,15 +52,15 @@ export class LoginPage extends React.Component {
                  <div class="mt-5 text-center">
                    <h1 class="font-weight-bold py-3">Log in</h1>
                    <h4>Sign into your account</h4>
-                  <form action="/user/login" method="put">
+                  <form>
                     <div class="form-row">
-                      <div class="col-lg-12">
+                     <div class="col-md-7 col-sm-12 center-block">
                       <input type="email" className="form-control my-4 p-4 " value={eMail} onChange={this.handleChangeEmail}></input>
                       </div>
                      </div>
                     <div class="form-row">
-                      <div class="col-lg-12">
-                      <input type="password" className="form-control my-4 p-4" value={password} onChange={this.handleChangePassword}></input>
+                     <div class="col-md-7 col-sm-12 center-block">
+                      <input type="password" className="form-control my-4 p-4 " value={password} onChange={this.handleChangePassword}></input>
                        </div>
                       </div>
                      <div class="form-row">
@@ -79,7 +79,7 @@ export class LoginPage extends React.Component {
               </div>  
               </div>  
               </div>  
-               
+
             </section>    
         );
     }
