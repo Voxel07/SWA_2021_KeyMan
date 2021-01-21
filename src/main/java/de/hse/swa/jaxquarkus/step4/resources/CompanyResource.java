@@ -15,7 +15,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import de.hse.swa.jaxquarkus.step4.model.Company;
-import de.hse.swa.jaxquarkus.step4.orm.CompanyOrm;
+import de.hse.swa.jaxquarkus.step4.orm.*;
+import java.util.ArrayList;
+
+import javax.ws.rs.QueryParam;
 
 @Path("/company")
 public class CompanyResource {
@@ -24,15 +27,37 @@ public class CompanyResource {
     
     @Inject
     CompanyOrm companyOrm;
+    @Inject
+    UserOrm userOrm;
+    @Inject
+    ContractOrm contractOrm;
     
     
     @GET
     @Produces("application/json")
     @Consumes("application/json")
-    public List<Company> getCompanys() 
+    public List<Company> getCompanys( 	@QueryParam("usrId") Long usrId,
+                                        @QueryParam("ctrId") Long ctrId  )                         
     {
-    	System.out.println("CompanyResource/getCompanys");
-        return companyOrm.getCompanys();
+        List<Company> pfusch = new ArrayList<>();
+        System.out.println("CompanyResource/getCompanys");
+
+        if(usrId != null){
+        System.out.println("CompanyResource/getUserById");
+
+            pfusch.add(userOrm.getUserById(usrId).get(0).getCompanyU());
+            return pfusch;
+        }
+        else if(ctrId != null){
+        System.out.println("CompanyResource/getContract");
+
+            pfusch.add(contractOrm.getContract(ctrId).getCompanyC());
+            return pfusch;
+        }
+        else{
+
+            return companyOrm.getCompanys();
+        }
     }
    
     

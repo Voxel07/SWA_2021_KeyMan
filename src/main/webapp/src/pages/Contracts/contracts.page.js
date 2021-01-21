@@ -12,7 +12,7 @@ class ContractPage extends React.Component {
     componentWillMount() {
         axios.get('http://localhost:8080/contract')
             .then(response => {
-                console.log("getContract: "+ response.data);
+                // console.log("getContract: "+ response.data);
                 if( response.data.length === 0)
                 {
                     this.setState({ errorMsg: 'Keine Contract Daten erhalten' })

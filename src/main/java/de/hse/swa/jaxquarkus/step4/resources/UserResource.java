@@ -13,9 +13,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import de.hse.swa.jaxquarkus.step4.model.User;
-import de.hse.swa.jaxquarkus.step4.orm.PhoneOrm;
-import de.hse.swa.jaxquarkus.step4.orm.UserOrm;
+import de.hse.swa.jaxquarkus.step4.model.*;
+import de.hse.swa.jaxquarkus.step4.orm.*;
 import javax.ws.rs.QueryParam;
 
 
@@ -51,6 +50,16 @@ public class UserResource {
         	System.out.println("getUsers");
             return  userOrm.getUsers();
         }
+    }
+
+    @GET
+    @Path("{usrId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<Contract> getUserContracts(@PathParam("usrId") Long usrId) 
+    { 	
+    	System.out.println("UserResource/getUserContract");
+        return userOrm.getUserContracts(usrId);
     }
   
     @PUT

@@ -33,11 +33,15 @@ class Contract extends React.Component {
 
 
     getCompany(){
-        console.log(this.state);
-        axios.get("http://localhost:8080/company/"+ this.props.contract.companyId)
+
+        console.log("id"+this.state.id);
+        console.log("Contract JS: getCompany");
+        axios.get("http://localhost:8080/company",{ params: { contractId: this.state.id}})
             .then(response => {
-               console.log(response);
+               console.log("getCompanyResponse: "+JSON.stringify(response.data));
                this.setState({[this.state.companyName]:response.data.name})
+               console.log("State: "+this.state.companyName);
+
             })
             .catch(error => {
                 console.log(error);
@@ -148,7 +152,7 @@ class Contract extends React.Component {
                     </div>
 
                     <div className="form-group col-11 col-sm-1">
-                        <button className="btn btn-danger" onClick={() => this.deletecontract()}>Löschen</button>
+                        <button className="btn btn-danger" onClick={() => this.deleteContract()}>Löschen</button>
                     </div>
 
                     <div className="form-group col-11 col-sm-1">
