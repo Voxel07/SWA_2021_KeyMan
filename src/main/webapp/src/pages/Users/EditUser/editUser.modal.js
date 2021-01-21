@@ -1,10 +1,85 @@
 import React from 'react';
+import axios from 'axios';
+import Phone from './Phone';
 
 class EditUser extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {  };
+        this.state = {
+        id: this.props.user.id ,
+        email: this.props.user.email ,
+        username: this.props.user.username,
+        password: this.props.user.password ,
+        firstName: this.props.user.firstName ,
+        lastName: this.props.user.lastName ,
+        isAdmin: this.props.user.isAdmin ,
+        company:'', 
+        errorMsgCompanys: '',
+        phones:[],
+        phone:'',
+        type:'',
+        errorMsgPhone:'',
+        errorMsgCp:''
+       };
     }
+    componentWillMount() {
+      this.getCompany();
+      this.getPhones();
+  }
+  Changehandler = (event) => {
+    this.setState({ [event.target.name]: event.target.value })
+}
+handleSubmit = event => {
+    event.preventDefault();
+    axios.post('http://localhost:8080/user', this.state)
+        .then(response => {
+            console.log(response)
+        })
+        .catch(error => {
+            console.log(error)
+        })
+}
+
+handleSubmitPhone = event => {
+    event.preventDefault();
+    axios.put('http://localhost:8080/phone/'+this.props.user.id, {number : this.state.phone, type: this.state.type})
+        .then(response => {
+            console.log(response)
+        })
+        .catch(error => {
+            console.log(error)
+        })
+}
+getCompany() {
+  axios.get('http://localhost:8080/company/'+this.props.contract.companyId)
+      .then(response => {
+          console.log(response);
+          this.setState({ company: response.data });
+          if (response.data.length == 0) {
+              this.setState({ errorMsgCp: 'Keine Company Daten erhalten' })
+          }
+      })
+      .catch(error => {
+          // console.log(error);
+          this.setState({ errorMsgCp: " " + error })
+      })
+}
+
+getPhones() {
+  axios.get('http://localhost:8080/phone', { params: { usrId: this.state.id } })
+  .then(response => {
+      console.log(response);
+      this.setState({ phones: response.data });
+      if (response.data.length == 0) {
+          this.setState({ errorMsgPhone: 'Keine Phoes Daten erhalten' })
+      }
+
+  })
+      .catch(error => {
+          // console.log(error);
+          this.setState({ errorMsgPhone: " " + error })
+      })
+}
     
     render() {
         return (

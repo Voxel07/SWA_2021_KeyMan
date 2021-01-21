@@ -1,35 +1,21 @@
 import React from 'react';
-import User from './user.component';
 import axios from 'axios';
+import User from '../../components/User'
 
-class Users extends React.Component {
+
+class UserPage extends React.Component {
     constructor() {
         super();
-        this.state = { users: [], msg:"" };
+        this.state = { users: [], errorMsg:"" };
     }
 
-    /* componentWillMount(){
-        const user1 = {C: "C", userName: "User1", email: "user1@custa.com"};
-        const user2 = {C: "C", userName: "User2", email: "user2@custb.com"};
-
-        this.setState(state => {
-            const list = state.users.push(user1);
-        });
-        this.setState(state => {
-            const list = state.users.push(user2);
-        });
-
-        console.log(this.state.users);
-    }
-    */
-
-    componentDidMount() {
-        axios.get('http://localhost:8080/User')
+    componentWillMount() {
+        axios.get('http://localhost:8080/user')
             .then(response => {
-                console.log(response);
+                console.log("getuser: "+ response.data);
                 if( response.data.length === 0)
                 {
-                    this.setState({ msg: 'Keine Daten erhalten' })
+                    this.setState({ errorMsg: 'Keine user Daten erhalten' })
                 } else {
                     this.setState({ users: response.data });
                 }
@@ -37,28 +23,23 @@ class Users extends React.Component {
             })
             .catch(error => {
                 // console.log(error);
-                this.setState({ msg: " "+error})
+                this.setState({ errorMsg: " "+error})
             })
     }
     
-    
-    deleteUser() {
-        
-    }
-
-    editUser() {
-        
-    }
-    
     render() {
+        const { users, errorMsg } = this.state
         return (
-            <div>
-                {this.state.users.length ? this.state.users.map(user => (
-                    <User Company={user.Company} userName={user.userName} email={user.email}/>
-                )) : this.state.msg ? this.state.msg : null }
-            </div>
-        );
+        <div> 
+        {
+            users.length ? users.map(user => <User user={user} />) : null
+        }
+        {
+            errorMsg ? <div>{errorMsg}</div> : null
+        } 
+        </div>
+        )
     }
 }
 
-export default Users;
+export default UserPage;

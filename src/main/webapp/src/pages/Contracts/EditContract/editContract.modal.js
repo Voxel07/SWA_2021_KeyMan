@@ -1,7 +1,7 @@
 import React from 'react';
-import axios from 'axios'
-import IpNumber from './Ip'
-import Feature from './Feature'
+import axios from 'axios';
+import IpNumber from './Ip';
+import Feature from './Feature';
 
 class EditContract extends React.Component {
 
@@ -22,8 +22,6 @@ class EditContract extends React.Component {
             errorMsgFe: '',
             errorMsgCp: ''
         };
-     
-
     }
     componentWillMount() {
         console.log("Daten Holen !");
@@ -47,7 +45,6 @@ class EditContract extends React.Component {
             })
     }
 
-//Geht nicht
     handleSubmitIp = event => {
         event.preventDefault();
 		console.log(this.state.ipNumber);

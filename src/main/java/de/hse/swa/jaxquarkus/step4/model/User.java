@@ -38,13 +38,13 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "first_name")
+    @Column(name = "firstName")
     private String firstName;
     
-    @Column(name = "last_name")
+    @Column(name = "lastName")
     private String lastName;
     
-    @Column(name = "is_admin")
+    @Column(name = "isAdmin")
     private boolean isAdmin = false;
     
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})

@@ -29,8 +29,8 @@ public class company_t{
 	private static Company companyB = new Company("Bname", "Bdepartment", "Bstreet", 12345, "Bstate", "Bcountry");
 	private static Company companyC = new Company("Cname", "Cdepartment", "Cstreet", 12345, "Cstate", "Ccountry");	
 	
-	private static Contract contractA = new Contract("1.1.2020", "1.1.2021", "ver1","1234");
-	private static Contract contractB = new Contract("1.1.2021", "1.1.2022", "ver2","2234");
+	private static Contract contractA = new Contract("1.1.2020", "1.1.2021", "ver1");
+	private static Contract contractB = new Contract("1.1.2021", "1.1.2022", "ver2");
 	
 	private static User usrC = new User("Cemail", "Cusername", "Cpassword", "Cfirst", "Clast", true);
 	

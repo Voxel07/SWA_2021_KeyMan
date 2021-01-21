@@ -26,9 +26,9 @@ public class all_t{
 	@Inject
 	PhoneOrm phoneOrm;
 	
-	private static Contract contractA = new Contract("1.1.2020", "1.1.2021", "ver1", "1111");
-	private static Contract contractB = new Contract("2.2.2020", "2.2.2021", "ver2", "2222");
-	private static Contract contractC = new Contract("3.3.2020", "3.3.2021", "ver1", "3333");
+	private static Contract contractA = new Contract("1.1.2020", "1.1.2021", "ver1");
+	private static Contract contractB = new Contract("2.2.2020", "2.2.2021", "ver2");
+	private static Contract contractC = new Contract("3.3.2020", "3.3.2021", "ver1");
 
 	private static Company companyA = new Company("Aname", "Adepartment", "Astreet", 12345, "Astate", "Acountry");
 	private static Company companyB = new Company("Bname", "Bdepartment", "Bstreet", 12345, "Bstate", "Bcountry");

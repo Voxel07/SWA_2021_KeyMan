@@ -57,11 +57,9 @@ public class UserResource {
     @Path("{companyId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Boolean addUser(User usr,@PathParam("companyId") Long companyId) 
+    public String addUser(User usr,@PathParam("companyId") Long companyId) 
     { 	
     	System.out.println("UserResource/addUser");
-
-    	//if ? addConnection / addUser
         return userOrm.addUser(usr,companyId);
     }
     @POST
@@ -71,7 +69,6 @@ public class UserResource {
     public String loginUser(User usr) 
     {
     	System.out.println("UserResource/loginUser");
-
        return userOrm.loginUser(usr);
     }
 

@@ -48,12 +48,12 @@ public class UserOrm {
     }
     
     @Transactional
-    public Boolean addUser(User usr,Long companyId ){
+    public String addUser(User usr,Long companyId ){
         TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.username =: val1 OR u.email =: val2", User.class);
     	query.setParameter("val1", usr.getUsername());
     	query.setParameter("val2", usr.getEmail());
         
-        if(!query.getResultList().isEmpty()){return false;}
+        if(!query.getResultList().isEmpty()){return "Nutzer bereits bekannt";}
 
         Company c = em.find(Company.class, companyId);
         c.getUsers().add(usr);
@@ -61,7 +61,7 @@ public class UserOrm {
         em.persist(usr);
         em.merge(c);
 
-        return true;
+        return  ""+getUserByUsername(usr.getUsername()).get(0).getId();
     }
      
     @Transactional

@@ -28,7 +28,7 @@ public class PhoneResource {
 	// @Path("teste")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public List<Phone> getPhones(@QueryParam("number") String number, @QueryParam("usr_id") Long usrId)
+    public List<Phone> getPhones(@QueryParam("number") String number, @QueryParam("usrId") Long usrId)
     {   
         if(number != null){
           return phoneOrm.getPhoneByNumber(number);

@@ -23,17 +23,10 @@ import javax.ws.rs.core.MediaType;
 @TestMethodOrder(OrderAnnotation.class)
 public class contract_t{
 	private static Company companyA = new Company("Aname", "Adepartment", "Astreet", 12345, "Astate", "Acountry");
-	private static Company companyB = new Company("Bname", "Bdepartment", "Bstreet", 12345, "Bstate", "Bcountry");
-	private static Company companyC = new Company("Cname", "Cdepartment", "Cstreet", 12345, "Cstate", "Ccountry");	
-	
-	private static Contract contractA = new Contract("1.1.2020", "1.1.2021", "ver1","1234");
-	private static Contract contractB = new Contract("2.2.2020", "2.2.2021", "ver2", "4321");
-	private static Contract contractC = new Contract("3.3.2020", "3.3.2021", "ver1", "5678");
-	
+	private static Contract contractA = new Contract("1.1.2020", "1.1.2021", "ver1");
+
 	private static User usrA = new User("Aemail", "Ausername", "Apassword", "Afirst", "Alast", true);
-	private static User usrB = new User("Bemail", "Busername", "Bpassword", "Bfirst", "Blast",  false);	
-	private static User usrC = new User("Cemail", "Cusername", "Cpassword", "Cfirst", "Clast", true);
-		
+
 	private static IpNumber IpA = new IpNumber("111.111.111.111");
 	private static IpNumber IpB = new IpNumber("222.222.222.222");
 	private static IpNumber IpC = new IpNumber("333.333.333.333");

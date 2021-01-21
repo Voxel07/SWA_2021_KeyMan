@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios'
+
 class AddContract extends React.Component {
   constructor() {
     super();
@@ -40,12 +41,12 @@ class AddContract extends React.Component {
       console.log(response)
       this.setState({ companys: response.data })
       if(response.data.length ==0){
-        this.setState({ errorMsgUser: 'Kein User Daten erhalten' })
+        this.setState({ errorMsgCompany: 'Kein Company Daten erhalten' })
       }
     })
     .catch(error => {
       console.log(error)
-      this.setState({ errorMsgCompany: 'Error Company Daten erhalten' })
+      this.setState({ errorMsgCompany: error })
     })
   }
 
@@ -60,7 +61,7 @@ class AddContract extends React.Component {
     })
     .catch(error => {
       console.log(error)
-      this.setState({ errorMsgUser: 'Error User Daten erhalten' })
+      this.setState({ errorMsgUser: error })
     })
   }
  
@@ -139,7 +140,7 @@ class AddContract extends React.Component {
     })
   }
 
-  //Nicht getestet 
+
   ClearInput() {
     this.setState({ startDate: '' })
     this.setState({ endDate: '' })

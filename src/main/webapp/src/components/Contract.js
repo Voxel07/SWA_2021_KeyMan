@@ -17,6 +17,7 @@ class Contract extends React.Component {
             version: this.props.contract.version,
             licensKey: this.props.contract.licensKey,
             id: this.props.contract.id,
+            companyName:'',
             modalIsOpen: false, modalShow: "Edit"
         };
 
@@ -26,7 +27,23 @@ class Contract extends React.Component {
         this.handleEdit = this.handleEdit.bind(this);
         this.handleDetails = this.handleDetails.bind(this);
     }
+    componentWillMount() {
+        this.getCompany();
+    }
 
+
+    getCompany(){
+        console.log(this.state);
+        axios.get("http://localhost:8080/company/"+ this.props.contract.companyId)
+            .then(response => {
+               console.log(response);
+               this.setState({[this.state.companyName]:response.data.name})
+            })
+            .catch(error => {
+                console.log(error);
+
+            })
+    }
 
 
     deleteContract() {
@@ -98,7 +115,7 @@ class Contract extends React.Component {
                             name="name"
                             className="form-control "
                             type="text"
-                            // value={} 
+                            value={this.state.companyName} 
                             />
                     </div>
                     <div className="form-group col-11 col-sm-2 ">

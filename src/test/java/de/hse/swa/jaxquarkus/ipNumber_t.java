@@ -31,9 +31,9 @@ public class ipNumber_t{
 	private static Company companyB = new Company("Bname", "Bdepartment", "Bstreet", 12345, "Bstate", "Bcountry");
 	private static Company companyC = new Company("Cname", "Cdepartment", "Cstreet", 12345, "Cstate", "Ccountry");	
 	
-	private static Contract contractA = new Contract("1.1.2020", "1.1.2021", "ver1","1234");
-	private static Contract contractB = new Contract("2.2.2020", "2.2.2021", "ver2", "4321");
-	private static Contract contractC = new Contract("3.3.2020", "3.3.2021", "ver1", "5678");
+	private static Contract contractA = new Contract("1.1.2020", "1.1.2021", "ver1");
+	private static Contract contractB = new Contract("2.2.2020", "2.2.2021", "ver2");
+	private static Contract contractC = new Contract("3.3.2020", "3.3.2021", "ver1");
 	
 	private static User usrA = new User("Aemail", "Ausername", "Apassword", "Afirst", "Alast", true);
 	private static User usrB = new User("Bemail", "Busername", "Bpassword", "Bfirst", "Blast",  false);	
