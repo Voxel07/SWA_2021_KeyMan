@@ -45,7 +45,7 @@ class AddCompany extends React.Component {
         const{name,department,street,postalcode,state,country} = this.state
         return (
           <div>
-          <form>
+          <form  onSubmit={this.handleSubmit}>
           <div>
           <div className="container"  >
           <h1 className="title">My Company</h1>             
@@ -56,7 +56,8 @@ class AddCompany extends React.Component {
                 placeholder="Name"
                 className="form-control "
                 name="name"
-                type="text" />
+                type="text"
+                value={name} onChange={this.Changehandler} />
              </div>
              <div className=" col-12 col-sm-6 my-2 p-2">
               <label> Department </label>
@@ -64,7 +65,8 @@ class AddCompany extends React.Component {
                 placeholder="Department"
                 className="form-control"
                 name="department"
-                type="text"/>
+                type="text"
+                value={department} onChange={this.Changehandler}/>
               </div>
             </div>
           <div className=" form-row ">
@@ -74,7 +76,8 @@ class AddCompany extends React.Component {
                  placeholder="Street"
                  className="form-control"
                  name="street"
-                 type="text"/>
+                 type="text"               
+                 value={street} onChange={this.Changehandler}/>
                 
              </div>
            <div className=" col-12 col-sm-6 my-2 p-2">
@@ -83,7 +86,8 @@ class AddCompany extends React.Component {
               placeholder="state"
               className="form-control"
               name="state"
-              type="text" />
+              type="text"
+              value={state} onChange={this.Changehandler} />
               
              </div>
              </div>
@@ -93,8 +97,9 @@ class AddCompany extends React.Component {
               <input
                   placeholder="Country"
                   className="form-control"
-                  name="Country"
-                  type="text" />
+                  name="country"
+                  type="text"
+                  value={country} onChange={this.Changehandler} />
              </div>
            <div className=" col-12 col-sm-6 my-2 p-2">
               <label> postalcode </label>
@@ -102,7 +107,8 @@ class AddCompany extends React.Component {
                 placeholder="postalcode"
                 className="form-control"
                 name="postalcode"
-                type="number" />
+                type="number" 
+                value={postalcode} onChange={this.Changehandler}/>
              </div>
              </div>
              </div>
