@@ -20,12 +20,13 @@ class AddContract extends React.Component {
       feature1:'',
       feature2:'',
       feature3:'',
-      contractId:'5'
+      contractId:'',
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   Changehandler = (event) => {
+    console.log(this.state);
     this.setState({ [event.target.name]: event.target.value })
   }
   componentDidMount() {
@@ -66,12 +67,6 @@ class AddContract extends React.Component {
   handleSubmit = event => {
     event.preventDefault();
     this.addContract();
-    if(this.state.ip1 !== null){
-      this.addIps(this.state.ip1);
-    }
-    if(this.state.feature1 !== null){
-      this.addFeatures(this.state.feature1);
-    }
   }
   addContract(){
     console.log( this.state.companyId);
@@ -82,15 +77,38 @@ class AddContract extends React.Component {
       .then(response => {
         console.log(response)
         this.setState({contractId: response.data})
-        // this.ClearInput();
+        if(this.state.ip1 !== ''){
+          this.addIps(this.state.ip1);
+        }
+        if(this.state.feature1 !== ''){
+          this.addFeatures(this.state.feature1);
+        }
+        if(this.state.ip2 !== ''){
+          this.addIps(this.state.ip2);
+        }
+        if(this.state.feature2 !== ''){
+          this.addFeatures(this.state.feature2);
+        }
+        if(this.state.ip3 !== ''){
+          this.addIps(this.state.ip3);
+        }
+        if(this.state.feature3 !== ''){
+          this.addFeatures(this.state.feature3);
+        }
+        if(this.state.person1 !== ''){
+          this.addFeatures(this.state.person1);
+        }
+        if(this.state.person1 !== ''){
+          this.addFeatures(this.state.person2);
+        }
       })
       .catch(error => {
         console.log(error)
       })
   }
-  addFeatures(){
+  addFeatures=feature=>{
     axios.put('http://localhost:8080/feature/' + this.state.contractId,
-    {number : this.props.feature1 })
+    {number : feature })
     .then(response => {
       console.log(response)
       // this.ClearInput();
@@ -99,9 +117,19 @@ class AddContract extends React.Component {
       console.log(error)
     })
   }
-  addIps(){
+  addIps=ip=>{
     axios.put('http://localhost:8080/IpNumber/' + this.state.contractId,
-    {ipNumber : this.props.ip1 })
+    {ipNumber :ip })
+    .then(response => {
+      console.log(response)
+      // this.ClearInput();
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  }
+  addUser=person=>{
+    axios.post('http://localhost:8080/contract', { params: { usrId: person } })
     .then(response => {
       console.log(response)
       // this.ClearInput();
@@ -208,7 +236,7 @@ class AddContract extends React.Component {
                     class="form-control"
                     name="ip1"
                     type="number"
-                    value={ip1} onChange={this.Changehandler}
+                    value={ip1} onChange={this.Changehandler} 
                   />
                 </div>
                 <div className=" col-12 col-sm-1">

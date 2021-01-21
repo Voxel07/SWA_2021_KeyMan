@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
+import java.util.UUID;
 
 import de.hse.swa.jaxquarkus.step4.model.*;
 
@@ -50,18 +51,16 @@ public class ContractOrm  {
      // wenn keine Company existiert kann kein Contract erstellt werden => fehlermeldung fehlt 
 	@Transactional
     public String addContract(Contract contract, Long companyId) {
-		
-    	if(!getContractByLicenskey(contract.getLicenskey()).isEmpty())
-    	{
-    		return "Doppelter Licenskey";    		
-    	}
+		UUID key = UUID.randomUUID();
+    	contract.setLicenskey(""+key);
    
 		Company c = companyOrm.getCompany(companyId);
 		c.getContracts().add(contract); 
 		contract.setCompanyC(c);
 		em.persist(contract); 
 		em.merge(c);
-		return "Contract added";
+
+		return ""+getContractByLicenskey(contract.getLicenskey()).get(0).getId();
 	
 	}
 

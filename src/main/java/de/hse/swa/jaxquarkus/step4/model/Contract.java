@@ -17,7 +17,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "CONTRACT")
 public class Contract {
@@ -58,11 +57,10 @@ public class Contract {
     public Contract() {
     }
 
-    public Contract(String startDate, String endDate, String version, String licenskey) {
+    public Contract(String startDate, String endDate, String version) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.version = version;
-        this.licenskey = licenskey;
     }
 
     public Long getId() {
