@@ -32,24 +32,51 @@ class EditCompany extends React.Component {
         render() {
             const { name, department, street, postalcode, state, country } = this.state;
             return (
-                <form onSubmit={this.handleSubmit}>
-                    <fieldset>
-                        <legend>Edit Company: {name}</legend>
-                        <label>Company</label>
+                <div>
+                    <legend>Edit Company: {name}</legend>
+                    <form onSubmit={this.handleSubmit}>
+                    <div>
+                    <div className="container"  >
+                    <h1 className="title">Edit Company</h1>             
+                        <div className=" form-row ">
+                        <div className="form-group col-12 col-sm-6 my-2 p-2 ">
+                        <label> Name</label>
                         <input type="text" name="name" value={name} onChange={this.Changehandler}></input>
-                        <label>Department</label>
+                        </div>
+                        <div className=" col-12 col-sm-6 my-2 p-2">
+                        <label> Department </label>
                         <input type="text" name="department" value={department} onChange={this.Changehandler}></input>
-                        <label>Street</label>
+                        </div>
+                        </div>
+                    <div className=" form-row ">
+                    <div className=" col-12 col-sm-6 my-2 p-2">
+                        <label> Street </label>
                         <input type="text" name="street" value={street} onChange={this.Changehandler}></input>
-                        <label>E-mail</label>
+                            
+                        </div>
+                    <div className=" col-12 col-sm-6 my-2 p-2">
+                        <label> postalcode </label>
                         <input type="number" name="postalcode" value={postalcode} onChange={this.Changehandler}></input>
-                        <label>Phone:</label>
+                        </div>
+                        </div>
+                        <div className=" form-row ">
+                    <div className=" col-12 col-sm-6 my-2 p-2">
+                        <label> state </label>
                         <input type="text" name="state" value={state} onChange={this.Changehandler}></input>
-                        <label>Mobile:</label>
+                        </div>
+                    <div className=" col-12 col-sm-6 my-2 p-2">
+                        <label> country </label>
                         <input type="text" name="country" value={country} onChange={this.Changehandler}></input>
-                    </fieldset>
-                    <div> <input type="submit" value="Submit" /></div>
-                </form>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                            <div className="mt-4 text-center">
+                                <button type="submit" class="btn btn-primary btn-lg">Edit</button>
+                        </div>
+                        </form>  
+
+          </div>
             );
         }
     }

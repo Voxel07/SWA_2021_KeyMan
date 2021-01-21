@@ -76,9 +76,12 @@ export class BarComponent extends React.Component {
                     <h2>Add {this.state.modalShow}</h2>
                     <ul class="nav justify-content-end">
                         <li class="nav-item">
-                        <button  type="button" class="Close" aria-label="Close" onClick={() => this.handleCancel()}>
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                        <i class="bi bi-file-excel-fill"></i>
+                        <button  type="button" class="close" aria-label="Close" onClick={() => this.handleCancel()}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-excel-fill" color="red" viewBox="0 0 16 16">
+                                <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM5.884 4.68L8 7.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 8l2.233 2.68a.5.5 0 0 1-.768.64L8 8.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 8 5.116 5.32a.5.5 0 1 1 .768-.64z"/>
+                            </svg>
+                           </button>
                         </li>
                     </ul>
                     <AddCompany></AddCompany>                    
@@ -90,9 +93,12 @@ export class BarComponent extends React.Component {
                     <h2>Add {this.state.modalShow}</h2>
                     <ul class="nav justify-content-end">
                         <li class="nav-item">
-                        <button  type="button" class="Close" aria-label="Close" onClick={() => this.handleCancel()}>
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                        <i class="bi bi-file-excel-fill"></i>
+                        <button  type="button" class="close" aria-label="Close" onClick={() => this.handleCancel()}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-excel-fill" color="red" viewBox="0 0 16 16">
+                                <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM5.884 4.68L8 7.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 8l2.233 2.68a.5.5 0 0 1-.768.64L8 8.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 8 5.116 5.32a.5.5 0 1 1 .768-.64z"/>
+                            </svg>
+                           </button>
                     </li>
                     </ul>
                     <AddContract></AddContract>
@@ -105,9 +111,12 @@ export class BarComponent extends React.Component {
                     
                     <ul class="nav justify-content-end">
                         <li class="nav-item">
-                        <button  type="button" class="Close" aria-label="Close" onClick={() => this.handleCancel()}>
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                        <i class="bi bi-file-excel-fill"></i>
+                        <button  type="button" class="close" aria-label="Close" onClick={() => this.handleCancel()}>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-excel-fill" color="red" viewBox="0 0 16 16">
+                                <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM5.884 4.68L8 7.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 8l2.233 2.68a.5.5 0 0 1-.768.64L8 8.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 8 5.116 5.32a.5.5 0 1 1 .768-.64z"/>
+                            </svg>
+                           </button>
                     </li>
                     </ul>
                     <AddUser></AddUser>
@@ -119,9 +128,11 @@ export class BarComponent extends React.Component {
                     <h2>User</h2>
                     <ul class="nav justify-content-end">
                         <li class="nav-item">
-                        <button  type="button" class="Close" aria-label="Close" onClick={() => this.handleCancel()}>
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                        <button  type="button" class="close" aria-label="Close" onClick={() => this.handleCancel()}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" font-size = "3rem" class="bi bi-file-excel-fill" color="red" viewBox="0 0 16 16">
+                                <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM5.884 4.68L8 7.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 8l2.233 2.68a.5.5 0 0 1-.768.64L8 8.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 8 5.116 5.32a.5.5 0 1 1 .768-.64z"/>
+                            </svg>
+                           </button>
                     </li>
                     </ul>
                     <User></User>

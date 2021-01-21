@@ -122,22 +122,65 @@ class EditContract extends React.Component {
         const { company, startDate, endDate, version, licenskey } = this.state
         return (
             <div>
-            <form onSubmit={this.handleSubmit}>
-                <fieldset>
-                    <legend>Edit Contract:</legend>
-                    <label>Company</label>
-                    <input type="text" name="name" value={company} readOnly></input>
-                    <label>StartDate</label>
-                    <input type="Date" name="startDate" value={startDate} onChange={this.Changehandler}></input>
-                    <label>EndDate</label>
-                    <input type="Date" name="endDate" value={endDate} onChange={this.Changehandler}></input>
-                    <label>Version</label>
-                    <input type="text" name="version" value={version} onChange={this.Changehandler}></input>
-                    <label>Licenskey:</label>
-                    <input type="text" name="licenskey" value={licenskey} onChange={this.Changehandler}></input>
-                </fieldset>
-                <div> <input type="submit" value="Submit" /></div>
-            </form>
+                <form onSubmit={this.handleSubmit}>
+                    <div >
+                        <legend>Edit Contract:</legend>
+                        <div class="container"  >
+                        <h1 class="title">Edit Contract</h1>
+
+                        <div className=" form-row ">
+                            <div className="form-group col-12 col-sm-6 ">
+                            <label>StartDate</label>
+                            <input type="Date" name="startDate" value={startDate} onChange={this.Changehandler}></input>
+                            </div>
+                            <div className="col-12 col-sm-6">
+                            <label> EndDate </label>
+                            <input type="Date" name="endDate" value={endDate} onChange={this.Changehandler}></input>
+                        </div>
+
+                        <div className=" form-row ">
+                            <div className="form-group col-6 col-sm-6">
+                            <label> Company </label>
+                                <input type="text" name="name" value={company} readOnly></input>
+                            </div>
+                            <div className="form-group col-12 col-sm-6 ">
+                            <label>Version</label>
+                            <input type="text" name="version" value={version} onChange={this.Changehandler}></input>
+                            </div>
+                            </div>
+                        <div className=" form-row ">
+                            <div className="form-group col-12 col-sm-6">
+                            <label> Responsible </label>
+                            <select name="persoperson1" class="custom-select" id="inputGroupSelect01"onChange={this.Changehandler}>
+                                {
+                                this.state.users.length ?
+                                this.state.users.map(user => <option value={user.id}  >{user.username}</option>)
+                                : <option value={0} >{this.state.errorMsgUser}</option>
+                                }
+                            </select>
+                            </div>
+                            <div className="form-group col-6 col-sm-6">
+                            <label> Responsible </label>
+                            <select name="persoperson2" class="custom-select" id="inputGroupSelect01"onChange={this.Changehandler}>
+                            
+                                {
+                                this.state.users.length ?
+                                this.state.users.map(user => <option value={user.id}  >{user.username}</option>)
+                                : <option value={0} >{this.state.errorMsgUser}</option>
+                                }
+                            </select>
+                            </div>
+                        </div> 
+                        <div className=" form-row ">
+                        <div className=" col-12 col-sm-12">
+                            <label> licenskey </label>
+                            <textarea class="form-group col-12" rows="5" value={licenskey} onChange={this.Changehandler}></textarea>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                 </form>
             <form onSubmit={this.handleSubmitIp}>
                 <fieldset>
                 <legend>Ip´s</legend>
@@ -173,10 +216,18 @@ class EditContract extends React.Component {
                 		<input type="submit" value="addFeature" />
 					</div>
                 </fieldset>
-            </form>
+            </form>     
             </div>
         );
     }
 }
 
 export default EditContract;
+
+
+                   {/* <label>Company</label>
+                    <input type="text" name="name" value={company} readOnly></input>
+                  
+                    <label>Licenskey:</label>
+                    <input type="text" name="licenskey" value={licenskey} onChange={this.Changehandler}></input>
+           */}
