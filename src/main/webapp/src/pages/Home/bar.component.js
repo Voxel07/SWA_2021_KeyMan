@@ -73,7 +73,7 @@ export class BarComponent extends React.Component {
         if(this.state.modalShow === "Company") {
             return(
                 <div>
-                    <h2>Add {this.state.modalShow}</h2>
+                    
                     <ul class="nav justify-content-end">
                         <li class="nav-item">
                         <i class="bi bi-file-excel-fill"></i>
@@ -84,13 +84,13 @@ export class BarComponent extends React.Component {
                            </button>
                         </li>
                     </ul>
+                    <h2>Add {this.state.modalShow}</h2>
                     <AddCompany></AddCompany>                    
                 </div>
             );
         } else if(this.state.modalShow === "Contract") {
             return(
-                <div>
-                    <h2>Add {this.state.modalShow}</h2>
+                <div>                  
                     <ul class="nav justify-content-end">
                         <li class="nav-item">
                         <i class="bi bi-file-excel-fill"></i>
@@ -101,14 +101,13 @@ export class BarComponent extends React.Component {
                            </button>
                     </li>
                     </ul>
+                    <h2>Add {this.state.modalShow}</h2>
                     <AddContract></AddContract>
                 </div>
             );
         } else if(this.state.modalShow === "User") {
             return(
-                <div>
-                    <h2>Add {this.state.modalShow}</h2>
-                    
+                <div>    
                     <ul class="nav justify-content-end">
                         <li class="nav-item">
                         <i class="bi bi-file-excel-fill"></i>
@@ -119,13 +118,14 @@ export class BarComponent extends React.Component {
                            </button>
                     </li>
                     </ul>
+                    <h2>Add {this.state.modalShow}</h2>
                     <AddUser></AddUser>
                 </div>
             );
         } else if(this.state.modalShow === "Nutzer") {
             return(
                 <div>
-                    <h2>User</h2>
+                    
                     <ul class="nav justify-content-end">
                         <li class="nav-item">
                         <button  type="button" class="close" aria-label="Close" onClick={() => this.handleCancel()}>
@@ -135,6 +135,7 @@ export class BarComponent extends React.Component {
                            </button>
                     </li>
                     </ul>
+                    <h2>User</h2>
                     <User></User>
                 </div>
             );

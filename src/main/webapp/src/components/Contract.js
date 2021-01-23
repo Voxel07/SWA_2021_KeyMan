@@ -27,21 +27,17 @@ class Contract extends React.Component {
         this.handleEdit = this.handleEdit.bind(this);
         this.handleDetails = this.handleDetails.bind(this);
     }
-    componentWillMount() {
+    componentDidMount() {
         this.getCompany();
     }
 
 
     getCompany(){
-
-        console.log("id"+this.state.id);
         console.log("Contract JS: getCompany");
-        axios.get("http://localhost:8080/company",{ params: { contractId: this.state.id}})
+        axios.get("http://localhost:8080/company",{ params: { ctrId: this.state.id}})
             .then(response => {
-               console.log("getCompanyResponse: "+JSON.stringify(response.data));
-               this.setState({[this.state.companyName]:response.data.name})
-               console.log("State: "+this.state.companyName);
-
+               console.log("getCompanyResponse: "+response.data.country);
+               this.setState({companyName: response.data[0].name})
             })
             .catch(error => {
                 console.log(error);
@@ -87,8 +83,12 @@ class Contract extends React.Component {
             case "Edit":
                 return (
                     <div>
-                        <EditContract contract={this.props.contract}></EditContract>
-                        <button onClick={() => this.handleCancel()}>Cancel</button>
+                        <EditContract contract={this.props.contract} companyName={this.state.companyName}></EditContract>
+                        <button  type="button" class="close" aria-label="Close" onClick={() => this.handleCancel()}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-excel-fill" color="red" viewBox="0 0 16 16">
+                                <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM5.884 4.68L8 7.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 8l2.233 2.68a.5.5 0 0 1-.768.64L8 8.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 8 5.116 5.32a.5.5 0 1 1 .768-.64z"/>
+                            </svg>
+                           </button>
                     </div>
                 );
 
@@ -147,17 +147,22 @@ class Contract extends React.Component {
                             value={version} />
                     </div>
 
+                    <div class="btn-group">
                     <div className="form-group col-11 col-sm-1">
                         <button className="btn btn-dark" onClick={() => this.handleEdit()}>Verändern</button>
                     </div>
-
-                    <div className="form-group col-11 col-sm-1">
-                        <button className="btn btn-danger" onClick={() => this.deleteContract()}>Löschen</button>
                     </div>
-
+                    <div class="btn-group">
                     <div className="form-group col-11 col-sm-1">
-                        <button className="btn btn-dark" onClick={() => this.handleDetails()} >Details</button>
+                     <button className="btn btn-danger" onClick={() => this.deleteContract()}>Löschen</button>
                     </div>
+                    </div>
+                    <div class="btn-group">
+                    <div className="form-group col-11 col-sm-1">
+                     <button className="btn btn-dark" onClick={() => this.handleDetails()} >Details</button>
+                    </div>
+                    </div>
+                   
 
                 </div>
             </div>

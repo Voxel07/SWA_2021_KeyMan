@@ -28,12 +28,10 @@ class User extends React.Component {
         this.getCompany();
     }
 
-//geht nicht
     getCompany(){
         axios.get("http://localhost:8080/company",{ params: { usrId: this.state.id}})
             .then(response => {
-               console.log("resp "+JSON.stringify(response.data));
-               this.setState({[this.state.companyName]:response.data.name})     
+               this.setState({companyName: response.data[0].name})     
             })
             .catch(error => {
                 console.log(error);
@@ -47,11 +45,9 @@ class User extends React.Component {
         axios.delete("http://localhost:8080/user", { data: this.state })
             .then(response => {
                 console.log(response);
-                // console.log(user.id);
             })
             .catch(error => {
                 console.log(error);
-
             })
     }
     handleDetails() {
