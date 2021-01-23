@@ -107,7 +107,8 @@ export class BarComponent extends React.Component {
             );
         } else if(this.state.modalShow === "User") {
             return(
-                <div>    
+                <div>
+    
                     <ul class="nav justify-content-end">
                         <li class="nav-item">
                         <i class="bi bi-file-excel-fill"></i>
@@ -125,7 +126,7 @@ export class BarComponent extends React.Component {
         } else if(this.state.modalShow === "Nutzer") {
             return(
                 <div>
-                    
+                    <h2>User</h2>
                     <ul class="nav justify-content-end">
                         <li class="nav-item">
                         <button  type="button" class="close" aria-label="Close" onClick={() => this.handleCancel()}>
@@ -135,7 +136,6 @@ export class BarComponent extends React.Component {
                            </button>
                     </li>
                     </ul>
-                    <h2>User</h2>
                     <User></User>
                 </div>
             );
@@ -146,11 +146,15 @@ export class BarComponent extends React.Component {
     render(){
         return(
             
-            <div>
+            <div> 
+                
+                <div>
+                    
+                </div>
                 <Modal isOpen={this.state.modalIsOpen}>
                     {this.createModal()}
                 </Modal>
-            <nav className="navbar navbar-expand-sm navbar-dark bg-primary">
+             <nav className="navbar navbar-expand-sm navbar-dark bg-primary">
                 <h3>{this.props.table}</h3>
               <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
                 <span className="navbar-toggler-icon"></span>
@@ -180,8 +184,9 @@ export class BarComponent extends React.Component {
                 </ul>
               </div>
               </nav> 
+              </div>
               
-            </div>
+            
         );
     }
 }

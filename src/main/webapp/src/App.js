@@ -9,7 +9,7 @@ function App() {
   return (
     <Router>
       <Route path='/' exact component={LoginPage}/>
-      <ProtectedRoute path='/keyman/' component={HomePage}/>
+      <ProtectedRoute path='/keyman/' component={HomePage}/> 
     </Router>
   );
 }

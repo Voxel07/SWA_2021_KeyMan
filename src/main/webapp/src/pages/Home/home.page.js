@@ -31,11 +31,10 @@ class HomePage extends React.Component {
     }
 
     render(){
-        return(
-            <div>
+        return(   
+            
               <div>
-                     <Bar table={this.state.table}/>
-                </div>
+                <Bar table={this.state.table}/>
                 <div id="parent">
                     <div id="menu">
                      <nav class=" navbar-nav ">
@@ -56,10 +55,13 @@ class HomePage extends React.Component {
                         <Table table={this.state.table}/>
                     </div>
                 </div>
-            </div>
+                </div>
+                
+            
         );
     }
 }
+
 
 export default HomePage;
 

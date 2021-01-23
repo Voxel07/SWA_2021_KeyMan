@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import IpNumber from './EditContract/Ip';
-import Feature from './EditContract/Feature';
+
 
 export default class showDetails extends Component {
     constructor(props) {
@@ -24,7 +23,7 @@ export default class showDetails extends Component {
             users:[]
         };
     }
-    componentWillMount() {
+    componentDidMount() {
         console.log("Daten Holen !");
         this.getFeatures();
         this.getIps();
@@ -84,7 +83,7 @@ export default class showDetails extends Component {
             <div>
                 <form onSubmit={this.handleSubmit} key="Contract" >
                     <div >
-                        <legend>Contract Details:</legend>
+                        <legend>Contract Details from Company:{companyName}S</legend>
                         <div className="container"  >
                         <h1 className="title">Contract Details</h1>
 
@@ -92,7 +91,7 @@ export default class showDetails extends Component {
                         <div className=" form-row ">
                             <div className="form-group col-12 col-sm-6 ">
                             <label>StartDate</label>
-                            <input type="ate" className="form-control" name="startDate" value={startDate} readOnly ></input>
+                            <input type="date" className="form-control" name="startDate" value={startDate} readOnly ></input>
                             </div>
                             <div className="col-12 col-sm-6">
                             <label> EndDate </label>
@@ -119,7 +118,7 @@ export default class showDetails extends Component {
                         <div className=" form-row ">
                         <div className=" col-12 col-sm-12">
                             <label> licenskey </label>
-                            <textarea className="form-group col-12" rows="5" value={licenskey} readOnly></textarea>
+                            <textarea className="form-control col-12" rows="5" value={licenskey} readOnly></textarea>
                         </div>
                         </div>
                         </div>
@@ -136,7 +135,7 @@ export default class showDetails extends Component {
                         <div className=" form-row ">
                             {
                               this.state.ips.length ? 
-                              this.state.ips.map( ip =><div className="form-group col-12 col-sm-6">
+                              this.state.ips.map( ip =><div className="form-group col-12 col-sm-4">
                                   <label> Ip </label>
                                    <input  className="form-control" type="text" value={ip.ipNumber} readOnly></input>
                                    </div>) 
@@ -154,7 +153,7 @@ export default class showDetails extends Component {
                         <div className=" form-row ">
                             {
                               this.state.features.length ? 
-                              this.state.features.map( feature =><div className="form-group col-12 col-sm-6">
+                              this.state.features.map( feature =><div className="form-group col-12 col-sm-4">
                                   <label> Feature </label>
                                    <input  className="form-control" type="text" value={feature.number} readOnly></input>
                                    </div>) 
