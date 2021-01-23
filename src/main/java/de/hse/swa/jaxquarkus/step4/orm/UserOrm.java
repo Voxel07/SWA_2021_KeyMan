@@ -41,6 +41,11 @@ public class UserOrm {
         query.setParameter("val1", companyId);
         return query.getResultList();
     }
+    
+    public List<User> getUserByContract(Long ctrIdU) {
+        System.out.println("UserOrm/getUserContracts");
+    	return contractOrm.getContract(ctrIdU).getUsers();
+    }
 
     @Transactional
     public String addUser(User usr, Long companyId) {
@@ -98,11 +103,5 @@ public class UserOrm {
             return "Passwort passt nicht";
         }
 
-    }
-
-    @Transactional
-    public List<Contract> getUserContracts(Long usrIdC) {
-        System.out.println("UserOrm/getUserContracts");
-    	return getUserById(usrIdC).get(0).getContracts();
     }
 }

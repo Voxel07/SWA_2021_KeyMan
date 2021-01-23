@@ -34,7 +34,9 @@ public class ContractResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public List<Contract> getContract(@QueryParam("licenskey") String licenskey, @QueryParam("company_id") Long companyId)
+    public List<Contract> getContract(  @QueryParam("licenskey") String licenskey,
+                                        @QueryParam("company_id") Long companyId,
+                                        @QueryParam("usrId") Long usrId)
     {   
     	System.out.println("ContratResource/getContract");
         if(licenskey != null){
@@ -44,6 +46,10 @@ public class ContractResource {
         else if(companyId!=null){
         	System.out.println("getContractByCompany");
             return contractOrm.getContractByCompany(companyId);
+        }
+        else if(usrId !=null){
+            System.out.println("getContractsByUser");
+            return contractOrm.getContractsByUser(companyId);
         }
         else{  
         	System.out.println("getContracts");

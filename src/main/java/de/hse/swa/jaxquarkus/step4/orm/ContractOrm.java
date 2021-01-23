@@ -47,7 +47,12 @@ public class ContractOrm  {
     	TypedQuery<Contract> query = em.createQuery("SELECT u FROM Contract u WHERE company_id = :val", Contract.class);
     	query.setParameter("val", companyId);
     	return query.getResultList();
+	}
+    public List<Contract> getContractsByUser(Long usrIdC) {
+        System.out.println("UserOrm/getUserContracts");
+    	return userOrm.getUserById(usrIdC).get(0).getContracts();
     }
+
      // wenn keine Company existiert kann kein Contract erstellt werden => fehlermeldung fehlt 
 	@Transactional
     public String addContract(Contract contract, Long companyId) {

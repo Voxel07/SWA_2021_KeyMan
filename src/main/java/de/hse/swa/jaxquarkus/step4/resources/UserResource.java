@@ -31,7 +31,8 @@ public class UserResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public List<User> getUser(	@QueryParam("usr_id") Long usrId,
     							@QueryParam("company_id") Long companyId,
-    							@QueryParam("username") String usrname)
+                                @QueryParam("username") String usrname,
+                                @QueryParam("ctrIdU") Long ctrIdU)
     {   
     	System.out.println("UserResource/getUser");
         if(usrId != null){
@@ -46,22 +47,16 @@ public class UserResource {
         	System.out.println("getUserByUsername");
             return userOrm.getUserByUsername(usrname);
         }
+        else if(ctrIdU !=null){
+            System.out.println("getUserByUsername");
+            return userOrm.getUserByContract(ctrIdU);
+        }
         else{  
         	System.out.println("getUsers");
             return  userOrm.getUsers();
         }
     }
 
-    @GET
-    @Path("{usrId}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public List<Contract> getUserContracts(@PathParam("usrId") Long usrId) 
-    { 	
-    	System.out.println("UserResource/getUserContract");
-        return userOrm.getUserContracts(usrId);
-    }
-  
     @PUT
     @Path("{companyId}")
     @Produces(MediaType.APPLICATION_JSON)
