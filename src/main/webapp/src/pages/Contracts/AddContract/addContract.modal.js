@@ -162,7 +162,7 @@ class AddContract extends React.Component {
         <form onSubmit={this.handleSubmit}>
           <div >
             <div class="container"  >
-              <h1 class="title">Contract Details for (companyA) eingabefeld</h1>
+              <h1 class="title">My Contract</h1>
 
               <div className=" form-row ">
                 <div className="form-group col-12 col-sm-6 ">
@@ -209,7 +209,7 @@ class AddContract extends React.Component {
                     value={version} onChange={this.Changehandler}
                   />
                 </div>
-                <div className="form-group col-6 col-sm-6">
+                <div className="form-group col-12 col-sm-6">
                   <label> Responsible </label>
                   <select name="person1" class="custom-select" id="inputGroupSelect01"onChange={this.Changehandler}>
                   {

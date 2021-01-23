@@ -45,7 +45,7 @@ class Contract extends React.Component {
                 <div>
                     <EditContract></EditContract>
                     <button onClick={() => this.handleSave()}>Save</button>
-                    <button onClick={() => this.handleCancel()}>Cancel</button>
+                    <button onClick={() => this.handleCancel()}>Cssssssssssss</button>
                 </div>
             );
         } else if(this.state.modalShow === "Detail") {
@@ -53,7 +53,7 @@ class Contract extends React.Component {
                 <div>
                     <h2>{this.state.modalShow}</h2>
                     <button onClick={() => this.handleSave()}>Save</button>
-                    <button onClick={() => this.handleCancel()}>Cancel</button>
+                    <button onClick={() => this.handleCancel()}>Csssssssss</button>
                 </div>
             );
         }

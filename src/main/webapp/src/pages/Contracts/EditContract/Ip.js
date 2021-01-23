@@ -48,9 +48,18 @@ export default class Ip extends Component {
     render() {
         return (
             <div key={this.state.id}>
-                <input type="text" name="ipNumber" value={this.state.ipNumber} onChange={this.changehandler}></input>
-                <button className="btn btn-danger" onClick={this.deleteIp}>Ip Löschen</button>
-                <button className="btn btn-dark" onClick={this.handleIp}>Ip ändern</button>
+                 <div className=" form-row ">
+                        <div className=" col-12 col-sm-2 my-2 p-2">
+                        <input type="text" name="ipNumber" className="form-control" value={this.state.ipNumber} onChange={this.changehandler}></input>
+                        </div>
+                        </div>
+                        <div class="btn-group">
+                        <button className="btn btn-danger" onClick={this.deleteIp}>Ip Löschen</button>
+                        </div>
+                        <div class="btn-group">
+                        <button className="btn btn-dark" onClick={this.handleIp}>Ip ändern</button>
+                         </div>
+                       
             </div>
         )
     }

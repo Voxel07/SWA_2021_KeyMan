@@ -17,7 +17,7 @@ class EditContract extends React.Component {
             feature:'',
             features:[],
             ips:[],
-            company:'',
+            companyName: this.props.companyName,
             errorMsgIp: '',
             errorMsgFe: '',
             errorMsgCp: '',
@@ -26,7 +26,7 @@ class EditContract extends React.Component {
     }
     componentWillMount() {
         console.log("Daten Holen !");
-        this.getCompany();
+       // this.getCompany();
         this.getFeatures();
         this.getIps();
     }
@@ -69,20 +69,20 @@ class EditContract extends React.Component {
             })
     }
 
-    getCompany() {
-        axios.get('http://localhost:8080/company/'+this.props.contract.companyId)
-            .then(response => {
-                console.log(response);
-                this.setState({ company: response.data });
-                if (response.data.length == 0) {
-                    this.setState({ errorMsgCp: 'Keine Company Daten erhalten' })
-                }
-            })
-            .catch(error => {
-                // console.log(error);
-                this.setState({ errorMsgCp: " " + error })
-            })
-    }
+    // getCompany() {
+    //     axios.get('http://localhost:8080/company')
+    //         .then(response => {
+    //             console.log(response);
+    //             this.setState({ company: response.data });
+    //             if (response.data.length == 0) {
+    //                 this.setState({ errorMsgCp: 'Keine Company Daten erhalten' })
+    //             }
+    //         })
+    //         .catch(error => {
+    //             // console.log(error);
+    //             this.setState({ errorMsgCp: " " + error })
+    //         })
+    // }
 
     getFeatures() {
         axios.get('http://localhost:8080/feature', { params: { ctrId: this.state.id } })
@@ -117,39 +117,40 @@ class EditContract extends React.Component {
  
     render() {
         //Daten holen Obacht !!
-        const { company, startDate, endDate, version, licenskey } = this.state
+        const { companyName, startDate, endDate, version, licenskey } = this.state
         return (
             <div>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit} key="Contract" >
                     <div >
                         <legend>Edit Contract:</legend>
-                        <div class="container"  >
-                        <h1 class="title">Edit Contract</h1>
+                        <div className="container"  >
+                        <h1 className="title">Edit Contract</h1>
+
 
                         <div className=" form-row ">
                             <div className="form-group col-12 col-sm-6 ">
                             <label>StartDate</label>
-                            <input type="Date" name="startDate" value={startDate} onChange={this.Changehandler}></input>
+                            <input type="ate" className="form-control" name="startDate" value={startDate} onChange={this.Changehandler}></input>
                             </div>
                             <div className="col-12 col-sm-6">
                             <label> EndDate </label>
-                            <input type="Date" name="endDate" value={endDate} onChange={this.Changehandler}></input>
+                            <input type="Date" className="form-control" name="endDate" value={endDate} onChange={this.Changehandler}></input>
                         </div>
-
+                        </div>
                         <div className=" form-row ">
-                            <div className="form-group col-6 col-sm-6">
+                            <div className="form-group col-12 col-sm-6">
                             <label> Company </label>
-                                <input type="text" name="name" value={company} readOnly></input>
+                                <input type="text" className="form-control" name="name" value={companyName} readOnly></input>
                             </div>
                             <div className="form-group col-12 col-sm-6 ">
                             <label>Version</label>
-                            <input type="text" name="version" value={version} onChange={this.Changehandler}></input>
+                                <input type="text" className="form-control" name="version" value={version} onChange={this.Changehandler}></input>
                             </div>
-                            </div>
+                        </div>
                         <div className=" form-row ">
                             <div className="form-group col-12 col-sm-6">
                             <label> Responsible </label>
-                            <select name="person1" class="custom-select" id="inputGroupSelect01"onChange={this.Changehandler}>
+                            <select name="person1" className="custom-select" id="inputGroupSelect02"onChange={this.Changehandler}>
                                 {
                                 this.state.users.length ?
                                 this.state.users.map(user => <option value={user.id}  >{user.username}</option>)
@@ -157,9 +158,9 @@ class EditContract extends React.Component {
                                 }
                             </select>
                             </div>
-                            <div className="form-group col-6 col-sm-6">
+                            <div className="form-group col-12 col-sm-6">
                             <label> Responsible </label>
-                            <select name="person2" class="custom-select" id="inputGroupSelect01"onChange={this.Changehandler}>
+                            <select name="person2" className="custom-select" id="inputGroupSelect01"onChange={this.Changehandler}>
                             
                                 {
                                 this.state.users.length ?
@@ -169,20 +170,25 @@ class EditContract extends React.Component {
                             </select>
                             </div>
                         </div> 
+
+
                         <div className=" form-row ">
                         <div className=" col-12 col-sm-12">
                             <label> licenskey </label>
-                            <textarea class="form-group col-12" rows="5" value={licenskey} onChange={this.Changehandler}></textarea>
+                            <textarea className="form-group col-12" rows="5" value={licenskey} onChange={this.Changehandler}></textarea>
                         </div>
                         </div>
                         </div>
                         </div>
-                        </div>
+                       
                  </form>
-            <form onSubmit={this.handleSubmitIp}>
-                <fieldset>
-                <legend>Ip´s</legend>
-                    <label>Ip</label>
+
+
+            <form onSubmit={this.handleSubmitIp} key="Ip">
+                <div >
+                        <legend>Ip's</legend>
+                        <div className="container"  >
+                        <h1 className="title">Ip</h1>
                     <div> 
                     {
                         this.state.ips.length ?  this.state.ips.map( ip => <IpNumber ip={ip} />) : null
@@ -191,16 +197,21 @@ class EditContract extends React.Component {
                         this.state.errorMsgIp ? <div>{this.state.errorMsgIp}</div> : null
                     } 
                     </div>
-					<div>
-						<input type="text" name="ipNumber" value={this.state.ipNumber} onChange={this.Changehandler}></input>
-                		<input type="submit" value="addIp" />
+                    <div className=" form-row ">
+                        <div className=" col-12 col-sm-2 my-2 p-2">
+						<input type="text" name="ipNumber" className="form-control my-2 p-2" value={this.state.ipNumber} onChange={this.Changehandler}></input>
+                        <button type="submit" class="btn btn-secondary btn-lg" value="addIp">addIp</button>
+                		{/* <input type="submit" value="addIp" /> */}
+                        </div>
 					</div>
-                </fieldset>
+                    </div>
+                    </div>
             </form>
-            <form onSubmit={this.handleSubmitFeature}>
-                <fieldset>
+            <form onSubmit={this.handleSubmitFeature} key="Feature">
+                
                 <legend>Features</legend>
-                    <label>Feature</label>
+                    <div className="container"  >
+                        <h1 className="title">Feature</h1>
                     <div> 
                     {
                        this.state.features.length ? this.state.features.map(feature => <Feature feature={feature} />) : null
@@ -208,24 +219,22 @@ class EditContract extends React.Component {
                     {
                         this.state.errorMsgFe ? <div>{this.state.errorMsgFe}</div> : null
                     } 
+                    
                     </div>
-                    <div>
-						<input type="text" name="feature" value={this.state.feature} onChange={this.Changehandler}></input>
-                		<input type="submit" value="addFeature" />
+                    <div className=" form-row ">
+                        <div className=" col-12 col-sm-2 my-2 p-2">
+						<input type="text" name="feature" className="form-control my-2 p-2" value={this.state.feature} onChange={this.Changehandler}></input>
+                        <button type="submit" class="btn btn-secondary btn-lg" value="addIp">addFeature</button>
+                		{/* <input type="submit" value="addFeature" /> */}
+                        </div>
 					</div>
-                </fieldset>
+                    </div>   
             </form>     
             </div>
+            
+            
         );
     }
 }
 
 export default EditContract;
-
-
-                   {/* <label>Company</label>
-                    <input type="text" name="name" value={company} readOnly></input>
-                  
-                    <label>Licenskey:</label>
-                    <input type="text" name="licenskey" value={licenskey} onChange={this.Changehandler}></input>
-           */}
