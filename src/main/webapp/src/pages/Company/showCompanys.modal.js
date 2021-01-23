@@ -16,7 +16,7 @@ export default class ShowContracts extends Component {
             .then(response => {
                 console.log(response);
                 this.setState({ Contracts: response.data });
-                if( response.data.length == 0)
+                if( response.data.length === 0)
                 {
                     this.setState({ errorMsg: 'Keine Contract Daten erhalten' })
                 }

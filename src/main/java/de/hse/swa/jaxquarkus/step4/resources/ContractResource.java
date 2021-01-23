@@ -49,7 +49,7 @@ public class ContractResource {
         }
         else if(usrId !=null){
             System.out.println("getContractsByUser");
-            return contractOrm.getContractsByUser(companyId);
+            return contractOrm.getContractsByUser(usrId);
         }
         else{  
         	System.out.println("getContracts");

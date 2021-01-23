@@ -129,7 +129,9 @@ class Company extends React.Component {
         const { name, department, country } = this.props.company
         return (
             <div key={this.props.company.id} >
-                <Modal isOpen={this.state.modalIsOpen}>
+                <Modal isOpen={this.state.modalIsOpen}
+                ariaHideApp={false}
+                >
                     {this.createModal()}
                 </Modal>
                 <div className=" form-row ">

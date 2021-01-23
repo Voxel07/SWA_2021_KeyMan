@@ -62,7 +62,7 @@ class Contract extends React.Component {
     render() {
         return(
             <div id="rowOfTable">
-                <Modal isOpen={this.state.modalIsOpen}>
+                <Modal isOpen={this.state.modalIsOpen} ariaHideApp={false}>
                     {this.createModal()}
                 </Modal>
                 <div id="items">

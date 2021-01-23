@@ -25,7 +25,7 @@ class EditContract extends React.Component {
             users:[]
         };
     }
-    componentWillMount() {
+    componentDidMount() {
         console.log("Daten Holen !");
         this.getFeatures();
         this.getIps();
@@ -49,15 +49,38 @@ class EditContract extends React.Component {
 
     handleSubmitIp = event => {
         event.preventDefault();
-		console.log(this.state.ipNumber);
+		console.log("Handle submit "+this.state.ipNumber);
         axios.put('http://localhost:8080/IpNumber/'+this.props.contract.id, {ipNumber : this.state.ipNumber})
             .then(response => {
                 console.log(response)
+                this.setState({
+                    ips: [...this.state.ips, this.state.ipNumber]
+                })
+                console.log("Nach Submit "+this.state.ips);
+                this.getIps();
             })
             .catch(error => {
                 console.log(error)
+            })   
+    }
+    getIps() {
+        console.log("GetIp´s "+this.state.ips);
+        axios.get('http://localhost:8080/IpNumber', { params: { ctrId: this.state.id } })
+        .then(response => {
+            console.log(response);
+            this.setState({ ips:  [...this.state.ips,response.data] });
+            // this.setState({ ips:  response.data });
+            if (response.data.length == 0) {
+                this.setState({ errorMsgIp: 'Keine IP Daten erhalten' })
+            }
+
+        })
+            .catch(error => {
+                // console.log(error);
+                this.setState({ errorMsgIp: " " + error })
             })
     }
+ 
     handleSubmitFeature = event => {
         event.preventDefault();
 		console.log(this.state.feature);
@@ -68,6 +91,7 @@ class EditContract extends React.Component {
             .catch(error => {
                 console.log(error)
             })
+            this.getFeatures();
     }
     getUsers(){
         axios.get('http://localhost:8080/user', { params: { ctrIdU: this.state.id } })
@@ -99,22 +123,7 @@ class EditContract extends React.Component {
                 this.setState({ errorMsgFe: " " + error })
             })
     }
-    getIps() {
-        axios.get('http://localhost:8080/IpNumber', { params: { ctrId: this.state.id } })
-        .then(response => {
-            console.log(response);
-            this.setState({ ips: response.data });
-            if (response.data.length == 0) {
-                this.setState({ errorMsgIp: 'Keine IP Daten erhalten' })
-            }
-
-        })
-            .catch(error => {
-                // console.log(error);
-                this.setState({ errorMsgIp: " " + error })
-            })
-    }
- 
+  
     render() {
         //Daten holen Obacht !!
         const { companyName, startDate, endDate, version, licenskey } = this.state
@@ -239,7 +248,7 @@ class EditContract extends React.Component {
                     </div>   
             </form>     
 
-            <form onSubmit={this.handleSubmit} key="Contract" >
+            <form onSubmit={this.handleSubmit} key="ContractUpdate" >
             <div className="mt-4 text-center">
                     <button type="submit" class="btn btn-primary btn-lg">Update Contract</button>
                </div>

@@ -211,7 +211,7 @@ class AddContract extends React.Component {
                 </div>
                 <div className="form-group col-12 col-sm-6">
                   <label> Responsible </label>
-                  <select name="person1" class="custom-select" id="inputGroupSelect01"onChange={this.Changehandler}>
+                  <select name="person1" class="custom-select" id="inputGroupSelect02"onChange={this.Changehandler}>
                   {
                      <option >User wählen</option>
                    }
@@ -224,7 +224,7 @@ class AddContract extends React.Component {
                 </div>
                 <div className="form-group col-6 col-sm-6">
                   <label> Responsible </label>
-                  <select name="person2" class="custom-select" id="inputGroupSelect01"onChange={this.Changehandler}>
+                  <select name="person2" class="custom-select" id="inputGroupSelect03"onChange={this.Changehandler}>
                   {
                      <option >User wählen</option>
                    }

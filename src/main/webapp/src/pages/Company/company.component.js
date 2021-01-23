@@ -47,7 +47,7 @@ class Company extends React.Component {
     render() {
         return(
             <div>
-                <Modal isOpen={this.state.modalIsOpen}>
+                <Modal isOpen={this.state.modalIsOpen} ariaHideApp={false}>
                     {this.createModal()}
                 </Modal>
                 <span>{this.props.company}</span>

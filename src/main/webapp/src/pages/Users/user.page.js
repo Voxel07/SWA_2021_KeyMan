@@ -9,7 +9,7 @@ class UserPage extends React.Component {
         this.state = { users: [], errorMsg:"" };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         axios.get('http://localhost:8080/user')
             .then(response => {
                 console.log("getuser: "+ response.data);

@@ -41,7 +41,6 @@ class Contract extends React.Component {
             })
             .catch(error => {
                 console.log(error);
-
             })
     }
 
@@ -51,7 +50,6 @@ class Contract extends React.Component {
         axios.delete("http://localhost:8080/contract", { data: this.state })
             .then(response => {
                 console.log(response);
-                // console.log(contract.id);
             })
             .catch(error => {
                 console.log(error);
@@ -83,7 +81,6 @@ class Contract extends React.Component {
             case "Edit":
                 return (
                     <div>
-                        
                         <ul class="nav justify-content-end">
                         <li class="nav-item">
                         <i class="bi bi-file-excel-fill"></i>
@@ -123,8 +120,11 @@ class Contract extends React.Component {
         const {startDate, endDate, version } = this.props.contract
         return (
             <div key={this.props.contract.id} >
-                <Modal isOpen={this.state.modalIsOpen}>
+                <Modal isOpen={this.state.modalIsOpen}
+                   ariaHideApp={false}
+                >
                     {this.createModal()}
+                 
                 </Modal>
                 <div className=" form-row ">
 

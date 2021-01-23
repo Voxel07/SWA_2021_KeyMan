@@ -11,12 +11,12 @@ class CompanyPage extends React.Component {
     }
     }
 
-    componentWillMount(){
+    componentDidMount(){
         axios.get('http://localhost:8080/company')
             .then(response => {
                 console.log(response);
                 this.setState({ companys: response.data });
-                if( response.data.length == 0)
+                if( response.data.length === 0)
                 {
                     this.setState({ errorMsg: 'Keine Daten erhalten' })
                 }

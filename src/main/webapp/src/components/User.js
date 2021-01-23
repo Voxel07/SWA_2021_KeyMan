@@ -24,7 +24,7 @@ class User extends React.Component {
         this.handleEdit = this.handleEdit.bind(this);
         this.handleDetails = this.handleDetails.bind(this);
     }
-    componentWillMount() {
+    componentDidMount() {
         this.getCompany();
     }
 
@@ -116,7 +116,7 @@ class User extends React.Component {
         const {username, email, id, companyName } = this.state
         return (
             <div key={id} >
-                <Modal isOpen={this.state.modalIsOpen}>
+                <Modal isOpen={this.state.modalIsOpen} ariaHideApp={false}>
                     {this.createModal()}
                 </Modal>
                 <div className=" form-row ">

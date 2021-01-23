@@ -89,7 +89,7 @@ class AddUser extends React.Component {
   }
 
   render() {
-    const { id, username, firstName,lastName,password,email, isAdmin,phone1,type1,phone2,type2} = this.state
+    const {username, firstName,lastName,password,email, isAdmin,phone1,type1,phone2,type2} = this.state
     return (
       <form onSubmit={this.handleSubmit}>
         <div>

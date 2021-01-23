@@ -9,7 +9,7 @@ class ContractPage extends React.Component {
         this.state = { contracts: [], errorMsg:"" };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         axios.get('http://localhost:8080/contract')
             .then(response => {
                 // console.log("getContract: "+ response.data);

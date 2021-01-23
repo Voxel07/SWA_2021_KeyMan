@@ -17,14 +17,14 @@ class EditUser extends React.Component {
         companys:[],
         errorMsgCompanys: '',
         phones:[],
-        phone:'',
-        type:'',
         errorMsgPhone:'',
         errorMsgCp:'',
-        contracts: []
+        contracts: [],
+        number:'',
+        type:''
        };
     }
-    componentWillMount() {
+    componentDidMount() {
       this.getCompany();
       this.getPhones();
       this.getContracts();
@@ -74,7 +74,7 @@ getCopmanyForThisSingelFuckingUser(pls){
 }
 
 getContracts(){
-  axios.get('http://localhost:8080/user/'+ this.state.id)
+  axios.get('http://localhost:8080/contract',{ params: { usrId: this.state.id}})
       .then(response => {
           console.log(response);
           this.setState({ contracts: response.data });
@@ -105,20 +105,19 @@ getPhones() {
 }
     
     render() {
-      const { id, username, firstName,lastName,password,email, isAdmin,phone1,type1,phone2,type2} = this.state
+      const { id, username, firstName,lastName,password,email, isAdmin} = this.state
         return (
           <div>
-            <legend>Edit User: {id}</legend>
-            <form>
+            <legend>Edit User: {username}</legend>
+            <form onSubmit={this.handleSubmit}>
             
             <div className="container"  >
-            <h1 className="title">My User</h1>
+            <h1 className="title">{username}</h1>
               <div className=" form-row ">
               <div className="form-group col-6 col-sm-6 my-2 p-2"> 
                 <label> Company </label>
                 <select name="companyId" class="custom-select" id="inputGroupSelect01" onChange={this.Changehandler}>
                   {
-                    //aktFirma anzeigen
                     <option>Firma wählen{this.state.companyId}</option>
                   }
                   {
@@ -135,7 +134,7 @@ getPhones() {
                   className="form-control"
                   name="email"
                   type="text"
-                  //value={email} onChange={this.Changehandler} 
+                  value={email} onChange={this.Changehandler} 
                   />
               </div>
                </div>
@@ -147,7 +146,8 @@ getPhones() {
                   placeholder="Department"
                   className="form-control "
                   name="department"
-                  type="text" />
+                  type="text"
+                  value={firstName} onChange={this.Changehandler} />
                </div>
                <div className=" col-12 col-sm-6 my-2 p-2">
                 <label> Last Name </label>
@@ -155,7 +155,8 @@ getPhones() {
                   placeholder="Street"
                   className="form-control"
                   name="street"
-                  type="text"/>
+                  type="text"
+                  value={lastName} onChange={this.Changehandler}/>
                 </div>
               </div>
               <div className=" form-row ">
@@ -166,7 +167,7 @@ getPhones() {
                   className="form-control"
                   name="username"
                   type="text"
-                 // value={username} onChange={this.Changehandler}
+                  value={username} onChange={this.Changehandler}
                   />
               </div>
               <div className=" col-12 col-sm-6 my-2 p-2">
@@ -176,52 +177,7 @@ getPhones() {
                   className="form-control"
                   name="password"
                   type="password"
-                  //value={password} onChange={this.Changehandler} 
-                  />
-              </div>
-            </div>
-
-            <div className=" form-row ">
-              <div className=" col-12 col-sm-6 my-2 p-2">
-                <label> Number1 </label>
-                <input
-                  placeholder="Number"
-                  className="form-control"
-                  name="phone1"
-                  type="number"
-                  //value={phone1} onChange={this.Changehandler} 
-                  />
-              </div>
-              <div className=" col-12 col-sm-6 my-2 p-2">
-                <label> Type1 </label>
-                <input
-                  placeholder="Type"
-                  className="form-control"
-                  name="type1"
-                  type="text"
-                  //value={type1} onChange={this.Changehandler} 
-                  />
-              </div>
-            </div>
-            <div className=" form-row ">
-              <div className=" col-12 col-sm-6 my-2 p-2">
-                <label> Number2 </label>
-                <input
-                  placeholder="Number"
-                  className="form-control"
-                  name="phone2"
-                  type="number"
-                  //value={phone2} onChange={this.Changehandler}
-                   />
-              </div>
-              <div className=" col-12 col-sm-6 my-2 p-2">
-                <label> Type2 </label>
-                <input
-                  placeholder="Type2"
-                  className="form-control"
-                  name="type2"
-                  type="text"
-                  //value={type2} onChange={this.Changehandler} 
+                  value={password} onChange={this.Changehandler} 
                   />
               </div>
             </div>
@@ -231,7 +187,7 @@ getPhones() {
                 name="isAdmin"
                 className="form-control"
                 type="checkbox"
-               // value={isAdmin} onChange={this.Changehandler}
+                value={isAdmin} onChange={this.Changehandler}
                 />
             </div>
           </div>
@@ -240,6 +196,35 @@ getPhones() {
           <button type="submit" class="btn btn-primary btn-lg">Update User</button>
         </div>
       </form>
+
+      <form onSubmit={this.handleSubmitPhone} key="Phone">
+                <div >
+                        <legend>Phone's</legend>
+                        <div className="container"  >
+                        <h1 className="title">Phone</h1>
+                    <div> 
+                    {
+                        this.state.phones.length ?  this.state.phones.map( phone => <Phone phone={phone} />) : null
+                    }
+                    {
+                        this.state.errorMsgPhone ? <div>{this.state.errorMsgPhone}</div> : null
+                    } 
+                    </div>
+                    <div className=" form-row ">
+                        <div className=" col-12 row-sm-2">
+                        <label>Number</label>
+                        <input type="number" name="number" className="form-control " value={this.state.number} onChange={this.Changehandler}></input>
+                        <label>Type</label>
+                        <input type="text" name="type" className="form-control " value={this.state.type} onChange={this.Changehandler}></input>
+                        </div>
+
+                        <div class="btn-group col-12 col-sm-2 ">
+                        <button type="submit" className="btn btn-secondary btn-lg" value="addPhone">addPhone</button>
+                        </div>
+					</div>
+                    </div>
+                    </div>
+            </form>
       </div>
            
         );
