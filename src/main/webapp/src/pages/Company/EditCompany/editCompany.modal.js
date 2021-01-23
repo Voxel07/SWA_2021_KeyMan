@@ -41,32 +41,32 @@ class EditCompany extends React.Component {
                         <div className=" form-row ">
                         <div className="form-group col-12 col-sm-6 my-2 p-2 ">
                         <label> Name</label>
-                        <input type="text" name="name" value={name} onChange={this.Changehandler}></input>
+                        <input type="text" className="form-control" name="name" value={name} onChange={this.Changehandler}></input>
                         </div>
                         <div className=" col-12 col-sm-6 my-2 p-2">
                         <label> Department </label>
-                        <input type="text" name="department" value={department} onChange={this.Changehandler}></input>
+                        <input type="text"  className="form-control" name="department" value={department} onChange={this.Changehandler}></input>
                         </div>
                         </div>
                     <div className=" form-row ">
                     <div className=" col-12 col-sm-6 my-2 p-2">
                         <label> Street </label>
-                        <input type="text" name="street" value={street} onChange={this.Changehandler}></input>
+                        <input type="text" className="form-control" name="street" value={street} onChange={this.Changehandler}></input>
                             
                         </div>
                     <div className=" col-12 col-sm-6 my-2 p-2">
                         <label> postalcode </label>
-                        <input type="number" name="postalcode" value={postalcode} onChange={this.Changehandler}></input>
+                        <input type="number" className="form-control"  name="postalcode" value={postalcode} onChange={this.Changehandler}></input>
                         </div>
                         </div>
                         <div className=" form-row ">
                     <div className=" col-12 col-sm-6 my-2 p-2">
                         <label> state </label>
-                        <input type="text" name="state" value={state} onChange={this.Changehandler}></input>
+                        <input type="text" className="form-control"  name="state" value={state} onChange={this.Changehandler}></input>
                         </div>
                     <div className=" col-12 col-sm-6 my-2 p-2">
                         <label> country </label>
-                        <input type="text" name="country" value={country} onChange={this.Changehandler}></input>
+                        <input type="text" className="form-control"  name="country" value={country} onChange={this.Changehandler}></input>
                         </div>
                         </div>
                         </div>

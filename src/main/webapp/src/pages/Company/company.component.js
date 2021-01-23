@@ -33,11 +33,12 @@ class Company extends React.Component {
 
     createModal(){
         if(this.state.modalShow === "Edit") {
-            return(
+            return(     
                 <div>
                     <EditCompany></EditCompany>
                     <button onClick={() => this.handleSave()}>Save</button>
                     <button onClick={() => this.handleCancel()}>Cancel</button>
+                    
                 </div>
             );
         } 

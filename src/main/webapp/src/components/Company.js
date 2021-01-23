@@ -134,20 +134,26 @@ class Company extends React.Component {
                             value={country} />
                     </div>
 
+
+                    <div class="btn-group">
                     <div className="form-group col-11 col-sm-1">
                         <button className="btn btn-dark" onClick={() => this.handleEdit()}>Verändern</button>
                     </div>
-
+                    </div>
+                    <div class="btn-group">
                     <div className="form-group col-11 col-sm-1">
                         <button className="btn btn-danger" onClick={() => this.deleteCompany()}>Löschen</button>
                     </div>
-
+                    </div>
+                    <div class="btn-group">
                     <div className="form-group col-11 col-sm-1">
                         <button className="btn btn-dark" onClick={() => this.handleContract()} >Contracts</button>
                     </div>
-
+                    </div>
+                    <div class="btn-group">
                     <div className="form-group col-11 col-sm-1">
                         <button className="btn btn-dark" onClick={() => this.handleUser()}>Users</button>
+                    </div>
                     </div>
                 </div>
             </div>
