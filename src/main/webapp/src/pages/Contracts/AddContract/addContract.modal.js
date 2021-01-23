@@ -27,7 +27,6 @@ class AddContract extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   Changehandler = (event) => {
-    console.log(this.state);
     this.setState({ [event.target.name]: event.target.value })
   }
   componentDidMount() {
@@ -97,10 +96,10 @@ class AddContract extends React.Component {
           this.addFeatures(this.state.feature3);
         }
         if(this.state.person1 !== ''){
-          this.addFeatures(this.state.person1);
+          this.addUser(this.state.person1);
         }
-        if(this.state.person1 !== ''){
-          this.addFeatures(this.state.person2);
+        if(this.state.person2 !== ''){
+          this.addUser(this.state.person2);
         }
       })
       .catch(error => {
@@ -108,6 +107,7 @@ class AddContract extends React.Component {
       })
   }
   addFeatures=feature=>{
+    console.log("addFeatre");
     axios.put('http://localhost:8080/feature/' + this.state.contractId,
     {number : feature })
     .then(response => {
@@ -119,6 +119,8 @@ class AddContract extends React.Component {
     })
   }
   addIps=ip=>{
+    console.log("addIp");
+
     axios.put('http://localhost:8080/IpNumber/' + this.state.contractId,
     {ipNumber :ip })
     .then(response => {
@@ -130,7 +132,9 @@ class AddContract extends React.Component {
     })
   }
   addUser=person=>{
-    axios.post('http://localhost:8080/contract', { params: { usrId: person } })
+    console.log("addUserContractConnection");
+
+    axios.post('http://localhost:8080/contract',{id: this.state.contractId }, { params: { usrId: person}} )
     .then(response => {
       console.log(response)
       // this.ClearInput();
@@ -207,7 +211,10 @@ class AddContract extends React.Component {
                 </div>
                 <div className="form-group col-6 col-sm-6">
                   <label> Responsible </label>
-                  <select name="persoperson1" class="custom-select" id="inputGroupSelect01"onChange={this.Changehandler}>
+                  <select name="person1" class="custom-select" id="inputGroupSelect01"onChange={this.Changehandler}>
+                  {
+                     <option >User wählen</option>
+                   }
                     {
                       this.state.users.length ?
                       this.state.users.map(user => <option value={user.id}  >{user.username}</option>)
@@ -217,8 +224,10 @@ class AddContract extends React.Component {
                 </div>
                 <div className="form-group col-6 col-sm-6">
                   <label> Responsible </label>
-                  <select name="persoperson2" class="custom-select" id="inputGroupSelect01"onChange={this.Changehandler}>
-                   
+                  <select name="person2" class="custom-select" id="inputGroupSelect01"onChange={this.Changehandler}>
+                  {
+                     <option >User wählen</option>
+                   }
                     {
                       
                       this.state.users.length ?

@@ -30,11 +30,10 @@ class User extends React.Component {
 
 //geht nicht
     getCompany(){
-        console.log(this.state);
-        axios.get("http://localhost:8080/company/"+ this.props.user.companyId)
+        axios.get("http://localhost:8080/company",{ params: { usrId: this.state.id}})
             .then(response => {
-               console.log(response);
-               this.setState({[this.state.companyName]:response.data.name})
+               console.log("resp "+JSON.stringify(response.data));
+               this.setState({[this.state.companyName]:response.data.name})     
             })
             .catch(error => {
                 console.log(error);

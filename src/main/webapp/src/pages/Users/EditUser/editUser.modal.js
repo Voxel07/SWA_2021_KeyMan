@@ -13,18 +13,21 @@ class EditUser extends React.Component {
         firstName: this.props.user.firstName ,
         lastName: this.props.user.lastName ,
         isAdmin: this.props.user.isAdmin ,
-        company:'', 
+        companyId: 1, 
+        companys:[],
         errorMsgCompanys: '',
         phones:[],
         phone:'',
         type:'',
         errorMsgPhone:'',
-        errorMsgCp:''
+        errorMsgCp:'',
+        contracts: []
        };
     }
     componentWillMount() {
       this.getCompany();
       this.getPhones();
+      this.getContracts();
   }
   Changehandler = (event) => {
     this.setState({ [event.target.name]: event.target.value })
@@ -42,7 +45,7 @@ handleSubmit = event => {
 
 handleSubmitPhone = event => {
     event.preventDefault();
-    axios.put('http://localhost:8080/phone/'+this.props.user.id, {number : this.state.phone, type: this.state.type})
+    axios.put('http://localhost:8080/phone/'+this.state.id, {number : this.state.phone, type: this.state.type})
         .then(response => {
             console.log(response)
         })
@@ -50,13 +53,33 @@ handleSubmitPhone = event => {
             console.log(error)
         })
 }
+// Holt alle Companys, damit man aswählen kann. 
+// Die aktuelle wird als erstes angezeigt. 
 getCompany() {
-  axios.get('http://localhost:8080/company/'+this.props.contract.companyId)
+  axios.get('http://localhost:8080/company')
       .then(response => {
           console.log(response);
-          this.setState({ company: response.data });
+          this.setState({ companys: response.data });
           if (response.data.length == 0) {
               this.setState({ errorMsgCp: 'Keine Company Daten erhalten' })
+          }
+      })
+      .catch(error => {
+          // console.log(error);
+          this.setState({ errorMsgCp: " " + error })
+      })
+}
+getCopmanyForThisSingelFuckingUser(pls){
+  this.setState({company: 1})
+}
+
+getContracts(){
+  axios.get('http://localhost:8080/user/'+ this.state.id)
+      .then(response => {
+          console.log(response);
+          this.setState({ contracts: response.data });
+          if (response.data.length == 0) {
+              this.setState({ errorMsgCp: 'Keine Contracts Daten erhalten' })
           }
       })
       .catch(error => {
@@ -90,12 +113,17 @@ getPhones() {
               <div className=" form-row ">
               <div className="form-group col-6 col-sm-6 my-2 p-2"> 
                 <label> Company </label>
-                  <select className="custom-select" id="inputGroupSelect01">
-                    <option selected>select Company...</option>
-                    <option value="1">One</option>       // input of companys
-                    <option value="2">Two</option>
-                    <option value="3">Two</option>
-                  </select>
+                <select name="companyId" class="custom-select" id="inputGroupSelect01" onChange={this.Changehandler}>
+                  {
+                    //aktFirma anzeigen
+                    <option>Firma wählen{this.state.companyId}</option>
+                  }
+                  {
+                    this.state.companys.length ?
+                      this.state.companys.map(company => <option value={company.id}  >{company.name}</option>)
+                      : <option value={0} >{this.state.errorMsgCompany}</option>
+                  }
+                </select>
                </div>
                </div>
                

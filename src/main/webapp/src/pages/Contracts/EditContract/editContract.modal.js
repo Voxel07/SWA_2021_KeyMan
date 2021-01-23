@@ -20,7 +20,8 @@ class EditContract extends React.Component {
             company:'',
             errorMsgIp: '',
             errorMsgFe: '',
-            errorMsgCp: ''
+            errorMsgCp: '',
+            users:[]
         };
     }
     componentWillMount() {
@@ -148,7 +149,7 @@ class EditContract extends React.Component {
                         <div className=" form-row ">
                             <div className="form-group col-12 col-sm-6">
                             <label> Responsible </label>
-                            <select name="persoperson1" class="custom-select" id="inputGroupSelect01"onChange={this.Changehandler}>
+                            <select name="person1" class="custom-select" id="inputGroupSelect01"onChange={this.Changehandler}>
                                 {
                                 this.state.users.length ?
                                 this.state.users.map(user => <option value={user.id}  >{user.username}</option>)
@@ -158,7 +159,7 @@ class EditContract extends React.Component {
                             </div>
                             <div className="form-group col-6 col-sm-6">
                             <label> Responsible </label>
-                            <select name="persoperson2" class="custom-select" id="inputGroupSelect01"onChange={this.Changehandler}>
+                            <select name="person2" class="custom-select" id="inputGroupSelect01"onChange={this.Changehandler}>
                             
                                 {
                                 this.state.users.length ?

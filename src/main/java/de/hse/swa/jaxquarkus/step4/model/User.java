@@ -49,7 +49,7 @@ public class User {
     
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinTable(
-    		name = "user_contracts",
+    		name = "Rolf",
     		joinColumns = {@JoinColumn(name = "User_id", referencedColumnName="id")},
     		inverseJoinColumns = {@JoinColumn(name = "Contract_id", referencedColumnName="id")}
     		)
