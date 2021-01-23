@@ -15,6 +15,7 @@ class User extends React.Component {
             username: this.props.user.username,
             id: this.props.user.id,
             companyName:'',
+            companyId:'',
             modalIsOpen: false, modalShow: "Edit"
         };
 
@@ -32,6 +33,7 @@ class User extends React.Component {
         axios.get("http://localhost:8080/company",{ params: { usrId: this.state.id}})
             .then(response => {
                this.setState({companyName: response.data[0].name})     
+               this.setState({companyId: response.data[0].id})           
             })
             .catch(error => {
                 console.log(error);
@@ -85,7 +87,8 @@ class User extends React.Component {
                            </button>
                         </li>
                     </ul>
-                    <EditUser user={this.props.user}></EditUser>
+                    <EditUser user={this.props.user} companyName={this.state.companyName} 
+							companyId={this.state.companyId}></EditUser>
                         
                     </div>
                 );
@@ -103,7 +106,8 @@ class User extends React.Component {
                            </button>
                         </li>
                     </ul>
-                    <ShowDetails user={this.props.user}></ShowDetails>
+                    <ShowDetails user={this.props.user} companyName={this.state.companyName} 
+							companyId={this.state.companyId}></ShowDetails>
                         
                     </div>
                 );

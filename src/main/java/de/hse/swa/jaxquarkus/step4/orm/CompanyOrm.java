@@ -35,9 +35,15 @@ public class CompanyOrm {
     }
     
     @Transactional
-    public void addCompany(Company company)
+    public String addCompany(Company company)
     {
-    	em.persist(company);
+        try{
+            em.persist(company);
+        }catch(Exception e)
+        {
+            return ""+e;
+        }  
+        return "Company hinzugefügt";
     }
 
     @Transactional

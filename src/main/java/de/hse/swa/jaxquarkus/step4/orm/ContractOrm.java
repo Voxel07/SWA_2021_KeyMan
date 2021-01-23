@@ -71,9 +71,7 @@ public class ContractOrm  {
 
 	@Transactional
 	public Boolean updateContract(Contract contract) {
-		if(!getContractByLicenskey(contract.getLicenskey()).isEmpty())
-    		return false;
-    	
+	
 			em.merge(contract);
 			return true;
 	}

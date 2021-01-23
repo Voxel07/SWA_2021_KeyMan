@@ -13,7 +13,8 @@ class EditUser extends React.Component {
         firstName: this.props.user.firstName ,
         lastName: this.props.user.lastName ,
         isAdmin: this.props.user.isAdmin ,
-        companyId: 1, 
+        companyId: this.props.companyId,
+        companyName: this.props.companyName,
         companys:[],
         errorMsgCompanys: '',
         phones:[],
@@ -45,9 +46,11 @@ handleSubmit = event => {
 
 handleSubmitPhone = event => {
     event.preventDefault();
-    axios.put('http://localhost:8080/phone/'+this.state.id, {number : this.state.phone, type: this.state.type})
+    axios.put('http://localhost:8080/phone/'+this.state.id, {number : this.state.number, type: this.state.type})
         .then(response => {
             console.log(response)
+            this.getPhones()
+            this.setState({number:'',type:''});
         })
         .catch(error => {
             console.log(error)
@@ -60,7 +63,7 @@ getCompany() {
       .then(response => {
           console.log(response);
           this.setState({ companys: response.data });
-          if (response.data.length == 0) {
+          if (response.data.length === 0) {
               this.setState({ errorMsgCp: 'Keine Company Daten erhalten' })
           }
       })
@@ -78,7 +81,7 @@ getContracts(){
       .then(response => {
           console.log(response);
           this.setState({ contracts: response.data });
-          if (response.data.length == 0) {
+          if (response.data.length === 0) {
               this.setState({ errorMsgCp: 'Keine Contracts Daten erhalten' })
           }
       })
@@ -93,7 +96,7 @@ getPhones() {
   .then(response => {
       console.log(response);
       this.setState({ phones: response.data });
-      if (response.data.length == 0) {
+      if (response.data.length === 0) {
           this.setState({ errorMsgPhone: 'Keine Phoes Daten erhalten' })
       }
 
@@ -105,7 +108,7 @@ getPhones() {
 }
     
     render() {
-      const { id, username, firstName,lastName,password,email, isAdmin} = this.state
+      const { username, firstName,lastName,password,email, isAdmin} = this.state
         return (
           <div>
             <legend>Edit User: {username}</legend>
@@ -118,7 +121,7 @@ getPhones() {
                 <label> Company </label>
                 <select name="companyId" class="custom-select" id="inputGroupSelect01" onChange={this.Changehandler}>
                   {
-                    <option>Firma wählen{this.state.companyId}</option>
+                    <option>{this.state.companyName}</option>
                   }
                   {
                     this.state.companys.length ?
@@ -143,18 +146,18 @@ getPhones() {
                 <div className="form-group col-12 col-sm-6 my-2 p-2 ">
                 <label>First Name</label>
                 <input
-                  placeholder="Department"
+                  placeholder="First Name"
                   className="form-control "
-                  name="department"
+                  name="firstName"
                   type="text"
                   value={firstName} onChange={this.Changehandler} />
                </div>
                <div className=" col-12 col-sm-6 my-2 p-2">
                 <label> Last Name </label>
                 <input
-                  placeholder="Street"
+                  placeholder="LastName"
                   className="form-control"
-                  name="street"
+                  name="lastName"
                   type="text"
                   value={lastName} onChange={this.Changehandler}/>
                 </div>
@@ -191,10 +194,9 @@ getPhones() {
                 />
             </div>
           </div>
-       
-        <div className="mt-4 text-center">
-          <button type="submit" class="btn btn-primary btn-lg">Update User</button>
-        </div>
+          <div className="mt-4 text-center">
+               <button type="submit" class="btn btn-primary btn-lg">Update User</button>
+           </div>
       </form>
 
       <form onSubmit={this.handleSubmitPhone} key="Phone">
@@ -211,20 +213,26 @@ getPhones() {
                     } 
                     </div>
                     <div className=" form-row ">
-                        <div className=" col-12 row-sm-2">
-                        <label>Number</label>
-                        <input type="number" name="number" className="form-control " value={this.state.number} onChange={this.Changehandler}></input>
-                        <label>Type</label>
-                        <input type="text" name="type" className="form-control " value={this.state.type} onChange={this.Changehandler}></input>
+                        <div className=" col-12 col-sm-2 my-1 p-1">
+                            <label>Number</label>
+                            <input type="number" name="number" className="form-control " value={this.state.number} onChange={this.Changehandler}></input>
+                        </div>
+                        <div className=" col-12 col-sm-2 my-1 p-1">
+                         <label>Type</label>
+                           <input type="text" name="type" className="form-control " value={this.state.type} onChange={this.Changehandler}></input>
                         </div>
 
-                        <div class="btn-group col-12 col-sm-2 ">
-                        <button type="submit" className="btn btn-secondary btn-lg" value="addPhone">addPhone</button>
+                        <div class="col-12 col-sm-2 my-3 p-3">
+                        <button type="submit" className=" btn btn-secondary btn-lg" value="addPhone">addPhone</button>
                         </div>
-					</div>
+                      	</div>
                     </div>
                     </div>
             </form>
+
+          <form>
+            
+      </form>
       </div>
            
         );

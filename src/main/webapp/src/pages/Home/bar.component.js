@@ -19,16 +19,9 @@ export class BarComponent extends React.Component {
         this.handleLogout = this.handleLogout.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
-        // this.handleSave = this.handleSave.bind(this);
         this.createModal = this.createModal.bind(this);
         this.handleUser = this.handleUser.bind(this);
     }
-
-    // handleSave() {
-    //     this.setState({
-    //         modalIsOpen: false
-    //     });
-    // }
 
     handleCancel() {
         this.setState({
@@ -151,7 +144,7 @@ export class BarComponent extends React.Component {
                 <div>
                     
                 </div>
-                <Modal isOpen={this.state.modalIsOpen}>
+                <Modal isOpen={this.state.modalIsOpen}  ariaHideApp={false}>
                     {this.createModal()}
                 </Modal>
              <nav className="navbar navbar-expand-sm navbar-dark bg-primary">

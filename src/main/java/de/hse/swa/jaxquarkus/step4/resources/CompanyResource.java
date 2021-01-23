@@ -75,10 +75,10 @@ public class CompanyResource {
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public void addCompany(Company company) 
+    public String addCompany(Company company) 
     { 	
     	System.out.println("CompanyResource/addCompany");
-        companyOrm.addCompany(company);
+        return companyOrm.addCompany(company);
     }
     
     

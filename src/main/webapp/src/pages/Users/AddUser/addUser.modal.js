@@ -36,7 +36,7 @@ class AddUser extends React.Component {
       .then(response => {
         console.log(response)
         this.setState({ companys: response.data })
-        if (response.data.length == 0) {
+        if (response.data.length === 0) {
           this.setState({ errorMsgUser: 'Kein Company Daten erhalten' })
         }
       })

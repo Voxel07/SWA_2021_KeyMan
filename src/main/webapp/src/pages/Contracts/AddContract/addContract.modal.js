@@ -39,7 +39,7 @@ class AddContract extends React.Component {
     .then(response => {
       console.log(response)
       this.setState({ companys: response.data })
-      if(response.data.length ==0){
+      if(response.data.length ===0){
         this.setState({ errorMsgCompany: 'Kein Company Daten erhalten' })
       }
     })
@@ -54,7 +54,7 @@ class AddContract extends React.Component {
     .then(response => {
       console.log(response)
       this.setState({ users: response.data })
-      if(response.data.length ==0){
+      if(response.data.length ===0){
         this.setState({ errorMsgUser: 'Kein User Daten erhalten' })
       }
     })

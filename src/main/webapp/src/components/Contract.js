@@ -18,6 +18,7 @@ class Contract extends React.Component {
             licensKey: this.props.contract.licensKey,
             id: this.props.contract.id,
             companyName:'',
+            companyId:'',
             modalIsOpen: false, modalShow: "Edit"
         };
 
@@ -33,7 +34,6 @@ class Contract extends React.Component {
 
 
     getCompany(){
-        console.log("Contract JS: getCompany");
         axios.get("http://localhost:8080/company",{ params: { ctrId: this.state.id}})
             .then(response => {
                console.log("getCompanyResponse: "+response.data.country);
@@ -46,7 +46,6 @@ class Contract extends React.Component {
 
 
     deleteContract() {
-        console.log(this.state);
         axios.delete("http://localhost:8080/contract", { data: this.state })
             .then(response => {
                 console.log(response);
@@ -57,7 +56,6 @@ class Contract extends React.Component {
             })
     }
     handleDetails() {
-        console.log("handleDetails");
         this.setState({
             modalIsOpen: true,
             modalShow: "Detail"
@@ -91,7 +89,8 @@ class Contract extends React.Component {
                            </button>
                         </li>
                     </ul>
-                    <EditContract contract={this.props.contract} companyName={this.state.companyName}></EditContract>
+                    <EditContract contract={this.props.contract} companyName={this.state.companyName} 
+							companyId={this.state.companyId}></EditContract>
                     </div>
                 );
 
@@ -108,7 +107,8 @@ class Contract extends React.Component {
                            </button>
                         </li>
                     </ul>
-                    <ShowDetails contract={this.props.contract} companyName={this.state.companyName}></ShowDetails>
+                    <ShowDetails contract={this.props.contract} companyName={this.state.companyName} 
+							companyId={this.state.companyId}></ShowDetails>
                     </div>
                 );
 
@@ -122,7 +122,7 @@ class Contract extends React.Component {
             <div key={this.props.contract.id} >
                 <Modal isOpen={this.state.modalIsOpen}
                    ariaHideApp={false}
-                >
+                    >
                     {this.createModal()}
                  
                 </Modal>

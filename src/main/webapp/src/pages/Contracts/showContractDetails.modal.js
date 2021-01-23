@@ -35,7 +35,7 @@ export default class showDetails extends Component {
         .then(response => {
             console.log(response);
             this.setState({ users: response.data });
-            if (response.data.length == 0) {
+            if (response.data.length === 0) {
                 this.setState({ errorMsgUser: 'Keine User Daten erhalten' })
             }
 
@@ -50,7 +50,7 @@ export default class showDetails extends Component {
         .then(response => {
             console.log(response);
             this.setState({ features: response.data });
-            if (response.data.length == 0) {
+            if (response.data.length === 0) {
                 this.setState({ errorMsgFe: 'Keine Feature Daten erhalten' })
             }
 
@@ -65,7 +65,7 @@ export default class showDetails extends Component {
         .then(response => {
             console.log(response);
             this.setState({ ips: response.data });
-            if (response.data.length == 0) {
+            if (response.data.length === 0) {
                 this.setState({ errorMsgIp: 'Keine IP Daten erhalten' })
             }
 

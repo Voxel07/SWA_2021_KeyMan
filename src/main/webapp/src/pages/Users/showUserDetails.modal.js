@@ -12,7 +12,8 @@ export default class showDetails extends Component {
         firstName: this.props.user.firstName ,
         lastName: this.props.user.lastName ,
         isAdmin: this.props.user.isAdmin ,
-        companyId: 1, 
+        companyId: this.props.companyId,
+        companyName: this.props.companyName, 
         companys:[],
         errorMsgCompanys: '',
         phones:[],
@@ -23,7 +24,7 @@ export default class showDetails extends Component {
         contracts: []
       };
     }
-    componentWillMount() {
+    componentDidMount() {
       this.getCompany();
       this.getPhones();
       this.getContracts();
@@ -59,7 +60,7 @@ export default class showDetails extends Component {
       .then(response => {
           console.log(response);
           this.setState({ companys: response.data });
-          if (response.data.length == 0) {
+          if (response.data.length === 0) {
               this.setState({ errorMsgCp: 'Keine Company Daten erhalten' })
           }
       })
@@ -73,11 +74,11 @@ export default class showDetails extends Component {
     }
 
     getContracts(){
-    axios.get('http://localhost:8080/user/'+ this.state.id)
+    axios.get('http://localhost:8080/contract', { params: { usrId: this.state.id }})
       .then(response => {
           console.log(response);
           this.setState({ contracts: response.data });
-          if (response.data.length == 0) {
+          if (response.data.length === 0) {
               this.setState({ errorMsgCp: 'Keine Contracts Daten erhalten' })
           }
       })
@@ -92,7 +93,7 @@ export default class showDetails extends Component {
     .then(response => {
       console.log(response);
       this.setState({ phones: response.data });
-      if (response.data.length == 0) {
+      if (response.data.length === 0) {
           this.setState({ errorMsgPhone: 'Keine Phoes Daten erhalten' })
       }
 
@@ -104,7 +105,7 @@ export default class showDetails extends Component {
     }
     
     render() {
-        const { id, username, firstName,lastName,password,email, isAdmin,phone1,type1,phone2,type2} = this.state
+        const { id, username, firstName,lastName,password,email, isAdmin,phone1,type1,phone2,type2,companyName} = this.state
         return (
             <div>
             <legend>User Details with id : {id}</legend>
@@ -116,7 +117,7 @@ export default class showDetails extends Component {
               <div className="form-group col-6 col-sm-6 my-2 p-2"> 
                 <label> Company </label>
                 <input name="companyId" className="form-control" id="inputGroupSelect01"
-                 //value={company.name} readOnly 
+                 value={companyName} readOnly 
                  >
                 </input>
                </div>
@@ -239,14 +240,3 @@ export default class showDetails extends Component {
         );
     }
 }
-
-
-// export default class showUserDetails extends Component {
-//     render() {
-//         return (
-//             <div>
-//                 Mich gibt es noch nicht.
-//             </div>
-//         )
-//     }
-// }

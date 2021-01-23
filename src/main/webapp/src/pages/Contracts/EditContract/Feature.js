@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import EditC from './editContract.modal'
 
 export default class Feature extends Component {
 
@@ -24,8 +25,7 @@ export default class Feature extends Component {
         console.log(this.state);
         axios.delete("http://localhost:8080/feature", { data: this.state })
             .then(response => {
-                console.log(response);
-                // console.log(contract.id);
+                EditC.getIps();
             })
             .catch(error => {
                 console.log(error);

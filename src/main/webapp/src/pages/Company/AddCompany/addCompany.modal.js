@@ -8,7 +8,9 @@ class AddCompany extends React.Component {
         street:'',
         postalcode:'',
         state:'',
-        country:'' };
+        country:'',
+        status: '123'
+      };
 
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -20,17 +22,15 @@ class AddCompany extends React.Component {
     event.preventDefault();
     axios.put('http://localhost:8080/company',this.state)
     .then(response => {
-        console.log(response)
+      this.setState({status: response.data})
         this.ClearInput();
-        //this.setState({posts: response.data})
     })
     .catch(error => {
-        console.log(error)
         // this.setState({errorMsg: 'Keine Daten erhalten'})
     })
 
     }
-    //Nicht getestet 
+    
     ClearInput(){
         this.setState({name: ''})
         this.setState({department: ''})
@@ -42,7 +42,7 @@ class AddCompany extends React.Component {
     
     
     render() {
-        const{name,department,street,postalcode,state,country} = this.state
+        const{name,department,street,postalcode,state,country,status} = this.state
         return (
           <div>
           <form  onSubmit={this.handleSubmit}>
@@ -112,6 +112,11 @@ class AddCompany extends React.Component {
              </div>
              </div>
              </div>
+             </div>
+             <div>
+             {
+               status
+             }
              </div>
                 <div className="mt-4 text-center">
                     <button type="submit" class="btn btn-primary btn-lg">hinzufügen</button>

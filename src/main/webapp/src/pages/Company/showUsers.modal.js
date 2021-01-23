@@ -16,7 +16,7 @@ export default class ShowUsers extends Component {
             .then(response => {
                 console.log(response);
                 this.setState({ Users: response.data });
-                if( response.data.length == 0)
+                if( response.data.length === 0)
                 {
                     this.setState({ errorMsg: 'Keine User Daten erhalten' })
                 }
