@@ -7,7 +7,8 @@ class CompanyPage extends React.Component {
     constructor() {
         super();
         this.state ={ companys:[],
-        errorMsg:''
+        errorMsg:'',
+        data:[]
     }
     }
 
@@ -27,17 +28,30 @@ class CompanyPage extends React.Component {
                 this.setState({ errorMsg: " "+error})
             })
     }
+
+    handleCallback = (childData) =>{
+       
+        this.handleRemove(childData);
+    }
+    handleRemove(id){
+       
+        const newList = this.state.companys.filter((item)=>item.id !==id);
+        this.setState({companys: newList})
+      
+        // this.setState({})
+    }
        
     render() {
         const { companys, errorMsg } = this.state
         return (
         <div> 
         {
-            companys.length ? companys.map(company => <Company company={company} />) : null
+            companys.length ? companys.map(company => <Company company={company} parentCallback = {this.handleCallback} />) : null
         }
         {
-            errorMsg ? <div>{errorMsg}</div> : null
+            errorMsg ? <div key={"error"}>{errorMsg}</div> : null
         } 
+        {this.state.data}
         </div>
         )
     }
