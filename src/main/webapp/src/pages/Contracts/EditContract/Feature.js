@@ -48,17 +48,23 @@ export default class Feature extends Component {
     render() {
         return (
             <div key={this.state.id}>
-                <div className=" form-row ">
+                 
+                    <div className=" form-row ">
                         <div className=" col-12 col-sm-2 my-2 p-2">
                         <input type="number" name="Feature" className="form-control"value={this.state.number} onChange={this.changehandler}></input>
                         </div>
-                        </div>
-                        <div class="btn-group">
+                      
+                        
+                        
+                        <div class="btn-group col-12 col-sm-2 my-2 p-2">
                         <button className="btn btn-danger" onClick={this.deleteFeature}>Feature Löschen</button>
-                        </div>
-                        <div class="btn-group">
+                                               
                         <button className="btn btn-dark" onClick={this.handleFeature}>Feature ändern</button>
-                         </div>     
+                         </div>  
+                         </div>  
+                       
+                         
+                          
                 
             </div>
         )

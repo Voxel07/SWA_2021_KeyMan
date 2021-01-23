@@ -21,14 +21,15 @@ class EditContract extends React.Component {
             errorMsgIp: '',
             errorMsgFe: '',
             errorMsgCp: '',
+            errorMsgUser: '',
             users:[]
         };
     }
     componentWillMount() {
         console.log("Daten Holen !");
-       // this.getCompany();
         this.getFeatures();
         this.getIps();
+        this.getUsers();
     }
 
     Changehandler = (event) => {
@@ -68,22 +69,21 @@ class EditContract extends React.Component {
                 console.log(error)
             })
     }
+    getUsers(){
+        axios.get('http://localhost:8080/user', { params: { ctrIdU: this.state.id } })
+        .then(response => {
+            console.log(response);
+            this.setState({ users: response.data });
+            if (response.data.length == 0) {
+                this.setState({ errorMsgUser: 'Keine User Daten erhalten' })
+            }
 
-    // getCompany() {
-    //     axios.get('http://localhost:8080/company')
-    //         .then(response => {
-    //             console.log(response);
-    //             this.setState({ company: response.data });
-    //             if (response.data.length == 0) {
-    //                 this.setState({ errorMsgCp: 'Keine Company Daten erhalten' })
-    //             }
-    //         })
-    //         .catch(error => {
-    //             // console.log(error);
-    //             this.setState({ errorMsgCp: " " + error })
-    //         })
-    // }
-
+        })
+            .catch(error => {
+                // console.log(error);
+                this.setState({ errorMsgUser: " " + error })
+            })
+    }
     getFeatures() {
         axios.get('http://localhost:8080/feature', { params: { ctrId: this.state.id } })
         .then(response => {
@@ -122,7 +122,7 @@ class EditContract extends React.Component {
             <div>
                 <form onSubmit={this.handleSubmit} key="Contract" >
                     <div >
-                        <legend>Edit Contract:</legend>
+                    <legend>Edit Contract from Company:{companyName}</legend>
                         <div className="container"  >
                         <h1 className="title">Edit Contract</h1>
 
@@ -175,13 +175,14 @@ class EditContract extends React.Component {
                         <div className=" form-row ">
                         <div className=" col-12 col-sm-12">
                             <label> licenskey </label>
-                            <textarea className="form-group col-12" rows="5" value={licenskey} onChange={this.Changehandler}></textarea>
+                            <textarea className="form-control col-12" rows="5" value={licenskey} readOnly></textarea>
                         </div>
                         </div>
                         </div>
                         </div>
                        
                  </form>
+
 
 
             <form onSubmit={this.handleSubmitIp} key="Ip">
@@ -198,9 +199,12 @@ class EditContract extends React.Component {
                     } 
                     </div>
                     <div className=" form-row ">
-                        <div className=" col-12 col-sm-2 my-2 p-2">
-						<input type="text" name="ipNumber" className="form-control my-2 p-2" value={this.state.ipNumber} onChange={this.Changehandler}></input>
-                        <button type="submit" class="btn btn-secondary btn-lg" value="addIp">addIp</button>
+                        <div className=" col-12 col-sm-2">
+                        <input type="text" name="ipNumber" className="form-control " value={this.state.ipNumber} onChange={this.Changehandler}></input>
+                        </div>
+
+                        <div class="btn-group col-12 col-sm-2 ">
+                        <button type="submit" className="btn btn-secondary btn-lg" value="addIp">addIp</button>
                 		{/* <input type="submit" value="addIp" /> */}
                         </div>
 					</div>
@@ -222,17 +226,25 @@ class EditContract extends React.Component {
                     
                     </div>
                     <div className=" form-row ">
-                        <div className=" col-12 col-sm-2 my-2 p-2">
-						<input type="text" name="feature" className="form-control my-2 p-2" value={this.state.feature} onChange={this.Changehandler}></input>
-                        <button type="submit" class="btn btn-secondary btn-lg" value="addIp">addFeature</button>
-                		{/* <input type="submit" value="addFeature" /> */}
+                        <div className=" col-12 col-sm-2">
+                        <input type="text" name="feature" className="form-control" value={this.state.feature} onChange={this.Changehandler}></input>
                         </div>
+
+                        <div class="btn-group col-12 col-sm-2 ">
+                        <button type="submit" class="btn btn-secondary btn-lg" value="addIp">addFeature</button>
+                		{/* <input type="submit" value="addIp" /> */}
+                        </div>
+                    
 					</div>
                     </div>   
             </form>     
-            </div>
-            
-            
+
+            <form onSubmit={this.handleSubmit} key="Contract" >
+            <div className="mt-4 text-center">
+                    <button type="submit" class="btn btn-primary btn-lg">Update Contract</button>
+               </div>
+            </form>  
+               </div>
         );
     }
 }
