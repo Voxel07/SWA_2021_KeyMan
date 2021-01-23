@@ -75,16 +75,36 @@ class User extends React.Component {
             case "Edit":
                 return (
                     <div>
-                        <EditUser user={this.props.user}></EditUser>
-                        <button onClick={() => this.handleCancel()}>Cancel</button>
+                         <ul class="nav justify-content-end">
+                        <li class="nav-item">
+                        <i class="bi bi-file-excel-fill"></i>
+                        <button  type="button" class="close" aria-label="Close" onClick={() => this.handleCancel()}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-excel-fill" color="red" viewBox="0 0 16 16">
+                                <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM5.884 4.68L8 7.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 8l2.233 2.68a.5.5 0 0 1-.768.64L8 8.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 8 5.116 5.32a.5.5 0 1 1 .768-.64z"/>
+                            </svg>
+                           </button>
+                        </li>
+                    </ul>
+                    <EditUser user={this.props.user}></EditUser>
+                        
                     </div>
                 );
 
             case "Detail":
                 return (
                     <div>
-                        <ShowDetails user={this.props.user}></ShowDetails>
-                        <button onClick={() => this.handleCancel()}>Cancel</button>
+                         <ul class="nav justify-content-end">
+                        <li class="nav-item">
+                        <i class="bi bi-file-excel-fill"></i>
+                        <button  type="button" class="close" aria-label="Close" onClick={() => this.handleCancel()}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-excel-fill" color="red" viewBox="0 0 16 16">
+                                <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM5.884 4.68L8 7.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 8l2.233 2.68a.5.5 0 0 1-.768.64L8 8.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 8 5.116 5.32a.5.5 0 1 1 .768-.64z"/>
+                            </svg>
+                           </button>
+                        </li>
+                    </ul>
+                    <ShowDetails user={this.props.user}></ShowDetails>
+                        
                     </div>
                 );
 
@@ -125,16 +145,20 @@ class User extends React.Component {
                             type="text"
                             value={email} />
                     </div>
-                    <div className="form-group col-11 col-sm-1">
+                    <div className="btn-group">
+                    <div className="form-group col-12 col-sm-1">
                         <button className="btn btn-dark" onClick={() => this.handleEdit()}>Verändern</button>
                     </div>
-
-                    <div className="form-group col-11 col-sm-1">
-                        <button className="btn btn-danger" onClick={() => this.deleteUser()}>Löschen</button>
                     </div>
-
-                    <div className="form-group col-11 col-sm-1">
-                        <button className="btn btn-dark" onClick={() => this.handleDetails()} >Details</button>
+                    <div className="btn-group">
+                    <div className="form-group col-12 col-sm-1">
+                         <button className="btn btn-danger" onClick={() => this.deleteUser()}>Löschen</button>
+                    </div>
+                    </div>
+                    <div className="btn-group">
+                    <div className="form-group col-12 col-sm-1">
+                     <button className="btn btn-dark" onClick={() => this.handleDetails()} >Details</button>
+                    </div>
                     </div>
 
                 </div>

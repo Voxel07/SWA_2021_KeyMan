@@ -105,9 +105,12 @@ getPhones() {
 }
     
     render() {
+      const { id, username, firstName,lastName,password,email, isAdmin,phone1,type1,phone2,type2} = this.state
         return (
+          <div>
+            <legend>Edit User: {id}</legend>
             <form>
-            <div>
+            
             <div className="container"  >
             <h1 className="title">My User</h1>
               <div className=" form-row ">
@@ -125,6 +128,16 @@ getPhones() {
                   }
                 </select>
                </div>
+               <div className=" col-12 col-sm-6 my-2 p-2">
+                <label> Email </label>
+                <input
+                  placeholder="Email"
+                  className="form-control"
+                  name="email"
+                  type="text"
+                  //value={email} onChange={this.Changehandler} 
+                  />
+              </div>
                </div>
                
               <div className=" form-row ">
@@ -145,46 +158,89 @@ getPhones() {
                   type="text"/>
                 </div>
               </div>
+              <div className=" form-row ">
+             <div className=" col-12 col-sm-6 my-2 p-2">
+                <label> Username </label>
+                <input
+                  placeholder="Username"
+                  className="form-control"
+                  name="username"
+                  type="text"
+                 // value={username} onChange={this.Changehandler}
+                  />
+              </div>
+              <div className=" col-12 col-sm-6 my-2 p-2">
+                <label> Password </label>
+                <input
+                  placeholder="Password"
+                  className="form-control"
+                  name="password"
+                  type="password"
+                  //value={password} onChange={this.Changehandler} 
+                  />
+              </div>
+            </div>
+
             <div className=" form-row ">
-             <div className=" col-12 col-sm-6 my-2 p-2">
-                <label> Email </label>
+              <div className=" col-12 col-sm-6 my-2 p-2">
+                <label> Number1 </label>
                 <input
-                  placeholder="state"
+                  placeholder="Number"
                   className="form-control"
-                  name="state"
-                  type="text" />
-               </div>
-             <div className=" col-12 col-sm-6 my-2 p-2">
-                <label> Phone </label>
+                  name="phone1"
+                  type="number"
+                  //value={phone1} onChange={this.Changehandler} 
+                  />
+              </div>
+              <div className=" col-12 col-sm-6 my-2 p-2">
+                <label> Type1 </label>
                 <input
-                  placeholder="Country"
+                  placeholder="Type"
                   className="form-control"
-                  name="Country"
-                  type="text" />
-               </div>
-               </div>
-               <div className=" form-row ">
-             <div className=" col-12 col-sm-6 my-2 p-2">
-                <label> isAdmin </label>
+                  name="type1"
+                  type="text"
+                  //value={type1} onChange={this.Changehandler} 
+                  />
+              </div>
+            </div>
+            <div className=" form-row ">
+              <div className=" col-12 col-sm-6 my-2 p-2">
+                <label> Number2 </label>
                 <input
+                  placeholder="Number"
                   className="form-control"
-                  type="checkbox" />
-               </div>
-             <div className=" col-12 col-sm-6 my-2 p-2">
-                <label> Mobile </label>
+                  name="phone2"
+                  type="number"
+                  //value={phone2} onChange={this.Changehandler}
+                   />
+              </div>
+              <div className=" col-12 col-sm-6 my-2 p-2">
+                <label> Type2 </label>
                 <input
-                  placeholder="Country"
+                  placeholder="Type2"
                   className="form-control"
-                  name="Country"
-                  type="text" />
-               </div>
-               </div>
-               </div>
-               </div>
-                  <div className="mt-4 text-center">
-                      <button type="submit" class="btn btn-primary btn-lg">Update</button>
-                 </div>
-              </form>  
+                  name="type2"
+                  type="text"
+                  //value={type2} onChange={this.Changehandler} 
+                  />
+              </div>
+            </div>
+            <div className=" col-12 col-sm-6 my-2 p-2">
+              <label> isAdmin </label>
+              <input
+                name="isAdmin"
+                className="form-control"
+                type="checkbox"
+               // value={isAdmin} onChange={this.Changehandler}
+                />
+            </div>
+          </div>
+       
+        <div className="mt-4 text-center">
+          <button type="submit" class="btn btn-primary btn-lg">Update User</button>
+        </div>
+      </form>
+      </div>
            
         );
     }
