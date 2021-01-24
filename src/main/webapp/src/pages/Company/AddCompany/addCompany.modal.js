@@ -20,14 +20,17 @@ class AddCompany extends React.Component {
 
     handleSubmit = event => {
     event.preventDefault();
-    axios.put('http://localhost:8080/company',this.state)
-    .then(response => {
-      this.setState({status: response.data})
-        this.ClearInput();
-    })
-    .catch(error => {
-        // this.setState({errorMsg: 'Keine Daten erhalten'})
-    })
+    this.props.cbToBar(this.state,true);
+    
+    // axios.put('http://localhost:8080/company',this.state)
+    // .then(response => {
+    //   this.setState({status: response.data})
+    //     this.ClearInput();
+    //     this.props.cbToBar("addCompany",true);
+    // })
+    // .catch(error => {
+    //     // this.setState({errorMsg: 'Keine Daten erhalten'})
+    // })
 
     }
     

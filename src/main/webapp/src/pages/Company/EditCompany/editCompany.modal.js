@@ -18,14 +18,18 @@ class EditCompany extends React.Component {
         this.setState({ [event.target.name]: event.target.value })
     }
     handleSubmit = event => {
+        
         event.preventDefault();
-        axios.post('http://localhost:8080/company', this.state)
-            .then(response => {
-                console.log(response)
-            })
-            .catch(error => {
-                console.log(error)
-            })
+        this.props.CallbackToCompanyJS(this.state);
+
+        // axios.post('http://localhost:8080/company', this.state)
+        //     .then(response => {
+        //         console.log(response)
+        //         this.props.CallbackToCompanyJS(this.state);
+        //     })
+        //     .catch(error => {
+        //         console.log(error)
+        //     })
     }
 
     render() {

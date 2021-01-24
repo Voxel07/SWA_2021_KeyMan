@@ -8,15 +8,17 @@ class TableComponent extends React.Component {
 
     createTable() {
         if (this.props.table === "Companys") {
-            return(<CompanysPage/>)
+            return(<CompanysPage newCompany={this.props.newItem}/>)
         } else if (this.props.table === "Contracts") {
-            return(<ContractsPage/>)
+            return(<ContractsPage newContract={this.props.newItem}/>)
         } else {
-            return(<UsersPage/>)
+            return(<UsersPage newUser={this.props.newItem}/>)
         }
     }
   
     render(){
+      console.log("Table new Item: ");
+      console.log( this.props.newItem);
       return(
         <table>
           {this.createTable()}

@@ -8,7 +8,7 @@ import AddContract from '../Contracts/AddContract/addContract.modal';
 import AddUser from '../Users/AddUser/addUser.modal';
 
 
-import './bar.component.scss';
+import './bar.component.css';
 import User from '../User/user.modal';
 
 export class BarComponent extends React.Component {
@@ -60,6 +60,12 @@ export class BarComponent extends React.Component {
             this.props.history.push("/");
         });
     }
+    
+    handleCB = (val1, val2) =>{
+        console.log("bar Handle Callback: ");
+        console.log(val1,val2);
+        this.props.callBackHomepage(val1,val2);
+    }
 
     createModal(){
         
@@ -78,7 +84,7 @@ export class BarComponent extends React.Component {
                         </li>
                     </ul>
                     <h2>Add {this.state.modalShow}</h2>
-                    <AddCompany></AddCompany>                    
+                    <AddCompany cbToBar={this.handleCB}></AddCompany>                    
                 </div>
             );
         } else if(this.state.modalShow === "Contract") {
@@ -95,7 +101,7 @@ export class BarComponent extends React.Component {
                     </li>
                     </ul>
                     <h2>Add {this.state.modalShow}</h2>
-                    <AddContract></AddContract>
+                    <AddContract cbToBar={this.handleCB}></AddContract>
                 </div>
             );
         } else if(this.state.modalShow === "User") {
@@ -113,7 +119,7 @@ export class BarComponent extends React.Component {
                     </li>
                     </ul>
                     <h2>Add {this.state.modalShow}</h2>
-                    <AddUser></AddUser>
+                    <AddUser cbToBar={this.handleCB} ></AddUser>
                 </div>
             );
         } else if(this.state.modalShow === "Nutzer") {
@@ -149,9 +155,7 @@ export class BarComponent extends React.Component {
                 </Modal>
              <nav className="navbar navbar-expand-sm navbar-dark bg-primary">
                 <h3>{this.props.table}</h3>
-              <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
-                <span className="navbar-toggler-icon"></span>
-              </button>
+    
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="nav nav-pills nav-fill">
                     <li className="nav-item" >
