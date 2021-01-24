@@ -111,7 +111,7 @@ getPhones() {
       const { username, firstName,lastName,password,email, isAdmin} = this.state
         return (
           <div>
-            <legend>Edit User: {username}</legend>
+            <legend>Edit User:</legend>
             <form onSubmit={this.handleSubmit}>
             
             <div className="container"  >
@@ -195,7 +195,7 @@ getPhones() {
             </div>
           </div>
           <div className="mt-4 text-center">
-               <button type="submit" class="btn btn-primary btn-lg">Update User</button>
+               <button type="submit" class="btn btn-primary btn-lg">Edit User</button>
            </div>
       </form>
 
@@ -222,7 +222,7 @@ getPhones() {
                            <input type="text" name="type" className="form-control " value={this.state.type} onChange={this.Changehandler}></input>
                         </div>
 
-                        <div class="col-12 col-sm-2 my-3 p-3">
+                        <div class="col-12 col-sm-2 my-4 p-3">
                         <button type="submit" className=" btn btn-secondary btn-lg" value="addPhone">addPhone</button>
                         </div>
                       	</div>

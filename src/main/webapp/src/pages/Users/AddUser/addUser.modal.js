@@ -93,8 +93,9 @@ class AddUser extends React.Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <div>
+        <legend>Add User: </legend>
           <div className="container"  >
-            <h1 className="title">My User</h1>
+            <h1 className="title">{username}</h1>
             <div className=" form-row ">
               <div className="form-group col-6 col-sm-6 my-2 p-2">
                 <label> Company </label>

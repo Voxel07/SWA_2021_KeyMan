@@ -108,11 +108,11 @@ export default class showDetails extends Component {
         const { id, username, firstName,lastName,password,email, isAdmin,phone1,type1,phone2,type2,companyName} = this.state
         return (
             <div>
-            <legend>User Details with id : {id}</legend>
+            <legend>User Details:</legend>
             <form onSubmit={this.handleSubmit} key="User">
             
             <div className="container"  >
-            <h1 className="title">My User</h1>
+            <h1 className="title"> User id : {id}</h1>
               <div className=" form-row ">
               <div className="form-group col-6 col-sm-6 my-2 p-2"> 
                 <label> Company </label>

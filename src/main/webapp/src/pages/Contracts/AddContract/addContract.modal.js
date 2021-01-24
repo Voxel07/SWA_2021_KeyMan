@@ -161,7 +161,7 @@ class AddContract extends React.Component {
       <div>
         <form onSubmit={this.handleSubmit}>
           <div >
-          <legend>Edit Contract from Company:{companyName}</legend>
+          <legend>Add Contract:</legend>
             <div class="container"  >
               <h1 class="title">New Contract</h1>
 
@@ -262,14 +262,14 @@ class AddContract extends React.Component {
                 </div>
               </div>
               <div className=" form-row ">
-                <div className=" col-12 col-sm-6">
-                  <label> Ip Number </label>
+                <div className="form-group col-12 col-sm-6 ">
+                  <label>Ip Number</label>
                   <input
                     placeholder="Ip Number"
                     class="form-control"
                     name="ip2"
                     type="number"
-                  value={ip2} onChange={this.Changehandler} 
+                    value={ip2} onChange={this.Changehandler} 
                   />
                 </div>
                 <div className=" col-12 col-sm-1">
@@ -279,19 +279,19 @@ class AddContract extends React.Component {
                     class="form-control"
                     name="feature2"
                     type="text"
-                   value={feature2} onChange={this.Changehandler}
+                  value={feature2} onChange={this.Changehandler} 
                   />
                 </div>
               </div>
               <div className=" form-row ">
-                <div className=" col-12 col-sm-6">
-                  <label> Ip Number </label>
+                <div className="form-group col-12 col-sm-6 ">
+                  <label>Ip Number</label>
                   <input
                     placeholder="Ip Number"
                     class="form-control"
                     name="ip3"
                     type="number"
-                   value={ip3} onChange={this.Changehandler}
+                    value={ip3} onChange={this.Changehandler} 
                   />
                 </div>
                 <div className=" col-12 col-sm-1">

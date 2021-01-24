@@ -123,7 +123,7 @@ class AddCompany extends React.Component {
              }
              </div>
                 <div className="mt-4 text-center">
-                    <button type="submit" class="btn btn-primary btn-lg">hinzufügen</button>
+                    <button type="submit" class="btn btn-primary btn-lg">Add</button>
                </div>
             </form>  
 

@@ -83,9 +83,9 @@ export default class showDetails extends Component {
             <div>
                 <form onSubmit={this.handleSubmit} key="Contract" >
                     <div >
-                        <legend>Contract Details from Company:{companyName}S</legend>
+                        <legend>Contract Details:</legend>
                         <div className="container"  >
-                        <h1 className="title">Contract Details</h1>
+                        <h1 className="title">Company: {companyName}</h1>
 
 
                         <div className=" form-row ">

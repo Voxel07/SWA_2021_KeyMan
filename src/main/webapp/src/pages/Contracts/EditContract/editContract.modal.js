@@ -219,7 +219,7 @@ class EditContract extends React.Component {
                         </div>
                         </div>
                         <div className="mt-4 text-center">
-                    <button type="submit" class="btn btn-primary btn-lg">Update Contract</button>
+                    <button type="submit" class="btn btn-primary btn-lg">Edit Contract</button>
                </div>
                  </form>
 
