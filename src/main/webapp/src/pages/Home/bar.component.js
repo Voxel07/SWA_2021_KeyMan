@@ -82,8 +82,7 @@ export class BarComponent extends React.Component {
                             </svg>
                            </button>
                         </li>
-                    </ul>
-                    <h2>Add {this.state.modalShow}</h2>
+                    </ul> 
                     <AddCompany cbToBar={this.handleCB}></AddCompany>                    
                 </div>
             );
@@ -100,7 +99,6 @@ export class BarComponent extends React.Component {
                            </button>
                     </li>
                     </ul>
-                    <h2>Add {this.state.modalShow}</h2>
                     <AddContract cbToBar={this.handleCB}></AddContract>
                 </div>
             );
@@ -118,7 +116,6 @@ export class BarComponent extends React.Component {
                            </button>
                     </li>
                     </ul>
-                    <h2>Add {this.state.modalShow}</h2>
                     <AddUser cbToBar={this.handleCB} ></AddUser>
                 </div>
             );
@@ -154,7 +151,7 @@ export class BarComponent extends React.Component {
                     {this.createModal()}
                 </Modal>
              <nav className="navbar navbar-expand-sm navbar-dark bg-primary">
-                <h3>{this.props.table}</h3>
+                <h1>{this.props.table}</h1>
     
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="nav nav-pills nav-fill">
@@ -176,7 +173,7 @@ export class BarComponent extends React.Component {
                   </a>
                   </li>
                   <li className="nav-item">
-                  <BoxArrowRight  id="icon" onClick={() => this.handleLogout()}></BoxArrowRight>                 
+                  <BoxArrowRight  id="icon1" onClick={() => this.handleLogout()}></BoxArrowRight>                 
                   </li>
                 </ul>
               </div>

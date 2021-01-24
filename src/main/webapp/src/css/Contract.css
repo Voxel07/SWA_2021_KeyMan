@@ -12,9 +12,7 @@
     align-content: center;
     justify-content: center;
 }
-body{
-    background: rgb(219, 226, 226);
-}
+
 .row{
     background: white;
     border-radius: 30px;
@@ -50,15 +48,98 @@ body{
 	padding:50px 60px;
 	margin-top:40vh;
 }
-.form-control {
-	background-image: linear-gradient(#00a9ff, #00a9fc), linear-gradient(rgb(210,210,210), rgb(211,211,211));
-	background-size: 0 2px, 100% 1px;
-	backgtound-color: transparent;
-	font-weight: 400;
-	border-width: 0px;
-	border-style: initial;
-	background-repeat: no-repeat;
-	background-position: left bottom, center calc(100%-px);
-	border-radius: 0;
-	padding: 7px 0;
+.label{
+    font-size: 225px;
+}
+/* .input{
+    font-size: 15px;
+} */
+.custom-select{
+    font-size: 15px;
+}
+
+.form-control:disabled, .form-control[readonly] {
+    background-color: #e9ecef;
+    opacity: 1;
+    font-size: 15px;
+}
+.form-control1 {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    background-color: #e9ecef;
+}
+    
+
+.form-inline .form-control {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+    font-size: 15px;
+}
+.btn-danger{
+    font-size: 15px;
+}
+.btn-primary{
+    font-size: 15px;
+}
+div.login {
+    text-align: center;
+}
+
+legend.login {
+    text-align: left;
+    width: inherit;
+    padding:0 10px;
+    border-bottom: none;
+}
+
+
+fieldset.login {
+    border: 1px groove #ddd !important;
+    padding: 0 1.4em 1.4em 1.4em !important;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+input.login{
+    margin: 10px;
+}
+
+button.login {
+    margin-left: 20px;
+}
+body{
+    background: #007bff;
+}
+.row{
+    background: grey;
+    border-radius: 30px;
+    box-shadow: 12px 12px 22px;
+}
+
+.fontlogin{
+    font-size: 40px;
+}
+.fontctr{
+    font-size: 15px;
+}
+
+
+.btn-dark {
+    font-size: 15px;
+}
+.btn-secondary{
+    font-size: 15px;
+}
+.btn-light{
+    font-size: 15px;
 }

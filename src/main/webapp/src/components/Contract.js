@@ -128,7 +128,7 @@ class Contract extends React.Component {
                 </Modal>
                 <div className=" form-row ">
 
-                    <div className="form-group col-11 col-sm-2">
+                    <div className="form-group col-11 col-sm-2 my-sm-2">
                         <input
                             readOnly
                             name="name"
@@ -137,7 +137,7 @@ class Contract extends React.Component {
                             value={this.state.companyName} 
                             />
                     </div>
-                    <div className="form-group col-11 col-sm-2 ">
+                    <div className="form-group col-11 col-sm-2 my-sm-2 ">
                         <input
                             readOnly
                             className="form-control"
@@ -145,7 +145,7 @@ class Contract extends React.Component {
                             type="text"
                             value={startDate} />
                     </div>
-                    <div className=" col-11 col-sm-2">
+                    <div className=" col-11 col-sm-2 my-sm-2">
                         <input
                             readOnly
                             className="form-control"
@@ -153,7 +153,7 @@ class Contract extends React.Component {
                             type="text"
                             value={endDate} />
                     </div>
-                    <div className=" col-11 col-sm-2">
+                    <div className=" col-11 col-sm-2 my-sm-2">
                         <input
                             readOnly
                             className="form-control"
@@ -163,17 +163,17 @@ class Contract extends React.Component {
                     </div>
                     <div>
                     <div className="btn-group">
-                    <div className="form-group col-12 col-sm-1">
+                    <div className="form-group col-12 col-sm-1 my-sm-2">
                         <button className="btn btn-dark" onClick={() => this.handleEdit()}>Verändern</button>
                     </div>
                     </div>
                     <div className="btn-group">
-                    <div className="form-group col-12 col-sm-1">
+                    <div className="form-group col-12 col-sm-1 my-sm-2">
                      <button className="btn btn-danger" onClick={() => this.deleteContract()}>Löschen</button>
                     </div>
                     </div>
                     <div className="btn-group">
-                    <div className="form-group col-12 col-sm-1">
+                    <div className="form-group col-12 col-sm-1 my-sm-2">
                      <button className="btn btn-dark" onClick={() => this.handleDetails()} >Details</button>
                     </div>
                     </div>

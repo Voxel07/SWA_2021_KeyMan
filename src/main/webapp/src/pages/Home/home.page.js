@@ -2,7 +2,7 @@ import React from 'react';
 import Bar from './bar.component';
 import Table from './table.component';
 
-import './home.page.scss';
+import './home.page.css';
 
 class HomePage extends React.Component {
 

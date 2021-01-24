@@ -15,10 +15,17 @@
     padding-right: 10px;
 }
 #icon {
-    width: 27px;
-    height: 27px;
+    width: 35px;
+    height: 44px;
+}
+#icon1 {
+    width: 48px;
+    height: 46px;
 }
 .Close{
-    font-size: 2rem;
+    font-size: 30px;
     color:red;
+}
+.navbar{
+    border-radius:0px;
 }
