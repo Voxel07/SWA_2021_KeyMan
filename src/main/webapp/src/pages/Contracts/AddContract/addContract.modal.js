@@ -155,14 +155,15 @@ class AddContract extends React.Component {
 
   render() {
     //Styling fehlt
-    const { startDate, endDate, ip1,ip2,ip3,feature1,feature2,feature3,version } = this.state
+    const { companyName, startDate, endDate, ip1,ip2,ip3,feature1,feature2,feature3,version } = this.state
     return (
 
       <div>
         <form onSubmit={this.handleSubmit}>
           <div >
+          <legend>Edit Contract from Company:{companyName}</legend>
             <div class="container"  >
-              <h1 class="title">My Contract</h1>
+              <h1 class="title">New Contract</h1>
 
               <div className=" form-row ">
                 <div className="form-group col-12 col-sm-6 ">

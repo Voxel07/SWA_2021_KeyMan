@@ -50,8 +50,9 @@ class AddCompany extends React.Component {
           <div>
           <form  onSubmit={this.handleSubmit}>
           <div>
+          <legend>Add Company:</legend>
           <div className="container"  >
-          <h1 className="title">My Company</h1>             
+          <h1 className="title">{name}</h1>             
             <div className=" form-row ">
               <div className="form-group col-12 col-sm-6 my-2 p-2 ">
               <label> Name</label>

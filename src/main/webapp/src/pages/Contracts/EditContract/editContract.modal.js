@@ -155,9 +155,9 @@ class EditContract extends React.Component {
             <div>
                 <form onSubmit={this.handleSubmit} key="Contract" >
                     <div >
-                    <legend>Edit Contract from Company:{companyName}</legend>
+                    <legend>Edit Contract from Company:</legend>
                         <div className="container"  >
-                        <h1 className="title">Edit Contract</h1>
+                        <h1 className="title">{companyName}</h1>
 
 
                         <div className=" form-row ">

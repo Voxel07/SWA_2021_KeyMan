@@ -36,11 +36,11 @@ class EditCompany extends React.Component {
         const { name, department, street, postalcode, state, country } = this.state;
         return (
             <div>
-                <legend>Edit Company: {name}</legend>
+                <legend>Edit Company:</legend>
                 <form onSubmit={this.handleSubmit}>
                     <div>
                         <div className="container"  >
-                            <h1 className="title">Edit Company</h1>
+                            <h1 className="title">{name}</h1>
                             <div className=" form-row ">
                                 <div className="form-group col-12 col-sm-6 my-2 p-2 ">
                                     <label> Name</label>
