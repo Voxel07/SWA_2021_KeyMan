@@ -67,7 +67,6 @@ export class LoginPage extends React.Component {
 									</button>
 								</li>
 								</ul>
-								<h2>Add {this.state.modalShow}</h2>
 								<AddUser></AddUser>
 							</div>
 						);
@@ -108,7 +107,6 @@ export class LoginPage extends React.Component {
 									</div>
 
 								</div>
-								<a href="#">password?</a>
 								<p> Don´t have an account? <a href="#" onClick={this.handleSignUp}>Register here</a></p>
 								{/* <button className="btn btn-dark" onClick={this.handleSignUp}>Sign Up</button> */}
 							</div>
