@@ -50,14 +50,14 @@ public class User {
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinTable(
     		name = "Rolf",
-    		joinColumns = {@JoinColumn(name = "User_id", referencedColumnName="id")},
-    		inverseJoinColumns = {@JoinColumn(name = "Contract_id", referencedColumnName="id")}
+    		joinColumns = {@JoinColumn(name = "UserId", referencedColumnName="id")},
+    		inverseJoinColumns = {@JoinColumn(name = "ContractId", referencedColumnName="id")}
     		)
 
     private  List<Contract> contracts = new ArrayList<>();
        
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="company_Id", referencedColumnName="id")
+    @JoinColumn(name="companyId", referencedColumnName="id")
     private Company companyU;
     
     @OneToMany(mappedBy="usr",cascade = {CascadeType.ALL},fetch=FetchType.LAZY )

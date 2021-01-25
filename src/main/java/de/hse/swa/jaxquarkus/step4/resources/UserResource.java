@@ -40,8 +40,11 @@ public class UserResource {
           return userOrm.getUserById(usrId);
         } 
         else if(companyId!=null){
-        	System.out.println("getUserByCompany");
-            return userOrm.getUserByCompany(companyId);
+            System.out.println("getUserByCompany");
+           List<User> fu = userOrm.getUserByCompany(companyId);
+        //    fu.add(userOrm.getUserByCompany(companyId));
+           System.out.println("res"+ fu);
+            return fu;
         }
         else if(usrname!=null){
         	System.out.println("getUserByUsername");

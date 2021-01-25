@@ -4,7 +4,6 @@ import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
@@ -20,25 +19,34 @@ public class UserOrm {
     ContractOrm contractOrm;
 
     public List<User> getUsers() {
+        System.out.println("UserOrm/getUsers");
+
         TypedQuery<User> query = em.createQuery("SELECT u FROM User u", User.class);
         return query.getResultList();
     }
 
     public List<User> getUserById(Long id) {
+        System.out.println("UserOrm/getUserById");
+
         TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE id =: val", User.class);
         query.setParameter("val", id);
         return query.getResultList();
     }
 
     public List<User> getUserByUsername(String username) {
+        System.out.println("UserOrm/getUserByUsername");
+
         TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE username =: val", User.class);
         query.setParameter("val", username);
         return query.getResultList();
     }
 
     public List<User> getUserByCompany(Long companyId) {
-        TypedQuery<User> query = em.createQuery("SELECT u FROM User u Where company_Id =: val1", User.class);
+        System.out.println("UserOrm/getUserByCompany");
+        TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE companyId =: val1", User.class);
         query.setParameter("val1", companyId);
+        System.out.println("UserOrm/getUserByCompany/nachQuery");
+
         return query.getResultList();
     }
     

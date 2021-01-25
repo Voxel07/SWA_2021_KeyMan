@@ -35,7 +35,7 @@ public class user_t{
 		.body(companyA)
 			.when()
 			.put("/company")
-			.then().statusCode(204);
+			.then().statusCode(200).body(is("Company hinzugefügt"));
 		
 		 Response response =
 					given()
@@ -57,7 +57,7 @@ public class user_t{
 				 .body(usrA)
 				 .when()
 				 .put("/user/{companyId}");		
-				 response.then().statusCode(200).body(is("true"));
+				 response.then().statusCode(200).body(is(""+companyA.getId()));
 				 
 				  response =
 			     	        given()     	    
@@ -108,27 +108,25 @@ public class user_t{
 	@Test
 	@Order(4)
 	public void GetUser() {
-		//Long id = 5l;
+		System.out.println("Test4 Beginn");
 		Response response = 
 	        given()
-	        .pathParam("id", companyA.getId())
+	        .queryParam("companyId", companyA.getId())
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .when()
-	        .get("/user/{id}");
+	        .get("/user");
 			response.then().statusCode(200);
+			System.out.println("UserResource/getUser/zurückImTest");
 			
 			User usr = response.getBody().as(User.class);
 			Assertions.assertEquals( usrA.getLastName(), usr.getLastName());
+			System.out.println("Test4 Ende");
 	}
 
-	
-	
-	
 	@Test
 	@Order(5)
 	public void UpdateUser() { 
-		//Long id = 5l;
-		//usrA.setId(id);
+		System.out.println("Test5 Beginn");
 		usrA.setLastName("Hans");
 		Response response = 
 		        	given()
@@ -140,14 +138,15 @@ public class user_t{
 
          response =
      	        given()
-     	        .pathParam("id", companyA.getId())
+     	        .queryParam("companyId", companyA.getId())
      	        .contentType(MediaType.APPLICATION_JSON)
      	        .when()
-     	        .get("/user/{id}");
+     	        .get("user");
          		response.then().statusCode(200);
 	      	        
      	    User usr = response.getBody().as(User.class);
-     		Assertions.assertEquals( "Hans", usr.getLastName());
+			 Assertions.assertEquals( "Hans", usr.getLastName());
+			 System.out.println("Test5 Ende");
 	}
 		
 	@Test
