@@ -35,7 +35,7 @@ public class ContractResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public List<Contract> getContract(  @QueryParam("licenskey") String licenskey,
-                                        @QueryParam("company_id") Long companyId,
+                                        @QueryParam("companyId") Long companyId,
                                         @QueryParam("usrId") Long usrId)
     {   
     	System.out.println("ContratResource/getContract");

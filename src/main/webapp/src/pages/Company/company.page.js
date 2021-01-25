@@ -8,7 +8,6 @@ class CompanyPage extends React.Component {
         super(props);
         this.state = {
             companys: [],
-            newCPstate: false,
             errorMsg: ''
         }
         this.handleRemove = this.handleRemove.bind(this);
@@ -16,29 +15,24 @@ class CompanyPage extends React.Component {
     }
 
     componentDidMount() {
-        // console.log("componentDidMount")
         this.fetchCompanys();
     }
+
     fetchCompanys() {
-        // console.log("fetching new Data");
         axios.get('http://localhost:8080/company')
             .then(response => {
-                console.log(response);
-                this.setState({ companys: response.data });
                 if (response.data.length === 0) {
-                    console.log(response.data.length)
                     this.setState({ errorMsg: 'Keine Daten erhalten' })
                 }
                 else{
-                    this.setState({ errorMsg:''}); 
+                    this.setState({ companys: response.data,errorMsg:'' });
                 }
-
             })
             .catch(error => {
-                // console.log(error);
                 this.setState({ errorMsg: " " + error })
             })
     }
+
     handleCallback = (func, company) => {
         console.log("CP hc")
         console.log(company.id,func)
@@ -48,11 +42,7 @@ class CompanyPage extends React.Component {
                 break;
             case 'UPDATE':
                 this.handleUpdate(company);
-                break;
-            //geht hier nicht aa
-            case 'ADD':
-                this.handleADD(company);
-                break;
+                break;  
             default:
                 break;
         }
@@ -64,6 +54,7 @@ class CompanyPage extends React.Component {
         const newList = this.state.companys.filter((item) => item.id !== company.id);
         this.setState({companys: newList})
     }
+    
     handleUpdate = (company) => {
         // console.log("handleUpdate");
         // console.log(company);

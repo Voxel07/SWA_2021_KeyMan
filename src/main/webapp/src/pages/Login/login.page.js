@@ -3,8 +3,7 @@ import authService from "./auth.service";
 import axios from 'axios'
 import Modal from 'react-modal';
 import AddUser from '../Users/AddUser/addUser.modal';
-import User from '../User/user.modal';
-
+import userService from "./user.service";
 import './login.page.css';
 
 export class LoginPage extends React.Component {
@@ -14,11 +13,21 @@ export class LoginPage extends React.Component {
 		this.state = { username: '', password: '', show: false,  modalIsOpen: false };
 		this.handleSignUp = this.handleSignUp.bind(this);
 		this.handleCancel = this.handleCancel.bind(this);
-	};
+	}
 
 	Changehandler = (event) => {
 		console.log("änderung")
 		this.setState({ [event.target.name]: event.target.value })
+	}
+	admin(){
+		axios.get('http://localhost:8080/user',{ params: { username: this.state.username}})
+		.then(response => {
+			console.log(response.data);
+			userService.setId(response.data[0].id);
+			if (response.data[0].admin === true) {
+				userService.setAdmin();
+			}
+		})
 	}
 	handleCancel() {
         this.setState({
@@ -44,6 +53,9 @@ export class LoginPage extends React.Component {
 						show: true
 					})
 				}
+							if(this.state.show === false){
+				this.admin();
+			}
 			})
 	}
 
@@ -90,12 +102,12 @@ export class LoginPage extends React.Component {
 								<h4>Sign into your account</h4>
 							 	 <div className="form-row">
                    					  <div className="col-md-7 col-sm-12 center-block">
-										<input type="text" name="username" className="form-control my-4 p-4 " value={username} onChange={this.Changehandler}></input>
+										<input type="text" name="username" className="form-control1 my-4 p-4 " value={username} onChange={this.Changehandler}></input>
 									</div>
 								</div>
 								<div className="form-row">
 									<div className="col-md-7 col-sm-12 center-block">
-										<input type="password" name="password" className="form-control my-4 p-4" value={password} onChange={this.Changehandler}></input>
+										<input type="password" name="password" className="form-control1 my-4 p-4" value={password} onChange={this.Changehandler}></input>
 									</div>
 								</div>
 								<div className="form-row">

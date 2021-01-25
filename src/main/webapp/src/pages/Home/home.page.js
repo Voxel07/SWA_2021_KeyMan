@@ -31,10 +31,10 @@ class HomePage extends React.Component {
             table: "Users"
         });
     }
-    callBackHomepage=(stauts)=>{
+    callBackHomepage=(status)=>{
         // console.log("Home Handle Callback: ");
         // console.log(stauts);
-        this.setState({Stauts:stauts});
+        this.setState({Status:status});
     }
     // callbackFromTable=(isUpdated)=>{
     //     console.log("Home callbackFromTable ");
@@ -52,20 +52,20 @@ class HomePage extends React.Component {
                     <div id="menu">
                      <nav class=" navbar-nav ">
                         <div id="menuButton" class="nav-link active btn-lg" href="#">
-                        <button className="fontctr btn-outline-light" onClick={this.onClickCompanys}>Company</button>
+                        <button className="fontctr btn-outline-dark col-md-12" onClick={this.onClickCompanys}>Company</button>
                         </div>
                         <div id="menuButton" class="nav-link active btn-lg" href="#">
-                            <button className="fontctr btn-outline-light" onClick={this.onClickContracts}>Contract</button>
+                            <button className="fontctr btn-outline-dark col-md-12" onClick={this.onClickContracts}>Contract</button>
                             
                         </div>
                         <div id="menuButton" class="nav-link active btn-lg" href="#">
-                              <button className="fontctr btn-outline-light" onClick={this.onClickUsers}>User</button>
+                              <button className="fontctr btn-outline-dark col-md-12" onClick={this.onClickUsers}>User</button>
                         </div>
                         </nav>
                     </div>
                     
                     <div id="table">
-                        <Table table={this.state.table} newItem={this.state.Stauts} cbToHP={this.callbackFromTable} />
+                        <Table table={this.state.table} newItem={this.state.Status} /*cbToHP={this.callbackFromTable}*/ />
                     </div>
                 </div>
                 </div>

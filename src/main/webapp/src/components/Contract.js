@@ -37,23 +37,29 @@ class Contract extends React.Component {
         axios.get("http://localhost:8080/company",{ params: { ctrId: this.state.id}})
             .then(response => {
                console.log("getCompanyResponse: "+response.data.country);
-               this.setState({companyName: response.data[0].name})
+               this.setState({companyName: response.data[0].name, companyId: response.data[0].id})
             })
             .catch(error => {
                 console.log(error);
             })
     }
 
-
     deleteContract() {
+        // this.props.parentCallback("DELETE",this.state);
+
         axios.delete("http://localhost:8080/contract", { data: this.state })
             .then(response => {
                 console.log(response);
+                this.props.parentCallback("DELETE",this.state);
+
             })
             .catch(error => {
                 console.log(error);
 
             })
+    }
+    handleCallBack = (changedContract)=>{
+        this.setState(changedContract);
     }
     handleDetails() {
         this.setState({
@@ -73,6 +79,7 @@ class Contract extends React.Component {
         this.setState({
             modalIsOpen: false
         });
+        this.props.parentCallback("UPDATE",this.state);
     }
     createModal() {
         switch (this.state.modalShow) {
@@ -90,7 +97,7 @@ class Contract extends React.Component {
                         </li>
                     </ul>
                     <EditContract contract={this.props.contract} companyName={this.state.companyName} 
-							companyId={this.state.companyId}></EditContract>
+							companyId={this.state.companyId} cbToCtrJs={this.handleCallBack}></EditContract>
                     </div>
                 );
 
@@ -128,11 +135,11 @@ class Contract extends React.Component {
                 </Modal>
                 <div className=" form-row ">
 
-                    <div className="form-group col-11 col-sm-2 my-sm-2">
+                <div className="form-group col-11 col-sm-2 my-sm-2 mx-2">
                         <input
                             readOnly
                             name="name"
-                            className="form-control "
+                            className="form-control1 "
                             type="text"
                             value={this.state.companyName} 
                             />
@@ -140,7 +147,7 @@ class Contract extends React.Component {
                     <div className="form-group col-11 col-sm-2 my-sm-2 ">
                         <input
                             readOnly
-                            className="form-control"
+                            className="form-control1"
                             name="department"
                             type="text"
                             value={startDate} />
@@ -148,7 +155,7 @@ class Contract extends React.Component {
                     <div className=" col-11 col-sm-2 my-sm-2">
                         <input
                             readOnly
-                            className="form-control"
+                            className="form-control1"
                             name="street"
                             type="text"
                             value={endDate} />
@@ -156,7 +163,7 @@ class Contract extends React.Component {
                     <div className=" col-11 col-sm-2 my-sm-2">
                         <input
                             readOnly
-                            className="form-control"
+                            className="form-control1"
                             name="street"
                             type="text"
                             value={version} />
@@ -164,17 +171,17 @@ class Contract extends React.Component {
                     <div>
                     <div className="btn-group">
                     <div className="form-group col-12 col-sm-1 my-sm-2">
-                        <button className="btn btn-dark" onClick={() => this.handleEdit()}>Verändern</button>
+                        <button className=" btn-dark1" onClick={() => this.handleEdit()}>Verändern</button>
                     </div>
                     </div>
                     <div className="btn-group">
                     <div className="form-group col-12 col-sm-1 my-sm-2">
-                     <button className="btn btn-danger" onClick={() => this.deleteContract()}>Löschen</button>
+                     <button className=" btn-danger1" onClick={() => this.deleteContract()}>Löschen</button>
                     </div>
                     </div>
                     <div className="btn-group">
                     <div className="form-group col-12 col-sm-1 my-sm-2">
-                     <button className="btn btn-dark" onClick={() => this.handleDetails()} >Details</button>
+                     <button className=" btn-dark1" onClick={() => this.handleDetails()} >Details</button>
                     </div>
                     </div>
                     </div>

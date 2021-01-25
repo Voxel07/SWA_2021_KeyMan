@@ -29,8 +29,8 @@ public class UserResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public List<User> getUser(	@QueryParam("usr_id") Long usrId,
-    							@QueryParam("company_id") Long companyId,
+    public List<User> getUser(	@QueryParam("usrId") Long usrId,
+    							@QueryParam("companyId") Long companyId,
                                 @QueryParam("username") String usrname,
                                 @QueryParam("ctrIdU") Long ctrIdU)
     {   
@@ -72,8 +72,8 @@ public class UserResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public String loginUser(User usr) 
     {
-    	System.out.println("UserResource/loginUser");
-       return userOrm.loginUser(usr);
+        System.out.println("UserResource/loginUser");
+        return userOrm.loginUser(usr);
     }
 
     @POST
@@ -82,7 +82,7 @@ public class UserResource {
     public void updateUser(User usr) 
     {
     	System.out.println("UserResource/updateUser");
-
+        System.out.println(usr);
         userOrm.updateUser(usr);
     }
 

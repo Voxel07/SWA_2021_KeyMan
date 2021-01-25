@@ -32,8 +32,7 @@ class User extends React.Component {
     getCompany(){
         axios.get("http://localhost:8080/company",{ params: { usrId: this.state.id}})
             .then(response => {
-               this.setState({companyName: response.data[0].name})     
-               this.setState({companyId: response.data[0].id})           
+               this.setState({companyName: response.data[0].name,companyId: response.data[0].id})          
             })
             .catch(error => {
                 console.log(error);
@@ -47,11 +46,16 @@ class User extends React.Component {
         axios.delete("http://localhost:8080/user", { data: this.state })
             .then(response => {
                 console.log(response);
+                this.props.parentCallback("DELETE",this.state)
             })
             .catch(error => {
                 console.log(error);
             })
     }
+    handleCallBack = (changedUser)=>{
+        this.setState(changedUser);
+    }
+
     handleDetails() {
         console.log("handleDetails");
         this.setState({
@@ -71,6 +75,7 @@ class User extends React.Component {
         this.setState({
             modalIsOpen: false
         });
+        this.props.parentCallback("UPDATE",this.state);
     }
     createModal() {
         switch (this.state.modalShow) {
@@ -88,7 +93,7 @@ class User extends React.Component {
                         </li>
                     </ul>
                     <EditUser user={this.props.user} companyName={this.state.companyName} 
-							companyId={this.state.companyId}></EditUser>
+							companyId={this.state.companyId} cbToUsrJs={this.handleCallBack}></EditUser>
                         
                     </div>
                 );
@@ -124,11 +129,11 @@ class User extends React.Component {
                     {this.createModal()}
                 </Modal>
                 <div className=" form-row ">
-                    <div className="form-group col-11 col-sm-2 my-sm-2">
+                    <div className="form-group col-11 col-sm-2 my-sm-2 mx-2">
                         <input
                             readOnly
                             name="companyName"
-                            className="form-control "
+                            className="form-control1 "
                             type="text"
                             value={companyName} 
                             />
@@ -136,7 +141,7 @@ class User extends React.Component {
                     <div className="form-group col-11 col-sm-2 my-sm-2 ">
                         <input
                             readOnly
-                            className="form-control"
+                            className="form-control1"
                             name="usernmae"
                             type="text"
                             value={username} />
@@ -144,26 +149,27 @@ class User extends React.Component {
                     <div className=" col-11 col-sm-2 my-sm-2">
                         <input
                             readOnly
-                            className="form-control"
+                            className="form-control1"
                             name="email"
                             type="text"
                             value={email} />
                     </div>
                     <div className="btn-group">
                     <div className="form-group col-12 col-sm-1 my-sm-2">
-                        <button className="btn btn-dark" onClick={() => this.handleEdit()}>Verändern</button>
+                        <button className=" btn-dark1" onClick={() => this.handleEdit()}>Verändern</button>
                     </div>
                     </div>
                     <div className="btn-group">
                     <div className="form-group col-12 col-sm-1 my-sm-2">
-                         <button className="btn btn-danger" onClick={() => this.deleteUser()}>Löschen</button>
+                         <button className=" btn-danger1" onClick={() => this.deleteUser()}>Löschen</button>
                     </div>
                     </div>
                     <div className="btn-group">
                     <div className="form-group col-12 col-sm-1 my-sm-2">
-                     <button className="btn btn-dark" onClick={() => this.handleDetails()} >Details</button>
+                     <button className="btn-dark1" onClick={() => this.handleDetails()} >Details</button>
                     </div>
                     </div>
+
 
                 </div>
             </div>

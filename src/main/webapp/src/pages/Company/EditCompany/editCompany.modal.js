@@ -30,7 +30,7 @@ class EditCompany extends React.Component {
             .catch(error => {
                 console.log(error)
             })
-
+        }
     render() {
         const { name, department, street, postalcode, state, country } = this.state;
         return (

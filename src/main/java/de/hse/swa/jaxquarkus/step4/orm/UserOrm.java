@@ -69,7 +69,13 @@ public class UserOrm {
 
     @Transactional
     public void updateUser(User usr) {
+        System.out.println("UserOrm/updateUser");
+        System.out.println(usr);
         em.merge(usr);
+        em.createQuery("UPDATE User SET isAdmin =: val WHERE id =: val2")
+        .setParameter("val", usr.isAdmin())
+        .setParameter("val2", usr.getId())
+        .executeUpdate();
     }
 
     @Transactional

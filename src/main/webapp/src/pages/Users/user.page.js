@@ -4,40 +4,100 @@ import User from '../../components/User'
 
 
 class UserPage extends React.Component {
-    constructor() {
-        super();
-        this.state = { users: [], errorMsg:"" };
+    constructor(props) {
+        super(props);
+        this.state = {
+            users: [],
+            errorMsg: ""
+        };
+        this.handleRemove = this.handleRemove.bind(this);
+        this.handleCallback = this.handleCallback.bind(this);
     }
 
     componentDidMount() {
-        axios.get('http://localhost:8080/user')
-            .then(response => {
-                console.log("getuser: "+ response.data);
-                if( response.data.length === 0)
-                {
-                    this.setState({ errorMsg: 'Keine user Daten erhalten' })
-                } else {
-                    this.setState({ users: response.data });
-                }
+       this.fetchUser();
+    }
 
-            })
-            .catch(error => {
-                // console.log(error);
-                this.setState({ errorMsg: " "+error})
-            })
+    fetchUser(){
+        axios.get('http://localhost:8080/user')
+        .then(response => {
+            if (response.data.length === 0) {
+                this.setState({ errorMsg: 'Keine user Daten erhalten' })
+            } else {
+                this.setState({ users: response.data,errorMsg:'' }); 
+            }
+        })
+        .catch(error => {
+            this.setState({ errorMsg: " " + error })
+        })
+    }
+
+    handleCallback = (func, user) => {
+        console.log("CP hc")
+        console.log(user.id, func)
+        switch (func) {
+            case 'DELETE':
+                this.handleRemove(user);
+                break;
+            case 'UPDATE':
+                this.handleUpdate(user);
+                break;
+            default:
+                break;
+        }
+    }
+    handleRemove = (user) => {
+            console.log("handleRemove");
+            console.log(user);
+            const newList = this.state.users.filter((item) => item.id !== user.id);
+            this.setState({users: newList})
+        }
+
+    handleUpdate = (user) => {
+        const newList = this.state.users.map((item) => {
+            if (item.id === user.id) {
+                const updatedItem = {
+                    email: user.email,
+                    username: user.username,
+                    companyName: user.companyName,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    password: user.password,
+                    id: user.id
+
+                };
+                console.log(updatedItem)
+                return updatedItem;
+            }
+            else {
+                return item;
+            }
+
+        });
+
+        this.setState({ users: newList })
+    }
+    componentDidUpdate() {
+        if (this.props.newUser === true) {
+            console.log("Props are " + this.props.newUser);
+
+            this.fetchUser();
+        }
+
     }
     
+
     render() {
         const { users, errorMsg } = this.state
         return (
-        <div> 
-        {
-            users.length ? users.map(user => <User user={user} />) : null
-        }
-        {
-            errorMsg ? <div>{errorMsg}</div> : null
-        } 
-        </div>
+            <div>
+                {
+                    users.length ? users.map(user => <User user={user}  parentCallback={this.handleCallback} />) : null
+                }
+                {
+                    errorMsg ? <div>{errorMsg}</div> : null
+                }
+            </div>
         )
     }
 }

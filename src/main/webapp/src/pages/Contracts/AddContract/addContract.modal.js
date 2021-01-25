@@ -101,6 +101,8 @@ class AddContract extends React.Component {
         if(this.state.person2 !== ''){
           this.addUser(this.state.person2);
         }
+        this.props.cbToBar(true);
+        this.props.cbToBar(false);
       })
       .catch(error => {
         console.log(error)

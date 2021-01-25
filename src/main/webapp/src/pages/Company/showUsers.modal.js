@@ -12,7 +12,7 @@ export default class ShowUsers extends Component {
         }
     }
     componentDidMount() {
-        axios.get('http://localhost:8080/user', {params:{company_id: this.props.company.id}})
+        axios.get('http://localhost:8080/user', {params:{companyId: this.props.company.id}})
             .then(response => {
                 console.log(response);
                 this.setState({ Users: response.data });

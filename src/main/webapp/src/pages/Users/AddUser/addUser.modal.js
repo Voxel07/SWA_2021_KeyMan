@@ -87,7 +87,9 @@ class AddUser extends React.Component {
         if (this.state.phone2 !== '' && this.state.type2 !== '') {
           this.addPhone(this.state.phone2, this.state.type2);
         }
-      })
+      this.props.cbToBar(true);
+      this.props.cbToBar(false);
+    })
       .catch(error => {
         console.log(error)
       })

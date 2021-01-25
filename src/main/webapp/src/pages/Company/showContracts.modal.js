@@ -12,7 +12,7 @@ export default class ShowContracts extends Component {
         }
     }
     componentDidMount() {
-        axios.get('http://localhost:8080/contract', {params:{company_id: this.props.company.id}})
+        axios.get('http://localhost:8080/contract', {params:{companyId: this.props.company.id}})
             .then(response => {
                 console.log(response);
                 this.setState({ Contracts: response.data });

@@ -24,7 +24,10 @@ class EditContract extends React.Component {
             errorMsgCp: '',
             errorMsgUser: '',
             users:[],
-            contractUsers:[],
+            contractUserName1: '',
+            contractUserName2: '',
+            person1:'',
+            person2:''
         };
     }
     componentDidMount() {
@@ -44,11 +47,31 @@ class EditContract extends React.Component {
         axios.post('http://localhost:8080/contract', this.state)
             .then(response => {
                 console.log(response)
+                if(this.state.person1 !== ''){
+                this.addUser(this.state.person1);
+                }
+                if(this.state.person2 !== ''){
+                this.addUser(this.state.person2);
+                }
+                this.props.cbToCtrJs(this.state);
+                // this.ClearInput();
             })
             .catch(error => {
                 console.log(error)
             })
     }
+    addUser=person=>{
+        console.log("addUserContractConnection");
+    
+        axios.post('http://localhost:8080/contract',{id: this.state.id }, { params: { usrId: person}} )
+        .then(response => {
+          console.log(response)
+          // this.ClearInput();
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      }
 
     handleSubmitIp = event => {
         event.preventDefault();
@@ -56,12 +79,9 @@ class EditContract extends React.Component {
         axios.put('http://localhost:8080/IpNumber/'+this.props.contract.id, {ipNumber : this.state.ipNumber})
             .then(response => {
                 console.log(response)
-                // this.setState({
-                //     ips: this.state.ipNumber
-                // })
                 console.log("Nach Submit "+this.state.ips);
                 this.getIps();
-                this.setState({ipNumber:''})
+				this.setState({ipNumber: ''});
             })
             .catch(error => {
                 console.log(error)
@@ -74,9 +94,10 @@ class EditContract extends React.Component {
             console.log(response);
             // this.setState({ ips:  [...this.state.ips,response.data] });
             this.setState({ ips:  response.data });
-            if (response.data.length === 0) {
+            if (response.data.length == 0) {
                 this.setState({ errorMsgIp: 'Keine IP Daten erhalten' })
             }
+
         })
             .catch(error => {
                 // console.log(error);
@@ -89,21 +110,65 @@ class EditContract extends React.Component {
 		console.log(this.state.feature);
         axios.put('http://localhost:8080/feature/'+this.props.contract.id, {number : this.state.feature})
             .then(response => {
-                console.log(response);
-                this.getFeatures();
+                console.log(response)
+				this.getFeatures();
+				this.setState({feature: ''});
             })
             .catch(error => {
                 console.log(error)
             })
             this.getFeatures();
-            this.setState({feature: ''})
+    }
+    getContractUsers(){
+        axios.get('http://localhost:8080/user', { params: { ctrIdU: this.state.id } })
+        .then(response => {
+            console.log("UsErs");
+            console.log(response);
+            if (response.data.length == 0) {
+                this.setState({ errorMsgUser: 'Keine ContractUser Daten erhalten' })
+            	this.setState({ contractUserName1: 'User wählen', contractUserName2: 'User wählen' });
+
+            }
+			if(response.data.length == 1){
+				this.setState({ contractUserName1: response.data[0].username, contractUserName2: 'User wählen'});
+			}
+			if(response.data.length == 2){
+            	this.setState({ contractUserName1: response.data[0].username, contractUserName2: response.data[1].username });
+			}
+
+        })
+            .catch(error => {
+                // console.log(error);
+                this.setState({ errorMsgUser: " " + error })
+            })
+    }
+
+    getUsers(){
+        axios.get('http://localhost:8080/user', { params: { companyId: this.state.companyId } })
+        .then(response => {
+            console.log(response);
+           
+            if (response.data.length == 0) {
+                this.setState({ errorMsgUser: 'Keine CompanyUser Daten erhalten' })
+            }
+            else{
+                this.setState({ users: response.data });
+                this.setState({ errorMsgUser: '' })
+
+            }
+
+        })
+            .catch(error => {
+                // console.log(error);
+                this.setState({ errorMsgUser: " " + error })
+            })
     }
     getFeatures() {
         axios.get('http://localhost:8080/feature', { params: { ctrId: this.state.id } })
         .then(response => {
             console.log(response);
             this.setState({ features: response.data });
-            if (response.data.length === 0) {
+            if (response.data.length == 0) {
                 this.setState({ errorMsgFe: 'Keine Feature Daten erhalten' })
             }
 
@@ -113,40 +178,6 @@ class EditContract extends React.Component {
                 this.setState({ errorMsgFe: " " + error })
             })
     }
-    getContractUsers(){
-        axios.get('http://localhost:8080/user', { params: { ctrIdU: this.state.id } })
-        .then(response => {
-            console.log(response);
-            this.setState({ contractUsers: response.data });
-		console.log(this.state.contractUsers);
-            if (response.data.length === 0) {
-                this.setState({ errorMsgUser: 'Keine ContractUser Daten erhalten' })
-            }
-
-        })
-            .catch(error => {
-                // console.log(error);
-                this.setState({ errorMsgUser: " " + error })
-            })
-	console.log(this.state.contractUsers);
-    }
-
-    getUsers(){
-        axios.get('http://localhost:8080/user', { params: { companyId: this.state.companyId } })
-        .then(response => {
-            console.log(response);
-            this.setState({ users: response.data });
-            if (response.data.length === 0) {
-                this.setState({ errorMsgUser: 'Keine CompanyUser Daten erhalten' })
-            }
-
-        })
-            .catch(error => {
-                // console.log(error);
-                this.setState({ errorMsgUser: " " + error })
-            })
-    }
-   
   
     render() {
         //Daten holen Obacht !!
@@ -155,37 +186,37 @@ class EditContract extends React.Component {
             <div>
                 <form onSubmit={this.handleSubmit} key="Contract" >
                     <div >
-                    <legend>Edit Contract from Company:</legend>
+                    <legend>Edit Contract from Company:{companyName}</legend>
                         <div className="container"  >
-                        <h1 className="title">{companyName}</h1>
+                        <h1 className="title">Edit Contract</h1>
 
 
                         <div className=" form-row ">
                             <div className="form-group col-12 col-sm-6 ">
                             <label>StartDate</label>
-                            <input type="ate" className="form-control" name="startDate" value={startDate} onChange={this.Changehandler}></input>
+                            <input type="Date" className="form-control1" name="startDate" value={startDate} onChange={this.Changehandler}></input>
                             </div>
-                            <div className="col-12 col-sm-6">
+                            <div className="form-group col-12 col-sm-6">
                             <label> EndDate </label>
-                            <input type="Date" className="form-control" name="endDate" value={endDate} onChange={this.Changehandler}></input>
+                            <input type="Date" className="form-control1" name="endDate" value={endDate} onChange={this.Changehandler}></input>
                         </div>
                         </div>
                         <div className=" form-row ">
                             <div className="form-group col-12 col-sm-6">
                             <label> Company </label>
-                                <input type="text" className="form-control" name="name" value={companyName} readOnly></input>
+                                <input type="text" className="form-control1" name="name" value={companyName} readOnly></input>
                             </div>
                             <div className="form-group col-12 col-sm-6 ">
                             <label>Version</label>
-                                <input type="text" className="form-control" name="version" value={version} onChange={this.Changehandler}></input>
+                                <input type="text" className="form-control1" name="version" value={version} onChange={this.Changehandler}></input>
                             </div>
                         </div>
                         <div className=" form-row ">
                             <div className="form-group col-12 col-sm-6">
                             <label> Responsible </label>
-                            <select name="person1" className="custom-select" id="inputGroupSelect02"onChange={this.Changehandler}>
-                            {
-				                  <option>Bitte wählen</option>
+                            <select name="person1" className="custom-selected" id="inputGroupSelect02"onChange={this.Changehandler}>
+                                {
+				                  <option>{this.state.contractUserName1}</option>
 				                }		
 								{
                                 this.state.users.length ?
@@ -196,9 +227,10 @@ class EditContract extends React.Component {
                             </div>
                             <div className="form-group col-12 col-sm-6">
                             <label> Responsible </label>
-                            <select name="person2" className="custom-select" id="inputGroupSelect01"onChange={this.Changehandler}>  
-				                {
-				                  <option>Bitte wählen</option>
+                            <select name="person2" className="custom-selected" id="inputGroupSelect01"onChange={this.Changehandler}>  
+                                {
+                                   
+				                  <option>{this.state.contractUserName2}</option>
 				                }                         
                                 {
                                 this.state.users.length ?
@@ -211,16 +243,16 @@ class EditContract extends React.Component {
 
 
                         <div className=" form-row ">
-                        <div className=" col-12 col-sm-12">
+                        <div className=" form-group col-12 col-sm-12">
                             <label> licenskey </label>
-                            <textarea className="form-control col-12" rows="5" value={licenskey} readOnly></textarea>
+                            <textarea className="form-control1 col-12" rows="5" value={licenskey} readOnly></textarea>
                         </div>
                         </div>
                         </div>
                         </div>
                         <div className="mt-4 text-center">
-                    <button type="submit" class="btn btn-primary btn-lg">Edit Contract</button>
-               </div>
+                 	  		<button type="submit" class="btn-primary1">Update Contract</button>
+              			</div>
                  </form>
 
 
@@ -240,11 +272,11 @@ class EditContract extends React.Component {
                     </div>
                     <div className=" form-row ">
                         <div className=" col-12 col-sm-2">
-                        <input type="text" name="ipNumber" className="form-control " value={this.state.ipNumber} onChange={this.Changehandler}></input>
+                        <input type="text" name="ipNumber" className="form-control1 " value={this.state.ipNumber} onChange={this.Changehandler}></input>
                         </div>
 
                         <div class="btn-group col-12 col-sm-2 ">
-                        <button type="submit" className="btn btn-secondary btn-lg" value="addIp">addIp</button>
+                        <button type="submit" className="btn-secondary1 " value="addIp">addIp</button>
                 		{/* <input type="submit" value="addIp" /> */}
                         </div>
 					</div>
@@ -267,17 +299,17 @@ class EditContract extends React.Component {
                     </div>
                     <div className=" form-row ">
                         <div className=" col-12 col-sm-2">
-                        <input type="text" name="feature" className="form-control" value={this.state.feature} onChange={this.Changehandler}></input>
+                        <input type="text" name="feature" className="form-control1" value={this.state.feature} onChange={this.Changehandler}></input>
                         </div>
 
                         <div class="btn-group col-12 col-sm-2 ">
-                        <button type="submit" class="btn btn-secondary btn-lg" value="addIp">addFeature</button>
+                        <button type="submit" class="btn-secondary1" value="addIp">addFeature</button>
                 		{/* <input type="submit" value="addIp" /> */}
                         </div>
                     
 					</div>
                     </div>   
-            </form>     
+            </form>      
                </div>
         );
     }

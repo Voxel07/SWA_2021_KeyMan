@@ -54,7 +54,7 @@ export default class Phone extends Component {
                 
                     <div className=" col-12 col-sm-2 ">
                         <label>Number</label>
-                        <input type="number" name="phone" className="form-control1" value={this.state.number} onChange={this.changehandler}></input>
+                        <input type="number" name="number" className="form-control1" value={this.state.number} onChange={this.changehandler}></input>
                     </div>
 
                     <div className=" col-12 col-sm-2 ">
