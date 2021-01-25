@@ -21,19 +21,22 @@ class Company extends React.Component {
             country: this.props.company.country,
             modalIsOpen: false, modalShow: "Edit"
         };
+
+        this.deleteCompany = this.deleteCompany.bind(this);
     }
 
     deleteCompany() {
-        this.props.parentCallback("DELETE",this.state.id);
-        // axios.delete("http://localhost:8080/company", { data: this.state })
-        //     .then(response => {
-        //         console.log(response);
-        //         this.props.parentCallback("DELETE",this.state.id);
-        //     })
-        //     .catch(error => {
-        //         console.log(error);
+        this.props.parentCallback("DELETE",this.state);
+        // this.props.parentCallback("DELETE",val);
+        axios.delete("http://localhost:8080/company", { data: this.state })
+            .then(response => {
+                console.log(response);
+                this.props.parentCallback("DELETE",this.state);
+            })
+            .catch(error => {
+                console.log(error);
 
-        //     })
+            })
     }
     handleCallBack = (changendCompany)=>{
         console.log("CompanyJS Handle Callback: ");

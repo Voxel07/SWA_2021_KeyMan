@@ -61,10 +61,10 @@ export class BarComponent extends React.Component {
         });
     }
     
-    handleCB = (val1, val2) =>{
-        console.log("bar Handle Callback: ");
-        console.log(val1,val2);
-        this.props.callBackHomepage(val1,val2);
+    handleCB = (newDataStatus) =>{
+        // console.log("bar Handle Callback: ");
+        // console.log(newDataStatus);
+        this.props.callBackHomepage(newDataStatus);
     }
 
     createModal(){

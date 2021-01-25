@@ -6,9 +6,19 @@ import UsersPage from '../Users/user.page';
 
 class TableComponent extends React.Component {
 
+  constructor(props) {
+    super(props)
+  }
+
+  // handleCallback=(elmWasupdated)=>{
+  //   console.log("elmWasupdated "+elmWasupdated)
+  //   this.props.cbToHP(elmWasupdated)
+  // }
+  
+
     createTable() {
         if (this.props.table === "Companys") {
-            return(<CompanysPage newCompany={this.props.newItem}/>)
+            return(<CompanysPage newCompany={this.props.newItem} /*cbToTable={this.handleCallback}*//>)
         } else if (this.props.table === "Contracts") {
             return(<ContractsPage newContract={this.props.newItem}/>)
         } else {
@@ -17,8 +27,8 @@ class TableComponent extends React.Component {
     }
   
     render(){
-      console.log("Table new Item: ");
-      console.log( this.props.newItem);
+      // console.log("Table new Item: ");
+      // console.log( this.props.newItem);
       return(
         <table>
           {this.createTable()}

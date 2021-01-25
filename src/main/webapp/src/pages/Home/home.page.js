@@ -9,7 +9,7 @@ class HomePage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {table: "Companys",
-        Item:''
+        Status:''
         };
         this.onClickCompanys = this.onClickCompanys.bind(this);
         this.onClickContracts = this.onClickContracts.bind(this);
@@ -31,11 +31,15 @@ class HomePage extends React.Component {
             table: "Users"
         });
     }
-    callBackHomepage=(item,changed)=>{
-        console.log("Home Handle Callback: ");
-        console.log(item,changed);
-        this.setState({Item:item});
+    callBackHomepage=(stauts)=>{
+        // console.log("Home Handle Callback: ");
+        // console.log(stauts);
+        this.setState({Stauts:stauts});
     }
+    // callbackFromTable=(isUpdated)=>{
+    //     console.log("Home callbackFromTable ");
+    //     console.log(isUpdated);
+    // }
 
 
 
@@ -61,7 +65,7 @@ class HomePage extends React.Component {
                     </div>
                     
                     <div id="table">
-                        <Table table={this.state.table} newItem={this.state.Item} />
+                        <Table table={this.state.table} newItem={this.state.Stauts} cbToHP={this.callbackFromTable} />
                     </div>
                 </div>
                 </div>
