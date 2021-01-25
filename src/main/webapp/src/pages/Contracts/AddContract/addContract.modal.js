@@ -170,16 +170,16 @@ class AddContract extends React.Component {
                   <label>StartDate</label>
                   <input
                     placeholder="Name"
-                    class="form-control"
+                    class="form-control1"
                     name="startDate"
                     type="date"
                     value={startDate} onChange={this.Changehandler} />
                 </div>
-                <div className="col-12 col-sm-6">
+                <div className="form-group col-12 col-sm-6">
                   <label> EndDate </label>
                   <input
                     placeholder="EndDate"
-                    class="form-control"
+                    class="form-control1"
                     name="endDate"
                     type="date"
                     value={endDate} onChange={this.Changehandler} />
@@ -189,7 +189,7 @@ class AddContract extends React.Component {
               <div className=" form-row ">
                 <div className="form-group col-6 col-sm-6">
                   <label> Company </label>
-                  <select name="companyId" class="custom-select" id="inputGroupSelect01" onChange={this.Changehandler}>
+                  <select name="companyId" class="custom-selected" id="inputGroupSelect01" onChange={this.Changehandler}>
                   {
                      <option >Firma wählen</option>
                    }
@@ -204,7 +204,7 @@ class AddContract extends React.Component {
                   <label>Version</label>
                   <input
                     placeholder="Version"
-                    class="form-control"
+                    class="form-control1"
                     name="version"
                     type="number"
                     value={version} onChange={this.Changehandler}
@@ -212,7 +212,7 @@ class AddContract extends React.Component {
                 </div>
                 <div className="form-group col-12 col-sm-6">
                   <label> Responsible </label>
-                  <select name="person1" class="custom-select" id="inputGroupSelect02"onChange={this.Changehandler}>
+                  <select name="person1" class="custom-selected" id="inputGroupSelect02"onChange={this.Changehandler}>
                   {
                      <option >User wählen</option>
                    }
@@ -225,7 +225,7 @@ class AddContract extends React.Component {
                 </div>
                 <div className="form-group col-6 col-sm-6">
                   <label> Responsible </label>
-                  <select name="person2" class="custom-select" id="inputGroupSelect03"onChange={this.Changehandler}>
+                  <select name="person2" class="custom-selected" id="inputGroupSelect03"onChange={this.Changehandler}>
                   {
                      <option >User wählen</option>
                    }
@@ -244,7 +244,7 @@ class AddContract extends React.Component {
                   <label>Ip Number</label>
                   <input
                     placeholder="Ip Number"
-                    class="form-control"
+                    class="form-control1"
                     name="ip1"
                     type="number"
                     value={ip1} onChange={this.Changehandler} 
@@ -254,7 +254,7 @@ class AddContract extends React.Component {
                   <label> Feature A </label>
                   <input
                     placeholder="Feature A"
-                    class="form-control"
+                    class="form-control1"
                     name="feature1"
                     type="text"
                   value={feature1} onChange={this.Changehandler} 
@@ -266,7 +266,7 @@ class AddContract extends React.Component {
                   <label>Ip Number</label>
                   <input
                     placeholder="Ip Number"
-                    class="form-control"
+                    class="form-control1"
                     name="ip2"
                     type="number"
                     value={ip2} onChange={this.Changehandler} 
@@ -276,7 +276,7 @@ class AddContract extends React.Component {
                   <label> Feature B </label>
                   <input
                     placeholder="Feature B"
-                    class="form-control"
+                    class="form-control1"
                     name="feature2"
                     type="text"
                   value={feature2} onChange={this.Changehandler} 
@@ -288,7 +288,7 @@ class AddContract extends React.Component {
                   <label>Ip Number</label>
                   <input
                     placeholder="Ip Number"
-                    class="form-control"
+                    class="form-control1"
                     name="ip3"
                     type="number"
                     value={ip3} onChange={this.Changehandler} 
@@ -298,7 +298,7 @@ class AddContract extends React.Component {
                   <label> Feature C </label>
                   <input
                     placeholder="Feature C"
-                    class="form-control"
+                    class="form-control1"
                     name="feature3"
                     type="text"
                   value={feature3} onChange={this.Changehandler} 
@@ -307,7 +307,7 @@ class AddContract extends React.Component {
               </div>
             </div>
             <div class="mt-4 text-center">
-              <button type="submit" class="btn btn-primary btn-lg" >Add</button>
+              <button type="submit" class=" btn-primary1" >Add</button>
             </div>
           </div>
         </form>

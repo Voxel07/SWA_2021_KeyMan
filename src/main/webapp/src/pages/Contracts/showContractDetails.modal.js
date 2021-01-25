@@ -91,34 +91,34 @@ export default class showDetails extends Component {
                         <div className=" form-row ">
                             <div className="form-group col-12 col-sm-6 ">
                             <label>StartDate</label>
-                            <input type="date" className="form-control" name="startDate" value={startDate} readOnly ></input>
+                            <input type="date" className="form-control1" name="startDate" value={startDate} readOnly ></input>
                             </div>
-                            <div className="col-12 col-sm-6">
+                            <div className="form-group col-12 col-sm-6">
                             <label> EndDate </label>
-                            <input type="Date" className="form-control" name="endDate" value={endDate} readOnly ></input>
+                            <input type="Date" className="form-control1" name="endDate" value={endDate} readOnly ></input>
                         </div>
                         </div>
                         <div className=" form-row ">
                             <div className="form-group col-12 col-sm-6">
                             <label> Company </label>
-                                <input type="text" className="form-control" name="name" value={companyName} readOnly></input>
+                                <input type="text" className="form-control1" name="name" value={companyName} readOnly></input>
                             </div>
                             <div className="form-group col-12 col-sm-6 ">
                             <label>Version</label>
-                                <input type="text" className="form-control" name="version" value={version} readOnly ></input>
+                                <input type="text" className="form-control1" name="version" value={version} readOnly ></input>
                             </div>
                         </div>
                         <div className=" form-row ">
                             {
                               this.state.users.length ? 
-                              this.state.users.map( user =><div className="form-group col-12 col-sm-6 "><label> Responsible </label> <input  className="form-control"  type="text" value={user.username} readOnly></input></div>) 
+                              this.state.users.map( user =><div className="form-group col-12 col-sm-6 "><label> Responsible </label> <input  className="form-control1"  type="text" value={user.username} readOnly></input></div>) 
                               : null
                             }
                         </div> 
                         <div className=" form-row ">
                         <div className=" col-12 col-sm-12">
                             <label> licenskey </label>
-                            <textarea className="form-control col-12" rows="5" value={licenskey} readOnly></textarea>
+                            <textarea className="form-control1 col-12" rows="5" value={licenskey} readOnly></textarea>
                         </div>
                         </div>
                         </div>
@@ -137,7 +137,7 @@ export default class showDetails extends Component {
                               this.state.ips.length ? 
                               this.state.ips.map( ip =><div className="form-group col-12 col-sm-4">
                                   <label> Ip </label>
-                                   <input  className="form-control" type="text" value={ip.ipNumber} readOnly></input>
+                                   <input  className="form-control1" type="text" value={ip.ipNumber} readOnly></input>
                                    </div>) 
                               : null
                             }
@@ -155,7 +155,7 @@ export default class showDetails extends Component {
                               this.state.features.length ? 
                               this.state.features.map( feature =><div className="form-group col-12 col-sm-4">
                                   <label> Feature </label>
-                                   <input  className="form-control" type="text" value={feature.number} readOnly></input>
+                                   <input  className="form-control1" type="text" value={feature.number} readOnly></input>
                                    </div>) 
                               : null
                             }

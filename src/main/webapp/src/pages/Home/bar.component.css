@@ -5,6 +5,7 @@
     margin-top: 2px;
     border-width: 1px;
     border-style: solid;
+    border-top: black;
     border-color: black;
 }
 
@@ -37,3 +38,41 @@
     color:white;
     font-weight: bold;
 }
+.form-control2{
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    background-color: #e9ecef;
+}
+/* #bar {
+    display: flex;
+    align-items: center;
+    margin-left: 2px;
+    margin-top: 2px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+}
+
+#rightPart{
+	align-items: center;
+}
+#icon {
+    width: 27px;
+    height: 27px;
+}
+.Close{
+    font-size: 2rem;
+    color:red;
+
+
+} */

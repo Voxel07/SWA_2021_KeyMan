@@ -9,29 +9,74 @@
 }
 
 #menu {
-    margin-left: 0px;
+    margin-left: 0px; 
     border-width: 1px;
     border-style: solid;
-    border-color: black;
+    border: 5px solid grey;
+    border-right: white ;
     width: 175px; 
     height: 900px;
-    /* background: #0D1117; 125*/
+    background: #0D1117; 
     text-align: center;
     background: white;
+    
+    
 }
 
 #table {
     flex: 1;
+    
     border-width: 1px;
     border-style: solid;
     border-color: black;
     background: white;
+    border: 5px solid grey;
+    
     
 }
 .fontctr{
-    font-size: 30px;
+    font-size: 25px;
     font-weight: bold;
 }
-body{
-    background: #0D1117;
+
+
+/* #AddField{
+	align-items: center;
+	background: rgb(192, 192, 192);
+	border: 3px solid #31A8FF;
+	text-align: center;
+	border-radius: 10px;
+	margin:5px;
+	font-size: 25px;
 }
+
+#menuButton {
+    padding-top: 20px;
+    padding-inline: 10px;
+    padding-bottom: 20px;
+}
+
+/* #parent {
+	
+	margin-top: 5px;
+    display: flex;
+
+} */
+
+/* #menu{
+    margin-left: 0px;
+    width: 125px;
+    background: #001E36;
+    text-align: center;
+	border-radius: 10px;
+	border: 5px solid #31A8FF;
+}  */
+
+/* #table {
+    flex: 1;
+	background: #F5F5F5;
+	margin-left: 5px;
+	border-radius: 10px;
+    border: 5px solid #31A8FF;
+} */
+

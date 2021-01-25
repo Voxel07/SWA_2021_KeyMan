@@ -51,15 +51,15 @@ export default class Feature extends Component {
                  
                     <div className=" form-row ">
                         <div className=" col-12 col-sm-2 my-2 p-2">
-                        <input type="number" name="Feature" className="form-control"value={this.state.number} onChange={this.changehandler}></input>
+                        <input type="text" name="Feature" className="form-control1"value={this.state.number} onChange={this.changehandler}></input>
                         </div>
                       
                         
                         
-                        <div class="btn-group col-12 col-sm-2 my-2 p-2">
-                        <button className="btn btn-danger" onClick={this.deleteFeature}>Feature Löschen</button>
+                        <div class="btn-group col-12 col-sm-8 my-2 p-2">
+                        <button className=" btn-danger1" onClick={this.deleteFeature}>Feature Löschen</button>
                                                
-                        <button className="btn btn-dark" onClick={this.handleFeature}>Feature ändern</button>
+                        <button className=" btn-dark1" onClick={this.handleFeature}>Feature ändern</button>
                          </div>  
                          </div>  
                        

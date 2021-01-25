@@ -11,7 +11,7 @@ export default class showDetails extends Component {
         password: this.props.user.password ,
         firstName: this.props.user.firstName ,
         lastName: this.props.user.lastName ,
-        isAdmin: this.props.user.isAdmin ,
+        admin: this.props.user.admin ,
         companyId: this.props.companyId,
         companyName: this.props.companyName, 
         companys:[],
@@ -105,7 +105,7 @@ export default class showDetails extends Component {
     }
     
     render() {
-        const { id, username, firstName,lastName,password,email, isAdmin,phone1,type1,phone2,type2,companyName} = this.state
+        const { id, username, firstName,lastName,password,email, admin,phone1,type1,phone2,type2,companyName} = this.state
         return (
             <div>
             <legend>User Details:</legend>
@@ -116,7 +116,7 @@ export default class showDetails extends Component {
               <div className=" form-row ">
               <div className="form-group col-6 col-sm-6 my-2 p-2"> 
                 <label> Company </label>
-                <input name="companyId" className="form-control" id="inputGroupSelect01"
+                <input name="companyId" className="form-control1" id="inputGroupSelect01"
                  value={companyName} readOnly 
                  >
                 </input>
@@ -125,7 +125,7 @@ export default class showDetails extends Component {
                 <label> Email </label>
                 <input
                   placeholder="Email"
-                  className="form-control"
+                  className="form-control1"
                   name="email"
                   type="text"
                   value={email} readOnly
@@ -138,7 +138,7 @@ export default class showDetails extends Component {
                 <label>First Name</label>
                 <input
                   placeholder="Department"
-                  className="form-control "
+                  className="form-control1 "
                   name="department"
                   type="text"
                   value={firstName} readOnly
@@ -149,7 +149,7 @@ export default class showDetails extends Component {
                 <label> Last Name </label>
                 <input
                   placeholder="Street"
-                  className="form-control"
+                  className="form-control1"
                   name="street"
                   type="text"
                   value={lastName} readOnly
@@ -162,7 +162,7 @@ export default class showDetails extends Component {
                 <label> Username </label>
                 <input
                   placeholder="Username"
-                  className="form-control"
+                  className="form-control1"
                   name="username"
                   type="text"
                   value={username} readOnly
@@ -172,7 +172,7 @@ export default class showDetails extends Component {
                 <label> Password </label>
                 <input
                   placeholder="Password"
-                  className="form-control"
+                  className="form-control1"
                   name="password"
                   type="password"
                   value={password} readOnly
@@ -185,7 +185,7 @@ export default class showDetails extends Component {
                 <label> Number1 </label>
                 <input
                   placeholder="Number"
-                  className="form-control"
+                  className="form-control1"
                   name="phone1"
                   type="number"
                   value={phone1} readOnly
@@ -195,7 +195,7 @@ export default class showDetails extends Component {
                 <label> Type1 </label>
                 <input
                   placeholder="Type"
-                  className="form-control"
+                  className="form-control1"
                   name="type1"
                   type="text"
                   value={type1} readOnly
@@ -207,7 +207,7 @@ export default class showDetails extends Component {
                 <label> Number2 </label>
                 <input
                   placeholder="Number"
-                  className="form-control"
+                  className="form-control1"
                   name="phone2"
                   type="number"
                   value={phone2} readOnly
@@ -217,7 +217,7 @@ export default class showDetails extends Component {
                 <label> Type2 </label>
                 <input
                   placeholder="Type2"
-                  className="form-control"
+                  className="form-control1"
                   name="type2"
                   type="text"
                   value={type2} readOnly
@@ -225,12 +225,12 @@ export default class showDetails extends Component {
               </div>
             </div>
             <div className=" col-12 col-sm-6 my-2 p-2">
-              <label> isAdmin </label>
+              <label> admin </label>
               <input
-                name="isAdmin"
-                className="form-control"
+                name="admin"
+                className="form-control1"
                 type="checkbox"
-                value={isAdmin} readOnly
+                value={admin} readOnly
                 />
             </div>
           </div>       

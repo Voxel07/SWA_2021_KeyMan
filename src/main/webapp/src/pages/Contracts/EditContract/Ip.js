@@ -50,14 +50,14 @@ export default class Ip extends Component {
             <div key={this.state.id}>
                  <div className=" form-row ">
                         <div className=" col-12 col-sm-2 my-2 p-2">
-                        <input type="text" name="ipNumber" className="form-control" value={this.state.ipNumber} onChange={this.changehandler}></input>
+                        <input type="text" name="ipNumber" className="form-control1" value={this.state.ipNumber} onChange={this.changehandler}></input>
                         </div>
                         
-                        <div class="btn-group col-12 col-sm-2 my-2 p-2">
-                        <button className="btn btn-danger" onClick={this.deleteIp}>Ip Löschen</button>
+                        <div class="btn-group col-12 col-sm-4 my-2 p-2">
+                        <button className=" btn-danger1" onClick={this.deleteIp}>Ip Löschen</button>
                        
                        
-                        <button className="btn btn-dark" onClick={this.handleIp}>Ip ändern</button>
+                        <button className=" btn-dark1" onClick={this.handleIp}>Ip ändern</button>
                         </div>
                         </div>
                        

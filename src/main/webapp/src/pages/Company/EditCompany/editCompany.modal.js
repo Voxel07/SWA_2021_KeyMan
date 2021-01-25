@@ -20,17 +20,16 @@ class EditCompany extends React.Component {
     handleSubmit = event => {
         
         event.preventDefault();
-        this.props.CallbackToCompanyJS(this.state);
+        // this.props.CallbackToCompanyJS(this.state);
 
-        // axios.post('http://localhost:8080/company', this.state)
-        //     .then(response => {
-        //         console.log(response)
-        //         this.props.CallbackToCompanyJS(this.state);
-        //     })
-        //     .catch(error => {
-        //         console.log(error)
-        //     })
-    }
+        axios.post('http://localhost:8080/company', this.state)
+            .then(response => {
+                console.log(response)
+                this.props.CallbackToCompanyJS(this.state);
+            })
+            .catch(error => {
+                console.log(error)
+            })
 
     render() {
         const { name, department, street, postalcode, state, country } = this.state;
@@ -44,38 +43,38 @@ class EditCompany extends React.Component {
                             <div className=" form-row ">
                                 <div className="form-group col-12 col-sm-6 my-2 p-2 ">
                                     <label> Name</label>
-                                    <input type="text" className="form-control" name="name" value={name} onChange={this.Changehandler}></input>
+                                    <input type="text" className="form-control1" name="name" value={name} onChange={this.Changehandler}></input>
                                 </div>
-                                <div className=" col-12 col-sm-6 my-2 p-2">
+                                <div className="form-group col-12 col-sm-6 my-2 p-2">
                                     <label> Department </label>
-                                    <input type="text" className="form-control" name="department" value={department} onChange={this.Changehandler}></input>
+                                    <input type="text" className="form-control1" name="department" value={department} onChange={this.Changehandler}></input>
                                 </div>
                             </div>
                             <div className=" form-row ">
-                                <div className=" col-12 col-sm-6 my-2 p-2">
+                                <div className="form-group col-12 col-sm-6 my-2 p-2">
                                     <label> Street </label>
-                                    <input type="text" className="form-control" name="street" value={street} onChange={this.Changehandler}></input>
+                                    <input type="text" className="form-control1" name="street" value={street} onChange={this.Changehandler}></input>
 
                                 </div>
-                                <div className=" col-12 col-sm-6 my-2 p-2">
+                                <div className=" form-group col-12 col-sm-6 my-2 p-2">
                                     <label> postalcode </label>
-                                    <input type="number" className="form-control" name="postalcode" value={postalcode} onChange={this.Changehandler}></input>
+                                    <input type="number" className="form-control1" name="postalcode" value={postalcode} onChange={this.Changehandler}></input>
                                 </div>
                             </div>
                             <div className=" form-row ">
-                                <div className=" col-12 col-sm-6 my-2 p-2">
+                                <div className="form-group col-12 col-sm-6 my-2 p-2">
                                     <label> state </label>
-                                    <input type="text" className="form-control" name="state" value={state} onChange={this.Changehandler}></input>
+                                    <input type="text" className="form-control1" name="state" value={state} onChange={this.Changehandler}></input>
                                 </div>
-                                <div className=" col-12 col-sm-6 my-2 p-2">
+                                <div className="form-group col-12 col-sm-6 my-2 p-2">
                                     <label> country </label>
-                                    <input type="text" className="form-control" name="country" value={country} onChange={this.Changehandler}></input>
+                                    <input type="text" className="form-control1" name="country" value={country} onChange={this.Changehandler}></input>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="mt-4 text-center">
-                        <button type="submit" class="btn btn-primary btn-lg">Edit</button>
+                        <button type="submit" class=" btn-primary1 ">Edit</button>
                     </div>
                 </form>
 

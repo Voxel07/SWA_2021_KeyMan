@@ -11,7 +11,7 @@ class AddUser extends React.Component {
       password: '',
       firstName: '',
       lastName: '',
-      isAdmin: '',
+      admin: '',
       companys: [],
       errorMsgCompanys: '',
       phone1: '',
@@ -37,7 +37,7 @@ class AddUser extends React.Component {
     password: '',
     firstName: '',
     lastName: '',
-    isAdmin: '',
+    admin: '',
     companys: [],
     errorMsgCompanys: '',
     phone1: '',
@@ -106,7 +106,7 @@ class AddUser extends React.Component {
   }
 
   render() {
-    const {username, firstName,lastName,password,email, isAdmin,phone1,type1,phone2,type2} = this.state
+    const {username, firstName,lastName,password,email, admin,phone1,type1,phone2,type2} = this.state
     return (
       <form onSubmit={this.handleSubmit}>
         <div>
@@ -116,7 +116,7 @@ class AddUser extends React.Component {
             <div className=" form-row ">
               <div className="form-group col-6 col-sm-6 my-2 p-2">
                 <label> Company </label>
-                <select name="companyId" class="custom-select" id="inputGroupSelect01" onChange={this.Changehandler}>
+                <select name="companyId" class="custom-selected" id="inputGroupSelect01" onChange={this.Changehandler}>
                   {
                     <option >Firma wählen</option>
                   }
@@ -127,11 +127,11 @@ class AddUser extends React.Component {
                   }
                 </select>
               </div>
-              <div className=" col-12 col-sm-6 my-2 p-2">
+              <div className="form-group col-12 col-sm-6 my-2 p-2">
                 <label> Email </label>
                 <input
                   placeholder="Email"
-                  className="form-control"
+                  className="form-control1"
                   name="email"
                   type="text"
                   value={email} onChange={this.Changehandler} />
@@ -143,37 +143,37 @@ class AddUser extends React.Component {
                 <label>First Name</label>
                 <input
                   placeholder="First Name"
-                  className="form-control "
+                  className="form-control1 "
                   name="firstName"
                   type="text"
                   value={firstName} onChange={this.Changehandler} />
               </div>
-              <div className=" col-12 col-sm-6 my-2 p-2">
+              <div className="form-group col-12 col-sm-6 my-2 p-2">
                 <label> Last Name </label>
                 <input
                   placeholder="Last Name"
-                  className="form-control"
+                  className="form-control1"
                   name="lastName"
                   type="text"
                   value={lastName} onChange={this.Changehandler} />
               </div>
             </div>
 
-            <div className=" form-row ">
+            <div className="form-group form-row ">
              <div className=" col-12 col-sm-6 my-2 p-2">
                 <label> Username </label>
                 <input
                   placeholder="Username"
-                  className="form-control"
+                  className="form-control1"
                   name="username"
                   type="text"
                   value={username} onChange={this.Changehandler} />
               </div>
-              <div className=" col-12 col-sm-6 my-2 p-2">
+              <div className=" form-group col-12 col-sm-6 my-2 p-2">
                 <label> Password </label>
                 <input
                   placeholder="Password"
-                  className="form-control"
+                  className="form-control1"
                   name="password"
                   type="password"
                   value={password} onChange={this.Changehandler} />
@@ -181,57 +181,57 @@ class AddUser extends React.Component {
             </div>
 
             <div className=" form-row ">
-              <div className=" col-12 col-sm-6 my-2 p-2">
+              <div className=" form-group col-12 col-sm-6 my-2 p-2">
                 <label> Number1 </label>
                 <input
                   placeholder="Number"
-                  className="form-control"
+                  className="form-control1"
                   name="phone1"
                   type="number"
                   value={phone1} onChange={this.Changehandler} />
               </div>
-              <div className=" col-12 col-sm-6 my-2 p-2">
+              <div className=" form-group col-12 col-sm-6 my-2 p-2">
                 <label> Type1 </label>
                 <input
                   placeholder="Type"
-                  className="form-control"
+                  className="form-control1"
                   name="type1"
                   type="text"
                   value={type1} onChange={this.Changehandler} />
               </div>
             </div>
             <div className=" form-row ">
-              <div className=" col-12 col-sm-6 my-2 p-2">
+              <div className="form-group col-12 col-sm-6 my-2 p-2">
                 <label> Number2 </label>
                 <input
                   placeholder="Number"
-                  className="form-control"
+                  className="form-control1"
                   name="phone2"
                   type="number"
                   value={phone2} onChange={this.Changehandler} />
               </div>
-              <div className=" col-12 col-sm-6 my-2 p-2">
+              <div className="form-group col-12 col-sm-6 my-2 p-2">
                 <label> Type2 </label>
                 <input
                   placeholder="Type2"
-                  className="form-control"
+                  className="form-control1"
                   name="type2"
                   type="text"
                   value={type2} onChange={this.Changehandler} />
               </div>
             </div>
-            <div className=" col-12 col-sm-6 my-2 p-2">
+            <div className=" form-group col-12 col-sm-6 my-2 p-2">
               <label> isAdmin </label>
               <input
                 name="isAdmin"
-                className="form-control"
+                className="form-control1"
                 type="checkbox"
-                value={isAdmin} onChange={this.Changehandler} />
+                value={admin} onChange={this.Changehandler} />
             </div>
           </div>
         </div>
         <div className="mt-4 text-center">
-          <button type="submit" class="btn btn-primary btn-lg">Add</button>
+          <button type="submit" class=" btn-primary1">Add</button>
         </div>
       </form>
     );
