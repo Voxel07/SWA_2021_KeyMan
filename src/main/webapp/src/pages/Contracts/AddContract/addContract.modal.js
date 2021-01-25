@@ -250,7 +250,7 @@ class AddContract extends React.Component {
                     value={ip1} onChange={this.Changehandler} 
                   />
                 </div>
-                <div className=" col-12 col-sm-1">
+                <div className=" col-12 col-sm-2">
                   <label> Feature A </label>
                   <input
                     placeholder="Feature A"
@@ -272,7 +272,7 @@ class AddContract extends React.Component {
                     value={ip2} onChange={this.Changehandler} 
                   />
                 </div>
-                <div className=" col-12 col-sm-1">
+                <div className=" col-12 col-sm-2">
                   <label> Feature B </label>
                   <input
                     placeholder="Feature B"
@@ -294,7 +294,7 @@ class AddContract extends React.Component {
                     value={ip3} onChange={this.Changehandler} 
                   />
                 </div>
-                <div className=" col-12 col-sm-1">
+                <div className=" col-12 col-sm-2">
                   <label> Feature C </label>
                   <input
                     placeholder="Feature C"

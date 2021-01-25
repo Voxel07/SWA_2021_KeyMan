@@ -1,25 +1,30 @@
 .btn-danger{
-    font-size: 15px;
+    font-size: 30px;
+    font-weight: bold;
 }
 .btn-primary{
-    font-size: 15px;
+    font-size: 30px;
+    font-weight: bold;
 }
 
 .btn-dark {
-    font-size: 15px;
+    font-size: 30px;
+    font-weight: bold;
 }
 .btn-secondary{
-    font-size: 15px;
+    font-size: 30px;
+    font-weight: bold;
 }
 .btn-light{
-    font-size: 15px;
+    font-size: 30px;
+    font-weight: bold;
 }
 .form-control{
     display: block;
     width: 100%;
     height: calc(1.5em + .75rem + 2px);
     padding: .375rem .75rem;
-    font-size: 15px;
+    font-size: 30px;
     font-weight: 400;
     line-height: 1.5;
     color: #495057;
@@ -30,7 +35,7 @@
     background-color: #e9ecef;
 }
 body{
-    background: #007bff;
+    background: #0D1117;
 }
 /* .form-inline .form-control {
     display: inline-block;
@@ -44,9 +49,13 @@ body{
     font-size: 15px;
 } */
 .custom-select{
-    font-size: 15px;
+    font-size: 30px;
     background-color: #e9ecef;
 }
 .btn-outline-light{
-    font-size: 15px;
+    font-size: 30px;
+    font-weight: bold;
+}
+.label{
+    color: white;
 }

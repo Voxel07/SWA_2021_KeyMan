@@ -13,9 +13,11 @@
     border-width: 1px;
     border-style: solid;
     border-color: black;
-    width: 125px;
-    background: #007bff;
+    width: 175px; 
+    height: 900px;
+    /* background: #0D1117; 125*/
     text-align: center;
+    background: white;
 }
 
 #table {
@@ -25,4 +27,11 @@
     border-color: black;
     background: white;
     
+}
+.fontctr{
+    font-size: 30px;
+    font-weight: bold;
+}
+body{
+    background: #0D1117;
 }

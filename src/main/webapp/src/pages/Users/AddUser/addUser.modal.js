@@ -30,6 +30,22 @@ class AddUser extends React.Component {
   componentDidMount() {
     this.getCompanys();
   }
+  ClearInput(){
+    this.setState({id: '',
+    email: '',
+    username: '',
+    password: '',
+    firstName: '',
+    lastName: '',
+    isAdmin: '',
+    companys: [],
+    errorMsgCompanys: '',
+    phone1: '',
+    type1: '',
+    phone2: '',
+    type2: '',
+    companyId: ''})
+}
 
   getCompanys() {
     axios.get('http://localhost:8080/company')
@@ -48,6 +64,7 @@ class AddUser extends React.Component {
   handleSubmit = event => {
     event.preventDefault();
     this.addUser();
+    this.ClearInput();
   }
   addUser() {
     const { username, firstName,lastName,password,email, isAdmin} = this.state

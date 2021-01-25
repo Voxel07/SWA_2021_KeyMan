@@ -150,13 +150,17 @@ export class BarComponent extends React.Component {
                 <Modal isOpen={this.state.modalIsOpen}  ariaHideApp={false}>
                     {this.createModal()}
                 </Modal>
-             <nav className="navbar navbar-expand-sm navbar-dark bg-primary">
-                <h1>{this.props.table}</h1>
+             <nav className="navbar navbar-expand-sm navbar-dark">
+                 <div
+                    className = "font1">
+                 {this.props.table}
+                 </div>
+            
     
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="nav nav-pills nav-fill">
                     <li className="nav-item" >
-                      <button className="btn btn-light btn-lg" onClick={() => this.handleAdd()}>Add</button>
+                      <button className="btn btn-light btn-lg " onClick={() => this.handleAdd()}>Add</button>
                     </li>
                   </ul>
                 
@@ -175,12 +179,12 @@ export class BarComponent extends React.Component {
                   <li className="nav-item">
                   <BoxArrowRight  id="icon1" onClick={() => this.handleLogout()}></BoxArrowRight>                 
                   </li>
-                </ul>
+                </ul>       
               </div>
               </nav> 
               </div>
               
-            
+              
         );
     }
 }
