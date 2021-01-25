@@ -32,8 +32,8 @@ class HomePage extends React.Component {
         });
     }
     callBackHomepage=(status)=>{
-        // console.log("Home Handle Callback: ");
-        // console.log(stauts);
+        console.log("Home Handle Callback: ");
+        // console.log(status);
         this.setState({Status:status});
     }
     // callbackFromTable=(isUpdated)=>{

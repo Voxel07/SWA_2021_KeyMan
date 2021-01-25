@@ -107,6 +107,10 @@ class EditUser extends React.Component {
         if (response.data.length === 0) {
           this.setState({ errorMsgPhone: 'Keine Phoes Daten erhalten' })
         }
+        else{
+          this.setState({ errorMsgPhone: '' })
+
+        }
 
       })
       .catch(error => {
@@ -114,7 +118,9 @@ class EditUser extends React.Component {
         this.setState({ errorMsgPhone: " " + error })
       })
   }
-
+  handleCallback=() =>{
+		this.getPhones();
+	}
   render() {
     const { username, firstName, lastName, password, email, admin, companyName } = this.state
     return (
@@ -208,7 +214,7 @@ class EditUser extends React.Component {
               <h1 className="title">Phone</h1>
               <div>
                 {
-                  this.state.phones.length ? this.state.phones.map(phone => <Phone phone={phone} />) : null
+                  this.state.phones.length ? this.state.phones.map(phone => <Phone phone={phone} cbToEditUser={this.handleCallback} />) : null
                 }
                 {
                   this.state.errorMsgPhone ? <div>{this.state.errorMsgPhone}</div> : null

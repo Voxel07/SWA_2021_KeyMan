@@ -26,7 +26,7 @@ export default class Phone extends Component {
         axios.delete("http://localhost:8080/phone", { data: this.state })
             .then(response => {
                 console.log(response);
-                // console.log(contract.id);
+                this.props.cbToEditUser();
             })
             .catch(error => {
                 console.log(error);
@@ -39,13 +39,14 @@ export default class Phone extends Component {
         axios.post('http://localhost:8080/phone', this.state)
             .then(response => {
                 console.log(response)
+                this.props.cbToEditUser();
             })
             .catch(error => {
                 console.log(error)
             })
     }
-
-
+   
+	
     render() {
         return (
             <div key={this.state.id}>

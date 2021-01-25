@@ -24,28 +24,35 @@ class AddUser extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   Changehandler = (event) => {
-    console.log(this.state);
-    this.setState({ [event.target.name]: event.target.value })
+    if (event.target.name === "admin") {
+      console.log('ändern');
+      this.setState({ [event.target.name]: event.target.checked })
+    }
+    else {
+      this.setState({ [event.target.name]: event.target.value })
+    }
   }
   componentDidMount() {
     this.getCompanys();
   }
-  ClearInput(){
-    this.setState({id: '',
-    email: '',
-    username: '',
-    password: '',
-    firstName: '',
-    lastName: '',
-    admin: '',
-    companys: [],
-    errorMsgCompanys: '',
-    phone1: '',
-    type1: '',
-    phone2: '',
-    type2: '',
-    companyId: ''})
-}
+  ClearInput() {
+    this.setState({
+      id: '',
+      email: '',
+      username: '',
+      password: '',
+      firstName: '',
+      lastName: '',
+      admin: '',
+      companys: [],
+      errorMsgCompanys: '',
+      phone1: '',
+      type1: '',
+      phone2: '',
+      type2: '',
+      companyId: ''
+    })
+  }
 
   getCompanys() {
     axios.get('http://localhost:8080/company')
@@ -67,16 +74,17 @@ class AddUser extends React.Component {
     this.ClearInput();
   }
   addUser() {
-    const { username, firstName,lastName,password,email, isAdmin} = this.state
+    const { username, firstName, lastName, password, email, admin } = this.state
     axios.put('http://localhost:8080/user/' + this.state.companyId,
-    { email: email,
-    username: username,
-    password: password,
-    firstName: firstName,
-    lastName: lastName,
-    isAdmin: isAdmin
-  })
-    // axios.put('http://localhost:8080/user/' + this.state.companyId, this.state) //geht eh nicht
+      {
+        email: email,
+        username: username,
+        password: password,
+        firstName: firstName,
+        lastName: lastName,
+        admin: admin
+      })
+      // axios.put('http://localhost:8080/user/' + this.state.companyId, this.state) //geht eh nicht
       .then(response => {
         console.log(response)
         this.setState({ id: response.data })
@@ -87,9 +95,9 @@ class AddUser extends React.Component {
         if (this.state.phone2 !== '' && this.state.type2 !== '') {
           this.addPhone(this.state.phone2, this.state.type2);
         }
-      this.props.cbToBar(true);
-      this.props.cbToBar(false);
-    })
+        this.props.cbToBar(true);
+        this.props.cbToBar(false);
+      })
       .catch(error => {
         console.log(error)
       })
@@ -108,11 +116,11 @@ class AddUser extends React.Component {
   }
 
   render() {
-    const {username, firstName,lastName,password,email, admin,phone1,type1,phone2,type2} = this.state
+    const { username, firstName, lastName, password, email, admin, phone1, type1, phone2, type2 } = this.state
     return (
       <form onSubmit={this.handleSubmit}>
         <div>
-        <legend>Add User: </legend>
+          <legend>Add User: </legend>
           <div className="container"  >
             <h1 className="title">{username}</h1>
             <div className=" form-row ">
@@ -162,7 +170,7 @@ class AddUser extends React.Component {
             </div>
 
             <div className="form-group form-row ">
-             <div className=" col-12 col-sm-6 my-2 p-2">
+              <div className=" col-12 col-sm-6 my-2 p-2">
                 <label> Username </label>
                 <input
                   placeholder="Username"
@@ -223,12 +231,12 @@ class AddUser extends React.Component {
               </div>
             </div>
             <div className=" form-group col-12 col-sm-6 my-2 p-2">
-              <label> isAdmin </label>
+              <label> admin </label>
               <input
-                name="isAdmin"
+                name="admin"
                 className="form-control1"
                 type="checkbox"
-                value={admin} onChange={this.Changehandler} />
+                checked={admin} onChange={this.Changehandler} />
             </div>
           </div>
         </div>

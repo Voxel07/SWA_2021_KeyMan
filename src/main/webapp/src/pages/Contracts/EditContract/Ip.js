@@ -25,7 +25,7 @@ export default class Ip extends Component {
         axios.delete("http://localhost:8080/IpNumber", { data: this.state })
             .then(response => {
                 console.log(response);
-                // console.log(contract.id);
+                this.props.cbToEditCon('Ip');
             })
             .catch(error => {
                 console.log(error);
@@ -37,7 +37,8 @@ export default class Ip extends Component {
         console.log(this.state);
         axios.post('http://localhost:8080/IpNumber', this.state)
             .then(response => {
-                console.log(response)
+                console.log(response);
+                this.props.cbToEditCon('Ip');
             })
             .catch(error => {
                 console.log(error)

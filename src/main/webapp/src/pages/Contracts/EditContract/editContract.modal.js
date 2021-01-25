@@ -88,16 +88,16 @@ class EditContract extends React.Component {
             })   
     }
     getIps() {
-        console.log("GetIp´s "+this.state.ips);
         axios.get('http://localhost:8080/IpNumber', { params: { ctrId: this.state.id } })
         .then(response => {
-            console.log(response);
-            // this.setState({ ips:  [...this.state.ips,response.data] });
-            this.setState({ ips:  response.data });
             if (response.data.length == 0) {
+                this.setState({ ips:  response.data });
                 this.setState({ errorMsgIp: 'Keine IP Daten erhalten' })
             }
-
+            else{
+                this.setState({ ips:  response.data });
+                this.setState({ errorMsgIp: '' })
+            }
         })
             .catch(error => {
                 // console.log(error);
@@ -167,16 +167,41 @@ class EditContract extends React.Component {
         axios.get('http://localhost:8080/feature', { params: { ctrId: this.state.id } })
         .then(response => {
             console.log(response);
-            this.setState({ features: response.data });
             if (response.data.length == 0) {
+                this.setState({ features: response.data });
                 this.setState({ errorMsgFe: 'Keine Feature Daten erhalten' })
             }
-
+            else{
+                this.setState({ features: response.data });
+                this.setState({ errorMsgFe: '' })
+            }
         })
             .catch(error => {
                 // console.log(error);
                 this.setState({ errorMsgFe: " " + error })
             })
+    }
+
+    handleCallback=(test,id)=>{
+        console.log(test)
+        switch (test) {
+            case 'Ip':
+                this.getIps();
+                break;
+            case 'Feature':
+                this.getFeatures();
+                break;
+        
+            default:
+                break;
+        }
+     
+    }
+    handleRemove = (company) => {
+        console.log("handleRemove");
+        console.log(company);
+        const newList = this.state.companys.filter((item) => item.id !== company.id);
+        this.setState({companys: newList})
     }
   
     render() {
@@ -240,8 +265,6 @@ class EditContract extends React.Component {
                             </select>
                             </div>
                         </div> 
-
-
                         <div className=" form-row ">
                         <div className=" form-group col-12 col-sm-12">
                             <label> licenskey </label>
@@ -264,7 +287,7 @@ class EditContract extends React.Component {
                         <h1 className="title">Ip</h1>
                     <div> 
                     {
-                        this.state.ips.length ?  this.state.ips.map( ip => <IpNumber ip={ip} />) : null
+                        this.state.ips.length ?  this.state.ips.map( ip => <IpNumber ip={ip} cbToEditCon={this.handleCallback} />) : null
                     }
                     {
                         this.state.errorMsgIp ? <div>{this.state.errorMsgIp}</div> : null
@@ -277,7 +300,6 @@ class EditContract extends React.Component {
 
                         <div class="btn-group col-12 col-sm-2 ">
                         <button type="submit" className="btn-secondary1 " value="addIp">addIp</button>
-                		{/* <input type="submit" value="addIp" /> */}
                         </div>
 					</div>
                     </div>
@@ -290,7 +312,7 @@ class EditContract extends React.Component {
                         <h1 className="title">Feature</h1>
                     <div> 
                     {
-                       this.state.features.length ? this.state.features.map(feature => <Feature feature={feature} />) : null
+                       this.state.features.length ? this.state.features.map(feature => <Feature feature={feature} cbToEditCon={this.handleCallback} />) : null
                     }
                     {
                         this.state.errorMsgFe ? <div>{this.state.errorMsgFe}</div> : null

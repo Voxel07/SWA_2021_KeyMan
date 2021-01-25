@@ -79,7 +79,7 @@ class UserPage extends React.Component {
     }
     componentDidUpdate() {
         if (this.props.newUser === true) {
-            console.log("Props are " + this.props.newUser);
+            console.log("Props update now " + this.props.newUser);
 
             this.fetchUser();
         }
