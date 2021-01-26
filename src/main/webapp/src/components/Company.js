@@ -1,7 +1,7 @@
 import React from 'react'
 import Modal from 'react-modal'
 import axios from 'axios'
-import EditCompany from '../pages/Company/EditCompany/editCompany.modal';
+import EditCompany from '../pages/Company/editCompany.modal';
 import ShowUsers from '../pages/Company/showUsers.modal'
 import ShowContracts from '../pages/Company/showContracts.modal'
 import '../css/buttons.css';

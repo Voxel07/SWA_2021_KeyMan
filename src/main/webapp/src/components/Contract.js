@@ -1,7 +1,7 @@
 import React from 'react'
 import Modal from 'react-modal'
 import axios from 'axios'
-import EditContract from '../pages/Contracts/EditContract/editContract.modal'
+import EditContract from '../pages/Contracts/editContract.modal'
 import ShowDetails from '../pages/Contracts/showContractDetails.modal'
 import UserService from '../pages/Login/user.service';
 

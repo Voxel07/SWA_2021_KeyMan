@@ -3,13 +3,13 @@ import authService from '../Login/auth.service';
 import { withRouter } from 'react-router-dom';
 import { PersonSquare, BoxArrowRight } from 'react-bootstrap-icons';
 import Modal from 'react-modal';
-import AddCompany from '../Company/AddCompany/addCompany.modal';
-import AddContract from '../Contracts/AddContract/addContract.modal';
-import AddUser from '../Users/AddUser/addUser.modal';
+import AddCompany from '../Company/addCompany.modal';
+import AddContract from '../Contracts/addContract.modal';
+import AddUser from '../Users/addUser.modal';
 
 import userService from '../Login/user.service'
 import './bar.component.css';
-import User from '../User/user.modal';
+import User from '../Users/user.modal';
 
 export class BarComponent extends React.Component {
 

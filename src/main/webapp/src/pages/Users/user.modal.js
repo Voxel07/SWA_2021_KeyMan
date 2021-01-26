@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import userService from "../Login/user.service";
-import Phone from '../Users/EditUser/Phone';
+import Phone from './Phone';
 class User extends React.Component {
     constructor(props) {
         super(props);

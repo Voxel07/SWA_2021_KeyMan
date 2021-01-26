@@ -2,7 +2,7 @@ import React from 'react';
 import authService from "./auth.service";
 import axios from 'axios'
 import Modal from 'react-modal';
-import AddUser from '../Users/AddUser/addUser.modal';
+import AddUser from '../Users/addUser.modal';
 import userService from "./user.service";
 import './login.page.css';
 
@@ -36,7 +36,7 @@ export class LoginPage extends React.Component {
 
 	login = event => {
 		event.preventDefault();
-		axios.post('http://localhost:8080/user/login', this.state)//{ username: this.state.username, password: this.state.password})
+		axios.post('http://localhost:8080/user/login', this.state)
 			.then(response => {
 				if (response.data === true) {
 					this.setState({

@@ -1,7 +1,7 @@
 import React from 'react'
 import Modal from 'react-modal'
 import axios from 'axios'
-import EditUser from '../pages/Users/EditUser/editUser.modal'
+import EditUser from '../pages/Users/editUser.modal'
 import ShowDetails from '../pages/Users/showUserDetails.modal'
 import UserService from '../pages/Login/user.service';
 
