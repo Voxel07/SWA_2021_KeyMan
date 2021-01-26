@@ -10,7 +10,7 @@ class AddCompany extends React.Component {
       postalcode: '',
       state: '',
       country: '',
-      status: '123'
+      status: ''
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -45,7 +45,8 @@ class AddCompany extends React.Component {
       <div>
       <form onSubmit={this.handleSubmit}>
     <div>
-    <legend>Add Company:</legend>
+    <legend >Add Company: {status}
+    </legend>
     <div className="container"  >
     <h1 className="title">{name}</h1>             
       <div className=" form-row ">
@@ -111,11 +112,6 @@ class AddCompany extends React.Component {
        </div>
        </div>
        </div>
-       </div>
-       <div>
-       {
-         status
-       }
        </div>
           <div className="mt-4 text-center">
               <button type="submit" class=" btn-primary1 ">Add</button>

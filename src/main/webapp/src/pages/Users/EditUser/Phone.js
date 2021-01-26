@@ -44,11 +44,11 @@ export default class Phone extends Component {
         return (
             <div key={this.state.id}>
                 <div className=" form-row ">
-                    <div className=" col-12 col-sm-2 ">
+                    <div className=" form-group col-12 col-sm-2 ">
                         <label>Number</label>
                         <input type="number" name="number" className="form-control1" value={this.state.number} onChange={this.changehandler}></input>
                     </div>
-                    <div className=" col-12 col-sm-2 ">
+                    <div className=" form-group col-12 col-sm-2 ">
                         <label>Type</label>
                         <input type="text" name="type" className="form-control1" value={this.state.type} onChange={this.changehandler}></input>
                     </div>

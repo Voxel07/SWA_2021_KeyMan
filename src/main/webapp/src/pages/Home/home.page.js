@@ -45,15 +45,15 @@ class HomePage extends React.Component {
                 <Bar table={this.state.table} callBackHomepage={this.callBackHomepage} />
                 <div id="parent">
                     <div id="menu">
-                        <nav class=" navbar-nav ">
-                            <div id="menuButton" class="nav-link active btn-lg" href="#">
+                        <nav className=" navbar-nav ">
+                            <div id="menuButton" className="nav-link active btn-lg" href="#">
                                 <button className="fontctr btn-outline-dark col-md-12" onClick={this.onClickCompanys}>Company</button>
                             </div>
-                            <div id="menuButton" class="nav-link active btn-lg" href="#">
+                            <div id="menuButton" className="nav-link active btn-lg" href="#">
                                 <button className="fontctr btn-outline-dark col-md-12" onClick={this.onClickContracts}>Contract</button>
 
                             </div>
-                            <div id="menuButton" class="nav-link active btn-lg" href="#">
+                            <div id="menuButton" className="nav-link active btn-lg" href="#">
                                 <button className="fontctr btn-outline-dark col-md-12" onClick={this.onClickUsers}>User</button>
                             </div>
                         </nav>

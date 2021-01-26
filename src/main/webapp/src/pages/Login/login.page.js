@@ -110,7 +110,7 @@ export class LoginPage extends React.Component {
 										</div>
 									</div>
 								</div>
-								<p> Don´t have an account? <a href="#" onClick={this.handleSignUp}>Register here</a></p>
+								<p className = "logintxt"> Don´t have an account? <a href="#" onClick={this.handleSignUp}>Register here</a></p>
 							</div>
 						</div>
 					</div>

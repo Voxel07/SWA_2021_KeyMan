@@ -112,7 +112,7 @@ export default class showDetails extends Component {
                 >
                 </input>
               </div>
-              <div className=" col-12 col-sm-6 my-2 p-2">
+              <div className=" form-group  col-12 col-sm-6 my-2 p-2">
                 <label> Email </label>
                 <input
                   placeholder="Email"
@@ -135,7 +135,7 @@ export default class showDetails extends Component {
                   value={firstName} readOnly
                 />
               </div>
-              <div className=" col-12 col-sm-6 my-2 p-2">
+              <div className=" form-group  col-12 col-sm-6 my-2 p-2">
                 <label> Last Name </label>
                 <input
                   placeholder="Street"
@@ -147,7 +147,7 @@ export default class showDetails extends Component {
               </div>
             </div>
             <div className=" form-row ">
-              <div className=" col-12 col-sm-6 my-2 p-2">
+              <div className="form-group  col-12 col-sm-6 my-2 p-2">
                 <label> Username </label>
                 <input
                   placeholder="Username"
@@ -157,7 +157,7 @@ export default class showDetails extends Component {
                   value={username} readOnly
                 />
               </div>
-              <div className=" col-12 col-sm-6 my-2 p-2">
+              <div className="form-group  col-12 col-sm-6 my-2 p-2">
                 <label> Password </label>
                 <input
                   placeholder="Password"
@@ -169,7 +169,7 @@ export default class showDetails extends Component {
               </div>
             </div>
             <div className=" form-row ">
-              <div className=" col-12 col-sm-6 my-2 p-2">
+              <div className=" form-group  col-12 col-sm-6 my-2 p-2">
                 <label> Number1 </label>
                 <input
                   placeholder="Number"
@@ -179,7 +179,7 @@ export default class showDetails extends Component {
                   value={phone1} readOnly
                 />
               </div>
-              <div className=" col-12 col-sm-6 my-2 p-2">
+              <div className="form-group  col-12 col-sm-6 my-2 p-2">
                 <label> Type1 </label>
                 <input
                   placeholder="Type"
@@ -191,7 +191,7 @@ export default class showDetails extends Component {
               </div>
             </div>
             <div className=" form-row ">
-              <div className=" col-12 col-sm-6 my-2 p-2">
+              <div className="form-group  col-12 col-sm-6 my-2 p-2">
                 <label> Number2 </label>
                 <input
                   placeholder="Number"
@@ -201,7 +201,7 @@ export default class showDetails extends Component {
                   value={phone2} readOnly
                 />
               </div>
-              <div className=" col-12 col-sm-6 my-2 p-2">
+              <div className="form-group  col-12 col-sm-6 my-2 p-2">
                 <label> Type2 </label>
                 <input
                   placeholder="Type2"
@@ -212,7 +212,7 @@ export default class showDetails extends Component {
                 />
               </div>
             </div>
-            <div className=" col-12 col-sm-6 my-2 p-2">
+            <div className="form-group  col-12 col-sm-6 my-2 p-2">
               <label> admin </label>
               <input
                 name="admin"

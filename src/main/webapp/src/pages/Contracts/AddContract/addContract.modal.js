@@ -63,6 +63,7 @@ class AddContract extends React.Component {
   handleSubmit = event => {
     event.preventDefault();
     this.addContract();
+    this.ClearInput();
   }
   addContract() {
     axios.put('http://localhost:8080/contract/' + this.state.companyId,
@@ -130,15 +131,28 @@ class AddContract extends React.Component {
       .catch(error => {
       })
   }
-
-
   ClearInput() {
-    this.setState({ startDate: '' })
-    this.setState({ endDate: '' })
-    this.setState({ version: '' })
-    this.setState({ licenskey: '' })
-    this.setState({ companyId: '' })
+    this.setState({
+      startDate: '',
+      endDate: '',
+      version: '',
+      companyId: '',
+      companys: [],
+      users: [],
+      errorMsgUser: '',
+      errorMsgCompany: '',
+      person1: '',
+      person2: '',
+      ip1: '',
+      ip2: '',
+      ip3: '',
+      feature1: '',
+      feature2: '',
+      feature3: '',
+      contractId: '',
+    })
   }
+
 
   render() {
     const { startDate, endDate, ip1, ip2, ip3, feature1, feature2, feature3, version } = this.state

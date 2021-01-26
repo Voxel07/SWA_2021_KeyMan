@@ -109,7 +109,7 @@ class User extends React.Component {
                                     value={this.state.companyName} readOnly>
                                 </input>
                             </div>
-                            <div className=" col-12 col-sm-6 my-2 p-2">
+                            <div className="form-group col-12 col-sm-6 my-2 p-2">
                                 <label> Email </label>
                                 <input
                                     placeholder="Email"
@@ -130,7 +130,7 @@ class User extends React.Component {
                                     type="text"
                                     value={firstName} onChange={this.Changehandler} />
                             </div>
-                            <div className=" col-12 col-sm-6 my-2 p-2">
+                            <div className="form-group col-12 col-sm-6 my-2 p-2">
                                 <label> Last Name </label>
                                 <input
                                     placeholder="LastName"
@@ -141,7 +141,7 @@ class User extends React.Component {
                             </div>
                         </div>
                         <div className=" form-row ">
-                            <div className=" col-12 col-sm-6 my-2 p-2">
+                            <div className="form-group col-12 col-sm-6 my-2 p-2">
                                 <label> Username </label>
                                 <input
                                     placeholder="Username"
@@ -151,7 +151,7 @@ class User extends React.Component {
                                     value={username} onChange={this.Changehandler}
                                 />
                             </div>
-                            <div className=" col-12 col-sm-6 my-2 p-2">
+                            <div className="form-group col-12 col-sm-6 my-2 p-2">
                                 <label> Password </label>
                                 <input
                                     placeholder="Password"
@@ -164,7 +164,7 @@ class User extends React.Component {
                         </div>
                     </div>
                     <div className="mt-4 text-center">
-                        <button type="submit" class="btn btn-primary btn-lg">Update User</button>
+                        <button type="submit" class=" btn-primary1">Update MyUser</button>
                     </div>
                 </form>
 
@@ -182,17 +182,17 @@ class User extends React.Component {
                                 }
                             </div>
                             <div className=" form-row ">
-                                <div className=" col-12 col-sm-2 my-1 p-1">
+                                <div className=" form-group col-12 col-sm-2 my-1 p-1">
                                     <label>Number</label>
                                     <input type="number" name="number" className="form-control1 " value={this.state.number} onChange={this.Changehandler}></input>
                                 </div>
-                                <div className=" col-12 col-sm-2 my-1 p-1">
+                                <div className="form-group col-12 col-sm-2 my-1 p-1">
                                     <label>Type</label>
                                     <input type="text" name="type" className="form-control1 " value={this.state.type} onChange={this.Changehandler}></input>
                                 </div>
 
-                                <div class="col-12 col-sm-2 my-3 p-3">
-                                    <button type="submit" className=" btn btn-secondary btn-lg" value="addPhone">addPhone</button>
+                                <div class="form-group col-12 col-sm-2 my-4 p-4">
+                                    <button type="submit" className="  btn-secondary1 " value="addPhone">addPhone</button>
                                 </div>
                             </div>
                         </div>
