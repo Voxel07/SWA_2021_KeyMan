@@ -43,18 +43,18 @@ public class IpNumberOrm {
 		// else{
 		// 	return false;
 		// }
-		if(getIpNumbersByNumber(ipNumber.getIpNumber()).isEmpty()){
-			System.out.println("IpORM/updateIpNumber/wasempty");
-			return em.createQuery("UPDATE IpNumber SET number =: val1 WHERE id =: val2")
-			.setParameter("val1", ipNumber.getIpNumber())
-			.setParameter("val2", ipNumber.getId())
-			.executeUpdate()==1;
-		}
-		else{
-			System.out.println("IpORM/updateIpNumber/waseNotEmpty");
-			return false;
-		}
+    	 int test = 0;
+    	 test = em.createQuery("UPDATE IpNumber SET number =: val1 WHERE id =: val2")
+    				.setParameter("val1", ipNumber.getIpNumber())
+    				.setParameter("val2", ipNumber.getId())
+    				.executeUpdate();
+    				System.out.println(test);
+    	 if(test == 1) {
+    		 return true;
+    	 }
+    	 return false;
 	}
+   
    
 	@Transactional
     public Boolean addIp(Long contractId, IpNumber ip) {

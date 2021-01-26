@@ -82,9 +82,12 @@ public class user_t {
 				.when().get("/user");
 		response.then().statusCode(200);
 		System.out.println("UserResource/getUser/zurückImTest");
-
-		User usr = response.getBody().as(User.class);
-		Assertions.assertEquals(usrA.getLastName(), usr.getLastName());
+		
+		List<User> usr = Arrays.asList(response.getBody().as(User[].class));
+		Assertions.assertEquals( usrA.getLastName(), usr.get(0).getLastName());
+		
+//		User usr = response.getBody().as(User.class);
+//		Assertions.assertEquals(usrA.getLastName(), usr.getLastName());
 		System.out.println("Test4 Ende");
 	}
 
@@ -100,8 +103,11 @@ public class user_t {
 				.get("user");
 		response.then().statusCode(200);
 
-		User usr = response.getBody().as(User.class);
-		Assertions.assertEquals("Hans", usr.getLastName());
+		List<User> usr = Arrays.asList(response.getBody().as(User[].class));
+		Assertions.assertEquals( usrA.getLastName(), usr.get(0).getLastName());
+		
+//		User usr = response.getBody().as(User.class);
+//		Assertions.assertEquals("Hans", usr.getLastName());
 		System.out.println("Test5 Ende");
 	}
 

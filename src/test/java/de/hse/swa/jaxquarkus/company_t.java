@@ -54,7 +54,8 @@ public class company_t{
 				.body(companyA)
 					.when()
 					.put("/company");		
-					response.then().statusCode(204);
+					response.then().statusCode(200)
+					.body(is("Company hinzugefügt"));
 					
 					  response =
 								given()
@@ -72,7 +73,8 @@ public class company_t{
 				.body(companyB)
 					.when()
 					.put("/company");		
-					response.then().statusCode(204);
+		 			response.then().statusCode(200)
+		 			.body(is("Company hinzugefügt"));
 					
 					  response =
 								given()
@@ -91,7 +93,8 @@ public class company_t{
 				.body(companyC)
 					.when()
 					.put("/company");		
-					response.then().statusCode(204);
+					response.then().statusCode(200)
+		 			.body(is("Company hinzugefügt"));
 					
 					  response =
 								given()
@@ -178,7 +181,7 @@ public class company_t{
 		.body(usrC)
 		.when()
 		.put("/user/{companyId}")		
-		.then().statusCode(200).body(is("true"));
+		.then().statusCode(200).body(is("1" + companyB.getId()));
 		
 		Response response =
      	        given()     	    
@@ -199,7 +202,7 @@ public class company_t{
 		.body(usrA)
 		.when()
 		.put("/user/{companyId}")		
-		.then().statusCode(200).body(is("true"));
+		.then().statusCode(200).body(is("2" + companyB.getId()));
 		
 		response =
      	        given()     	    

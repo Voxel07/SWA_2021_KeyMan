@@ -172,8 +172,8 @@ public class ipNumber_t{
 					res.then().statusCode(200);
 					
 					List<IpNumber> IpNumber = Arrays.asList(res.getBody().as(IpNumber[].class));
-					IpA.setId(IpNumber.get(0).getId());	
-					IpA.setId(IpNumber.get(1).getId());	
+					IpB.setId(IpNumber.get(1).getId());	
+					IpC.setId(IpNumber.get(2).getId());	
 		
 
 		}

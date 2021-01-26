@@ -35,18 +35,18 @@ public class FeatureOrm {
 
     @Transactional
 	public Boolean updateFeature(Feature feature) {
-		System.out.println("FeatureORM/updateFeature");
-
-        if(getFeatureByNumber(feature.getNumber()).isEmpty()){
-
-			return em.createQuery("UPDATE Feature SET number =: val1 WHERE id =: val2")
+		System.out.println("FeatureORM/updateFeature"); 
+ int test = 0;
+ test =  em.createQuery("UPDATE Feature SET number =: val1 WHERE id =: val2")
 			.setParameter("val1", feature.getNumber())
 			.setParameter("val2", feature.getId())
-			.executeUpdate()==1;
-		}
-		else{
-			return false;
-		}
+			.executeUpdate();
+ 
+			System.out.println(test);
+ if(test == 1) {
+	 return true;
+ }
+ return false;
 	}
    
     @Transactional
