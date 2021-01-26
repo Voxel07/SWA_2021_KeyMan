@@ -16,7 +16,6 @@ export default class Feature extends Component {
     }
 
     changehandler = (event) => {
-        console.log("change");
         this.setState({ [event.target.name]: event.target.value })
     }
 

@@ -53,7 +53,6 @@ class EditContract extends React.Component {
                 console.log("state in edit: ")
                 console.log(this.state)
                 this.props.cbToCtrJs(this.state);
-                // this.ClearInput();
             })
             .catch(error => {
             })
@@ -76,6 +75,7 @@ class EditContract extends React.Component {
             .catch(error => {
             })
     }
+
     getIps() {
         axios.get('http://localhost:8080/IpNumber', { params: { ctrId: this.state.id } })
             .then(response => {
@@ -102,7 +102,23 @@ class EditContract extends React.Component {
             })
             .catch(error => {
             })
-        this.getFeatures();
+    }
+
+    getFeatures() {
+        axios.get('http://localhost:8080/feature', { params: { ctrId: this.state.id } })
+            .then(response => {
+                if (response.data.length === 0) {
+                    this.setState({ features: response.data });
+                    this.setState({ errorMsgFe: 'Keine Feature Daten erhalten' })
+                }
+                else {
+                    this.setState({ features: response.data });
+                    this.setState({ errorMsgFe: '' })
+                }
+            })
+            .catch(error => {
+                this.setState({ errorMsgFe: '' + error })
+            })
     }
 
     getContractUsers() {
@@ -140,23 +156,7 @@ class EditContract extends React.Component {
             })
     }
 
-    getFeatures() {
-        axios.get('http://localhost:8080/feature', { params: { ctrId: this.state.id } })
-            .then(response => {
-                if (response.data.length === 0) {
-                    this.setState({ features: response.data });
-                    this.setState({ errorMsgFe: 'Keine Feature Daten erhalten' })
-                }
-                else {
-                    this.setState({ features: response.data });
-                    this.setState({ errorMsgFe: '' })
-                }
-            })
-            .catch(error => {
-                this.setState({ errorMsgFe: '' + error })
-            })
-    }
-
+    
     handleCallback = (test, id) => {
         switch (test) {
             case 'Ip':

@@ -14,6 +14,7 @@ export default class Ip extends Component {
         this.changehandler = this.changehandler.bind(this);
         this.handleIp = this.handleIp.bind(this);
     }
+    
     changehandler = (event) => {
         this.setState({ [event.target.name]: event.target.value })
     }
