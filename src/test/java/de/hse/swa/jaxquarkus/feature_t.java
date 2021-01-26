@@ -42,8 +42,9 @@ public class feature_t{
 		.body(companyA)
 			.when()
 			.put("/company")
-			.then().statusCode(204);
-	
+			.then().statusCode(200)
+			.body(is("Company hinzugefügt"));
+		
 		Response response =
 				given()
 				.contentType(MediaType.APPLICATION_JSON)
@@ -63,7 +64,7 @@ public class feature_t{
 		 .body(contractA)
 		 .when()
 		 .put("contract/{companyId}")
-		 .then().statusCode(200).body(is("Contract added"));  
+		 .then().statusCode(200).body(is("" + companyA.getId()));    	
 		 
 		 Response res =
 			        given()
@@ -93,6 +94,7 @@ public class feature_t{
         		res.then().statusCode(200);
         		List<Feature> features = Arrays.asList(res.getBody().as(Feature[].class));
         		FA.setId(features.get(0).getId());
+        		System.out.println(FA.getId());
 
     }
 	// feature nicht mehr unique
@@ -114,7 +116,7 @@ public class feature_t{
 	@Test
 	@Order(3)
 	public void addFeatureToContract2(){
-
+		
 		 given()
 		 .pathParam("id", contractA.getId())
 	        .contentType(MediaType.APPLICATION_JSON)
@@ -132,7 +134,8 @@ public class feature_t{
 					
 					res.then().statusCode(200);
 					List<Feature> features = Arrays.asList(res.getBody().as(Feature[].class));
-					FB.setId(features.get(0).getId());
+					FB.setId(features.get(1).getId());
+					System.out.println(FB.getId());
 					
 		 given()
 		 .pathParam("id", contractA.getId())
@@ -151,7 +154,7 @@ public class feature_t{
 					
 					res.then().statusCode(200);
 					List<Feature> features1 = Arrays.asList(res.getBody().as(Feature[].class));
-					FC.setId(features1.get(0).getId());
+					FC.setId(features1.get(2).getId());
 		}
 	@Test
 	@Order(4)
@@ -217,25 +220,26 @@ public class feature_t{
 	@Test
 	@Order(8)
 	public void updateFeature(){
-        Feature FX = new Feature("123456789");
+      //  Feature FX = new Feature("12");
 		//FX.setId(contracts.get(2).getId());
+        FB.setNumber("12");
 		given()
 		.contentType(MediaType.APPLICATION_JSON)
-		.body(FX)
+		.body(FB)
         .when()
 		.post("feature")	
 		.then()
 		.statusCode(200).body(is("true"));	
 		
 		Response res = given()
-		.queryParam("number", FX.getNumber())
+		.queryParam("number", FB.getNumber())
         .contentType(MediaType.APPLICATION_JSON)
         .when()
 		.get("feature");	
        
 		res.then().statusCode(200);
 		List<Feature> features = Arrays.asList(res.getBody().as(Feature[].class));
-		Assertions.assertEquals( FX.getNumber(), features.get(0).getNumber());
+		Assertions.assertEquals( FB.getNumber(), features.get(0).getNumber());
 	
 	}
 

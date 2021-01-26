@@ -61,7 +61,8 @@ public class all_t{
 		.body(companyC)
 		.when()
 		.put("/company")		
-		.then().statusCode(204);
+		.then().statusCode(200)
+		.body(is("Company hinzugefügt"));
 
 		//User
 		given()
@@ -70,7 +71,7 @@ public class all_t{
 		.body(usrC)
 		.when()
 		.put("/user/{companyId}")	
-		.then().statusCode(200).body(is("true"));
+		.then().statusCode(200).body(is("" + companyC.getId()));
 
 		//Phones
 		given()
@@ -98,7 +99,7 @@ public class all_t{
 		.body(contractA)
 		.when()
 		.put("contract/{companyId}")
-		.then().statusCode(200).body(is("Contract added"));   
+		.then().statusCode(200).body(is("" + companyC.getId()));     
 
 		given()
 		.pathParam("companyId", 1l)
@@ -106,7 +107,7 @@ public class all_t{
 		.body(contractB)
 		.when()
 		.put("contract/{companyId}")
-		.then().statusCode(200).body(is("Contract added"));   
+		.then().statusCode(200).body(is("" + companyC.getId()));       
 
 		//Feature / Ip´s
 		given()

@@ -49,7 +49,8 @@ public class contract_t{
 		.body(companyA)
 			.when()
 			.put("/company")
-			.then().statusCode(204); 
+			.then().statusCode(200)
+			.body(is("Company hinzugefügt"));
 		 
 		 Response response =
 					given()
@@ -70,7 +71,7 @@ public class contract_t{
 			 .body(contractA)
 			 .when()
 			 .put("contract/{companyId}")
-			 .then().statusCode(200).body(is("Contract added")); 
+			 .then().statusCode(200).body(is("" + companyA.getId()));  
 			 
 			 Response res =
 				        given()
@@ -93,7 +94,8 @@ public class contract_t{
 		 .body(usrA)
 		 .when()
 		 .put("/user/{companyId}")		
-		 .then().statusCode(200).body(is("true"));
+		 .then().statusCode(200).body(is("" + companyA.getId()));  
+
 		
 		 Response response =
 	     	        given()     	    
@@ -129,10 +131,12 @@ public class contract_t{
         .when()
         .get("contract");
     	
+    	
 		res.then().statusCode(200);
 		List<Contract> ctr = Arrays.asList(res.getBody().as(Contract[].class));
-		Assertions.assertEquals( contractA.getLicenskey(), ctr.get(0).getLicenskey());
+		Assertions.assertEquals( contractA.getVersion(), ctr.get(0).getVersion());
 		Assertions.assertEquals( 1, ctr.size());
+		contractA.setLicenskey( ctr.get(0).getLicenskey());
 	}
 	
 	
@@ -141,7 +145,7 @@ public class contract_t{
 	public void getContractByLicenskey() {
 		Response res = 
         given()
-        .queryParam("licenskey", "1234")
+        .queryParam("licenskey", contractA.getLicenskey())
         .contentType(MediaType.APPLICATION_JSON)
         .when()
         .get("contract");
