@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import de.hse.swa.jaxquarkus.step4.model.*;
 import de.hse.swa.jaxquarkus.step4.orm.CompanyOrm;
-import de.hse.swa.jaxquarkus.step4.orm.IpNumberOrm;
-
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.response.Response;
@@ -26,19 +24,12 @@ public class ipNumber_t{
 	private static IpNumber IpC = new IpNumber("333.333.333.333");
 	private static IpNumber IpD = new IpNumber("444.444.444.444");
 
-
     private static Company companyA = new Company("Aname", "Adepartment", "Astreet", 12345, "Astate", "Acountry");
-	private static Company companyB = new Company("Bname", "Bdepartment", "Bstreet", 12345, "Bstate", "Bcountry");
-	private static Company companyC = new Company("Cname", "Cdepartment", "Cstreet", 12345, "Cstate", "Ccountry");	
 	
 	private static Contract contractA = new Contract("1.1.2020", "1.1.2021", "ver1");
-	private static Contract contractB = new Contract("2.2.2020", "2.2.2021", "ver2");
 	private static Contract contractC = new Contract("3.3.2020", "3.3.2021", "ver1");
 	
 	private static User usrA = new User("Aemail", "Ausername", "Apassword", "Afirst", "Alast", true);
-	private static User usrB = new User("Bemail", "Busername", "Bpassword", "Bfirst", "Blast",  false);	
-	private static User usrC = new User("Cemail", "Cusername", "Cpassword", "Cfirst", "Clast", true);
-		
 
 	@Inject
     CompanyOrm companyOrm;
@@ -51,7 +42,8 @@ public class ipNumber_t{
 		.body(companyA)
 			.when()
 			.put("/company")
-			.then().statusCode(204);
+			.then().statusCode(200)
+			.body(is("Company hinzugefügt"));
 	
 		Response response =
 				given()
@@ -72,7 +64,7 @@ public class ipNumber_t{
 		 .body(contractA)
 		 .when()
 		 .put("contract/{companyId}")
-		 .then().statusCode(200).body(is("Contract added"));    	
+		 .then().statusCode(200).body(is("" + companyA.getId()));    	
 		 
 		 Response res =
 			        given()
@@ -110,7 +102,7 @@ public class ipNumber_t{
 				 .body(usrA)
 				 .when()
 				 .put("/user/{companyId}");		
-				 response.then().statusCode(200).body(is("true"));
+				 response.then().statusCode(200).body(is("" + companyA.getId()));
 				 
 				  response =
 			     	        given()     	    
