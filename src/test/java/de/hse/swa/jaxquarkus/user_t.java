@@ -39,16 +39,21 @@ public class user_t {
 		response.then().statusCode(200);
 
 		List<Company> companys = Arrays.asList(response.getBody().as(Company[].class));
+		Assertions.assertEquals( 1, companys.size());
+		Assertions.assertEquals( companyA.getName(), companys.get(0).getName());
+
 		companyA.setId(companys.get(0).getId());
 
-		response = given().pathParam("companyId", companyA.getId()).contentType(MediaType.APPLICATION_JSON).body(usrA)
-				.when().put("/user/{companyId}");
-		response.then().statusCode(200).body(is("" + companyA.getId()));
+		given().pathParam("companyId", companyA.getId()).contentType(MediaType.APPLICATION_JSON).body(usrA)
+				.when().put("/user/{companyId}").then().statusCode(200);
 
 		response = given().contentType(MediaType.APPLICATION_JSON).when().get("/user");
 		response.then().statusCode(200);
 
 		List<User> usrs = Arrays.asList(response.getBody().as(User[].class));
+		Assertions.assertEquals( 1, usrs.size());
+		Assertions.assertEquals( usrA.getUsername(), usrs.get(0).getUsername());
+
 		usrA.setId(usrs.get(0).getId());
 
 	}
@@ -86,8 +91,6 @@ public class user_t {
 		List<User> usr = Arrays.asList(response.getBody().as(User[].class));
 		Assertions.assertEquals( usrA.getLastName(), usr.get(0).getLastName());
 		
-//		User usr = response.getBody().as(User.class);
-//		Assertions.assertEquals(usrA.getLastName(), usr.getLastName());
 		System.out.println("Test4 Ende");
 	}
 
@@ -106,8 +109,6 @@ public class user_t {
 		List<User> usr = Arrays.asList(response.getBody().as(User[].class));
 		Assertions.assertEquals( usrA.getLastName(), usr.get(0).getLastName());
 		
-//		User usr = response.getBody().as(User.class);
-//		Assertions.assertEquals("Hans", usr.getLastName());
 		System.out.println("Test5 Ende");
 	}
 
@@ -117,7 +118,6 @@ public class user_t {
 
 		Phone phoneA = new Phone("Anumber", "Atype");
 		Phone phoneB = new Phone("Bnumber", "Btype");
-		// usrA.setId(5l);
 
 		given().pathParam("id", usrA.getId()).contentType(MediaType.APPLICATION_JSON).body(phoneA).when()
 				.put("/phone/{id}").then().statusCode(200).body(is("true"));
