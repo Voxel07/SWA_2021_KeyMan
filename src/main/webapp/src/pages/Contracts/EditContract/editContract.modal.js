@@ -50,6 +50,8 @@ class EditContract extends React.Component {
                 if (this.state.person2 !== '') {
                     this.addUser(this.state.person2);
                 }
+                console.log("state in edit: ")
+                console.log(this.state)
                 this.props.cbToCtrJs(this.state);
                 // this.ClearInput();
             })
@@ -235,7 +237,7 @@ class EditContract extends React.Component {
                             <div className=" form-row ">
                                 <div className=" form-group col-12 col-sm-12">
                                     <label> licenskey </label>
-                                    <textarea className="form-control1 col-12" rows="5" value={licenskey} readOnly></textarea>
+                                    <textarea className="form-control1 col-12" rows="5" name="licenskey" value={licenskey} readOnly></textarea>
                                 </div>
                             </div>
                         </div>
@@ -250,23 +252,26 @@ class EditContract extends React.Component {
                         <legend>Ip's</legend>
                         <div className="container"  >
                             <h1 className="title">Ip</h1>
-                            <div>
-                                {
-                                    this.state.ips.length ? this.state.ips.map(ip => <IpNumber ip={ip} cbToEditCon={this.handleCallback} />) : null
-                                }
-                                {
-                                    this.state.errorMsgIp ? <div>{this.state.errorMsgIp}</div> : null
-                                }
-                            </div>
-                            <div className=" form-row ">
+
+                            {
+                                this.state.ips.length ? this.state.ips.map(ip => <IpNumber ip={ip} cbToEditCon={this.handleCallback} />) : null
+                            }
+                            {
+                                this.state.errorMsgIp ? <div>{this.state.errorMsgIp}</div> : null
+                            }
+
+{
+                            this.state.ips.length < 3 ?  <div className=" form-row ">
                                 <div className=" col-12 col-sm-2">
-                                    <input type="text" name="ipNumber" className="form-control1 " value={this.state.ipNumber} onChange={this.Changehandler}></input>
+                                    <input type="text" name="ipNumber" className="form-control1" value={this.state.ipNumber} onChange={this.Changehandler}></input>
                                 </div>
 
                                 <div class="btn-group col-12 col-sm-2 ">
-                                    <button type="submit" className="btn-secondary1 " value="addIp">addIp</button>
+                                    <button type="submit" class="btn-secondary1" value="addfeature">addIp</button>
                                 </div>
                             </div>
+                             : null
+                        }
                         </div>
                     </div>
                 </form>
@@ -275,23 +280,27 @@ class EditContract extends React.Component {
                     <legend>Features</legend>
                     <div className="container"  >
                         <h1 className="title">Feature</h1>
-                        <div>
-                            {
-                                this.state.features.length ? this.state.features.map(feature => <Feature feature={feature} cbToEditCon={this.handleCallback} />) : null
-                            }
-                            {
-                                this.state.errorMsgFe ? <div>{this.state.errorMsgFe}</div> : null
-                            }
-                        </div>
-                        <div className=" form-row ">
-                            <div className=" col-12 col-sm-2">
-                                <input type="text" name="feature" className="form-control1" value={this.state.feature} onChange={this.Changehandler}></input>
-                            </div>
 
-                            <div class="btn-group col-12 col-sm-2 ">
-                                <button type="submit" class="btn-secondary1" value="addIp">addFeature</button>
+                        {
+                            this.state.features.length ? this.state.features.map(feature => <Feature feature={feature} cbToEditCon={this.handleCallback} />) : null
+                        }
+                        {
+                            this.state.errorMsgFe ? <div>{this.state.errorMsgFe}</div> : null
+                        }
+                        {
+                            this.state.features.length < 3 ? 
+                             <div className=" form-row ">
+                                <div className=" col-12 col-sm-2">
+                                    <input type="text" name="feature" className="form-control1" value={this.state.feature} onChange={this.Changehandler}></input>
+                                </div>
+
+                                <div class="btn-group col-12 col-sm-2 ">
+                                    <button type="submit" class="btn-secondary1" value="addfeature">addFeature</button>
+                                </div>
                             </div>
-                        </div>
+                            : null
+                        }
+
                     </div>
                 </form>
             </div>

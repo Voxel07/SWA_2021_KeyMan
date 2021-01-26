@@ -49,6 +49,8 @@ class Contract extends React.Component {
             })
     }
     handleCallBack = (changedContract) => {
+        console.log("cb")
+        console.log(changedContract)
         this.setState(changedContract);
     }
 
@@ -70,6 +72,8 @@ class Contract extends React.Component {
         this.setState({
             modalIsOpen: false
         });
+        console.log("editclosed")
+        console.log( this.state)
         this.props.parentCallback("UPDATE", this.state);
     }
 

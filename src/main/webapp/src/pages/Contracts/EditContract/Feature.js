@@ -16,6 +16,7 @@ export default class Feature extends Component {
     }
 
     changehandler = (event) => {
+        console.log("change");
         this.setState({ [event.target.name]: event.target.value })
     }
 
@@ -44,7 +45,7 @@ export default class Feature extends Component {
             <div key={this.state.id}>
                 <div className=" form-row ">
                     <div className=" col-12 col-sm-2 my-2 p-2">
-                        <input type="text" name="Feature" className="form-control1" value={this.state.number} onChange={this.changehandler}></input>
+                        <input type="text" name="number" className="form-control1" value={this.state.number} onChange={this.changehandler}></input>
                     </div>
                     <div class="btn-group col-12 col-sm-8 my-2 p-2">
                         <button className=" btn-danger1" onClick={this.deleteFeature}>Feature Löschen</button>

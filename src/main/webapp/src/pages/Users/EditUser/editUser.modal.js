@@ -211,6 +211,8 @@ class EditUser extends React.Component {
                   this.state.errorMsgPhone ? <div>{this.state.errorMsgPhone}</div> : null
                 }
               </div>
+              {this.state.phones.length < 2 ? 
+
               <div className=" form-row ">
                 <div className=" form-group col-12 col-sm-2 my-1 p-1">
                   <label>Number</label>
@@ -223,7 +225,9 @@ class EditUser extends React.Component {
                 <div class="form-group col-12 col-sm-2 my-4 p-4">
                   <button type="submit" className=" btn-secondary1" value="addPhone">addPhone</button>
                 </div>
-              </div>
+              </div>:null
+              }
+
             </div>
           </div>
         </form>

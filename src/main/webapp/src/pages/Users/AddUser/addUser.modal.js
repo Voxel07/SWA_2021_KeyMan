@@ -27,8 +27,11 @@ class AddUser extends React.Component {
   Changehandler = (event) => {
     if (event.target.name === "admin") {
       this.setState({ [event.target.name]: event.target.checked })
+      console.log("admin="+event.target.name)
     }
     else {
+      console.log(event.target.name)
+
       this.setState({ [event.target.name]: event.target.value })
     }
   }
@@ -72,10 +75,10 @@ class AddUser extends React.Component {
   handleSubmit = event => {
     event.preventDefault();
     this.addUser();
-    this.ClearInput();
   }
 
   addUser() {
+    console.log("adduser")
     const { username, firstName, lastName, password, email, admin } = this.state
     axios.put('http://localhost:8080/user/' + this.state.companyId,
       {
@@ -88,15 +91,23 @@ class AddUser extends React.Component {
       })
       .then(response => {
         this.setState({ id: response.data })
+        console.log("adduser hat geklappt add phone ")
+        console.log("p1"+this.state.phone1+"t1"+this.state.type1)
+        console.log("p2"+this.state.phone2+"t2"+this.state.type2)
 
         if (this.state.phone1 !== '' && this.state.type1 !== '') {
+        console.log("phone1 ")
+
           this.addPhone(this.state.phone1, this.state.type1);
         }
         if (this.state.phone2 !== '' && this.state.type2 !== '') {
+        console.log("phone1")
+
           this.addPhone(this.state.phone2, this.state.type2);
         }
         this.props.cbToBar(true);
         this.props.cbToBar(false);
+        this.ClearInput();
       })
       .catch(error => {
       })

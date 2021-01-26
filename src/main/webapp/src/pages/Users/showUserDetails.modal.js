@@ -65,9 +65,6 @@ export default class showDetails extends Component {
         this.setState({ errorMsgCp: " " + error })
       })
   }
-  getCopmanyForThisSingelFuckingUser(pls) {
-    this.setState({ company: 1 })
-  }
 
   getContracts() {
     axios.get('http://localhost:8080/contract', { params: { usrId: this.state.id } })
@@ -89,7 +86,9 @@ export default class showDetails extends Component {
         if (response.data.length === 0) {
           this.setState({ errorMsgPhone: 'Keine Phoes Daten erhalten' })
         }
-
+        else{
+          this.setState({ errorMsgPhone:''});
+        }
       })
       .catch(error => {
         this.setState({ errorMsgPhone: " " + error })
@@ -97,7 +96,7 @@ export default class showDetails extends Component {
   }
 
   render() {
-    const { id, username, firstName, lastName, password, email, admin, phone1, type1, phone2, type2, companyName } = this.state
+    const { id, username, firstName, lastName, password, email, admin, companyName } = this.state
     return (
       <div>
         <legend>User Details:</legend>
@@ -168,50 +167,26 @@ export default class showDetails extends Component {
                 />
               </div>
             </div>
-            <div className=" form-row ">
-              <div className=" form-group  col-12 col-sm-6 my-2 p-2">
-                <label> Number1 </label>
-                <input
-                  placeholder="Number"
-                  className="form-control1"
-                  name="phone1"
-                  type="number"
-                  value={phone1} readOnly
-                />
+            <div>
+                {
+                  this.state.phones.length ? this.state.phones.map(phone => <div key={phone.id}>
+                    <div className=" form-row ">
+                        <div className=" form-group col-12 col-sm-6 ">
+                            <label>Number</label>
+                            <input type="number" name="number" className="form-control1" value={phone.number} readOnly></input>
+                        </div>
+                        <div className=" form-group col-12 col-sm-6 ">
+                            <label>Type</label>
+                            <input type="text" name="type" className="form-control1" value={phone.type} readOnly ></input>
+                        </div>
+                    </div>
+                 </div>
+                ): null
+                }
+                {
+                  this.state.errorMsgPhone ? <div>{this.state.errorMsgPhone}</div> : null
+                }
               </div>
-              <div className="form-group  col-12 col-sm-6 my-2 p-2">
-                <label> Type1 </label>
-                <input
-                  placeholder="Type"
-                  className="form-control1"
-                  name="type1"
-                  type="text"
-                  value={type1} readOnly
-                />
-              </div>
-            </div>
-            <div className=" form-row ">
-              <div className="form-group  col-12 col-sm-6 my-2 p-2">
-                <label> Number2 </label>
-                <input
-                  placeholder="Number"
-                  className="form-control1"
-                  name="phone2"
-                  type="number"
-                  value={phone2} readOnly
-                />
-              </div>
-              <div className="form-group  col-12 col-sm-6 my-2 p-2">
-                <label> Type2 </label>
-                <input
-                  placeholder="Type2"
-                  className="form-control1"
-                  name="type2"
-                  type="text"
-                  value={type2} readOnly
-                />
-              </div>
-            </div>
             <div className="form-group  col-12 col-sm-6 my-2 p-2">
               <label> admin </label>
               <input

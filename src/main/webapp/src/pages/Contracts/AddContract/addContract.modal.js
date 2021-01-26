@@ -63,8 +63,8 @@ class AddContract extends React.Component {
   handleSubmit = event => {
     event.preventDefault();
     this.addContract();
-    this.ClearInput();
   }
+
   addContract() {
     axios.put('http://localhost:8080/contract/' + this.state.companyId,
       {
@@ -100,6 +100,7 @@ class AddContract extends React.Component {
         }
         this.props.cbToBar(true);
         this.props.cbToBar(false);
+        this.ClearInput();
       })
       .catch(error => {
 

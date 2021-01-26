@@ -112,7 +112,7 @@ export default class showDetails extends Component {
                             <div className=" form-row ">
                                 <div className=" col-12 col-sm-12">
                                     <label> licenskey </label>
-                                    <textarea className="form-control1 col-12" rows="5" value={licenskey} readOnly></textarea>
+                                    <textarea className="form-control1 col-12" rows="5"  name="licenskey" value={licenskey} readOnly></textarea>
                                 </div>
                             </div>
                         </div>
@@ -126,12 +126,12 @@ export default class showDetails extends Component {
                             <h1 className="title">Ip</h1>
                             <div className=" form-row ">
                                 {
-                                    this.state.ips.length ?
-                                        this.state.ips.map(ip => <div className="form-group col-12 col-sm-4">
-                                            <label> Ip </label>
-                                            <input className="form-control1" type="text" value={ip.ipNumber} readOnly></input>
-                                        </div>)
-                                        : null
+                                this.state.ips.length ?
+                                    this.state.ips.map(ip => <div className="form-group col-12 col-sm-4">
+                                        <label> Ip </label>
+                                        <input className="form-control1" type="text" value={ip.ipNumber} readOnly></input>
+                                    </div>)
+                                    : null
                                 }
                             </div>
                         </div>

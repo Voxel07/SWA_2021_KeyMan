@@ -34,13 +34,12 @@ public class PhoneOrm {
 	}
 
 	@Transactional
-	public Boolean updatePhone(Phone phone) {
-		if (getPhoneByNumber(phone.getNumber()).isEmpty()) {
-			em.merge(phone);
-			return true;
-		} else {
-			return false;
-		}
+	public void updatePhone(Phone phone) {
+		em.createQuery("UPDATE Phone SET number =: val , type =: val1 WHERE id =: val2")
+        .setParameter("val", phone.getNumber())
+        .setParameter("val1", phone.getType())
+        .setParameter("val2", phone.getId())
+        .executeUpdate();
 	}
 
 	@Transactional
