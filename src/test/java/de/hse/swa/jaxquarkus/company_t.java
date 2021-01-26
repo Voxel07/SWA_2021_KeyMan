@@ -28,19 +28,9 @@ public class company_t{
 	private static Company companyA = new Company("Aname", "Adepartment", "Astreet", 12345, "Astate", "Acountry");
 	private static Company companyB = new Company("Bname", "Bdepartment", "Bstreet", 12345, "Bstate", "Bcountry");
 	private static Company companyC = new Company("Cname", "Cdepartment", "Cstreet", 12345, "Cstate", "Ccountry");	
-	
-	private static Contract contractA = new Contract("1.1.2020", "1.1.2021", "ver1");
 	private static Contract contractB = new Contract("1.1.2021", "1.1.2022", "ver2");
-	
 	private static User usrC = new User("Cemail", "Cusername", "Cpassword", "Cfirst", "Clast", true);
-	
 	private static User usrA = new User("Aemail", "Ausername", "Apassword", "Afirst", "Alast", true);
-	private static User usrB = new User("Bemail", "Busername", "Bpassword", "Bfirst", "Blast",  false);	
-	//private static User usrC = new User("Cemail", "Cusername", "Cpassword", "Cfirst", "Clast", true);
-	
-	private static Phone phoneA = new Phone("Anumber", "Atype");  
-	private static Phone phoneB = new Phone("Bnumber", "Btype");
-	private static Phone phoneC = new Phone("Cnumber", "Ctype");
 	
 	@Inject
     CompanyOrm companyOrm;
@@ -56,17 +46,7 @@ public class company_t{
 					.put("/company");		
 					response.then().statusCode(200)
 					.body(is("Company hinzugefügt"));
-					
-					  response =
-								given()
-								.contentType(MediaType.APPLICATION_JSON)
-								.when()
-								.get("/company");
-								
-								response
-								.then()
-								.statusCode(200);
-								
+												
 		 response = 
 				given()
 				.contentType(MediaType.APPLICATION_JSON)
@@ -74,18 +54,7 @@ public class company_t{
 					.when()
 					.put("/company");		
 		 			response.then().statusCode(200)
-		 			.body(is("Company hinzugefügt"));
-					
-					  response =
-								given()
-								.contentType(MediaType.APPLICATION_JSON)
-								.when()
-								.get("/company");
-								
-								response
-								.then()
-								.statusCode(200);
-								
+		 			.body(is("Company hinzugefügt"));				
 						
 		 response = 
 				given()
@@ -94,27 +63,9 @@ public class company_t{
 					.when()
 					.put("/company");		
 					response.then().statusCode(200)
-		 			.body(is("Company hinzugefügt"));
+					 .body(is("Company hinzugefügt"));
+	}
 					
-					  response =
-								given()
-								.contentType(MediaType.APPLICATION_JSON)
-								.when()
-								.get("/company");
-								
-								response
-								.then()
-								.statusCode(200);
-								
-					 List<Company> companys = Arrays.asList(response.getBody().as(Company[].class));
-						companyA.setId(companys.get(0).getId());
-						companyB.setId(companys.get(1).getId());
-						companyC.setId(companys.get(2).getId());
-	
-	
-	} 
-	
-
 	@Test
 	@Order(2)
 	public void GetCompanys() {
@@ -134,6 +85,8 @@ public class company_t{
 		Assertions.assertEquals( companyC.getName(), companys.get(2).getName());
 		
 		companyA.setId(companys.get(0).getId());
+		companyB.setId(companys.get(1).getId());
+		companyC.setId(companys.get(2).getId());
 						
 	}
 
@@ -141,7 +94,6 @@ public class company_t{
 	@Test
 	@Order(3)
 	public void GetCompany() {
-		//Long id = 5l;
 		Response response = 
 		given()
 		.pathParam("id", companyA.getId())
@@ -157,8 +109,6 @@ public class company_t{
 	@Test
 	@Order(4)
 	public void UpdateCompany() { 
-		
-		//companyC.setId(1l);
 		companyC.setStreet("Helferstr");
 		Response response = 
 				given()
@@ -167,6 +117,15 @@ public class company_t{
 					.when()
 					.post("/company");		
 					response.then().statusCode(204);      
+		response = 
+		given()
+		.pathParam("id", companyC.getId())
+		.contentType(MediaType.APPLICATION_JSON)
+		.when()
+		.get("/company/{id}");
+		response.then().statusCode(200);
+		Company company = response.getBody().as(Company.class);
+		Assertions.assertEquals( companyC.getStreet(), company.getStreet());
 	}
 		
 
@@ -174,14 +133,14 @@ public class company_t{
 	@Order(5)
 	public void DeleteCompany() {
 		
-		//user f�r company
+		//user für company
 		given()
 		.pathParam("companyId", companyB.getId())
 		.contentType(MediaType.APPLICATION_JSON)
 		.body(usrC)
 		.when()
 		.put("/user/{companyId}")		
-		.then().statusCode(200).body(is("1" + companyB.getId()));
+		.then().statusCode(200);
 		
 		Response response =
      	        given()     	    
@@ -192,7 +151,10 @@ public class company_t{
      	        .then()
      	        .statusCode(200);
 		      	        
-	      		List<User> usrs = Arrays.asList(response.getBody().as(User[].class));
+				List<User> usrs = Arrays.asList(response.getBody().as(User[].class));
+				Assertions.assertEquals( usrC.getUsername(), usrs.get(0).getUsername());
+				Assertions.assertEquals( 1, usrs.size());
+				  
 	      		usrC.setId(usrs.get(0).getId());
 		
 		//user f�r company
@@ -202,7 +164,7 @@ public class company_t{
 		.body(usrA)
 		.when()
 		.put("/user/{companyId}")		
-		.then().statusCode(200).body(is("2" + companyB.getId()));
+		.then().statusCode(200);
 		
 		response =
      	        given()     	    
@@ -213,17 +175,19 @@ public class company_t{
      	        .then()
      	        .statusCode(200);
 		      	        
-	      		List<User> usrs1 = Arrays.asList(response.getBody().as(User[].class));
-	      		usrA.setId(usrs1.get(0).getId());
+				List<User> usrs1 = Arrays.asList(response.getBody().as(User[].class));
+				Assertions.assertEquals( 2, usrs1.size());
+				Assertions.assertEquals( usrC.getUsername(), usrs1.get(0).getUsername());
+				Assertions.assertEquals( usrA.getUsername(), usrs1.get(1).getUsername());
+	      		usrA.setId(usrs1.get(1).getId());
 				
-		//contract f�r company
 		given()
 		.pathParam("companyId", companyB.getId())
 		.contentType(MediaType.APPLICATION_JSON)
 		.body(contractB)
 		.when()
 		.put("contract/{companyId}")
-		.then().statusCode(200).body(is("Contract added"));
+		.then().statusCode(200);
 		
 		 Response res =
 			        given()
@@ -233,9 +197,9 @@ public class company_t{
 			    	
 					res.then().statusCode(200);
 					List<Contract> ctr = Arrays.asList(res.getBody().as(Contract[].class));
+					Assertions.assertEquals( contractB.getVersion(), ctr.get(0).getVersion());
 					contractB.setId(ctr.get(0).getId());	
-		
-		//contractB.setId(1l);
+
 		given()
 		.queryParam("usrId", usrC.getId())
 		.contentType(MediaType.APPLICATION_JSON)
@@ -244,9 +208,6 @@ public class company_t{
 		.post("contract")
 		.then().statusCode(200).body(is("true"));
 			
-			
-//				 
-		//companyA.setId(1l);
 		 response = 
 			given()
 			.contentType(MediaType.APPLICATION_JSON)

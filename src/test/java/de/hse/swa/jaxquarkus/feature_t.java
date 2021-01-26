@@ -56,6 +56,9 @@ public class feature_t{
 				.statusCode(200);
 				
 	 List<Company> companys = Arrays.asList(response.getBody().as(Company[].class));
+	 Assertions.assertEquals( 1, companys.size());
+	 Assertions.assertEquals( companyA.getName(), companys.get(0).getName());
+
 		companyA.setId(companys.get(0).getId());
 		
 		 given()
@@ -64,7 +67,7 @@ public class feature_t{
 		 .body(contractA)
 		 .when()
 		 .put("contract/{companyId}")
-		 .then().statusCode(200).body(is("" + companyA.getId()));    	
+		 .then().statusCode(200);    	
 		 
 		 Response res =
 			        given()
@@ -74,6 +77,8 @@ public class feature_t{
 			    	
 					res.then().statusCode(200);
 					List<Contract> ctr = Arrays.asList(res.getBody().as(Contract[].class));
+					Assertions.assertEquals(1, ctr.size());
+	 				Assertions.assertEquals( contractA.getVersion(), ctr.get(0).getVersion());
 					contractA.setId(ctr.get(0).getId());	
 					
         given()
@@ -92,27 +97,12 @@ public class feature_t{
         		.get("feature");	
         		
         		res.then().statusCode(200);
-        		List<Feature> features = Arrays.asList(res.getBody().as(Feature[].class));
+				List<Feature> features = Arrays.asList(res.getBody().as(Feature[].class));
+				Assertions.assertEquals(1, features.size());
+				Assertions.assertEquals(FA.getNumber(), features.get(0).getNumber());
         		FA.setId(features.get(0).getId());
-        		System.out.println(FA.getId());
-
     }
-	// feature nicht mehr unique
-//	@Test
-//	@Order(2)
-//	public void addFeatureToContractDuplicate(){
-//		
-//        given()
-//        .pathParam("id", 1l)
-//        .contentType(MediaType.APPLICATION_JSON)
-//        .body(FA)//nix
-//        .when()
-//        .put("feature/{id}")	
-//        .then()
-//        .statusCode(200).body(is("true"));
-//
-//    }
-//	
+
 	@Test
 	@Order(3)
 	public void addFeatureToContract2(){
@@ -125,18 +115,7 @@ public class feature_t{
 	        .put("feature/{id}")	
 	        .then()
             .statusCode(200).body(is("true"));
-		 
-		 Response res = given()
-					.queryParam("ctr_id", contractA.getId())
-					.contentType(MediaType.APPLICATION_JSON)
-					.when()
-					.get("feature");	
-					
-					res.then().statusCode(200);
-					List<Feature> features = Arrays.asList(res.getBody().as(Feature[].class));
-					FB.setId(features.get(1).getId());
-					System.out.println(FB.getId());
-					
+		 		
 		 given()
 		 .pathParam("id", contractA.getId())
 	        .contentType(MediaType.APPLICATION_JSON)
@@ -146,16 +125,22 @@ public class feature_t{
 	        .then()
 	        .statusCode(200).body(is("true"));
 
-		  res = given()
-					.queryParam("ctr_id", contractA.getId())
-					.contentType(MediaType.APPLICATION_JSON)
-					.when()
-					.get("feature");	
-					
-					res.then().statusCode(200);
-					List<Feature> features1 = Arrays.asList(res.getBody().as(Feature[].class));
-					FC.setId(features1.get(2).getId());
+			Response res = given()
+			.queryParam("ctrId", contractA.getId())
+			.contentType(MediaType.APPLICATION_JSON)
+			.when()
+			.get("feature");	
+			
+			res.then().statusCode(200);
+			List<Feature> features = Arrays.asList(res.getBody().as(Feature[].class));
+			Assertions.assertEquals(3, features.size());
+			Assertions.assertEquals(FA.getNumber(), features.get(0).getNumber());
+			Assertions.assertEquals(FB.getNumber(), features.get(1).getNumber());
+			Assertions.assertEquals(FC.getNumber(), features.get(2).getNumber());
+			FB.setId(features.get(1).getId());
+			FC.setId(features.get(2).getId());
 		}
+
 	@Test
 	@Order(4)
 	public void addFeatureToContractToMannyNumbers(){
@@ -174,7 +159,7 @@ public class feature_t{
 	@Order(5)
 	public void getContractFeatures() {
 		Response res = given()
-		.queryParam("ctr_id", contractA.getId())
+		.queryParam("ctrId", contractA.getId())
 		.contentType(MediaType.APPLICATION_JSON)
 		.when()
 		.get("feature");	
@@ -190,7 +175,7 @@ public class feature_t{
 	@Test
 	@Order(6)
 	public void removeFeatureFromContract() {
-		// FA.setId(1l);
+
 		 given()
 	        .contentType(MediaType.APPLICATION_JSON)
 	        .body(FA)
@@ -220,8 +205,6 @@ public class feature_t{
 	@Test
 	@Order(8)
 	public void updateFeature(){
-      //  Feature FX = new Feature("12");
-		//FX.setId(contracts.get(2).getId());
         FB.setNumber("12");
 		given()
 		.contentType(MediaType.APPLICATION_JSON)
@@ -246,18 +229,16 @@ public class feature_t{
 	@Test
 	@Order(9)
 	public void removeAllFeatureFromContract() {
-        Contract contractC = new Contract("3.3.2020", "3.3.2021", "ver1");
-		contractC.setId(contractA.getId());	 
         given()
         .contentType(MediaType.APPLICATION_JSON)
-        .body(contractC)
+        .body(contractA)
         .when()
         .delete("/feature/all")	
         .then()
         .statusCode(200).body(is("true"));
 
         Response res = given()
-		.queryParam("ctrId", contractC.getId())
+		.queryParam("ctrId", contractA.getId())
         .contentType(MediaType.APPLICATION_JSON)
         .when()
 		.get("/feature");	

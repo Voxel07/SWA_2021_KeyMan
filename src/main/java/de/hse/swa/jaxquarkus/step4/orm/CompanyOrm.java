@@ -77,8 +77,6 @@ public class CompanyOrm {
             }
         }
 
-
-        
         return	em.createQuery("DELETE FROM Company WHERE id =: val1")
         .setParameter("val1", company.getId())
         .executeUpdate()==1;
