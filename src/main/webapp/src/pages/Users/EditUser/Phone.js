@@ -52,7 +52,7 @@ export default class Phone extends Component {
                         <label>Type</label>
                         <input type="text" name="type" className="form-control1" value={this.state.type} onChange={this.changehandler}></input>
                     </div>
-                    <div class="btn-group col-12 col-sm-7 my-3 p-3 ">
+                    <div class="btn-group col-12 col-sm-7 my-3 p-4 ">
                         <button className="  btn-danger1" onClick={this.deletePhone}>Phone Löschen</button>
                         <button className="  btn-dark1" onClick={this.handlePhone}>Phone ändern</button>
                     </div>

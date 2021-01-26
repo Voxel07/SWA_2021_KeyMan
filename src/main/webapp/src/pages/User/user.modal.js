@@ -87,12 +87,20 @@ class User extends React.Component {
                 if (response.data.length === 0) {
                     this.setState({ errorMsgPhone: 'Keine Phoes Daten erhalten' })
                 }
+                else{
+                    this.setState({ errorMsgPhone: '' })
+
+                }
 
             })
             .catch(error => {
                 this.setState({ errorMsgPhone: " " + error })
             })
     }
+    handleCallback = () => {
+        this.getPhones();
+      }
+    
 
     render() {
         const { username, firstName, lastName, password, email } = this.state
@@ -169,34 +177,37 @@ class User extends React.Component {
                 </form>
 
                 <form onSubmit={this.handleSubmitPhone} key="Phone">
-                    <div >
-                        <legend>Phone's</legend>
-                        <div className="container"  >
-                            <h1 className="title">Phone</h1>
-                            <div>
-                                {
-                                    this.state.phones.length ? this.state.phones.map(phone => <Phone phone={phone} />) : null
-                                }
-                                {
-                                    this.state.errorMsgPhone ? <div>{this.state.errorMsgPhone}</div> : null
-                                }
-                            </div>
-                            <div className=" form-row ">
-                                <div className=" form-group col-12 col-sm-2 my-1 p-1">
-                                    <label>Number</label>
-                                    <input type="number" name="number" className="form-control1 " value={this.state.number} onChange={this.Changehandler}></input>
-                                </div>
-                                <div className="form-group col-12 col-sm-2 my-1 p-1">
-                                    <label>Type</label>
-                                    <input type="text" name="type" className="form-control1 " value={this.state.type} onChange={this.Changehandler}></input>
-                                </div>
-
-                                <div class="form-group col-12 col-sm-2 my-4 p-4">
-                                    <button type="submit" className="  btn-secondary1 " value="addPhone">addPhone</button>
-                                </div>
-                            </div>
-                        </div>
+                <div >
+                    <legend>Phone's</legend>
+                    <div className="container"  >
+                    <h1 className="title">Phone</h1>
+                    <div>
+                        {
+                        this.state.phones.length ? this.state.phones.map(phone => <Phone phone={phone} cbToEditUser={this.handleCallback} />) : null
+                        }
+                        {
+                        this.state.errorMsgPhone ? <div>{this.state.errorMsgPhone}</div> : null
+                        }
                     </div>
+                    {this.state.phones.length < 2 ? 
+
+                    <div className=" form-row ">
+                        <div className=" form-group col-12 col-sm-2 my-1 p-1">
+                        <label>Number</label>
+                        <input type="number" name="number" className="form-control1" value={this.state.number} onChange={this.Changehandler}></input>
+                        </div>
+                        <div className=" form-group col-12 col-sm-2 my-1 p-1">
+                        <label>Type</label>
+                        <input type="text" name="type" className="form-control1" value={this.state.type} onChange={this.Changehandler}></input>
+                        </div>
+                        <div class="form-group col-12 col-sm-2 my-4 p-4">
+                        <button type="submit" className=" btn-secondary1" value="addPhone">addPhone</button>
+                        </div>
+                    </div>:null
+                    }
+
+                    </div>
+                </div>
                 </form>
             </div>
         );

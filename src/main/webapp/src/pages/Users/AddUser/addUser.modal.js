@@ -107,6 +107,7 @@ class AddUser extends React.Component {
         }
         this.props.cbToBar(true);
         this.props.cbToBar(false);
+        // this.props.cbToLogin(true);
         this.ClearInput();
       })
       .catch(error => {
