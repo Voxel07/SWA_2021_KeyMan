@@ -54,11 +54,11 @@ public class PhoneResource {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-	public void updatePhone(Phone phone) 
+	public Boolean updatePhone(Phone phone) 
     { 	
         System.out.println("PhoneResource/updatePhone");
         System.out.println(phone);
-        phoneOrm.updatePhone(phone);
+        return phoneOrm.updatePhone(phone);
     }
 
 	@DELETE
