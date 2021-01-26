@@ -7,38 +7,87 @@ export default class ShowUsers extends Component {
         super(props)
 
         this.state = {
-            Users: [],
+            users: [],
             errorMsg: ''
         }
     }
-    componentDidMount() {
-        axios.get('http://localhost:8080/user', { params: { companyId: this.props.company.id } })
+	componentWillMount() {
+		this.fetchUsers();
+	}
+	
+	fetchUsers() {
+        axios.get('http://localhost:8080/user', {params:{companyId: this.props.company.id}})
             .then(response => {
-                this.setState({ Users: response.data });
-                if (response.data.length === 0) {
+                console.log(response);
+                this.setState({ users: response.data });
+                if( response.data.length == 0)
+                {
                     this.setState({ errorMsg: 'Keine User Daten erhalten' })
                 }
+
             })
             .catch(error => {
-                this.setState({ errorMsg: " " + error })
+                console.log(error);
+                this.setState({ errorMsg: " "+error})
             })
     }
+handleCallback = (func, user) => {
+        switch (func) {
+            case 'DELETE':
+                this.handleRemove(user);
+                break;
+            case 'UPDATE':
+                this.handleUpdate(user);
+                break;
+            default:
+                break;
+        }
+    }
+    handleRemove = (user) => {
+            const newList = this.state.users.filter((item) => item.id !== user.id);
+            this.setState({users: newList})
+        }
 
-    handleCallback = () => {
-        //Macht hier halt nix
+    handleUpdate = (user) => {
+        const newList = this.state.users.map((item) => {
+            if (item.id === user.id) {
+                const updatedItem = {
+                    email: user.email,
+                    username: user.username,
+                    companyName: user.companyName,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    password: user.password,
+					id: user.id
+                };
+                return updatedItem;
+            }
+            else {
+                return item;
+            }
+
+        });
+
+        this.setState({ users: newList })
+    }
+    componentDidUpdate() {
+        if (this.props.newUser === true) {
+            this.fetchUsers();
+        }
+
     }
 
     render() {
-        const { Users, errorMsg } = this.state
+        const { users, errorMsg } = this.state
         return (
-            <div>
-                {
-                    Users.length ? Users.map(user => <User user={user} parentCallback={this.handleCallback} />) : null
-                }
-                {
-                    errorMsg ? <div>{errorMsg}</div> : null
-                }
-            </div>
+        <div> 
+        {
+            users.length ? users.map(user => <User user={user} parentCallback={this.handleCallback}/>) : null
+        }
+        {
+            errorMsg ? <div>{errorMsg}</div> : null
+        } 
+        </div>
         )
     }
 }
