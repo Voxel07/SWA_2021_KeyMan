@@ -58,7 +58,7 @@ class User extends React.Component {
         axios.get('http://localhost:8080/company', { params: { usrId: this.state.id } })
             .then(response => {
                 this.setState({ companyName: response.data[0].name });
-                if (response.data.length == 0) {
+                if (response.data.length === 0) {
                     this.setState({ errorMsgCp: 'Keine Company Daten erhalten' })
                 }
             })
@@ -71,7 +71,7 @@ class User extends React.Component {
         axios.get('http://localhost:8080/user', { params: { usrId: this.state.id } })
             .then(response => {
                 this.setState(response.data[0]);
-                if (response.data.length == 0) {
+                if (response.data.length === 0) {
                     this.setState({ errorMsgCp: 'Keine User Daten erhalten' })
                 }
             })
@@ -84,7 +84,7 @@ class User extends React.Component {
         axios.get('http://localhost:8080/phone', { params: { usrId: this.state.id } })
             .then(response => {
                 this.setState({ phones: response.data });
-                if (response.data.length == 0) {
+                if (response.data.length === 0) {
                     this.setState({ errorMsgPhone: 'Keine Phoes Daten erhalten' })
                 }
 

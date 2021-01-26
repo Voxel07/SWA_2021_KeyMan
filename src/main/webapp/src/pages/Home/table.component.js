@@ -6,10 +6,6 @@ import UsersPage from '../Users/user.page';
 
 class TableComponent extends React.Component {
 
-  constructor(props) {
-    super(props)
-  }
-
   createTable() {
     if (this.props.table === "Companys") {
       return (<CompanysPage newCompany={this.props.newItem} />)

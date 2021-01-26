@@ -19,10 +19,7 @@ class EditCompany extends React.Component {
     }
 
     handleSubmit = event => {
-
         event.preventDefault();
-        // this.props.CallbackToCompanyJS(this.state);
-
         axios.post('http://localhost:8080/company', this.state)
             .then(response => {
                 this.props.CallbackToCompanyJS(this.state);
@@ -32,9 +29,9 @@ class EditCompany extends React.Component {
     }
 
     render() {
-        const { name, department, street, postalcode, state, country } = this.state;
+        const {id, name, department, street, postalcode, state, country } = this.state;
         return (
-            <div>
+            <div key={id}>
                 <legend>Edit Company:</legend>
                 <form onSubmit={this.handleSubmit}>
                     <div>

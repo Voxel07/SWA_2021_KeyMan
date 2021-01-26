@@ -23,13 +23,16 @@ export default class ShowContracts extends Component {
                 this.setState({ errorMsg: " " + error })
             })
     }
+    handleCallback = () => {
+       //Macht hier halt nix
+    }
 
     render() {
         const { Contracts, errorMsg } = this.state
         return (
             <div>
                 {
-                    Contracts.length ? Contracts.map(contract => <Contract contract={contract} />) : null
+                    Contracts.length ? Contracts.map(contract => <Contract contract={contract} parentCallback={this.handleCallback} />) : null
                 }
                 {
                     errorMsg ? <div>{errorMsg}</div> : null

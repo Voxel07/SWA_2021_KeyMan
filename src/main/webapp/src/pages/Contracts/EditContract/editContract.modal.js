@@ -77,7 +77,7 @@ class EditContract extends React.Component {
     getIps() {
         axios.get('http://localhost:8080/IpNumber', { params: { ctrId: this.state.id } })
             .then(response => {
-                if (response.data.length == 0) {
+                if (response.data.length === 0) {
                     this.setState({ ips: response.data });
                     this.setState({ errorMsgIp: 'Keine IP Daten erhalten' })
                 }
@@ -106,14 +106,14 @@ class EditContract extends React.Component {
     getContractUsers() {
         axios.get('http://localhost:8080/user', { params: { ctrIdU: this.state.id } })
             .then(response => {
-                if (response.data.length == 0) {
+                if (response.data.length === 0) {
                     this.setState({ errorMsgUser: 'Keine ContractUser Daten erhalten' })
                     this.setState({ contractUserName1: 'User wählen', contractUserName2: 'User wählen' });
                 }
-                if (response.data.length == 1) {
+                if (response.data.length === 1) {
                     this.setState({ contractUserName1: response.data[0].username, contractUserName2: 'User wählen' });
                 }
-                if (response.data.length == 2) {
+                if (response.data.length === 2) {
                     this.setState({ contractUserName1: response.data[0].username, contractUserName2: response.data[1].username });
                 }
             })
@@ -125,7 +125,7 @@ class EditContract extends React.Component {
     getUsers() {
         axios.get('http://localhost:8080/user', { params: { companyId: this.state.companyId } })
             .then(response => {
-                if (response.data.length == 0) {
+                if (response.data.length === 0) {
                     this.setState({ errorMsgUser: 'Keine CompanyUser Daten erhalten' })
                 }
                 else {
@@ -141,7 +141,7 @@ class EditContract extends React.Component {
     getFeatures() {
         axios.get('http://localhost:8080/feature', { params: { ctrId: this.state.id } })
             .then(response => {
-                if (response.data.length == 0) {
+                if (response.data.length === 0) {
                     this.setState({ features: response.data });
                     this.setState({ errorMsgFe: 'Keine Feature Daten erhalten' })
                 }
@@ -151,7 +151,7 @@ class EditContract extends React.Component {
                 }
             })
             .catch(error => {
-                this.setState({ errorMsgFe: " " + error })
+                this.setState({ errorMsgFe: '' + error })
             })
     }
 

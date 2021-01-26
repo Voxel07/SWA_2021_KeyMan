@@ -24,12 +24,16 @@ export default class ShowUsers extends Component {
             })
     }
 
+    handleCallback = () => {
+        //Macht hier halt nix
+    }
+
     render() {
         const { Users, errorMsg } = this.state
         return (
             <div>
                 {
-                    Users.length ? Users.map(user => <User user={user} />) : null
+                    Users.length ? Users.map(user => <User user={user} parentCallback={this.handleCallback} />) : null
                 }
                 {
                     errorMsg ? <div>{errorMsg}</div> : null

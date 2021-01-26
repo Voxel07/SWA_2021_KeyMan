@@ -218,7 +218,7 @@ export default class showDetails extends Component {
                 name="admin"
                 className="form-control1"
                 type="checkbox"
-                value={admin} readOnly
+                checked={admin} readOnly
               />
             </div>
           </div>
