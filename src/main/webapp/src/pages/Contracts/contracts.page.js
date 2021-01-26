@@ -33,8 +33,6 @@ class ContractPage extends React.Component {
     }
 
     handleCallback = (func, contract) => {
-        console.log("CP hc")
-        console.log(contract.id, func)
         switch (func) {
             case 'DELETE':
                 this.handleRemove(contract);
@@ -48,8 +46,6 @@ class ContractPage extends React.Component {
     }
 
     handleRemove = (contract) => {
-        console.log("handleRemove");
-        console.log(contract);
         const newList = this.state.contracts.filter((item) => item.id !== contract.id);
         this.setState({ contracts: newList })
     }
@@ -65,24 +61,19 @@ class ContractPage extends React.Component {
 					id: contract.id,
 					companyId: contract.companyId,
 				};
-				console.log(updatedItem)
 				return updatedItem;
 			}
 			else {
 				return item;
 			}
-
 		});
-
 		this.setState({ contracts: newList })
-	}
+    }
+    
     componentDidUpdate() {
         if (this.props.newContract === true) {
-            console.log("Props are " + this.props.newContract);
-
             this.fetchContracts();
         }
-
     }
 
     render() {

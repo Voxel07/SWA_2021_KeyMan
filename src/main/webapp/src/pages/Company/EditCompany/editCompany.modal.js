@@ -17,20 +17,20 @@ class EditCompany extends React.Component {
     Changehandler = (event) => {
         this.setState({ [event.target.name]: event.target.value })
     }
+
     handleSubmit = event => {
-        
+
         event.preventDefault();
         // this.props.CallbackToCompanyJS(this.state);
 
         axios.post('http://localhost:8080/company', this.state)
             .then(response => {
-                console.log(response)
                 this.props.CallbackToCompanyJS(this.state);
             })
             .catch(error => {
-                console.log(error)
             })
-        }
+    }
+
     render() {
         const { name, department, street, postalcode, state, country } = this.state;
         return (

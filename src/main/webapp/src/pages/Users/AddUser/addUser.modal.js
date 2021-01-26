@@ -23,18 +23,20 @@ class AddUser extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
   Changehandler = (event) => {
     if (event.target.name === "admin") {
-      console.log('ändern');
       this.setState({ [event.target.name]: event.target.checked })
     }
     else {
       this.setState({ [event.target.name]: event.target.value })
     }
   }
+
   componentDidMount() {
     this.getCompanys();
   }
+
   ClearInput() {
     this.setState({
       id: '',
@@ -57,22 +59,22 @@ class AddUser extends React.Component {
   getCompanys() {
     axios.get('http://localhost:8080/company')
       .then(response => {
-        console.log(response)
         this.setState({ companys: response.data })
         if (response.data.length === 0) {
           this.setState({ errorMsgUser: 'Kein Company Daten erhalten' })
         }
       })
       .catch(error => {
-        console.log(error)
         this.setState({ errorMsgCompany: error })
       })
   }
+
   handleSubmit = event => {
     event.preventDefault();
     this.addUser();
     this.ClearInput();
   }
+
   addUser() {
     const { username, firstName, lastName, password, email, admin } = this.state
     axios.put('http://localhost:8080/user/' + this.state.companyId,
@@ -84,9 +86,7 @@ class AddUser extends React.Component {
         lastName: lastName,
         admin: admin
       })
-      // axios.put('http://localhost:8080/user/' + this.state.companyId, this.state) //geht eh nicht
       .then(response => {
-        console.log(response)
         this.setState({ id: response.data })
 
         if (this.state.phone1 !== '' && this.state.type1 !== '') {
@@ -99,7 +99,6 @@ class AddUser extends React.Component {
         this.props.cbToBar(false);
       })
       .catch(error => {
-        console.log(error)
       })
   }
 
@@ -107,11 +106,8 @@ class AddUser extends React.Component {
     axios.put('http://localhost:8080/phone/' + this.state.id,
       { number: phoneNumber, type: phoneType })
       .then(response => {
-        console.log(response)
-        // this.ClearInput();
       })
       .catch(error => {
-        console.log(error)
       })
   }
 
@@ -147,7 +143,6 @@ class AddUser extends React.Component {
                   value={email} onChange={this.Changehandler} />
               </div>
             </div>
-
             <div className=" form-row ">
               <div className="form-group col-12 col-sm-6 my-2 p-2 ">
                 <label>First Name</label>
@@ -168,7 +163,6 @@ class AddUser extends React.Component {
                   value={lastName} onChange={this.Changehandler} />
               </div>
             </div>
-
             <div className="form-group form-row ">
               <div className=" col-12 col-sm-6 my-2 p-2">
                 <label> Username </label>
@@ -189,7 +183,6 @@ class AddUser extends React.Component {
                   value={password} onChange={this.Changehandler} />
               </div>
             </div>
-
             <div className=" form-row ">
               <div className=" form-group col-12 col-sm-6 my-2 p-2">
                 <label> Number1 </label>

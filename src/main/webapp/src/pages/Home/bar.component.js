@@ -27,7 +27,6 @@ export class BarComponent extends React.Component {
         this.setState({
             modalIsOpen: false
         });
-        console.log("usermodalclosed");
     }
 
     handleUser() {
@@ -68,7 +67,6 @@ export class BarComponent extends React.Component {
     }
 
     createModal() {
-
         if (this.state.modalShow === "Company") {
             return (
                 <div>
@@ -86,7 +84,8 @@ export class BarComponent extends React.Component {
                     <AddCompany cbToBar={this.handleCB}></AddCompany>
                 </div>
             );
-        } else if (this.state.modalShow === "Contract") {
+        }
+        else if (this.state.modalShow === "Contract") {
             return (
                 <div>
                     <ul class="nav justify-content-end">
@@ -102,7 +101,8 @@ export class BarComponent extends React.Component {
                     <AddContract cbToBar={this.handleCB}></AddContract>
                 </div>
             );
-        } else if (this.state.modalShow === "User") {
+        }
+        else if (this.state.modalShow === "User") {
             return (
                 <div>
 
@@ -119,7 +119,8 @@ export class BarComponent extends React.Component {
                     <AddUser cbToBar={this.handleCB} ></AddUser>
                 </div>
             );
-        } else if (this.state.modalShow === "Nutzer") {
+        }
+        else if (this.state.modalShow === "Nutzer") {
             return (
                 <div>
                     <h2>User</h2>
@@ -138,12 +139,9 @@ export class BarComponent extends React.Component {
         }
     }
 
-
     render() {
         return (
-
             <div>
-
                 <div>    <Modal isOpen={this.state.modalIsOpen} ariaHideApp={false}>
                     {this.createModal()}
                 </Modal>
@@ -152,17 +150,14 @@ export class BarComponent extends React.Component {
                             className="font1">
                             {this.props.table}
                         </div>
-
-
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        {
-                    userService.getAdmin() ? <div> <ul className="nav nav-pills nav-fill">
-                    <li className="nav-item" >
-                        <button className=" btn-light1 " onClick={() => this.handleAdd()}>Add</button>
-                    </li>
-                </ul></div> : null
-                }
-
+                            {
+                                userService.getAdmin() ? <div> <ul className="nav nav-pills nav-fill">
+                                    <li className="nav-item" >
+                                        <button className=" btn-light1 " onClick={() => this.handleAdd()}>Add</button>
+                                    </li>
+                                </ul></div> : null
+                            }
                             <ul className="navbar-nav ml-auto" id="barItemsRight">
                                 <li className="nav-item active" id="barItemsRight">
                                     <PersonSquare id="icon" onClick={() => this.handleUser()}></PersonSquare>
@@ -177,14 +172,7 @@ export class BarComponent extends React.Component {
                             </ul>
                         </div>
                     </nav> </div>
-
-
-               
-
-
             </div>
-
-
         );
     }
 }

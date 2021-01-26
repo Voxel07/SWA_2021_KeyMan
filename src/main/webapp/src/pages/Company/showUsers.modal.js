@@ -12,33 +12,29 @@ export default class ShowUsers extends Component {
         }
     }
     componentDidMount() {
-        axios.get('http://localhost:8080/user', {params:{companyId: this.props.company.id}})
+        axios.get('http://localhost:8080/user', { params: { companyId: this.props.company.id } })
             .then(response => {
-                console.log(response);
                 this.setState({ Users: response.data });
-                if( response.data.length === 0)
-                {
+                if (response.data.length === 0) {
                     this.setState({ errorMsg: 'Keine User Daten erhalten' })
                 }
-
             })
             .catch(error => {
-                // console.log(error);
-                this.setState({ errorMsg: " "+error})
+                this.setState({ errorMsg: " " + error })
             })
     }
 
     render() {
         const { Users, errorMsg } = this.state
         return (
-        <div> 
-        {
-            Users.length ? Users.map(user => <User user={user} />) : null
-        }
-        {
-            errorMsg ? <div>{errorMsg}</div> : null
-        } 
-        </div>
+            <div>
+                {
+                    Users.length ? Users.map(user => <User user={user} />) : null
+                }
+                {
+                    errorMsg ? <div>{errorMsg}</div> : null
+                }
+            </div>
         )
     }
 }

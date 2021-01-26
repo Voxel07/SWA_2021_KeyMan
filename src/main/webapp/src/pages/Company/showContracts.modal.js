@@ -12,33 +12,29 @@ export default class ShowContracts extends Component {
         }
     }
     componentDidMount() {
-        axios.get('http://localhost:8080/contract', {params:{companyId: this.props.company.id}})
+        axios.get('http://localhost:8080/contract', { params: { companyId: this.props.company.id } })
             .then(response => {
-                console.log(response);
                 this.setState({ Contracts: response.data });
-                if( response.data.length === 0)
-                {
+                if (response.data.length === 0) {
                     this.setState({ errorMsg: 'Keine Contract Daten erhalten' })
                 }
-
             })
             .catch(error => {
-                // console.log(error);
-                this.setState({ errorMsg: " "+error})
+                this.setState({ errorMsg: " " + error })
             })
     }
 
     render() {
         const { Contracts, errorMsg } = this.state
         return (
-        <div> 
-        {
-            Contracts.length ? Contracts.map(contract => <Contract contract={contract} />) : null
-        }
-        {
-            errorMsg ? <div>{errorMsg}</div> : null
-        } 
-        </div>
+            <div>
+                {
+                    Contracts.length ? Contracts.map(contract => <Contract contract={contract} />) : null
+                }
+                {
+                    errorMsg ? <div>{errorMsg}</div> : null
+                }
+            </div>
         )
     }
 }

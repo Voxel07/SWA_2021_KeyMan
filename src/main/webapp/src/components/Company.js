@@ -5,7 +5,8 @@ import EditCompany from '../pages/Company/EditCompany/editCompany.modal';
 import ShowUsers from '../pages/Company/showUsers.modal'
 import ShowContracts from '../pages/Company/showContracts.modal'
 import '../css/buttons.css';
-// id | country | department | name | postalcode | state | street
+import UserService from '../pages/Login/user.service';
+
 class Company extends React.Component {
 
     constructor(props) {
@@ -28,15 +29,12 @@ class Company extends React.Component {
     deleteCompany() {
         axios.delete("http://localhost:8080/company", { data: this.state })
             .then(response => {
-                console.log(response);
-                this.props.parentCallback("DELETE",this.state);
+                this.props.parentCallback("DELETE", this.state);
             })
             .catch(error => {
-                console.log(error);
-
             })
     }
-    handleCallBack = (changendCompany)=>{
+    handleCallBack = (changendCompany) => {
         this.setState(changendCompany);
     }
 
@@ -63,7 +61,7 @@ class Company extends React.Component {
         this.setState({
             modalIsOpen: false
         });
-        this.props.parentCallback("UPDATE",this.state);
+        this.props.parentCallback("UPDATE", this.state);
     }
     createModal() {
         switch (this.state.modalShow) {
@@ -81,7 +79,7 @@ class Company extends React.Component {
 
                             </li>
                         </ul>
-                        <EditCompany company={this.props.company} CallbackToCompanyJS = {this.handleCallBack}></EditCompany>
+                        <EditCompany company={this.props.company} CallbackToCompanyJS={this.handleCallBack}></EditCompany>
                     </div>
                 );
 
@@ -134,7 +132,7 @@ class Company extends React.Component {
                 </Modal>
                 <div className=" form-row ">
 
-                <div className="form-group col-11 col-sm-2  my-sm-2 mx-2 ">
+                    <div className="form-group col-11 col-sm-2  my-sm-2 mx-2 ">
                         <input
                             readOnly
                             name="name"
@@ -160,29 +158,32 @@ class Company extends React.Component {
                             type="text"
                             value={country} />
                     </div>
+                    {
+                        UserService.getAdmin() ? <div>
+                            <div className="btn-group">
+                                <div className="form-group col-12 col-sm-1 my-sm-2">
+                                    <button className=" btn-dark1" onClick={() => this.handleEdit()}>Verändern</button>
+                                </div>
+                            </div>
 
-
-                    <div className="btn-group">
-                        <div className="form-group col-11 col-sm-1 my-sm-2 ">
-                            <button className=" btn-dark1" onClick={() => this.handleEdit()}>Verändern</button>
-                        </div>
-                    </div>
-                    <div className="btn-group">
-                        <div className="form-group col-11 col-sm-1 my-sm-2">
-                            <button className="btn-danger1" onClick={() => this.deleteCompany()}>Löschen</button>
-                        </div>
-                    </div>
+                            <div className="btn-group">
+                                <div className="form-group col-12 col-sm-1 my-sm-2">
+                                    <button className=" btn-danger1" onClick={() => this.deleteCompany()}>Löschen</button>
+                                </div>
+                            </div>
+                        </div> : null
+                    }
                     <div className="btn-group">
                         <div className="form-group col-11 col-sm-1 my-sm-2">
                             <button className=" btn-dark1" onClick={() => this.handleContract()} >Contracts</button>
                         </div>
                     </div>
                     <div className="btn-group">
-                         <div className="form-group col-11 col-sm-1 my-sm-2"> 
+                        <div className="form-group col-11 col-sm-1 my-sm-2">
                             <button className=" btn-dark1" onClick={() => this.handleUser()}>Users</button>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         )

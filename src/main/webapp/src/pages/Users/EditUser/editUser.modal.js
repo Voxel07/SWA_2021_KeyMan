@@ -25,30 +25,29 @@ class EditUser extends React.Component {
       type: ''
     };
   }
+
   componentDidMount() {
     this.getCompany();
     this.getPhones();
     this.getContracts();
   }
+
   Changehandler = (event) => {
 
     if (event.target.name === "admin") {
-      console.log('ändern');
-          this.setState({ [event.target.name]: event.target.checked })
-        }
-        else {
-          this.setState({ [event.target.name]: event.target.value })
+      this.setState({ [event.target.name]: event.target.checked })
+    }
+    else {
+      this.setState({ [event.target.name]: event.target.value })
+    }
   }
-}
   handleSubmit = event => {
     event.preventDefault();
     axios.post('http://localhost:8080/user', this.state)
       .then(response => {
-        console.log(response)
         this.props.cbToUsrJs(this.state);
       })
       .catch(error => {
-        console.log(error)
       })
   }
 
@@ -56,30 +55,26 @@ class EditUser extends React.Component {
     event.preventDefault();
     axios.put('http://localhost:8080/phone/' + this.state.id, { number: this.state.number, type: this.state.type })
       .then(response => {
-        console.log(response)
         this.getPhones()
         this.setState({ number: '', type: '' });
       })
       .catch(error => {
-        console.log(error)
       })
   }
-  // Holt alle Companys, damit man aswählen kann. 
-  // Die aktuelle wird als erstes angezeigt. 
+
   getCompany() {
     axios.get('http://localhost:8080/company')
       .then(response => {
-        console.log(response);
         this.setState({ companys: response.data });
         if (response.data.length === 0) {
           this.setState({ errorMsgCp: 'Keine Company Daten erhalten' })
         }
       })
       .catch(error => {
-        // console.log(error);
         this.setState({ errorMsgCp: " " + error })
       })
   }
+
   getCopmanyForThisSingelFuckingUser(pls) {
     this.setState({ company: 1 })
   }
@@ -87,14 +82,12 @@ class EditUser extends React.Component {
   getContracts() {
     axios.get('http://localhost:8080/contract', { params: { usrId: this.state.id } })
       .then(response => {
-        console.log(response);
         this.setState({ contracts: response.data });
         if (response.data.length === 0) {
           this.setState({ errorMsgCp: 'Keine Contracts Daten erhalten' })
         }
       })
       .catch(error => {
-        // console.log(error);
         this.setState({ errorMsgCp: " " + error })
       })
   }
@@ -102,32 +95,31 @@ class EditUser extends React.Component {
   getPhones() {
     axios.get('http://localhost:8080/phone', { params: { usrId: this.state.id } })
       .then(response => {
-        console.log(response);
         this.setState({ phones: response.data });
         if (response.data.length === 0) {
           this.setState({ errorMsgPhone: 'Keine Phoes Daten erhalten' })
         }
-        else{
+        else {
           this.setState({ errorMsgPhone: '' })
 
         }
 
       })
       .catch(error => {
-        // console.log(error);
         this.setState({ errorMsgPhone: " " + error })
       })
   }
-  handleCallback=() =>{
-		this.getPhones();
-	}
+
+  handleCallback = () => {
+    this.getPhones();
+  }
+
   render() {
     const { username, firstName, lastName, password, email, admin, companyName } = this.state
     return (
       <div>
         <legend>Edit User:</legend>
         <form onSubmit={this.handleSubmit}>
-
           <div className="container"  >
             <h1 className="title">{username}</h1>
             <div className=" form-row ">
@@ -149,7 +141,6 @@ class EditUser extends React.Component {
                 />
               </div>
             </div>
-
             <div className=" form-row ">
               <div className="form-group col-12 col-sm-6 my-2 p-2 ">
                 <label>First Name</label>
@@ -197,7 +188,7 @@ class EditUser extends React.Component {
               <input
                 name="admin"
                 className="form-control1"
-                type="checkbox"           
+                type="checkbox"
                 checked={admin} onChange={this.Changehandler}
               />
             </div>
@@ -229,7 +220,6 @@ class EditUser extends React.Component {
                   <label>Type</label>
                   <input type="text" name="type" className="form-control1" value={this.state.type} onChange={this.Changehandler}></input>
                 </div>
-
                 <div class="form-group col-12 col-sm-2 my-4 p-4">
                   <button type="submit" className=" btn-secondary1" value="addPhone">addPhone</button>
                 </div>
@@ -237,12 +227,7 @@ class EditUser extends React.Component {
             </div>
           </div>
         </form>
-
-        <form>
-
-        </form>
       </div>
-
     );
   }
 }

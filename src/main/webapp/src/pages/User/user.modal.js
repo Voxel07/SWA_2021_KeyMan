@@ -30,19 +30,16 @@ class User extends React.Component {
     }
 
     Changehandler = (event) => {
-        console.log('änderung');
         this.setState({ [event.target.name]: event.target.value })
     }
     handleSubmit = event => {
         event.preventDefault();
         axios.post('http://localhost:8080/user', this.state)
             .then(response => {
-                console.log(response)
                 this.props.cbToBar(true)
                 this.props.cbToBar(false)
             })
             .catch(error => {
-                console.log(error)
             })
     }
 
@@ -50,27 +47,22 @@ class User extends React.Component {
         event.preventDefault();
         axios.put('http://localhost:8080/phone/' + this.state.id, { number: this.state.number, type: this.state.type })
             .then(response => {
-                console.log(response)
                 this.getPhones();
                 this.setState({ number: '', type: '' });
             })
             .catch(error => {
-                console.log(error)
             })
     }
-    // Holt alle Companys, damit man aswählen kann. 
-    // Die aktuelle wird als erstes angezeigt. 
+
     getCompany() {
         axios.get('http://localhost:8080/company', { params: { usrId: this.state.id } })
             .then(response => {
-                console.log(response);
                 this.setState({ companyName: response.data[0].name });
                 if (response.data.length == 0) {
                     this.setState({ errorMsgCp: 'Keine Company Daten erhalten' })
                 }
             })
             .catch(error => {
-                // console.log(error);
                 this.setState({ errorMsgCp: " " + error })
             })
     }
@@ -78,14 +70,12 @@ class User extends React.Component {
     getUser() {
         axios.get('http://localhost:8080/user', { params: { usrId: this.state.id } })
             .then(response => {
-                console.log(response);
                 this.setState(response.data[0]);
                 if (response.data.length == 0) {
                     this.setState({ errorMsgCp: 'Keine User Daten erhalten' })
                 }
             })
             .catch(error => {
-                // console.log(error);
                 this.setState({ errorMsgCp: " " + error })
             })
     }
@@ -93,7 +83,6 @@ class User extends React.Component {
     getPhones() {
         axios.get('http://localhost:8080/phone', { params: { usrId: this.state.id } })
             .then(response => {
-                console.log(response);
                 this.setState({ phones: response.data });
                 if (response.data.length == 0) {
                     this.setState({ errorMsgPhone: 'Keine Phoes Daten erhalten' })
@@ -101,26 +90,23 @@ class User extends React.Component {
 
             })
             .catch(error => {
-                // console.log(error);
                 this.setState({ errorMsgPhone: " " + error })
             })
     }
 
     render() {
-        const { username, firstName, lastName, password, email, admin } = this.state
+        const { username, firstName, lastName, password, email } = this.state
         return (
             <div>
                 <legend>Edit User: {username}</legend>
                 <form onSubmit={this.handleSubmit}>
-
                     <div className="container"  >
                         <h1 className="title">{username}</h1>
                         <div className=" form-row ">
                             <div className="form-group col-6 col-sm-6 my-2 p-2">
                                 <label> Company </label>
                                 <input name="companyId" className="form-control1" id="inputGroupSelect01"
-                                    value={this.state.companyName} readOnly
-                                >
+                                    value={this.state.companyName} readOnly>
                                 </input>
                             </div>
                             <div className=" col-12 col-sm-6 my-2 p-2">
@@ -134,7 +120,6 @@ class User extends React.Component {
                                 />
                             </div>
                         </div>
-
                         <div className=" form-row ">
                             <div className="form-group col-12 col-sm-6 my-2 p-2 ">
                                 <label>First Name</label>
@@ -214,7 +199,6 @@ class User extends React.Component {
                     </div>
                 </form>
             </div>
-
         );
     }
 }

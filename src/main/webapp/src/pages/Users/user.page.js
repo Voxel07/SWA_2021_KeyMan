@@ -15,26 +15,24 @@ class UserPage extends React.Component {
     }
 
     componentDidMount() {
-       this.fetchUser();
+        this.fetchUser();
     }
 
-    fetchUser(){
+    fetchUser() {
         axios.get('http://localhost:8080/user')
-        .then(response => {
-            if (response.data.length === 0) {
-                this.setState({ errorMsg: 'Keine user Daten erhalten' })
-            } else {
-                this.setState({ users: response.data,errorMsg:'' }); 
-            }
-        })
-        .catch(error => {
-            this.setState({ errorMsg: " " + error })
-        })
+            .then(response => {
+                if (response.data.length === 0) {
+                    this.setState({ errorMsg: 'Keine user Daten erhalten' })
+                } else {
+                    this.setState({ users: response.data, errorMsg: '' });
+                }
+            })
+            .catch(error => {
+                this.setState({ errorMsg: " " + error })
+            })
     }
 
     handleCallback = (func, user) => {
-        console.log("CP hc")
-        console.log(user.id, func)
         switch (func) {
             case 'DELETE':
                 this.handleRemove(user);
@@ -47,11 +45,9 @@ class UserPage extends React.Component {
         }
     }
     handleRemove = (user) => {
-            console.log("handleRemove");
-            console.log(user);
-            const newList = this.state.users.filter((item) => item.id !== user.id);
-            this.setState({users: newList})
-        }
+        const newList = this.state.users.filter((item) => item.id !== user.id);
+        this.setState({ users: newList })
+    }
 
     handleUpdate = (user) => {
         const newList = this.state.users.map((item) => {
@@ -64,35 +60,28 @@ class UserPage extends React.Component {
                     lastName: user.lastName,
                     password: user.password,
                     id: user.id
-
                 };
-                console.log(updatedItem)
                 return updatedItem;
             }
             else {
                 return item;
             }
-
         });
-
         this.setState({ users: newList })
     }
+
     componentDidUpdate() {
         if (this.props.newUser === true) {
-            console.log("Props update now " + this.props.newUser);
-
             this.fetchUser();
         }
-
     }
-    
 
     render() {
         const { users, errorMsg } = this.state
         return (
             <div>
                 {
-                    users.length ? users.map(user => <User user={user}  parentCallback={this.handleCallback} />) : null
+                    users.length ? users.map(user => <User user={user} parentCallback={this.handleCallback} />) : null
                 }
                 {
                     errorMsg ? <div>{errorMsg}</div> : null
