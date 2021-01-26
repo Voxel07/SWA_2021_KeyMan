@@ -89,7 +89,7 @@ public class phone_t {
 
 		response.then().statusCode(200);
 		List<Phone> phones = Arrays.asList(response.getBody().as(Phone[].class));
-		phoneB.setId(phones.get(0).getId());
+		phoneB.setId(phones.get(1).getId());
 	}
 
 	@Test
