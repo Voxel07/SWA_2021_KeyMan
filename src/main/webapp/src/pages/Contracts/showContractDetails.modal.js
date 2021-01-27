@@ -110,7 +110,7 @@ export default class showDetails extends Component {
                                 }
                             </div>
                             <div className=" form-row ">
-                                <div className=" col-12 col-sm-12">
+                                <div className=" form-group col-12 col-sm-12">
                                     <label> licenskey </label>
                                     <textarea className="form-control1 col-12" rows="5"  name="licenskey" value={licenskey} readOnly></textarea>
                                 </div>

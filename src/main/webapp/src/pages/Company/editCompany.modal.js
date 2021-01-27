@@ -71,7 +71,7 @@ class EditCompany extends React.Component {
                         </div>
                     </div>
                     <div className="mt-4 text-center">
-                        <button type="submit" class=" btn-primary1 ">Edit</button>
+                        <button type="submit" class=" btn-primary1 ">Edit Company</button>
                     </div>
                 </form>
 
